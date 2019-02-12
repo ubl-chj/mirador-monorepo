@@ -1,0 +1,19 @@
+{
+  "id": "app",
+  "windows": [
+    {
+      "loadedManifest": "https://iiif.harvardartmuseums.org/manifests/object/229213"
+    },
+    {
+      "loadedManifest": "https://media.nga.gov/public/manifests/nga_highlights.json",
+      "thumbnailNavigationPosition": "off"
+    }
+  ],
+  "workspace": {
+    "type": "mosaic"
+  },
+  "thumbnailNavigation": {
+    "defaultPosition": "off",
+    "height": 150
+  }
+}
