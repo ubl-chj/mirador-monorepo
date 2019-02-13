@@ -1,5 +1,5 @@
 {
-  "name": "mirador-react-component",
+  "name": "mirador-component",
   "version": "0.1.0",
   "description": "",
   "main": "lib/index.js",
@@ -31,9 +31,7 @@
     "react-fullscreen-crossbrowser": "^1.0.9",
     "react-i18next": "^9.0.10",
     "react-mosaic-component": "^2.0.2",
-    "react-redux": "5.1.1",
     "react-virtualized": "^9.21.0",
-    "redux": "4.0.1",
     "redux-devtools-extension": "^2.13.2",
     "redux-thunk": "^2.3.0",
     "sass-loader": "^7.1.0",
@@ -41,7 +39,9 @@
   },
   "peerDependencies": {
     "react": "^16.0.0-0",
-    "react-dom": "^16.0.0-0"
+    "react-dom": "^16.0.0-0",
+    "redux": "4.0.1",
+    "react-redux": "6.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.2.0",

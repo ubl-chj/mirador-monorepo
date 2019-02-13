@@ -1,6 +1,6 @@
 {
   "name": "mirador-custom-implementation",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "a custom implementation of the mirador component",
   "main": "index.tsx",
   "scripts": {
@@ -12,18 +12,16 @@
   "license": "Apache-2.0",
   "dependencies": {
     "deepmerge": "^3.1.0",
-    "i18next": "^14.1.1",
-    "i18next-xhr-backend": "^1.5.1",
-    "i18next-browser-languagedetector": "^2.2.4",
     "manifesto.js": "^3.0.9",
-    "mirador-react-component": "file:../mirador-component",
+    "mirador-component": "file:../mirador-component",
+    "query-string": "^5.1.1",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
-    "react-i18next": "^10.0.3",
     "react-redux": "5.1.1",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "react-router-dom": "^4.3.1"
   },
   "devDependencies": {
     "@babel/core": "^7.2.0",
@@ -33,7 +31,7 @@
     "@types/i18next-xhr-backend": "^1.4.1",
     "@types/node": "^10.12.2",
     "@types/react": "^16.8.2",
-    "@types/react-dom": "^16.0.6",
+    "@types/react-dom": "^16.8.0",
     "@types/react-router": "^4.4.0",
     "@types/react-redux": "^7.0.1",
     "babel-core": "^7.0.0-bridge.0",
@@ -75,7 +73,7 @@
     "ts-loader": "^5.3.0",
     "tslint": "^5.11.0",
     "tslint-react": "^3.6.0",
-    "typescript": "^3.3.3",
+    "typescript": "3.1.6",
     "url-loader": "^1.1.2",
     "webpack": "^4.27.1",
     "webpack-cli": "^3.1.2",

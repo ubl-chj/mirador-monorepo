@@ -1,4 +1,4 @@
-import { addWindow, fetchManifest, setConfig } from 'mirador-react-component'
+import { addWindow, fetchManifest, setConfig } from 'mirador-component'
 import React from 'react'
 
 /*

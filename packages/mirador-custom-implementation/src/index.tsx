@@ -1,19 +1,17 @@
-import App from 'mirador-react-component'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Provider } from 'react-redux'
-import { withMiradorAPI } from './api'
-import { newStore } from './state'
+import {BrowserRouter, Route, Switch} from 'react-router-dom'
+import { Landing } from './components/Landing'
+import {Mirador} from './components/Mirador'
 import './styles/index.scss'
-
-const store = newStore(null)
-
-const config = require('./config/localAppConfig.json')
-
-const Mirador = withMiradorAPI(store, config)(App)
+const supportsHistory = 'pushState' in window.history
+const t = Boolean(true)
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Mirador />
-  </Provider>, document.getElementById('app'),
+  <BrowserRouter forceRefresh={!supportsHistory}>
+    <Switch>
+      <Route exact={t} path='/' component={Landing}/>
+      <Route exact={t} path='/view/:uuid?' component={Mirador}/>
+    </Switch>
+  </BrowserRouter>, document.getElementById('app'),
 )
