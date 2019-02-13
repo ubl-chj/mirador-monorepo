@@ -10,5 +10,5 @@ This contains https://github.com/ProjectMirador/mirador split into distribution 
 To pull ProjectMirador/Mirador into packages, execute this:
 
 ```bash
-git subtree pull --prefix packages/mirador-react-component https://github.com/ProjectMirador/mirador.git master --squash
+git subtree pull --prefix packages/mirador-viewer https://github.com/ProjectMirador/mirador.git master
 ```

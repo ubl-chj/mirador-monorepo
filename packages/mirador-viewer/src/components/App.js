@@ -6,6 +6,7 @@ import Fullscreen from 'react-fullscreen-crossbrowser';
 import { I18nextProvider } from 'react-i18next';
 import WorkspaceControlPanel from './WorkspaceControlPanel';
 import Workspace from '../containers/Workspace';
+import WorkspaceAdd from '../containers/WorkspaceAdd';
 import ns from '../config/css-ns';
 import i18n from '../i18n';
 
@@ -34,23 +35,27 @@ class App extends Component {
    */
   render() {
     const {
-      isFullscreenEnabled, setWorkspaceFullscreen, classes,
+      isFullscreenEnabled, setWorkspaceFullscreen, classes, isWorkspaceAddVisible,
     } = this.props;
 
     return (
-      <I18nextProvider i18n={i18n}>
-        <div className={classNames(classes.background, ns('app'))}>
+      <div className={classNames(classes.background, ns('app'))}>
+        <I18nextProvider i18n={i18n}>
           <MuiThemeProvider theme={this.makeMuiTheme()}>
             <Fullscreen
               enabled={isFullscreenEnabled}
               onChange={setWorkspaceFullscreen}
             >
-              <Workspace />
+              {
+                isWorkspaceAddVisible
+                  ? <WorkspaceAdd />
+                  : <Workspace />
+               }
             </Fullscreen>
             <WorkspaceControlPanel />
           </MuiThemeProvider>
-        </div>
-      </I18nextProvider>
+        </I18nextProvider>
+      </div>
     );
   }
 }
@@ -60,10 +65,12 @@ App.propTypes = {
   isFullscreenEnabled: PropTypes.bool, // eslint-disable-line react/forbid-prop-types
   classes: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types,
   setWorkspaceFullscreen: PropTypes.func.isRequired,
+  isWorkspaceAddVisible: PropTypes.bool,
 };
 
 App.defaultProps = {
   isFullscreenEnabled: false,
+  isWorkspaceAddVisible: false,
 };
 /**
  Material UI style overrides
