@@ -27,6 +27,7 @@ class MiradorComponent extends React.Component<any, any> {
         windows: [
           {
             loadedManifest: uri,
+            thumbnailNavigationPosition: 'off',
           },
         ],
       }

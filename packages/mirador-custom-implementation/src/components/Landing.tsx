@@ -3,7 +3,6 @@ import {Link} from 'react-router-dom'
 
 export function Landing() {
   const pathname = '/view'
-  const example = '/view?manifest=https://iiif.ub.uni-leipzig.de/0000003419/manifest.json'
   return (
     <div>
       <h1>My Custom Mirador Portal</h1>
