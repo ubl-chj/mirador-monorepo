@@ -29,7 +29,7 @@ const proxySetting = require(paths.appPackageJson).proxy;
 const useYarn = fs.existsSync(paths.yarnLockFile);
 const isInteractive = process.stdout.isTTY;
 
-if (!checkRequiredFiles([paths.appHtml, paths.appDevIndexJs])) {
+if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
   process.exit(1);
 }
 

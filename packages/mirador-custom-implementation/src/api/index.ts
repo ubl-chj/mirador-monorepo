@@ -1,2 +1,2 @@
-export * from './withMiradorAPI'
+export * from './initUtils'
 export * from './withInitialization'

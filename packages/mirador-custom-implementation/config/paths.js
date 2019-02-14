@@ -1,19 +1,19 @@
-const path = require('path');
-const fs = require('fs');
-const url = require('url');
+const path = require('path')
+const fs = require('fs')
+const url = require('url')
 
 // Make sure any symlinks in the project folder are resolved:
 // https://github.com/facebook/create-react-app/issues/637
-const appDirectory = fs.realpathSync(process.cwd());
+const appDirectory = fs.realpathSync(process.cwd())
 
 /**
  *
  * @param relativePath
  * @returns {string}
  */
-const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
+const resolveApp = relativePath => path.resolve(appDirectory, relativePath)
 
-const envPublicUrl = process.env.PUBLIC_URL;
+const envPublicUrl = process.env.PUBLIC_URL
 
 /**
  *
@@ -22,13 +22,13 @@ const envPublicUrl = process.env.PUBLIC_URL;
  * @returns {*}
  */
 function ensureSlash(inputPath, needsSlash) {
-  const hasSlash = inputPath.endsWith('/');
+  const hasSlash = inputPath.endsWith('/')
   if (hasSlash && !needsSlash) {
-    return inputPath.substr(0, inputPath.length - 1);
+    return inputPath.substr(0, inputPath.length - 1)
   } else if (!hasSlash && needsSlash) {
-    return `${inputPath}/`;
+    return `${inputPath}/`
   } else {
-    return inputPath;
+    return inputPath
   }
 }
 
@@ -37,7 +37,7 @@ function ensureSlash(inputPath, needsSlash) {
  * @param appPackageJson
  * @returns {string | *}
  */
-const getPublicUrl = appPackageJson => envPublicUrl || require(appPackageJson).homepage;
+const getPublicUrl = appPackageJson => envPublicUrl || require(appPackageJson).homepage
 
 /**
  *
@@ -45,10 +45,10 @@ const getPublicUrl = appPackageJson => envPublicUrl || require(appPackageJson).h
  * @returns {*}
  */
 function getServedPath(appPackageJson) {
-  const publicUrl = getPublicUrl(appPackageJson);
+  const publicUrl = getPublicUrl(appPackageJson)
   const servedUrl =
-    envPublicUrl || (publicUrl ? url.parse(publicUrl).pathname : '/');
-  return ensureSlash(servedUrl, true);
+    envPublicUrl || (publicUrl ? url.parse(publicUrl).pathname : '/')
+  return ensureSlash(servedUrl, true)
 }
 
 const moduleFileExtensions = [
@@ -63,7 +63,7 @@ const moduleFileExtensions = [
   'json',
   'web.jsx',
   'jsx',
-];
+]
 
 /**
  *
@@ -72,21 +72,22 @@ const moduleFileExtensions = [
  * @returns {*}
  */
 const resolveModule = (resolveFn, filePath) => {
-  const extension = moduleFileExtensions.find(extension => fs.existsSync(resolveFn(`${filePath}.${extension}`)));
+  const extension = moduleFileExtensions.find(extension => fs.existsSync(resolveFn(`${filePath}.${extension}`)))
 
   if (extension) {
-    return resolveFn(`${filePath}.${extension}`);
+    return resolveFn(`${filePath}.${extension}`)
   }
 
-  return resolveFn(`${filePath}.js`);
-};
+  return resolveFn(`${filePath}.js`)
+}
 
 module.exports = {
   dotenv: resolveApp('.env'),
   appPath: resolveApp('.'),
   appBuild: resolveApp('build'),
   appDist: resolveApp('dist'),
-  appDevIndexJs: resolveModule(resolveApp, 'src/index'),
+  appIndexJs: resolveModule(resolveApp, 'src/index'),
+  appDistIndexJs: resolveModule(resolveApp, 'src/index-dist'),
   appPackageJson: resolveApp('package.json'),
   appPublic: resolveApp('public'),
   appHtml: resolveApp('public/index.html'),
@@ -97,6 +98,6 @@ module.exports = {
   publicUrl: getPublicUrl(resolveApp('package.json')),
   servedPath: getServedPath(resolveApp('package.json')),
   yarnLockFile: resolveApp('yarn.lock'),
-};
+}
 
-module.exports.moduleFileExtensions = moduleFileExtensions;
+module.exports.moduleFileExtensions = moduleFileExtensions

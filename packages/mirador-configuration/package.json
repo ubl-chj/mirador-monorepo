@@ -1,0 +1,15 @@
+{
+  "name": "mirador-configuration",
+  "version": "0.1.0",
+  "description": "mirador configuration schema",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ubl-chj/mirador-monorepo"
+  },
+  "author": "Christopher Johnson",
+  "license": "Apache-2.0"
+}
