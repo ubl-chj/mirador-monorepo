@@ -1,0 +1,18 @@
+version: '3'
+services:
+  mirador-custom:
+    image: mirador-custom
+    build: ./packages/mirador-custom-implementation
+    container_name: mirador-custom
+    ports:
+      - "5000:5000"
+
+  e2e:
+    image: cypress
+    build: ./packages/mirador-e2e-tests
+    container_name: cypress
+    depends_on:
+      - mirador-custom
+    environment:
+      - CYPRESS_baseUrl=http://mirador-custom:5000
+    command: npx cypress run

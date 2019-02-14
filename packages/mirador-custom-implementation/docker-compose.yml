@@ -1,0 +1,8 @@
+version: "3"
+
+services:
+  mirador-custom-implementation:
+    image: ubleipzig/mirador-custom:0.1.0
+    container_name: mirador-custom-implementation
+    ports:
+      - "5000:5000"
