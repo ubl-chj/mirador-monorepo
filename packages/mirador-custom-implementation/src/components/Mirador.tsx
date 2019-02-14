@@ -1,27 +1,24 @@
 import deepmerge from 'deepmerge'
-import App from 'mirador-component'
+import App, {addWindow, fetchManifest, setConfig} from 'mirador-component'
 import qs from 'query-string'
 import React from 'react'
-import {Provider} from 'react-redux'
+import {connect} from 'react-redux'
 import {withRouter} from 'react-router'
-import {withMiradorAPI} from '../api'
-import {newStore} from '../state'
-
-const store = newStore(null)
+import {compose} from 'redux'
+import {withInitialization} from '../api'
+import {addWindows, fetchManifests} from '../api/initUtils'
+const MiradorInit = withInitialization()(App)
+const localConfig = require('../config/localAppConfig.json')
 
 class MiradorComponent extends React.Component<any, any> {
-  static initMirador(config) {
-    return (withMiradorAPI(store, config)(App))
-  }
+  config: any
+
   constructor(props) {
     super(props)
-    this.state = {
-      config: require('../config/localAppConfig.json'),
-    }
+    this.config = localConfig
   }
 
   setManifestFromParams(uri) {
-    const {config} = this.state
     if (uri) {
       const initWindowFromParams = {
         windows: [
@@ -31,8 +28,7 @@ class MiradorComponent extends React.Component<any, any> {
           },
         ],
       }
-      const newConfig = deepmerge(initWindowFromParams, config)
-      this.setState({config: newConfig})
+      this.props.setConfig(deepmerge(initWindowFromParams, this.config))
     }
   }
 
@@ -41,26 +37,41 @@ class MiradorComponent extends React.Component<any, any> {
   }
 
   resolveParams() {
-    const {config} = this.state
     const params = qs.parse(this.props.location.search)
     if (Object.keys(params).length) {
       if (params.manifest) {
         this.setManifestFromParams(params.manifest)
       }
-    } else {
-      this.setState(config)
     }
   }
 
   render() {
-    const {config} = this.state
-    const MiradorInit = MiradorComponent.initMirador(config)
-    return (
-      <Provider store={store}>
-        <MiradorInit/>
-      </Provider>
-    )
+    if (Object.keys(this.props.config).length !== 0 && this.props.config.constructor === Object) {
+      fetchManifests(this.props.config, this.props.fetchManifest)
+      addWindows(this.props.config, this.props.addWindow)
+      return <MiradorInit/>
+    } else {
+      this.props.setConfig(this.config)
+      return null
+    }
   }
 }
 
-export const Mirador = withRouter(MiradorComponent)
+/** mapStateToProps */
+const mapStateToProps = ({ config }) => ({
+  config,
+})
+
+/**
+ * mapDispatchToProps - used to hook up connect to action creators
+ * @memberof ManifestListItem
+ * @private
+ */
+const mapDispatchToProps = {addWindow, fetchManifest, setConfig}
+
+const enhance = compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withRouter,
+)
+
+export const Mirador = enhance(MiradorComponent)
