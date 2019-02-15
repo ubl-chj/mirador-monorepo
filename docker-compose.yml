@@ -15,6 +15,7 @@ services:
       - mirador-custom
     environment:
       - CYPRESS_baseUrl=http://mirador-custom:5000
+      - CYPRESS_RECORD_KEY=869468f7-9e3f-4d61-adbd-4e6b8adae11e
     volumes:
       - ./packages/mirador-e2e-tests/cypress:/app/cypress
-    command: npx cypress run
+    command: npx cypress run --record
