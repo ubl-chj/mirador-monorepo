@@ -1,6 +1,7 @@
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 const paths = require('../config/paths');
+const webpack = require('webpack')
 
 module.exports = {
   mode: 'production',
@@ -72,4 +73,9 @@ module.exports = {
     }),
     ],
   },
+  plugins: [
+    new webpack.IgnorePlugin({
+      resourceRegExp: /@blueprintjs\/(core|icons)/, // ignore optional UI framework dependencies
+    }),
+  ]
 };
