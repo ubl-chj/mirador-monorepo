@@ -1,6 +1,12 @@
 @import 'variables';
 
 .mirador {
+  &-app {
+    height: 100%;
+    position: relative;
+    width: 100%;
+  }
+
   &-workspace {
     bottom: 0;
     box-sizing: border-box;
@@ -12,9 +18,13 @@
     right: 0;
     top: 0;
   }
+
   &-workspace-add {
-    margin: 100px;
+    padding-left: 110px;
+    padding-right: 20px;
+    padding-top: 20px;
   }
+
   &-window-middle-content {
     display: flex;
     flex: 1;
@@ -28,7 +38,7 @@
   }
 
   &-osd-container {
-    background: $black;
+    background: $gray;
     flex: 1;
     position: relative;
   }
@@ -42,10 +52,6 @@
     min-width: 75px;
     overflow-x: auto;
     resize: horizontal;
-  }
-
-  &-window-top-bar {
-    background: lighten($black, 80%);
   }
 
   &-companion-bottom {

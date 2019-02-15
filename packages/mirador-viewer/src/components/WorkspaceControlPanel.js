@@ -44,7 +44,6 @@ const styles = theme => ({
     margin: theme.spacing.unit,
   },
   drawer: {
-    overflowX: 'hidden',
     height: '100%',
   },
 });

@@ -15,4 +15,6 @@ services:
       - mirador-custom
     environment:
       - CYPRESS_baseUrl=http://mirador-custom:5000
+    volumes:
+      - ./packages/mirador-e2e-tests/cypress:/app/cypress
     command: npx cypress run

@@ -20,7 +20,9 @@
   }
 
   &-workspace-add {
-    padding-left: 100px;
+    padding-left: 110px;
+    padding-right: 20px;
+    padding-top: 20px;
   }
 
   &-window-middle-content {
@@ -50,10 +52,6 @@
     min-width: 75px;
     overflow-x: auto;
     resize: horizontal;
-  }
-
-  &-window-top-bar {
-    background: lighten($black, 80%);
   }
 
   &-companion-bottom {

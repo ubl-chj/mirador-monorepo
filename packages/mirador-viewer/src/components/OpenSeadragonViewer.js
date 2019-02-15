@@ -43,7 +43,7 @@ class OpenSeadragonViewer extends Component {
       this.viewer.viewport.zoomTo(window.viewer.zoom, window.viewer, false);
     }
 
-    tileSources.forEach(tileSource => this.addTileSource(tileSource));
+    tileSources.forEach((tileSource, i) => this.addTileSource(tileSource, i));
   }
 
   /**
@@ -55,12 +55,10 @@ class OpenSeadragonViewer extends Component {
     if (!this.tileSourcesMatch(prevProps.tileSources)) {
       this.viewer.close();
       Promise.all(
-        tileSources.map(tileSource => this.addTileSource(tileSource)),
+        tileSources.map((tileSource, i) => this.addTileSource(tileSource, i)),
       ).then(() => {
-        // TODO: An incredibly naive way to evaluate this for now. Update this
-        // to handle multiple canvases in the future.
         if (tileSources[0]) {
-          this.fitBounds(0, 0, tileSources[0].width, tileSources[0].height);
+          this.fitBounds(...this.boundsFromTileSources(), true);
         }
       });
     } else if (window.viewer) {
@@ -99,14 +97,70 @@ class OpenSeadragonViewer extends Component {
   }
 
   /**
+   * boundsFromTileSources - calculates the overall width/height
+   * based on 0 -> n tileSources
    */
-  addTileSource(tileSource) {
+  boundsFromTileSources() {
+    const { tileSources } = this.props;
+    const heights = [];
+    const dimensions = [];
+    tileSources.forEach((tileSource) => {
+      heights.push(tileSource.height);
+      dimensions.push({
+        width: tileSource.width,
+        height: tileSource.height,
+      });
+    });
+    const minHeight = Math.min(...heights);
+    let scaledWidth = 0;
+    dimensions.forEach((dim) => {
+      const aspectRatio = dim.width / dim.height;
+      scaledWidth += Math.floor(minHeight * aspectRatio);
+    });
+    return [
+      0,
+      0,
+      scaledWidth,
+      minHeight,
+    ];
+  }
+
+  /**
+   * boundingRectFromTileSource - Creates a bounding rectangle
+   * in the Viewports space, using the current tileSource and the tileSource
+   * total area. Limitation, can only handle tileSources with a length of 1 or 2
+   */
+  boundingRectFromTileSource(tileSource, i) {
+    const { tileSources } = this.props;
+    const wholeBounds = this.boundsFromTileSources();
+    const { width } = tileSources[i];
+    const { height } = tileSources[i];
+    const aspectRatio = width / height;
+    const scaledWidth = Math.floor(wholeBounds[3] * aspectRatio);
+    let x = 0;
+    if (i === 1) {
+      x = wholeBounds[2] - scaledWidth;
+    }
+    return [
+      x,
+      0,
+      scaledWidth,
+      wholeBounds[3],
+    ];
+  }
+
+  /**
+   */
+  addTileSource(tileSource, i = 0) {
     return new Promise((resolve, reject) => {
       if (!this.viewer) {
         return;
       }
       this.viewer.addTiledImage({
         tileSource,
+        fitBounds: new OpenSeadragon.Rect(
+          ...this.boundingRectFromTileSource(tileSource, i),
+        ),
         success: event => resolve(event),
         error: event => reject(event),
       });
@@ -117,7 +171,7 @@ class OpenSeadragonViewer extends Component {
    */
   fitBounds(x, y, w, h) {
     this.viewer.viewport.fitBounds(
-      this.viewer.viewport.imageToViewportRectangle(x, y, w, h),
+      new OpenSeadragon.Rect(x, y, w, h),
       true,
     );
   }

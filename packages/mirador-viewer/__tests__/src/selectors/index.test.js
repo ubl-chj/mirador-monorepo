@@ -12,6 +12,7 @@ import {
   getManifestDescription,
   getThumbnailNavigationPosition,
   getManifestTitle,
+  getManifestThumbnail,
   getWindowViewType,
   getIdAndLabelOfCanvases,
 } from '../../../src/state/selectors';
@@ -61,6 +62,20 @@ describe('getManifestLogo()', () => {
   it('should return null if manifest has no logo', () => {
     const manifest = { manifestation: manifesto.create({}) };
     const received = getManifestLogo(manifest);
+    expect(received).toBeNull();
+  });
+});
+
+describe('getManifestThumbnail()', () => {
+  it('should return manifest thumbnail id', () => {
+    const manifest = { manifestation: manifesto.create(manifestFixture001) };
+    const received = getManifestThumbnail(manifest);
+    expect(received).toEqual(manifestFixture001.thumbnail['@id']);
+  });
+
+  it('should return null if manifest has no thumbnail', () => {
+    const manifest = { manifestation: manifesto.create({}) };
+    const received = getManifestThumbnail(manifest);
     expect(received).toBeNull();
   });
 });
@@ -206,10 +221,10 @@ describe('getSelectedCanvas', () => {
     );
   });
 
-  it('should return an empty object when there is no manifestation to get a canvas from', () => {
+  it('should return undefined when there is no manifestation to get a canvas from', () => {
     const selectedCanvas = getSelectedCanvas(noManifestationState, 'a');
 
-    expect(selectedCanvas).toEqual({});
+    expect(selectedCanvas).toBeUndefined();
   });
 });
 
@@ -224,15 +239,14 @@ describe('getCanvasLabel', () => {
     expect(received).toBe('Whole Page');
   });
 
-  it('should return the given canvas index (+1) if the canvas is undefined', () => {
-    expect(getCanvasLabel(undefined)).toBe(1);
-    expect(getCanvasLabel(undefined, 2)).toBe(3);
+  it('should return undefined if the canvas is undefined', () => {
+    expect(getCanvasLabel(undefined)).toBeUndefined();
   });
 
-  it('should return the canvas index (+1) if no manifestation', () => {
-    const canvas = { getLabel: () => {} };
-    const received = getCanvasLabel(canvas);
-    expect(received).toBe(1);
+  it('should return the canvas index as (+1) as string if no label given', () => {
+    const canvas = { getLabel: () => [] };
+    const received = getCanvasLabel(canvas, 42);
+    expect(received).toBe('43');
   });
 });
 
@@ -271,6 +285,10 @@ describe('getIdAndLabelOfCanvases', () => {
       {
         id: 'https://purl.stanford.edu/fr426cg9537/iiif/canvas/fr426cg9537_1',
         label: 'Image 1',
+      },
+      {
+        id: 'https://purl.stanford.edu/rz176rt6531/iiif/canvas/rz176rt6531_1',
+        label: 'Image 2',
       },
     ];
     expect(received).toEqual(expected);

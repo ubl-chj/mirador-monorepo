@@ -44,6 +44,7 @@
     "react-fullscreen-crossbrowser": "^1.0.9",
     "react-i18next": "^9.0.10",
     "react-mosaic-component": "^2.0.2",
+    "react-placeholder": "^3.0.1",
     "react-virtualized": "^9.21.0",
     "redux-devtools-extension": "^2.13.2",
     "redux-thunk": "^2.3.0",

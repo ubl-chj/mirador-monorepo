@@ -26,6 +26,17 @@ export function getManifestLogo(manifest) {
 * @param {object} manifest
 * @return {String|null}
 */
+export function getManifestThumbnail(manifest) {
+  return manifest.manifestation
+    && manifest.manifestation.getThumbnail()
+    && manifest.manifestation.getThumbnail().id;
+}
+
+/**
+* Return the logo of a manifest or null
+* @param {object} manifest
+* @return {String|null}
+*/
 export function getManifestCanvases(manifest) {
   if (!manifest.manifestation) {
     return [];
@@ -56,11 +67,11 @@ export function getSelectedCanvas(state, windowId) {
   const manifest = getWindowManifest(state, windowId);
   const { canvasIndex } = state.windows[windowId];
 
-  if (!manifest.manifestation) {
-    return {};
-  }
-
-  return manifest.manifestation.getSequences()[0].getCanvasByIndex(canvasIndex);
+  return manifest
+    && manifest.manifestation
+    && manifest.manifestation
+      .getSequences()[0]
+      .getCanvasByIndex(canvasIndex);
 }
 
 
@@ -111,10 +122,13 @@ export function getManifestDescription(manifest) {
 * @return {String|Integer}
 */
 export function getCanvasLabel(canvas, canvasIndex) {
-  return (canvas
-    && canvas.getLabel()
-    && canvas.getLabel().map(label => label.value)[0])
-    || (canvasIndex || 0) + 1;
+  if (!canvas) {
+    return undefined;
+  }
+  if (canvas.getLabel().length > 0) {
+    return canvas.getLabel().map(label => label.value)[0];
+  }
+  return String(canvasIndex + 1);
 }
 
 /**
@@ -133,4 +147,14 @@ export function getDestructuredMetadata(iiifResoruce) {
       value: resource.value[0].value,
     }))
   );
+}
+
+/**
+* Return canvas description
+* @param {object} canvas
+* @param {String}
+*/
+export function getCanvasDescription(canvas) {
+  return canvas
+    && canvas.getProperty('description');
 }

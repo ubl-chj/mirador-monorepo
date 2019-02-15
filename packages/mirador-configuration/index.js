@@ -1,10 +1,23 @@
 export const localConfig = {
-  "id": "app",
-  "workspace": {
-    "type": "mosaic"
+  id: "app",
+  theme: {
+    palette: {
+      type: "light",
+    },
+    typography: {
+      useNextVariants: true
+    }
   },
-  "windows": [],
-  "thumbnailNavigation": {
+  translations: {
+  },
+  window: {
+    defaultView: "single",
+  },
+  workspace: {
+    type: "mosaic"
+  },
+  windows: [],
+  thumbnailNavigation: {
     "defaultPosition": "off",
     "height": 150
   }
