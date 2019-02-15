@@ -2,7 +2,6 @@ dist/
 build/
 coverage/
 node_modules/
-package-lock.json
 lib/
 videos/
 screenshots/
