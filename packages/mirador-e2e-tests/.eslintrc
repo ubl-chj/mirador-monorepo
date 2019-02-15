@@ -20,6 +20,7 @@
   },
   "rules": {
     "comma-dangle": "off",
+    "jest/valid-expect": "off",
     "jsx-a11y/href-no-hash": "off",
     "jsx-a11y/anchor-is-valid": [
       "warn",

@@ -1,12 +1,14 @@
 /* global cy */
+/* global Cypress */
 describe('Mirador Base', () => {
   it('Visits Mirador Base', () => {
+    const fixtureServer = Cypress.env('fixtureServer')
     cy.visit('/view')
     cy.get('title').contains('Mirador')
     cy.get('#addBtn').click()
-    cy.get('#manifestURL').type('https://purl.stanford.edu/sn904cj3429/iiif/manifest')
+    cy.get('#manifestURL').type(fixtureServer + '/api/001')
     cy.get('#fetchBtn').click()
-    cy.get('[data-manifestid="https://purl.stanford.edu/sn904cj3429/iiif/manifest"]')
+    cy.get('[data-manifestid="' + fixtureServer + '/api/001"]')
       .find('button')
       .should(($button) => {
         expect($button).to.have.length(1)
@@ -16,7 +18,7 @@ describe('Mirador Base', () => {
         expect(className).to.match(/mirador-manifest-list-item-title/)
       })
       .then(($button) => {
-        expect($button).to.contain('The Birds-Eye-View Map')
+        expect($button).to.contain('Bodleian Library Human Freaks')
       })
       .then(($button) => {
         $button.click()

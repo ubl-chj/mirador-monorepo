@@ -13,9 +13,20 @@ services:
     container_name: cypress
     depends_on:
       - mirador-custom
+      - fixtures
     environment:
       - CYPRESS_baseUrl=http://mirador-custom:5000
       - CYPRESS_RECORD_KEY=869468f7-9e3f-4d61-adbd-4e6b8adae11e
+      - CYPRESS_fixtureServer=http://fixtures:8000
     volumes:
       - ./packages/mirador-e2e-tests/cypress:/app/cypress
     command: npx cypress run --record
+
+  fixtures:
+      image: json-server
+      build:
+        context: ./packages/mirador-e2e-tests
+        dockerfile: Dockerfile-Fixtures
+      container_name: fixtures
+      ports:
+        - "8000:8000"
