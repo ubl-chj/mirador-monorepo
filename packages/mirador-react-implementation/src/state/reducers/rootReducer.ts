@@ -1,5 +1,5 @@
 import {
-  configReducer, infoResponsesReducer, manifestsReducer, windowsReducer, workspaceReducer,
+  configReducer, infoResponsesReducer, manifestsReducer, viewersReducer, windowsReducer, workspaceReducer,
 } from '@mirador/react-component'
 import { combineReducers } from 'redux'
 
@@ -11,6 +11,7 @@ export const rootReducer = (pluginReducers) => combineReducers({
   config: configReducer,
   infoResponses: infoResponsesReducer,
   manifests: manifestsReducer,
+  viewers: viewersReducer,
   windows: windowsReducer,
   workspace: workspaceReducer,
   ...pluginReducers,

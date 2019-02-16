@@ -8,17 +8,20 @@ export const localConfig = {
       useNextVariants: true
     }
   },
+  thumbnailNavigation: {
+    "defaultPosition": "bottom",
+    "height": 150
+  },
   translations: {
   },
   window: {
     defaultView: "single",
   },
+  windows: [],
   workspace: {
     type: "mosaic"
   },
-  windows: [],
-  thumbnailNavigation: {
-    "defaultPosition": "off",
-    "height": 150
+  workspaceControlPanel: {
+    enabled: true,
   }
 }
