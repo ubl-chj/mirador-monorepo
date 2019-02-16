@@ -1,19 +1,16 @@
 FROM node:latest
 
 MAINTAINER Christopher Johnson <chjohnson39@gmail.com>
-LABEL description = "Mirador Custom Implementation"
+LABEL description = "Mirador React Implementation"
 
 WORKDIR /srv/mirador
 RUN git clone https://github.com/ubl-chj/mirador-monorepo.git ./
 RUN npm i npm@latest -g
-WORKDIR /srv/mirador/packages/mirador-viewer
-RUN npm install
-WORKDIR /srv/mirador/packages/mirador-component
-RUN npm install
-RUN npm run bundle
-WORKDIR /srv/mirador/packages/mirador-custom-implementation
-RUN npm install
-RUN npm run build
+RUN npm install --global lerna
+WORKDIR /srv/mirador
+RUN lerna bootstrap --hoist
+RUN lerna run bundle
+RUN lerna run --scope mirador-react-implementation build
 RUN yarn global add serve
 
 COPY entrypoint.sh /entrypoint.sh

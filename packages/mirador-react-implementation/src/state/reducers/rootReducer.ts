@@ -1,6 +1,6 @@
 import {
   configReducer, infoResponsesReducer, manifestsReducer, windowsReducer, workspaceReducer,
-} from 'mirador-component'
+} from '@mirador/react-component'
 import { combineReducers } from 'redux'
 
 /**

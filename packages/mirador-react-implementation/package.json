@@ -1,7 +1,7 @@
 {
-  "name": "mirador-custom-implementation",
+  "name": "mirador-react-implementation",
   "version": "0.1.0",
-  "description": "a custom implementation of the mirador component",
+  "description": "a react implementation of the mirador component",
   "main": "lib/index-dist.js",
   "scripts": {
     "build": "node scripts/build.js",
@@ -11,18 +11,18 @@
   "author": "Christopher Johnson",
   "license": "Apache-2.0",
   "dependencies": {
+    "@mirador/configuration": "file:../mirador-configuration",
+    "@mirador/react-component": "file:../mirador-react-component",
     "deepmerge": "^3.1.0",
     "manifesto.js": "^3.0.9",
-    "mirador-component": "file:../mirador-component",
-    "mirador-configuration": "file:../mirador-configuration",
     "query-string": "^5.1.1",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
     "react-redux": "5.1.1",
+    "react-router-dom": "^4.3.1",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
-    "uuid": "^3.3.2",
-    "react-router-dom": "^4.3.1"
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.2.0",
@@ -33,8 +33,8 @@
     "@types/node": "^10.12.2",
     "@types/react": "^16.8.2",
     "@types/react-dom": "^16.8.0",
-    "@types/react-router": "^4.4.0",
     "@types/react-redux": "^7.0.1",
+    "@types/react-router": "^4.4.0",
     "autoprefixer": "^9.4.3",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "9.0.0",
@@ -59,6 +59,7 @@
     "eslint-plugin-jest": "^22.1.2",
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.12.4",
+    "fs-extra": "^7.0.1",
     "html-webpack-plugin": "^3.2.0",
     "http-server": "^0.11.1",
     "interpolate-html-plugin": "^3.0.0",

@@ -1,4 +1,4 @@
-declare module 'mirador-component' {
+declare module '@mirador/react-component' {
     export function configReducer()
     export function infoResponsesReducer()
     export function manifestsReducer()

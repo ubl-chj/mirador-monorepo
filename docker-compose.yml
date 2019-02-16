@@ -2,7 +2,7 @@ version: '3'
 services:
   mirador-custom:
     image: mirador-custom
-    build: ./packages/mirador-custom-implementation
+    build: ./packages/mirador-react-implementation
     container_name: mirador-custom
     ports:
       - "5000:5000"

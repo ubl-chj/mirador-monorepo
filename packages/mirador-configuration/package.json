@@ -1,5 +1,5 @@
 {
-  "name": "mirador-configuration",
+  "name": "@mirador/configuration",
   "version": "0.1.0",
   "description": "mirador configuration schema",
   "main": "index.js",
