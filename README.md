@@ -26,5 +26,5 @@ $ lerna run --scope mirador-react-implementation start
 $ lerna run cypress:open
 ```
 
-### Continuous Deployment (WIP)
+### Continuous Deployment 
 https://sleepy-curie-a284a7.netlify.com/
