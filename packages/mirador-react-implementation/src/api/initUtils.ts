@@ -3,11 +3,11 @@ import qs from 'query-string'
 
 /**
  * fetchManifests
- * @param config
+ * @param windows
  * @param fetch
  */
-export function fetchManifests(config, fetch) {
-  config.windows.forEach((win) => fetch(win.loadedManifest))
+export function fetchManifests(windows, fetch) {
+  windows.forEach((win) => fetch(win.loadedManifest))
 }
 
 /**
@@ -32,6 +32,7 @@ export function getThumbnailNavigationPositions(config) {
  * @param addWindow
  */
 export function addWindows(config, addWindow) {
+  console.log(config.windows)
   const thumbnailPositions = getThumbnailNavigationPositions(config)
   thumbnailPositions.forEach((thumbnailNavigationPosition, index) => {
     addWindow({

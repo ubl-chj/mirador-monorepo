@@ -1,4 +1,5 @@
 declare module '@mirador/react-component' {
+    export function MiradorComponent(store: any)
     export function configReducer()
     export function infoResponsesReducer()
     export function manifestsReducer()

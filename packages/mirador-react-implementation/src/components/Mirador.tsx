@@ -1,12 +1,11 @@
-import App, {addWindow, fetchManifest, setConfig} from '@mirador/react-component'
 import {localConfig} from '@mirador/configuration'
+import {addWindow, fetchManifest, MiradorComponent, setConfig} from '@mirador/react-component'
 import React from 'react'
-import {connect} from 'react-redux'
+import {connect, ReactReduxContext} from 'react-redux'
 import {withRouter} from 'react-router'
-import {addWindows, fetchManifests, resolveAndMergeParams, withInitialization} from '../api'
-const MiradorInit = withInitialization()(App)
+import {addWindows, fetchManifests, resolveAndMergeParams} from '../api'
 
-class MiradorComponent extends React.Component<any, any> {
+class MiradorClass extends React.Component<any, any> {
   config: any
 
   constructor(props) {
@@ -23,10 +22,14 @@ class MiradorComponent extends React.Component<any, any> {
 
   render() {
     const {config} = this.props
+    const windows = config.windows
     if (Object.keys(config).length !== 0 && config.constructor === Object) {
-      fetchManifests(config, this.props.fetchManifest)
+      fetchManifests(windows, this.props.fetchManifest)
       addWindows(config, this.props.addWindow)
-      return <MiradorInit/>
+      return (
+        <ReactReduxContext.Consumer>
+          {({ store }) => <MiradorComponent store={store}/>}
+        </ReactReduxContext.Consumer>)
     } else {
       this.props.setConfig(this.config)
       return null
@@ -46,4 +49,4 @@ const mapStateToProps = ({ config }) => ({
  */
 const mapDispatchToProps = {addWindow, fetchManifest, setConfig}
 
-export const Mirador = connect(mapStateToProps, mapDispatchToProps)(withRouter(MiradorComponent))
+export const Mirador = connect(mapStateToProps, mapDispatchToProps)(withRouter(MiradorClass))

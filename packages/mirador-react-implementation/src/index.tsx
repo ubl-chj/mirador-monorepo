@@ -5,10 +5,11 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import {Landing, Mirador} from './components'
 import {newStore} from './state'
 import './styles/index.scss'
+
 const supportsHistory = 'pushState' in window.history
 const t = Boolean(true)
-
 const store = newStore(null)
+
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter forceRefresh={!supportsHistory}>

@@ -1,2 +1,2 @@
 export * from './initUtils'
-export * from './withInitialization'
+export * from './withAsync'
