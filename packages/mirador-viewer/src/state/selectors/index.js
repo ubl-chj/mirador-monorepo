@@ -1,3 +1,4 @@
+import { LanguageMap } from 'manifesto.js';
 
 /**
 * Return the manifest that belongs to a certain window.
@@ -19,6 +20,23 @@ export function getWindowManifest(state, windowId) {
 export function getManifestLogo(manifest) {
   return manifest.manifestation
     && manifest.manifestation.getLogo();
+}
+
+/**
+* Return the IIIF v3 provider of a manifest or null
+* @param {object} manifest
+* @return {String|null}
+*/
+export function getManifestProvider(manifest) {
+  if (manifest && manifest.provider) {
+    return manifest.provider;
+  }
+
+  return manifest
+    && manifest.manifestation
+    && manifest.manifestation.getProperty('provider')
+    && manifest.manifestation.getProperty('provider')[0].label
+    && LanguageMap.parse(manifest.manifestation.getProperty('provider')[0].label, manifest.manifestation.options.locale).map(label => label.value)[0];
 }
 
 /**
@@ -157,4 +175,17 @@ export function getDestructuredMetadata(iiifResoruce) {
 export function getCanvasDescription(canvas) {
   return canvas
     && canvas.getProperty('description');
+}
+
+/**
+* Return the companion window string from state in a given windowId and position
+* @param {object} state
+* @param {String} windowId
+* @param {String} position
+* @return {String}
+*/
+export function getCompanionWindowForPosition(state, windowId, position) {
+  return state.windows[windowId]
+    && state.windows[windowId].companionWindows
+    && state.windows[windowId].companionWindows[position];
 }

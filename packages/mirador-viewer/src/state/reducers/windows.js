@@ -50,20 +50,23 @@ export const windowsReducer = (state = {}, action) => {
           ),
         },
       };
+    case ActionTypes.SET_WINDOW_COMPANION_WINDOW:
+      return {
+        ...state,
+        [action.windowId]: {
+          ...state[action.windowId],
+          companionWindows: {
+            ...state[action.windowId].companionWindows,
+            [action.position]: action.panelType,
+          },
+        },
+      };
     case ActionTypes.NEXT_CANVAS:
       return setCanvasIndex(state, action.windowId, currentIndex => currentIndex + 1);
     case ActionTypes.PREVIOUS_CANVAS:
       return setCanvasIndex(state, action.windowId, currentIndex => currentIndex - 1);
     case ActionTypes.SET_CANVAS:
       return setCanvasIndex(state, action.windowId, currentIndex => action.canvasIndex);
-    case ActionTypes.UPDATE_VIEWPORT:
-      return {
-        ...state,
-        [action.windowId]: {
-          ...state[action.windowId],
-          viewer: action.payload,
-        },
-      };
     default:
       return state;
   }

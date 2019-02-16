@@ -2,8 +2,10 @@ import manifesto from 'manifesto.js';
 import manifestFixture001 from '../../fixtures/version-2/001.json';
 import manifestFixture002 from '../../fixtures/version-2/002.json';
 import manifestFixture019 from '../../fixtures/version-2/019.json';
+import manifestFixtureWithAProvider from '../../fixtures/version-3/with_a_provider.json';
 import {
   getCanvasLabel,
+  getCompanionWindowForPosition,
   getDestructuredMetadata,
   getSelectedCanvas,
   getWindowManifest,
@@ -11,6 +13,7 @@ import {
   getManifestCanvases,
   getManifestDescription,
   getThumbnailNavigationPosition,
+  getManifestProvider,
   getManifestTitle,
   getManifestThumbnail,
   getWindowViewType,
@@ -181,6 +184,24 @@ describe('getManifestDescription', () => {
   });
 });
 
+describe('getManifestProvider', () => {
+  it('should return manifest provider label', () => {
+    const manifest = { manifestation: manifesto.create(manifestFixtureWithAProvider) };
+    const received = getManifestProvider(manifest);
+    expect(received).toBe('Example Organization');
+  });
+
+  it('should return undefined if manifest undefined', () => {
+    const received = getManifestProvider(undefined);
+    expect(received).toBeUndefined();
+  });
+
+  it('should return undefined if no manifestation', () => {
+    const manifest = {};
+    const received = getManifestProvider(manifest);
+    expect(received).toBeUndefined();
+  });
+});
 describe('getSelectedCanvas', () => {
   const state = {
     windows: {
@@ -297,5 +318,29 @@ describe('getIdAndLabelOfCanvases', () => {
   it('should return empty array if canvas if empty', () => {
     const received = getIdAndLabelOfCanvases([]);
     expect(received).toEqual([]);
+  });
+});
+
+describe('getCompanionWindowForPosition', () => {
+  const state = {
+    windows: { a: { companionWindows: { right: 'info' } } },
+  };
+
+  it('the companion window type based on the given position', () => {
+    const received = getCompanionWindowForPosition(state, 'a', 'right');
+
+    expect(received).toEqual('info');
+  });
+
+  it('returns undefined if the given window does not exist', () => {
+    const received = getCompanionWindowForPosition(state, 'b', 'right');
+
+    expect(received).toBeUndefined();
+  });
+
+  it('returns undefined if a companion window at the given position does not exist', () => {
+    const received = getCompanionWindowForPosition(state, 'a', 'bottom');
+
+    expect(received).toBeUndefined();
   });
 });

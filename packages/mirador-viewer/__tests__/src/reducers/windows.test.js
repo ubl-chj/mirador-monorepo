@@ -121,6 +121,42 @@ describe('windows reducer', () => {
     });
   });
 
+  describe('SET_WINDOW_COMPANION_WINDOW', () => {
+    it('sets the given type under the given position when no companion window exists', () => {
+      const action = {
+        type: ActionTypes.SET_WINDOW_COMPANION_WINDOW,
+        windowId: 'abc123',
+        position: 'right',
+        panelType: 'info',
+      };
+      const before = {
+        abc123: {},
+      };
+      const after = {
+        abc123: { companionWindows: { right: 'info' } },
+      };
+
+      expect(windowsReducer(before, action)).toEqual(after);
+    });
+
+    it('overwrites the given position and sets the new type when a companion window in the same position exists', () => {
+      const action = {
+        type: ActionTypes.SET_WINDOW_COMPANION_WINDOW,
+        windowId: 'abc123',
+        position: 'right',
+        panelType: 'info',
+      };
+      const before = {
+        abc123: { companionWindows: { right: 'canvas_navigation' } },
+      };
+      const after = {
+        abc123: { companionWindows: { right: 'info' } },
+      };
+
+      expect(windowsReducer(before, action)).toEqual(after);
+    });
+  });
+
   it('should handle NEXT_CANVAS', () => {
     expect(windowsReducer({
       abc123: {
@@ -191,29 +227,6 @@ describe('windows reducer', () => {
       def456: {
         id: 'def456',
         canvasIndex: 1,
-      },
-    });
-  });
-
-  it('should handle UPDATE_VIEWPORT', () => {
-    expect(windowsReducer({
-      abc123: {
-        id: 'abc123',
-      },
-      def456: {
-        id: 'def456',
-      },
-    }, {
-      type: ActionTypes.UPDATE_VIEWPORT,
-      windowId: 'abc123',
-      payload: { x: 0, y: 1, zoom: 0.5 },
-    })).toEqual({
-      abc123: {
-        id: 'abc123',
-        viewer: { x: 0, y: 1, zoom: 0.5 },
-      },
-      def456: {
-        id: 'def456',
       },
     });
   });
