@@ -27,12 +27,22 @@ export function getThumbnailNavigationPositions(config) {
 }
 
 /**
+ *
+ * @param windows
+ * @param removeWindow
+ */
+export function removeWindows(windows, removeWindow) {
+  Object.keys(windows).forEach((key) => {
+    removeWindow(key)
+  })
+}
+
+/**
  * addWindows
  * @param config
  * @param addWindow
  */
 export function addWindows(config, addWindow) {
-  console.log(config.windows)
   const thumbnailPositions = getThumbnailNavigationPositions(config)
   thumbnailPositions.forEach((thumbnailNavigationPosition, index) => {
     addWindow({

@@ -7,6 +7,7 @@ declare module '@mirador/react-component' {
     export function windowsReducer()
     export function workspaceReducer()
     export function addWindow(options: any)
+    export function removeWindow(windowId: string)
     export function setConfig(config: any)
     export function fetchManifest(uri: any)
 }

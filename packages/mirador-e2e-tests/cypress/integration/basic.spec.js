@@ -4,7 +4,6 @@ describe('Mirador Base', () => {
   it('Visits Mirador Base', () => {
     const fixtureServer = Cypress.env('fixtureServer')
     cy.visit('/view')
-    cy.get('title').contains('Mirador')
     cy.get('#addBtn').click()
     cy.get('#manifestURL').type(fixtureServer + '/api/001')
     cy.get('#fetchBtn').click()
