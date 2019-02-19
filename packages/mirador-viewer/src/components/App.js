@@ -4,9 +4,9 @@ import classNames from 'classnames';
 import { MuiThemeProvider, createMuiTheme, withStyles } from '@material-ui/core/styles';
 import Fullscreen from 'react-fullscreen-crossbrowser';
 import { I18nextProvider } from 'react-i18next';
+import { DiscoveryComponent } from '@mirador/custom-components';
 import WorkspaceControlPanel from './WorkspaceControlPanel';
 import Workspace from '../containers/Workspace';
-import WorkspaceAdd from '../containers/WorkspaceAdd';
 import ns from '../config/css-ns';
 import i18n from '../i18n';
 
@@ -39,7 +39,7 @@ class App extends Component {
             >
               {
                 isWorkspaceAddVisible
-                  ? <WorkspaceAdd />
+                  ? <DiscoveryComponent />
                   : <Workspace />
                }
             </Fullscreen>

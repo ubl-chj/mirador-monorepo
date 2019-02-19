@@ -1,5 +1,5 @@
 {
-  "name": "mirador-react-implementation",
+  "name": "@mirador/react-implementation",
   "version": "0.1.0",
   "description": "a react implementation of the mirador component",
   "main": "lib/index-dist.js",

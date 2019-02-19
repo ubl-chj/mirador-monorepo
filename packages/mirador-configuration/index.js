@@ -22,6 +22,6 @@ export const localConfig = {
     type: "mosaic"
   },
   workspaceControlPanel: {
-    enabled: true,
+    enabled: false,
   }
 }

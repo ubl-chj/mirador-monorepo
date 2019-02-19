@@ -3,8 +3,9 @@ import {addWindow, fetchManifest, MiradorComponent, setConfig} from '@mirador/re
 import React, {useEffect, useRef, useState} from 'react'
 import {connect, ReactReduxContext} from 'react-redux'
 import {withRouter} from 'react-router'
-import {addWindows, fetchManifests, resolveAndMergeParams} from '../api'
+import {addWindows, fetchManifests, resolveAndMergeParams, withControlPanel} from '../api'
 
+const MiradorWithPanel = withControlPanel(MiradorComponent)
 const MiradorImplementation = (props) => {
   const initialConfiguration = useRef(localConfig)
   const [isInitialized, setIsInitialized] = useState(false)
@@ -38,7 +39,7 @@ const MiradorImplementation = (props) => {
   if (isInitialized) {
     return (
       <ReactReduxContext.Consumer>
-        {({store}) => <MiradorComponent store={store}/>}
+        {({store}) => <MiradorWithPanel store={store}/>}
       </ReactReduxContext.Consumer>)
   } else {
     return null

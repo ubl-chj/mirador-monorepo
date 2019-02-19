@@ -1,0 +1,24 @@
+{
+  "name": "@mirador/custom-components",
+  "version": "0.1.0",
+  "description": "mirador custom components",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ubl-chj/mirador-monorepo"
+  },
+  "author": "Christopher Johnson",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "searchkit": "^2.3.1-alpha.7",
+    "uuidv5": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^11.9.4",
+    "@types/react": "^16.8.3"
+  }
+}
