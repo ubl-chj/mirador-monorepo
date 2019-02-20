@@ -5,26 +5,31 @@ import {shortenTitle} from "./ItemUtils"
 const host = 'https://es.iiif.cloud/m4'
 const searchkit = new SearchkitManager(host)
 
+const ReduxContext = React.createContext(null)
+
+const setManifest = (actions, manifestId) => {
+  actions.fetchManifest(manifestId)
+  actions.addWindow({manifestId})
+}
+
 const StandardGridItem = (props) => {
   const {bemBlocks, result} = props
   const source = result._source
   const manifestId = source.manifest
   const workspaceUri = '/view?manifest=' + manifestId
   const thumbnail = source.thumbnail + '/full/170,/0/default.jpg'
-  console.log(props)
   return (
-    <div className={bemBlocks.item().mix(bemBlocks.container("item"))} data-qa="hit">
-      <a
-        href={workspaceUri}
-      >
-        {buildImage(thumbnail)}
-      </a>
-      <a
-        href={workspaceUri}
-      >
-        <div  title={source.title} data-qa='title' dangerouslySetInnerHTML={{__html: shortenTitle(source.title)}}/>
-      </a>
-    </div>)
+    <ReduxContext.Consumer>{(actions) =>
+      <div className={bemBlocks.item().mix(bemBlocks.container("item"))} data-qa="hit">
+        <button onClick={() => setManifest(actions, manifestId)}>
+          {buildImage(thumbnail)}
+        </button>
+        <a href={workspaceUri}>
+          <div title={source.title} data-qa='title' dangerouslySetInnerHTML={{__html: shortenTitle(source.title)}}/>
+        </a>
+      </div>
+    }
+    </ReduxContext.Consumer>)
 }
 
 const handleMissingImage = (target) => {
@@ -45,20 +50,26 @@ const buildImage = (imageSource) => {
   )
 }
 
-export const DiscoveryComponent = () => {
+export const DiscoveryComponent = (props) => {
     return (
-      <div style={{marginLeft: '100px'}}>
-        <SearchkitProvider searchkit={searchkit}>
-          <Layout>
-              <LayoutBody>
-                <LayoutResults>
-                  <Pagination showNumbers={true}/>
-                  <Hits mod="sk-hits-grid" hitsPerPage={50} itemComponent={StandardGridItem}/>
-                  <Pagination showNumbers={true}/>
-                </LayoutResults>
-              </LayoutBody>
-          </Layout>
-        </SearchkitProvider>
-      </div>
+      <ReduxContext.Provider value={props}>
+        <div style={{marginLeft: '100px'}}>
+          <SearchkitProvider searchkit={searchkit}>
+            <Layout>
+                <LayoutBody>
+                  <LayoutResults>
+                    <Pagination showNumbers={true}/>
+                    <Hits
+                      mod="sk-hits-grid"
+                      hitsPerPage={50}
+                      itemComponent={StandardGridItem}
+                    />
+                    <Pagination showNumbers={true}/>
+                  </LayoutResults>
+                </LayoutBody>
+            </Layout>
+          </SearchkitProvider>
+        </div>
+      </ReduxContext.Provider>
     )
 }

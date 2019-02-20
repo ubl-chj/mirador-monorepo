@@ -1,1 +1,1 @@
-export * from './DiscoveryComponent'
+export * from './containers/DiscoveryComponent'

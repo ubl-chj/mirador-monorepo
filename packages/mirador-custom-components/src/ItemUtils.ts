@@ -1,5 +1,3 @@
-import * as React from 'react'
-
 import uuidv5 from 'uuidv5'
 
 export function resolveManifestId(source) {

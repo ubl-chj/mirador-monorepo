@@ -46,16 +46,18 @@ const MiradorImplementation = (props) => {
   }
 }
 
-/** mapStateToProps */
+/**
+ *
+ * @param config
+ * @param windows
+ */
 const mapStateToProps = ({ config, windows }) => ({
   config,
   windows,
 })
 
 /**
- * mapDispatchToProps - used to hook up connect to action creators
- * @memberof ManifestListItem
- * @private
+ *
  */
 const mapDispatchToProps = {addWindow, fetchManifest, setConfig}
 

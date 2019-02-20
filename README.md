@@ -21,8 +21,9 @@ $ lerna bootstrap --hoist
 ```
 2. Create a bundle of the component.
 ```bash
+$ lerna run --scope @mirador/custom-components build
 $ lerna run bundle
-$ lerna run --scope mirador-react-implementation start
+$ lerna run --scope @mirador/react-implementation start
 $ lerna run cypress:open
 ```
 

@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { MuiThemeProvider, createMuiTheme, withStyles } from '@material-ui/core/styles';
 import Fullscreen from 'react-fullscreen-crossbrowser';
 import { I18nextProvider } from 'react-i18next';
-import { DiscoveryComponent } from '@mirador/custom-components';
+import DiscoveryComponent from '@mirador/custom-components';
 import WorkspaceControlPanel from './WorkspaceControlPanel';
 import Workspace from '../containers/Workspace';
 import ns from '../config/css-ns';
