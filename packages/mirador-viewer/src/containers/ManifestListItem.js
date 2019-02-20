@@ -1,10 +1,10 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
+import * as actions from '@mirador/actions';
 import {
   getManifestTitle, getManifestLogo, getManifestThumbnail, getManifestCanvases, getManifestProvider,
 } from '../state/selectors';
-import * as actions from '../state/actions';
 import ManifestListItem from '../components/ManifestListItem';
 
 /** */

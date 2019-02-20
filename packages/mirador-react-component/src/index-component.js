@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import App from './containers/App';
 
-export * from './state/actions';
 export * from './state/reducers';
 
 /**

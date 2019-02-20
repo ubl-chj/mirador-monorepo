@@ -2,10 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import deepmerge from 'deepmerge';
+import * as actions from '@mirador/actions';
 import App from '../containers/App';
 import createRootReducer from '../state/reducers/rootReducer';
 import createStore from '../state/createStore';
-import * as actions from '../state/actions';
 import settings from '../config/settings';
 
 /**

@@ -1,5 +1,4 @@
-import fetch from 'node-fetch';
-import ActionTypes from './action-types';
+import ActionTypes from './action-types'
 
 /**
  * requestInfoResponse - action creator
@@ -9,24 +8,22 @@ import ActionTypes from './action-types';
  */
 export function requestInfoResponse(infoId) {
   return {
-    type: ActionTypes.REQUEST_INFO_RESPONSE,
     infoId,
-  };
+    type: ActionTypes.REQUEST_INFO_RESPONSE,
+  }
 }
 
 /**
- * receiveInfoResponse - action creator
  *
- * @param  {String} infoId
- * @param  {Object} manifestJson
- * @memberof ActionCreators
+ * @param infoId
+ * @param infoJson
  */
 export function receiveInfoResponse(infoId, infoJson) {
   return {
-    type: ActionTypes.RECEIVE_INFO_RESPONSE,
     infoId,
     infoJson,
-  };
+    type: ActionTypes.RECEIVE_INFO_RESPONSE,
+  }
 }
 
 /**
@@ -38,10 +35,10 @@ export function receiveInfoResponse(infoId, infoJson) {
  */
 export function receiveInfoResponseFailure(infoId, error) {
   return {
-    type: ActionTypes.RECEIVE_INFO_RESPONSE_FAILURE,
-    infoId,
     error,
-  };
+    infoId,
+    type: ActionTypes.RECEIVE_INFO_RESPONSE_FAILURE,
+  }
 }
 
 /**
@@ -51,13 +48,13 @@ export function receiveInfoResponseFailure(infoId, error) {
  * @memberof ActionCreators
  */
 export function fetchInfoResponse(infoId) {
-  return ((dispatch) => {
-    dispatch(requestInfoResponse(infoId));
-    return fetch(infoId)
-      .then(response => response.json())
-      .then(json => dispatch(receiveInfoResponse(infoId, json)))
-      .catch(error => dispatch(receiveInfoResponseFailure(infoId, error)));
-  });
+  return (dispatch) => {
+    dispatch(requestInfoResponse(infoId))
+    return window.fetch(infoId)
+      .then((response) => response.json())
+      .then((json) => dispatch(receiveInfoResponse(infoId, json)))
+      .catch((error) => dispatch(receiveInfoResponseFailure(infoId, error)))
+  }
 }
 
 /**
@@ -67,5 +64,5 @@ export function fetchInfoResponse(infoId) {
  * @memberof ActionCreators
  */
 export function removeInfoResponse(infoId) {
-  return { type: ActionTypes.REMOVE_INFO_RESPONSE, infoId };
+  return { type: ActionTypes.REMOVE_INFO_RESPONSE, infoId }
 }

@@ -1,5 +1,5 @@
-import uuid from 'uuid/v4';
-import ActionTypes from './action-types';
+import uuid from 'uuid/v4'
+import ActionTypes from './action-types'
 
 /**
  * focusWindow - action creator
@@ -8,7 +8,7 @@ import ActionTypes from './action-types';
  * @memberof ActionCreators
  */
 export function focusWindow(windowId) {
-  return { type: ActionTypes.FOCUS_WINDOW, windowId };
+  return { type: ActionTypes.FOCUS_WINDOW, windowId }
 }
 
 /**
@@ -19,17 +19,18 @@ export function focusWindow(windowId) {
  */
 export function addWindow(options) {
   const defaultOptions = {
-    id: `window-${uuid()}`,
+
     canvasIndex: 0,
     collectionIndex: 0,
+    id: `window-${uuid()}`,
     manifestId: null,
     rangeId: null,
-    thumbnailNavigationPosition: 'bottom', // bottom by default in settings.js
-    xywh: [0, 0, 400, 400],
     rotation: null,
+    thumbnailNavigationPosition: 'bottom', // bottom by default in settings.js
     view: 'single',
-  };
-  return { type: ActionTypes.ADD_WINDOW, window: { ...defaultOptions, ...options } };
+    xywh: [0, 0, 400, 400],
+  }
+  return { type: ActionTypes.ADD_WINDOW, window: { ...defaultOptions, ...options } }
 }
 
 /**
@@ -39,7 +40,7 @@ export function addWindow(options) {
  * @memberof ActionCreators
  */
 export function removeWindow(windowId) {
-  return { type: ActionTypes.REMOVE_WINDOW, windowId };
+  return { type: ActionTypes.REMOVE_WINDOW, windowId }
 }
 
 /**
@@ -49,7 +50,7 @@ export function removeWindow(windowId) {
  * @memberof ActionCreators
  */
 export function toggleWindowSideBar(windowId) {
-  return { type: ActionTypes.TOGGLE_WINDOW_SIDE_BAR, windowId };
+  return { type: ActionTypes.TOGGLE_WINDOW_SIDE_BAR, windowId }
 }
 
 /**
@@ -64,11 +65,11 @@ export function toggleWindowSideBar(windowId) {
  */
 export function setWindowCompanionWindow(windowId, panelType, position) {
   return {
-    type: ActionTypes.SET_WINDOW_COMPANION_WINDOW,
-    windowId,
     panelType,
     position,
-  };
+    type: ActionTypes.SET_WINDOW_COMPANION_WINDOW,
+    windowId,
+  }
 }
 
 /**
@@ -79,7 +80,7 @@ export function setWindowCompanionWindow(windowId, panelType, position) {
  * @memberof ActionCreators
  */
 export function toggleWindowSideBarPanel(windowId, panelType) {
-  return { type: ActionTypes.TOGGLE_WINDOW_SIDE_BAR_PANEL, windowId, panelType };
+  return { type: ActionTypes.TOGGLE_WINDOW_SIDE_BAR_PANEL, windowId, panelType }
 }
 
 /**
@@ -93,10 +94,10 @@ export function toggleWindowSideBarPanel(windowId, panelType) {
  * @memberof ActionCreators
  */
 export function popOutCompanionWindow(windowId, panelType, position) {
-  return ((dispatch) => {
-    dispatch(setWindowCompanionWindow(windowId, panelType, position));
-    dispatch(toggleWindowSideBarPanel(windowId, 'closed'));
-  });
+  return (dispatch) => {
+    dispatch(setWindowCompanionWindow(windowId, panelType, position))
+    dispatch(toggleWindowSideBarPanel(windowId, 'closed'))
+  }
 }
 
 /**
@@ -107,7 +108,7 @@ export function popOutCompanionWindow(windowId, panelType, position) {
  * @memberof ActionCreators
  */
 export function setWindowThumbnailPosition(windowId, position) {
-  return { type: ActionTypes.SET_WINDOW_THUMBNAIL_POSITION, windowId, position };
+  return { type: ActionTypes.SET_WINDOW_THUMBNAIL_POSITION, windowId, position }
 }
 
 /**
@@ -118,5 +119,5 @@ export function setWindowThumbnailPosition(windowId, position) {
  * @memberof ActionCreators
  */
 export function setWindowViewType(windowId, viewType) {
-  return { type: ActionTypes.SET_WINDOW_VIEW_TYPE, windowId, viewType };
+  return { type: ActionTypes.SET_WINDOW_VIEW_TYPE, windowId, viewType }
 }

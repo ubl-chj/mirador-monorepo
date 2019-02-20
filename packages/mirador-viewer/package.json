@@ -30,6 +30,7 @@
   "dependencies": {
     "@material-ui/core": "^3.9.1",
     "@material-ui/icons": "^3.0.2",
+    "@mirador/actions": "file:../mirador-actions",
     "@mirador/custom-components": "file:../mirador-custom-components",
     "@researchgate/react-intersection-observer": "^0.7.4",
     "classnames": "^2.2.6",

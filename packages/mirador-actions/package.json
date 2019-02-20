@@ -1,7 +1,7 @@
 {
-  "name": "@mirador/custom-components",
+  "name": "@mirador/actions",
   "version": "0.1.0",
-  "description": "mirador custom components",
+  "description": "mirador actions",
   "main": "lib/index.js",
   "scripts": {
     "build": "tsc",
@@ -14,9 +14,7 @@
   "author": "Christopher Johnson",
   "license": "Apache-2.0",
   "dependencies": {
-    "@mirador/actions": "file:../mirador-actions",
-    "searchkit": "^2.3.1-alpha.7",
-    "uuidv5": "^1.0.0"
+    "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
     "@types/node": "^11.9.4",

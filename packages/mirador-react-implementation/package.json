@@ -12,6 +12,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@mirador/configuration": "file:../mirador-configuration",
+    "@mirador/actions": "file:../mirador-actions",
     "@mirador/react-component": "file:../mirador-react-component",
     "deepmerge": "^3.1.0",
     "dompurify": "^1.0.9",

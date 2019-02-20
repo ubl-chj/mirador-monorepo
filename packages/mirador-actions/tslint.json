@@ -1,0 +1,16 @@
+{
+  "extends": [
+    "tslint:recommended",
+    "tslint-react",
+    "tslint-react-hooks"
+  ],
+  "rules": {
+    "no-console": false,
+    "jsx-no-multiline-js": false,
+    "no-var-requires": false,
+    "quotemark": false,
+    "semicolon": false,
+    "member-access": false,
+    "max-line-length": false
+  }
+}

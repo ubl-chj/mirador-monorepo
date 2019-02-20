@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withNamespaces } from 'react-i18next';
+import * as actions from '@mirador/actions';
 import miradorWithPlugins from '../lib/miradorWithPlugins';
-import * as actions from '../state/actions';
 import WorkspaceFullScreenButton
   from '../components/WorkspaceFullScreenButton';
 

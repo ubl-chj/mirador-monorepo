@@ -1,6 +1,5 @@
-import ActionTypes from './action-types';
+import ActionTypes from './action-types'
 
-/* eslint-disable import/prefer-default-export */
 /**
  * setWorkspaceFullscreen - action creator
  *
@@ -8,16 +7,15 @@ import ActionTypes from './action-types';
  * @memberof ActionCreators
  */
 export function setWorkspaceFullscreen(isFullscreenEnabled) {
-  return { type: ActionTypes.SET_WORKSPACE_FULLSCREEN, isFullscreenEnabled };
+  return { type: ActionTypes.SET_WORKSPACE_FULLSCREEN, isFullscreenEnabled }
 }
 
 /**
- * toggleZoomControls - action creator
- * @param {Boolean} showZoomControls
- * @memberof ActionCreators
-*/
+ * toggleZoomControls
+ * @param showZoomControls
+ */
 export function toggleZoomControls(showZoomControls) {
-  return { type: ActionTypes.TOGGLE_ZOOM_CONTROLS, showZoomControls };
+  return { type: ActionTypes.TOGGLE_ZOOM_CONTROLS, showZoomControls }
 }
 
 /**
@@ -27,7 +25,7 @@ export function toggleZoomControls(showZoomControls) {
  * @memberof ActionCreators
  */
 export function updateWorkspaceMosaicLayout(layout) {
-  return { type: ActionTypes.UPDATE_WORKSPACE_MOSAIC_LAYOUT, layout };
+  return { type: ActionTypes.UPDATE_WORKSPACE_MOSAIC_LAYOUT, layout }
 }
 
 /**
@@ -37,5 +35,5 @@ export function updateWorkspaceMosaicLayout(layout) {
  * @memberof ActionCreators
  */
 export function setWorkspaceAddVisibility(isWorkspaceAddVisible) {
-  return { type: ActionTypes.SET_WORKSPACE_ADD_VISIBILITY, isWorkspaceAddVisible };
+  return { type: ActionTypes.SET_WORKSPACE_ADD_VISIBILITY, isWorkspaceAddVisible }
 }

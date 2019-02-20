@@ -1,4 +1,4 @@
-import ActionTypes from '../actions/action-types';
+import ActionTypes from '@mirador/actions';
 
 /**
  * windowsReducer

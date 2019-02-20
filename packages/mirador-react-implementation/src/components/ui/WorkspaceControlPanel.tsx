@@ -3,7 +3,7 @@ import Fab from '@material-ui/core/Fab'
 import ListItem from '@material-ui/core/ListItem'
 import AddIcon from '@material-ui/icons/Add'
 import ClearIcon from '@material-ui/icons/Clear'
-import {setWorkspaceAddVisibility} from '@mirador/react-component'
+import {setWorkspaceAddVisibility} from '@mirador/actions'
 import React from 'react'
 import {connect} from 'react-redux'
 

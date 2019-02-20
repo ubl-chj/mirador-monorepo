@@ -1,4 +1,4 @@
-import ActionTypes from './action-types';
+import ActionTypes from './action-types'
 
 /**
  * nextCanvas - action creator
@@ -7,7 +7,7 @@ import ActionTypes from './action-types';
  * @memberof ActionCreators
  */
 export function nextCanvas(windowId) {
-  return { type: ActionTypes.NEXT_CANVAS, windowId };
+  return { type: ActionTypes.NEXT_CANVAS, windowId }
 }
 
 /**
@@ -17,7 +17,7 @@ export function nextCanvas(windowId) {
  * @memberof ActionCreators
  */
 export function previousCanvas(windowId) {
-  return { type: ActionTypes.PREVIOUS_CANVAS, windowId };
+  return { type: ActionTypes.PREVIOUS_CANVAS, windowId }
 }
 
 /**
@@ -28,16 +28,14 @@ export function previousCanvas(windowId) {
  * @memberof ActionCreators
  */
 export function setCanvas(windowId, canvasIndex) {
-  return { type: ActionTypes.SET_CANVAS, windowId, canvasIndex };
+  return { type: ActionTypes.SET_CANVAS, windowId, canvasIndex }
 }
 
 /**
- * updateViewport - action creator
  *
- * @param  {String} windowId
- * @param  {Number} canvasIndex
- * @memberof ActionCreators
+ * @param windowId
+ * @param payload
  */
 export function updateViewport(windowId, payload) {
-  return { type: ActionTypes.UPDATE_VIEWPORT, windowId, payload };
+  return { type: ActionTypes.UPDATE_VIEWPORT, windowId, payload }
 }
