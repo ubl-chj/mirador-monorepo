@@ -4,9 +4,12 @@
 
 This contains https://github.com/ProjectMirador/mirador split into distribution packages.
 
-1. `mirador-react-component` : An importable React Component.
-2. `mirador-viewer` : The default implementation of the mirador-react-component.
-3. `mirador-react-implementation` : A React implementation of the mirador-react-component.
+1. `@mirador/actions`: Redux Actions for Mirador
+2. `@mirador/custom-components`: Custom Components for Mirador
+3. `@mirador/react-component` : An importable React Component.
+4. `@mirador/react-implementation` : A React implementation of the mirador-react-component.
+
+The upstream (`mirador-viewer`) is symlinked in packages to the react-component
 
 ### Synchronize upstream (pre-release)
 To pull ProjectMirador/Mirador into packages, execute this:
@@ -21,8 +24,9 @@ $ lerna bootstrap --hoist
 ```
 2. Create a bundle of the component.
 ```bash
+$ lerna run --scope @mirador/actions build
 $ lerna run --scope @mirador/custom-components build
-$ lerna run bundle
+$ lerna run --scope @mirador/react-component build
 $ lerna run --scope @mirador/react-implementation start
 $ lerna run cypress:open
 ```
