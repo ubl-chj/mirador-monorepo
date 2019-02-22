@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "mirador actions",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,9 +14,6 @@
   },
   "author": "Christopher Johnson",
   "license": "Apache-2.0",
-  "dependencies": {
-    "whatwg-fetch": "^3.0.0"
-  },
   "devDependencies": {
     "@types/node": "^11.9.4",
     "@types/react": "^16.8.3"

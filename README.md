@@ -27,6 +27,7 @@ $ lerna bootstrap --hoist
 $ lerna run --scope @mirador/actions build
 $ lerna run --scope @mirador/custom-components build
 $ lerna run --scope @mirador/react-component build
+3. Start Development Server
 $ lerna run --scope @mirador/react-implementation start
 $ lerna run cypress:open
 ```

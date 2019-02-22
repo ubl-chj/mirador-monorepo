@@ -1,4 +1,7 @@
 export const localConfig = {
+  canvasNavigation: {
+    height: 100,
+  },
   id: "app",
   theme: {
     palette: {

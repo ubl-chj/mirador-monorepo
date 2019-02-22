@@ -13,10 +13,11 @@
   "dependencies": {
     "@mirador/configuration": "file:../mirador-configuration",
     "@mirador/actions": "file:../mirador-actions",
+    "@mirador/reducers": "file:../mirador-reducers",
     "@mirador/react-component": "file:../mirador-react-component",
     "deepmerge": "^3.1.0",
     "dompurify": "^1.0.9",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.5",
     "manifesto.js": "^3.0.9",
     "query-string": "^5.1.1",
     "react": "^16.8.1",
