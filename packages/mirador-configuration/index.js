@@ -19,8 +19,8 @@ export const localConfig = {
     },
   },
   thumbnailNavigation: {
-    "defaultPosition": "bottom",
-    "height": 150
+    "defaultPosition": "off",
+    "height": 100
   },
   translations: {
   },

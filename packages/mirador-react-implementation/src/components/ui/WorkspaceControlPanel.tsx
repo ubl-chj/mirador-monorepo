@@ -21,7 +21,7 @@ const WorkspaceControlPanel = (props) => {
       <Drawer
         variant="permanent"
         anchor="left"
-        PaperProps={{ style: { position: 'absolute' } }}
+        PaperProps={{ style: { top: '60px' } }}
         open={true}
       >
         <List>

@@ -1,10 +1,12 @@
 import * as React from 'react'
 import {Link} from 'react-router-dom'
-import {Hits, Layout, LayoutBody, LayoutResults, Pagination, SearchkitManager, SearchkitProvider} from 'searchkit'
+import {ActionBar, ActionBarRow, GroupedSelectedFilters, Hits, HitsStats, ItemList, Layout, LayoutBody, LayoutResults,
+  Pagination, Panel, RefinementListFilter, ResetFilters, SearchkitManager, SearchkitProvider,
+  SideBar, SortingSelector, ViewSwitcherToggle} from 'searchkit'
 import {shortenTitle} from "./ItemUtils"
 const host = 'https://es.iiif.cloud/m4'
+import routeConfig from './config/ubl.json'
 const searchkit = new SearchkitManager(host)
-
 const ReduxContext = React.createContext(null)
 
 const setManifest = (actions, manifestId) => {
@@ -57,7 +59,28 @@ export const DiscoveryComponent = (props) => {
           <SearchkitProvider searchkit={searchkit}>
             <Layout>
                 <LayoutBody>
+                  <SideBar>
+                    <RefinementListFilter
+                      containerComponent={<Panel collapsable={true} defaultCollapsed={false}/>}
+                      field={routeConfig.refinementListFilterDef1.field}
+                      title={routeConfig.refinementListFilterDef1.title}
+                      id={routeConfig.refinementListFilterDef1.id}
+                      operator='AND'
+                      listComponent={ItemList}
+                    />
+                  </SideBar>
                   <LayoutResults>
+                    <ActionBar>
+                      <ActionBarRow>
+                        <HitsStats translations={{'hitstats.results_found': '{hitCount} results found'}}/>
+                        <ViewSwitcherToggle/>
+                        <SortingSelector options={routeConfig.sortingSelectorOptions}/>
+                      </ActionBarRow>
+                      <ActionBarRow>
+                        <GroupedSelectedFilters/>
+                        <ResetFilters/>
+                      </ActionBarRow>
+                    </ActionBar>
                     <Pagination showNumbers={true}/>
                     <Hits
                       mod="sk-hits-grid"

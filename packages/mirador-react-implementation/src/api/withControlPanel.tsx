@@ -1,4 +1,6 @@
 import React from 'react'
+import {LogoWrapper} from '../components/ui'
+import {Layout, TopBar} from '../components/ui/layout'
 import WorkspaceControlPanel from '../components/ui/WorkspaceControlPanel'
 
 /**
@@ -14,10 +16,13 @@ export const withControlPanel = (Component) => {
    */
   const HOC = (props) => {
     return (
-      <div>
+      <Layout>
+        <TopBar>
+          <LogoWrapper/>
+        </TopBar>
         <WorkspaceControlPanel />
         <Component {...props} />
-      </div>
+      </Layout>
     )
   }
   return HOC

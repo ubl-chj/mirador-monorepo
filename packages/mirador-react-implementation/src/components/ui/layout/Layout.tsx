@@ -12,3 +12,11 @@ export const Layout = (props) => {
     </div>
   )
 }
+
+export const TopBar = (props) => (
+  <div className={mixClasses('portal-layout__top-bar portal-top-bar', props.className)}>
+    <div className="portal-top-bar__content">
+      {props.children}
+    </div>
+  </div>
+)
