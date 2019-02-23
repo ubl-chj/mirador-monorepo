@@ -1,17 +1,33 @@
 import * as React from 'react'
 import {Link} from 'react-router-dom'
-import {ActionBar, ActionBarRow, GroupedSelectedFilters, Hits, HitsStats, ItemList, Layout, LayoutBody, LayoutResults,
-  Pagination, Panel, RefinementListFilter, ResetFilters, SearchkitManager, SearchkitProvider,
-  SideBar, SortingSelector, ViewSwitcherToggle} from 'searchkit'
-import {shortenTitle} from "./ItemUtils"
-const host = 'https://es.iiif.cloud/m4'
-import routeConfig from './config/ubl.json'
-const searchkit = new SearchkitManager(host)
+import {
+  ActionBar,
+  ActionBarRow,
+  GroupedSelectedFilters,
+  Hits,
+  HitsStats,
+  ItemList,
+  Layout,
+  LayoutBody,
+  LayoutResults,
+  Pagination,
+  Panel,
+  RefinementListFilter,
+  ResetFilters,
+  SearchBox,
+  SearchkitManager,
+  SearchkitProvider,
+  SideBar,
+  SortingSelector,
+  ViewSwitcherToggle,
+} from 'searchkit-fork'
+import {shortenTitle} from './ItemUtils'
+
 const ReduxContext = React.createContext(null)
 
 const setManifest = (actions, manifestId) => {
   actions.fetchManifest(manifestId)
-  actions.addWindow({manifestId})
+  actions.addWindow({manifestId, thumbnailNavigationPosition: "off"})
 }
 
 const StandardGridItem = (props) => {
@@ -22,12 +38,22 @@ const StandardGridItem = (props) => {
   const thumbnail = source.thumbnail + '/full/170,/0/default.jpg'
   return (
     <ReduxContext.Consumer>{(actions) =>
-      <div className={bemBlocks.item().mix(bemBlocks.container("item"))} data-qa="hit">
-        <button onClick={() => setManifest(actions, manifestId)}>
-          {buildImage(thumbnail)}
+      <div
+        className={bemBlocks.item().mix(bemBlocks.container("item"))}
+        data-qa="hit"
+      >
+        <button
+          onClick={
+          () => setManifest(actions, manifestId) // tslint:disable-line
+          }
+        >{buildImage(thumbnail)}
         </button>
         <a href={workspaceUri}>
-          <div title={source.title} data-qa='title' dangerouslySetInnerHTML={{__html: shortenTitle(source.title)}}/>
+          <div
+            title={source.title}
+            data-qa='title'
+            dangerouslySetInnerHTML={{__html: shortenTitle(source.title)}}
+          />
         </a>
       </div>
     }
@@ -43,7 +69,7 @@ const buildImage = (imageSource) => {
     <img
       // crossOrigin=''
       width='170'
-      onError={(e) => {
+      onError={(e) => { // tslint:disable-line
         handleMissingImage(e.target as HTMLImageElement)
       }}
       alt='thumbnail'
@@ -53,46 +79,50 @@ const buildImage = (imageSource) => {
 }
 
 export const DiscoveryComponent = (props) => {
-    return (
-      <ReduxContext.Provider value={props}>
-        <div style={{marginLeft: '100px'}}>
-          <SearchkitProvider searchkit={searchkit}>
-            <Layout>
-                <LayoutBody>
-                  <SideBar>
-                    <RefinementListFilter
-                      containerComponent={<Panel collapsable={true} defaultCollapsed={false}/>}
-                      field={routeConfig.refinementListFilterDef1.field}
-                      title={routeConfig.refinementListFilterDef1.title}
-                      id={routeConfig.refinementListFilterDef1.id}
-                      operator='AND'
-                      listComponent={ItemList}
-                    />
-                  </SideBar>
-                  <LayoutResults>
-                    <ActionBar>
-                      <ActionBarRow>
-                        <HitsStats translations={{'hitstats.results_found': '{hitCount} results found'}}/>
-                        <ViewSwitcherToggle/>
-                        <SortingSelector options={routeConfig.sortingSelectorOptions}/>
-                      </ActionBarRow>
-                      <ActionBarRow>
-                        <GroupedSelectedFilters/>
-                        <ResetFilters/>
-                      </ActionBarRow>
-                    </ActionBar>
-                    <Pagination showNumbers={true}/>
-                    <Hits
-                      mod="sk-hits-grid"
-                      hitsPerPage={50}
-                      itemComponent={StandardGridItem}
-                    />
-                    <Pagination showNumbers={true}/>
-                  </LayoutResults>
-                </LayoutBody>
-            </Layout>
-          </SearchkitProvider>
-        </div>
-      </ReduxContext.Provider>
-    )
+  const routeConfig = props.config.discovery.esConfig
+  const host = props.config.discovery.host + '/' + props.config.discovery.index
+  const searchkit = new SearchkitManager(host)
+  return (
+    <ReduxContext.Provider value={props}>
+      <div style={{marginLeft: '100px'}}>
+        <SearchkitProvider searchkit={searchkit}>
+          <Layout>
+            <SearchBox autofocus={true} searchOnChange={true} queryFields={routeConfig.queryFields}/>
+              <LayoutBody>
+                <SideBar>
+                  <RefinementListFilter
+                    containerComponent={<Panel collapsable={true} defaultCollapsed={false}/>}
+                    field={routeConfig.refinementListFilterDef1.field}
+                    title={routeConfig.refinementListFilterDef1.title}
+                    id={routeConfig.refinementListFilterDef1.id}
+                    operator='AND'
+                    listComponent={ItemList}
+                  />
+                </SideBar>
+                <LayoutResults>
+                  <ActionBar>
+                    <ActionBarRow>
+                      <HitsStats translations={{'hitstats.results_found': '{hitCount} results found'}}/>
+                      <ViewSwitcherToggle/>
+                      <SortingSelector options={routeConfig.sortingSelectorOptions}/>
+                    </ActionBarRow>
+                    <ActionBarRow>
+                      <GroupedSelectedFilters/>
+                      <ResetFilters/>
+                    </ActionBarRow>
+                  </ActionBar>
+                  <Pagination showNumbers={true}/>
+                  <Hits
+                    mod="sk-hits-grid"
+                    hitsPerPage={50}
+                    itemComponent={StandardGridItem}
+                  />
+                  <Pagination showNumbers={true}/>
+                </LayoutResults>
+              </LayoutBody>
+          </Layout>
+        </SearchkitProvider>
+      </div>
+    </ReduxContext.Provider>
+  )
 }

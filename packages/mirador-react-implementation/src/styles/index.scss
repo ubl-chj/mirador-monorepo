@@ -119,3 +119,18 @@
     }
   }
 }
+
+.sk-layout__body {
+  display: flex;
+  margin: 0 auto 0;
+  min-width: 600px;
+}
+
+.sk-search-box {
+  background: #FFF;
+  border-radius: 3px;
+  position: relative;
+  display: flex;
+  flex: 1;
+  height: 40px;
+}
