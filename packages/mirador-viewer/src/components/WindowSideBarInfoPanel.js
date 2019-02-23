@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
 import LabelValueMetadata from './LabelValueMetadata';
 import SanitizedHtml from './SanitizedHtml';
 import ns from '../config/css-ns';
@@ -48,7 +47,9 @@ class WindowSideBarInfoPanel extends Component {
         )}
 
         {canvasMetadata.length > 0 && (
-          <LabelValueMetadata labelValuePairs={canvasMetadata} />
+          <Typography variant="body2">
+            <LabelValueMetadata labelValuePairs={canvasMetadata} />
+          </Typography>
         )}
 
         <Divider />
@@ -66,7 +67,9 @@ class WindowSideBarInfoPanel extends Component {
         )}
 
         {manifestMetadata.length > 0 && (
-          <LabelValueMetadata labelValuePairs={manifestMetadata} />
+          <Typography variant="body2">
+            <LabelValueMetadata labelValuePairs={manifestMetadata} />
+          </Typography>
         )}
 
       </div>
@@ -96,12 +99,4 @@ WindowSideBarInfoPanel.defaultProps = {
   t: key => key,
 };
 
-/**
- * @private
- */
-const styles = theme => ({
-  windowSideBarH2: theme.typography.h5,
-  windowSideBarH3: theme.typography.h6,
-});
-
-export default withStyles(styles)(WindowSideBarInfoPanel);
+export default WindowSideBarInfoPanel;
