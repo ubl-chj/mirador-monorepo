@@ -1,4 +1,4 @@
-import {ActionTypes} from '@mirador/actions'
+import {ActionTypes} from '../actions'
 
 /**
  * infoResponsesReducer

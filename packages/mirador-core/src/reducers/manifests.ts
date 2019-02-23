@@ -1,4 +1,4 @@
-import {ActionTypes} from '@mirador/actions'
+import {ActionTypes} from '../actions'
 // @ts-ignore
 const manifesto = require('manifesto.js')
 

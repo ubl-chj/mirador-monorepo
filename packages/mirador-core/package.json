@@ -1,7 +1,7 @@
 {
-  "name": "@mirador/actions",
+  "name": "@mirador/core",
   "version": "0.1.0",
-  "description": "mirador actions",
+  "description": "mirador core",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {

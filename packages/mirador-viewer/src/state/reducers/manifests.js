@@ -1,5 +1,5 @@
 import manifesto from 'manifesto.js';
-import ActionTypes from '@mirador/actions';
+import ActionTypes from '@mirador/core';
 
 /**
  * manifestsReducer

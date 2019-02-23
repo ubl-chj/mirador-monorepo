@@ -5,11 +5,18 @@ export const localConfig = {
   id: "app",
   theme: {
     palette: {
-      type: "light",
+      primary: {
+        main: "#37474f",
+      },
+      secondary: {
+        light: "#616161",
+        main: "#0044ff",
+        contrastText: "#ffcc00",
+      },
     },
     typography: {
       useNextVariants: true
-    }
+    },
   },
   thumbnailNavigation: {
     "defaultPosition": "bottom",

@@ -1,4 +1,4 @@
-import {addWindow, fetchManifest} from '@mirador/actions'
+import {addWindow, fetchManifest} from '@mirador/core'
 import { connect } from 'react-redux'
 import { DiscoveryComponent } from '../DiscoveryComponent'
 

@@ -1,7 +1,7 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
-import * as actions from '@mirador/actions';
+import * as actions from '@mirador/core';
 import miradorWithPlugins from '../lib/miradorWithPlugins';
 import { getWindowManifest, getManifestTitle } from '../state/selectors';
 import WindowTopBar from '../components/WindowTopBar';

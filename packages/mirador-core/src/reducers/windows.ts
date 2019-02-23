@@ -1,5 +1,5 @@
-import {ActionTypes} from '@mirador/actions'
 import { merge, updateIn } from 'immutable'
+import {ActionTypes} from '../actions'
 
 /**
  * windowsReducer

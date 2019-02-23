@@ -1,6 +1,6 @@
 import {
   companionWindowsReducer, configReducer, infoResponsesReducer, manifestsReducer, viewersReducer, windowsReducer, workspaceReducer,
-} from '@mirador/reducers'
+} from '@mirador/core'
 import { combineReducers } from 'redux'
 
 /**

@@ -1,7 +1,7 @@
-import {ActionTypes} from '@mirador/actions'
 import {
   merge, removeIn, setIn, updateIn,
 } from 'immutable'
+import {ActionTypes} from '../actions'
 
 /** */
 export const companionWindowsReducer = (state = {}, action) => {

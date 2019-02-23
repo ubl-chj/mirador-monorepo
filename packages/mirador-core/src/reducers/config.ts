@@ -1,5 +1,5 @@
-import {ActionTypes} from '@mirador/actions'
 import deepmerge from 'deepmerge'
+import {ActionTypes} from '../actions'
 
 /**
  * configReducer - does a deep merge of the config

@@ -1,6 +1,6 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from '@mirador/actions';
+import * as actions from '@mirador/core';
 import miradorWithPlugins from '../lib/miradorWithPlugins';
 import CanvasGroupings from '../lib/CanvasGroupings';
 import ThumbnailNavigation from '../components/ThumbnailNavigation';

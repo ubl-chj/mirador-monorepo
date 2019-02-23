@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import deepmerge from 'deepmerge';
-import * as actions from '@mirador/actions';
+import * as actions from '@mirador/core';
 import App from '../containers/App';
 import createRootReducer from '../state/reducers/rootReducer';
 import createStore from '../state/createStore';

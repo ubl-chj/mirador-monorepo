@@ -2,8 +2,7 @@
   "name": "root",
   "private": true,
   "dependencies": {
-    "@mirador/actions": "file:packages/mirador-actions",
-    "@mirador/reducers": "file:packages/mirador-reducers",
+    "@mirador/core": "file:packages/mirador-core",
     "@mirador/react-component": "file:packages/mirador-react-component",
     "@mirador/configuration": "file:packages/mirador-configuration",
     "@mirador/custom-components": "file:packages/mirador-custom-components",

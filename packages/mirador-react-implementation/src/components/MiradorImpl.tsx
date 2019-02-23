@@ -1,4 +1,4 @@
-import {addWindow, fetchManifest, setConfig} from '@mirador/actions'
+import {addWindow, fetchManifest, setConfig} from '@mirador/core'
 import {localConfig} from '@mirador/configuration'
 import {MiradorComponent} from '@mirador/react-component'
 import React, {useEffect, useRef, useState} from 'react'
