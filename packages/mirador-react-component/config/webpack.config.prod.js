@@ -11,6 +11,7 @@ module.exports = {
   },
   output: {
     filename: '[name].js',
+    chunkFilename: '[name].chunk.js',
     path: paths.appBuild,
     libraryTarget: 'umd',
     library: 'Mirador',

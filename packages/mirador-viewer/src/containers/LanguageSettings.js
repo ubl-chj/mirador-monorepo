@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import * as actions from '../state/actions';
+import * as actions from '@mirador/core';
 import { getLanguagesFromConfigWithCurrent } from '../state/selectors';
 import { LanguageSettings } from '../components/LanguageSettings';
 

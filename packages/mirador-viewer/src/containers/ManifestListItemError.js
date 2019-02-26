@@ -2,7 +2,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 import { withStyles } from '@material-ui/core/styles';
-import { fetchManifest, removeManifest } from '../state/actions/manifest';
+import { fetchManifest, removeManifest } from '@mirador/core';
 import { ManifestListItemError } from '../components/ManifestListItemError';
 
 /** */

@@ -390,6 +390,11 @@ export const localConfig = {
     },
   },
   id: "app",
+  language: "en",
+  availableLanguages: {
+    de: "Deutsch",
+    en: "English",
+  },
   theme: {
     palette: {
       primary: {
