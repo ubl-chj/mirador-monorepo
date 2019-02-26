@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core';
 import {
   getManifestTitle, getManifestLogo, getManifestThumbnail, getManifestCanvases, getManifestProvider,
 } from '../state/selectors';
-import ManifestListItem from '../components/ManifestListItem';
+import { ManifestListItem } from '../components/ManifestListItem';
 
 /** */
 const mapStateToProps = (state, { manifestId }) => {

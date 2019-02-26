@@ -3,14 +3,14 @@ import { shallow } from 'enzyme';
 
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import MenuIcon from '@material-ui/icons/MenuSharp';
 import Toolbar from '@material-ui/core/Toolbar';
 import AppBar from '@material-ui/core/AppBar';
 
 import WindowTopMenuButton from '../../../src/containers/WindowTopMenuButton';
 import WindowTopBarButtons from '../../../src/containers/WindowTopBarButtons';
 import WindowIcon from '../../../src/containers/WindowIcon';
-import WindowTopBar from '../../../src/components/WindowTopBar';
+import { WindowTopBar } from '../../../src/components/WindowTopBar';
 
 /** create wrapper */
 function createWrapper(props) {

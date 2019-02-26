@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import IconButton from '@material-ui/core/IconButton';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import MoreVertIcon from '@material-ui/icons/MoreVertSharp';
 import PropTypes from 'prop-types';
 import WindowTopMenu from '../containers/WindowTopMenu';
 
 /**
  */
-class WindowTopMenuButton extends Component {
+export class WindowTopMenuButton extends Component {
   /**
    * constructor -
    */
@@ -76,5 +76,3 @@ WindowTopMenuButton.propTypes = {
 WindowTopMenuButton.defaultProps = {
   t: key => key,
 };
-
-export default WindowTopMenuButton;

@@ -1,21 +1,24 @@
 import React, { Component } from 'react';
 import Menu from '@material-ui/core/Menu';
 import Divider from '@material-ui/core/Divider';
+import LanguageIcon from '@material-ui/icons/Language';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import LoupeIcon from '@material-ui/icons/Loupe';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
-import SaveAltIcon from '@material-ui/icons/SaveAlt';
-import SettingsIcon from '@material-ui/icons/Settings';
+import SaveAltIcon from '@material-ui/icons/SaveAltSharp';
+import SettingsIcon from '@material-ui/icons/SettingsSharp';
 import ViewHeadlineIcon from '@material-ui/icons/ViewHeadline';
 import PropTypes from 'prop-types';
+import LanguageSettings from '../containers/LanguageSettings';
+import { NestedMenu } from './NestedMenu';
 import WindowList from '../containers/WindowList';
 import WorkspaceSettings from '../containers/WorkspaceSettings';
 import WorkspaceExport from '../containers/WorkspaceExport';
 
 /**
  */
-class WorkspaceMenu extends Component {
+export class WorkspaceMenu extends Component {
   /**
    * constructor -
    */
@@ -92,6 +95,7 @@ class WorkspaceMenu extends Component {
             </ListItemIcon>
             <Typography varient="inherit">{t('listAllOpenWindows')}</Typography>
           </MenuItem>
+          <Divider />
           <MenuItem
             aria-haspopup="true"
             onClick={(e) => { this.handleZoomToggleClick(e); handleClose(e); }}
@@ -100,8 +104,15 @@ class WorkspaceMenu extends Component {
             <ListItemIcon>
               <LoupeIcon />
             </ListItemIcon>
-            <Typography varient="inherit">{ showZoomControls ? 'Hide zoom controls' : 'Show Zoom Controls' }</Typography>
+            <Typography varient="inherit">
+              { showZoomControls ? t('hideZoomControls') : t('showZoomControls') }
+            </Typography>
           </MenuItem>
+
+          <NestedMenu icon={<LanguageIcon />} label={t('language')}>
+            <LanguageSettings afterSelect={handleClose} />
+          </NestedMenu>
+
           <Divider />
           <MenuItem
             aria-haspopup="true"
@@ -160,5 +171,3 @@ WorkspaceMenu.defaultProps = {
   showZoomControls: false,
   toggleZoomControls: () => {},
 };
-
-export default WorkspaceMenu;

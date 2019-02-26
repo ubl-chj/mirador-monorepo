@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 import * as actions from '@mirador/core';
 import { withStyles } from '@material-ui/core/styles';
-import WindowSideBarCanvasPanel from '../components/WindowSideBarCanvasPanel';
+import { WindowSideBarCanvasPanel } from '../components/WindowSideBarCanvasPanel';
 import {
   getManifestCanvases,
   getWindowManifest,

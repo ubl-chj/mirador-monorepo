@@ -5,7 +5,7 @@ import * as actions from '@mirador/core';
 import { withStyles } from '@material-ui/core';
 import miradorWithPlugins from '../lib/miradorWithPlugins';
 import { getWindowManifest, getManifestTitle } from '../state/selectors';
-import WindowTopBar from '../components/WindowTopBar';
+import { WindowTopBar } from '../components/WindowTopBar';
 
 /** mapStateToProps */
 const mapStateToProps = (state, { windowId }) => ({

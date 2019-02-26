@@ -2,7 +2,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '@mirador/core';
 import miradorWithPlugins from '../lib/miradorWithPlugins';
-import OpenSeadragonViewer from '../components/OpenSeadragonViewer';
+import { OpenSeadragonViewer } from '../components/OpenSeadragonViewer';
 
 /**
  * mapStateToProps - used to hook up connect to action creators

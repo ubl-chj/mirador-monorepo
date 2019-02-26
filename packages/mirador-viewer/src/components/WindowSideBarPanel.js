@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import IconButton from '@material-ui/core/IconButton';
-import OpenInNewIcon from '@material-ui/icons/OpenInNew';
+import OpenInNewIcon from '@material-ui/icons/OpenInNewSharp';
 import WindowSideBarInfoPanel from '../containers/WindowSideBarInfoPanel';
 import WindowSideBarCanvasPanel from '../containers/WindowSideBarCanvasPanel';
 
@@ -9,7 +9,7 @@ import WindowSideBarCanvasPanel from '../containers/WindowSideBarCanvasPanel';
  * WindowSideBarPanel - the panel that pops out from the sidebar
  * when various icons are clicked such as Info, Search, etc.
  */
-class WindowSideBarPanel extends Component {
+export class WindowSideBarPanel extends Component {
   /**
    * activePanelComponent
    * @return React Component
@@ -60,5 +60,3 @@ WindowSideBarPanel.defaultProps = {
   sideBarPanel: 'closed', // Closed will fall out to the default null case for the actiuve panel
   t: key => key,
 };
-
-export default WindowSideBarPanel;

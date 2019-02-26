@@ -4,7 +4,7 @@ import { withNamespaces } from 'react-i18next';
 import * as actions from '@mirador/core';
 import miradorWithPlugins from '../lib/miradorWithPlugins';
 import { getWindowViewType } from '../state/selectors';
-import WindowViewSettings from '../components/WindowViewSettings';
+import { WindowViewSettings } from '../components/WindowViewSettings';
 
 /**
  * mapDispatchToProps - used to hook up connect to action creators

@@ -2,7 +2,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '@mirador/core';
 import { withStyles } from '@material-ui/core/styles';
-import App from '../components/App';
+import { App } from '../components/App';
 
 /**
  * mapStateToProps - to hook up connect
@@ -11,6 +11,7 @@ import App from '../components/App';
  */
 const mapStateToProps = state => (
   {
+    language: state.config.language,
     theme: state.config.theme,
     translations: state.config.translations,
     isFullscreenEnabled: state.workspace.isFullscreenEnabled,

@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
-import ListIcon from '@material-ui/icons/FormatAlignJustify';
+import InfoIcon from '@material-ui/icons/InfoSharp';
+import CanvasIndexIcon from './icons/CanvasIndexIcon';
+
 
 /**
  *
  */
-class WindowSideBarButtons extends Component {
+export class WindowSideBarButtons extends Component {
   /**
    * sideBarPanelCurrentlySelected - return if the given sideBarPanel is currently selected
    * @return Boolean
@@ -47,7 +48,7 @@ class WindowSideBarButtons extends Component {
           }
           onClick={() => (toggleWindowSideBarPanel('canvas_navigation'))}
         >
-          <ListIcon
+          <CanvasIndexIcon
             color={this.sideBarPanelCurrentlySelected('canvas_navigation') ? 'primary' : 'inherit'}
           />
         </IconButton>
@@ -67,5 +68,3 @@ WindowSideBarButtons.defaultProps = {
   sideBarPanel: 'closed',
   t: key => key,
 };
-
-export default WindowSideBarButtons;

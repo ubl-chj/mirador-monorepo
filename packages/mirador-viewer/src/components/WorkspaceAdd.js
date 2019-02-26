@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AddIcon from '@material-ui/icons/Add';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import AddIcon from '@material-ui/icons/AddSharp';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMoreSharp';
 import AppBar from '@material-ui/core/AppBar';
 import Drawer from '@material-ui/core/Drawer';
 import Fab from '@material-ui/core/Fab';
@@ -18,7 +18,7 @@ import ManifestListItem from '../containers/ManifestListItem';
  * @memberof Workspace
  * @private
  */
-class WorkspaceAdd extends React.Component {
+export class WorkspaceAdd extends React.Component {
   /** */
   constructor(props) {
     super(props);
@@ -104,5 +104,3 @@ WorkspaceAdd.defaultProps = {
   classes: {},
   t: key => key,
 };
-
-export default WorkspaceAdd;

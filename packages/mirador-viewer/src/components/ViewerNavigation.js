@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import IconButton from '@material-ui/core/IconButton';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import NavigationIcon from '@material-ui/icons/PlayCircleOutlineSharp';
 import PropTypes from 'prop-types';
 import ns from '../config/css-ns';
 
 /**
  */
-class ViewerNavigation extends Component {
+export class ViewerNavigation extends Component {
   /**
    */
   constructor(props) {
@@ -56,14 +55,14 @@ class ViewerNavigation extends Component {
           disabled={!this.hasPreviousCanvas()}
           onClick={this.previousCanvas}
         >
-          <ChevronLeftIcon />
+          <NavigationIcon style={{ transform: 'rotate(180deg)' }} />
         </IconButton>
         <IconButton
           className={ns('next-canvas-button')}
           disabled={!this.hasNextCanvas()}
           onClick={this.nextCanvas}
         >
-          <ChevronRightIcon />
+          <NavigationIcon />
         </IconButton>
       </div>
     );
@@ -76,5 +75,3 @@ ViewerNavigation.propTypes = {
   previousCanvas: PropTypes.func.isRequired,
   window: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
 };
-
-export default ViewerNavigation;

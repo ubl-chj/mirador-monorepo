@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ListItem from '@material-ui/core/ListItem';
 import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import ClearIcon from '@material-ui/icons/Clear';
+import AddIcon from '@material-ui/icons/AddSharp';
+import CloseIcon from '@material-ui/icons/CloseSharp';
 
 /**
  */
-class WorkspaceAddButton extends Component {
+export class WorkspaceAddButton extends Component {
   /**
    * render
    * @return
@@ -27,7 +27,7 @@ class WorkspaceAddButton extends Component {
         >
           {
             isWorkspaceAddVisible
-              ? <ClearIcon />
+              ? <CloseIcon />
               : <AddIcon />
           }
         </Fab>
@@ -47,5 +47,3 @@ WorkspaceAddButton.defaultProps = {
   t: key => key,
   isWorkspaceAddVisible: false,
 };
-
-export default WorkspaceAddButton;
