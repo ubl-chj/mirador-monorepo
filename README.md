@@ -6,8 +6,8 @@ This contains https://github.com/ProjectMirador/mirador split into distribution 
 
 1. `@mirador/core`: Redux Actions and Reducers for Mirador
 2. `@mirador/custom-components`: Custom Components for Mirador
-3. `@mirador/react-component` : An importable React Component.
-4. `@mirador/react-implementation` : A React implementation of the mirador-react-component.
+3. `@mirador/react-components` : Importable React Components.
+4. `@mirador/react-implementation` : A React implementation of Mirador React components.
 
 The upstream (`mirador-viewer`) is symlinked in packages to the react-component
 
@@ -26,7 +26,7 @@ $ lerna bootstrap --hoist
 ```bash
 $ lerna run --scope @mirador/core build
 $ lerna run --scope @mirador/custom-components build
-$ lerna run --scope @mirador/react-component build
+$ lerna run --scope @mirador/react-components build
 ```
 3. Start Development Server
 ```bash

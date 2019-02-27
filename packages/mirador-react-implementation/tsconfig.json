@@ -15,6 +15,7 @@
     "noImplicitUseStrict":true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports":true,
+    "resolveJsonModule": true,
     "jsx": "react",
     "lib":[
       "es5", "es2015", "es2017", "dom"

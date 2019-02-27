@@ -1,6 +1,6 @@
 import {localConfig} from '@mirador/configuration'
 import {addWindow, fetchManifest, setConfig} from '@mirador/core'
-import {MiradorComponent} from '@mirador/react-component'
+import {MiradorComponent} from '@mirador/react-components'
 import React, {useEffect, useRef, useState} from 'react'
 import {connect, ReactReduxContext} from 'react-redux'
 import {withRouter} from 'react-router'

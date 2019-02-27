@@ -3,13 +3,15 @@
   "private": true,
   "dependencies": {
     "@mirador/core": "file:packages/mirador-core",
-    "@mirador/react-component": "file:packages/mirador-react-component",
+    "@mirador/react-components": "file:packages/mirador-react-components",
     "@mirador/configuration": "file:packages/mirador-configuration",
     "@mirador/custom-components": "file:packages/mirador-custom-components",
     "dompurify": "^1.0.10",
     "immutable": "^4.0.0-rc.12",
     "query-string": "^5.1.1",
+    "react": "^16.8.1",
     "react-router-dom": "^4.3.1",
+    "redux": "^4.0.1",
     "uuidv5": "^1.0.0",
     "searchkit-fork": "^2.3.1-alpha.8"
   },

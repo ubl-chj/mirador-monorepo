@@ -2,12 +2,12 @@
 
 This is a typescript implementation of Mirador with Webpack Dev Server.
 
-It depends on a build artifact from the `mirador-react-component` package.
+It depends on a build artifact from the `mirador-react-components` package.
 
 ### Build Component
 
 ```bash
-$ cd packages/mirador-react-component
+$ cd packages/mirador-react-components
 $ npm install
 $ npm run bundle
 ```
