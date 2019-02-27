@@ -10,42 +10,46 @@ import ClearIcon from '@material-ui/icons/Clear'
 import Star from '@material-ui/icons/Star'
 import {setWorkspaceAddVisibility, updateConfig} from '@mirador/core'
 import React from 'react'
+import { I18nextProvider } from 'react-i18next'
 import {connect} from 'react-redux'
+import i18n from '../../api/i18n'
 
 const WorkspaceControlPanel = (props) => {
   const windowCount = props.windows && Object.keys(props.windows).length
   return (
-    <MuiThemeProvider theme={createMuiTheme(props.theme)}>
-      <Drawer
-        variant="permanent"
-        anchor="left"
-        PaperProps={{ style: { top: '60px' } }}
-        open={true}
-      >
-        <List>
-          <ListItem alignItems="flex-start">
-            <Fab
-              color="primary"
-              id="addBtn"
-              onClick={() => { props.setWorkspaceAddVisibility(!props.isWorkspaceAddVisible) }} // tslint:disable-line
-            >
-              {
-                props.isWorkspaceAddVisible
-                  ? <ClearIcon />
-                  : <AddIcon />
-              }
-            </Fab>
-          </ListItem>
-          <ListItem alignItems="flex-start">
-            <IconButton style={{padding: '16px'}}>
-              <Badge badgeContent={windowCount}>
-                <Star />
-              </Badge>
-            </IconButton>
-          </ListItem>
-        </List>
-      </Drawer>
-    </MuiThemeProvider>
+    <I18nextProvider i18n={i18n}>
+      <MuiThemeProvider theme={createMuiTheme(props.theme)}>
+        <Drawer
+          variant="permanent"
+          anchor="left"
+          PaperProps={{ style: { top: '60px' } }}
+          open={true}
+        >
+          <List>
+            <ListItem alignItems="flex-start">
+              <Fab
+                color="primary"
+                id="addBtn"
+                onClick={() => { props.setWorkspaceAddVisibility(!props.isWorkspaceAddVisible) }} // tslint:disable-line
+              >
+                {
+                  props.isWorkspaceAddVisible
+                    ? <ClearIcon />
+                    : <AddIcon />
+                }
+              </Fab>
+            </ListItem>
+            <ListItem alignItems="flex-start">
+              <IconButton style={{padding: '16px'}}>
+                <Badge badgeContent={windowCount}>
+                  <Star />
+                </Badge>
+              </IconButton>
+            </ListItem>
+          </List>
+        </Drawer>
+      </MuiThemeProvider>
+    </I18nextProvider>
   )
 }
 

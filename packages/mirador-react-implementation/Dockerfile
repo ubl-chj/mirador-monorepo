@@ -11,7 +11,7 @@ WORKDIR /srv/mirador
 RUN lerna bootstrap --hoist
 RUN lerna run --scope @mirador/core build
 RUN lerna run --scope @mirador/custom-components build
-RUN lerna run --scope @mirador/react-component build
+RUN lerna run --scope @mirador/react-components build
 RUN lerna run --scope @mirador/react-implementation build
 RUN yarn global add serve
 
