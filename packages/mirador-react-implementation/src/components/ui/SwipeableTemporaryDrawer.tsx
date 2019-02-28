@@ -12,7 +12,9 @@ import ImageOutlined from '@material-ui/icons/ImageOutlined'
 import MenuIcon from '@material-ui/icons/MenuSharp'
 import React from 'react'
 import {Link, withRouter} from 'react-router-dom'
-import WorkspaceExport from '../../containers/WorkspaceExport'
+import {withConstructor} from '../../api'
+import WorkspaceExportName from '../../containers/WorkspaceExport'
+const WorkspaceExport = withConstructor(WorkspaceExportName)
 
 const styles = {
   fullList: {

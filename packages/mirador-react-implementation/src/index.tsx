@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
-import {Landing, Mirador} from './components'
+import {Landing, Mirador, CmsPage} from './components'
 import {newStore} from './state'
 import './styles/index.scss'
 
@@ -16,6 +16,7 @@ ReactDOM.render(
       <Switch>
         <Route exact={t} path='/' component={Landing}/>
         <Route exact={t} path='/view/:uuid?' component={Mirador}/>
+        <Route exact={t} path='/cmsExamplePage' component={CmsPage}/>
       </Switch>
     </BrowserRouter>
   </Provider>, document.getElementById('app'),
