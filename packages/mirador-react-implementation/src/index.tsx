@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
-import {Landing, Mirador, CmsPage} from './components'
+import {CmsPage, Landing, Mirador} from './components'
 import {newStore} from './state'
 import './styles/index.scss'
 
