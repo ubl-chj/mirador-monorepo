@@ -6,6 +6,7 @@ import React, {useEffect, useRef, useState} from 'react'
 import {connect, ReactReduxContext} from 'react-redux'
 import useReactRouter from 'use-react-router'
 import {addWindows, fetchManifests, resolveAndMergeParams, withControlPanel} from '../api'
+import i18n from '../api/i18n'
 
 const replaceWorkspaceAdd = {
   component: DiscoveryComponent,
@@ -17,6 +18,7 @@ const MiradorWithPanel = withControlPanel(MiradorComponent)
 
 const MiradorImplementation = (props) => {
   const initialConfiguration = useRef(localConfig)
+  const i18nInstance = useRef(i18n)
   const [isInitialized, setIsInitialized] = useState(false)
   const { location } = useReactRouter()
   useEffect(() => {
@@ -48,7 +50,7 @@ const MiradorImplementation = (props) => {
   if (isInitialized) {
     return (
       <ReactReduxContext.Consumer>
-        {({store}) => <MiradorWithPanel store={store} plugins={[replaceWorkspaceAdd]}/>}
+        {({store}) => <MiradorWithPanel i18n={i18nInstance} store={store} plugins={[replaceWorkspaceAdd]}/>}
       </ReactReduxContext.Consumer>)
   } else {
     return null

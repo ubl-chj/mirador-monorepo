@@ -1,4 +1,4 @@
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { WorkspaceExport } from '../components/ui/WorkspaceExport'
@@ -17,7 +17,7 @@ const mapStateToProps = (state, ownProps: IownProps) => ({state, ownProps})
 
 const enhance = compose(
   connect(mapStateToProps, {}),
-  withNamespaces(),
+  withTranslation(),
 )
 
 export default enhance(WorkspaceExport)

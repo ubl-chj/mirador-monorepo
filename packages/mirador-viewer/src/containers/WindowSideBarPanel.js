@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import * as actions from '@mirador/core';
 import { withTranslation } from 'react-i18next';
-import miradorWithPlugins from '../lib/miradorWithPlugins';
 import { WindowSideBarPanel } from '../components/WindowSideBarPanel';
 
 /** */
@@ -18,5 +17,4 @@ const mapStateToProps = (state, { windowId }) => ({
 export default compose(
   withTranslation(),
   connect(mapStateToProps, mapDispatchToProps),
-  miradorWithPlugins,
 )(WindowSideBarPanel);

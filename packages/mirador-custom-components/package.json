@@ -20,7 +20,7 @@
     "uuidv5": "^1.0.0"
   },
   "devDependencies": {
-    "@types/node": "^11.9.4",
-    "@types/react": "^16.8.3"
+    "@types/node": "^11.9.6",
+    "@types/react": "^16.8.6"
   }
 }

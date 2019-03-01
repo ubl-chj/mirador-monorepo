@@ -3,7 +3,6 @@ import { compose } from 'redux';
 import * as actions from '@mirador/core';
 import { withTranslation } from 'react-i18next';
 import { withStyles } from '@material-ui/core';
-import miradorWithPlugins from '../lib/miradorWithPlugins';
 import { WorkspaceFullScreenButton }
   from '../components/WorkspaceFullScreenButton';
 
@@ -29,7 +28,6 @@ const enhance = compose(
   withTranslation(),
   withStyles(styles),
   connect(null, mapDispatchToProps),
-  miradorWithPlugins,
 );
 
 export default enhance(WorkspaceFullScreenButton);

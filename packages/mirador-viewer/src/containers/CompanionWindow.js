@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import * as actions from '@mirador/core';
 import { withTranslation } from 'react-i18next';
 import { withStyles } from '@material-ui/core';
-import miradorWithPlugins from '../lib/miradorWithPlugins';
 import { CompanionWindow } from '../components/CompanionWindow';
 
 /**
@@ -54,7 +53,6 @@ const enhance = compose(
   withTranslation(),
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps),
-  miradorWithPlugins,
 );
 
 export default enhance(CompanionWindow);

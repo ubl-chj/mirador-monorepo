@@ -1,7 +1,6 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '@mirador/core';
-import miradorWithPlugins from '../lib/miradorWithPlugins';
 import { ViewerNavigation } from '../components/ViewerNavigation';
 
 /**
@@ -15,8 +14,6 @@ const mapDispatchToProps = {
 
 const enhance = compose(
   connect(null, mapDispatchToProps),
-  miradorWithPlugins,
-  // further HOC go here
 );
 
 export default enhance(ViewerNavigation);

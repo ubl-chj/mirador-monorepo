@@ -11,12 +11,13 @@ export * from './components';
  *
  * @param store
  * @param plugins
+ * @param i18n
  * @returns {*}
  * @constructor
  */
-export const MiradorComponent = ({ store, plugins }) => {
+export const MiradorComponent = ({ store, plugins, i18n }) => {
   storePlugins(plugins);
-  return (<Provider store={store}><App /></Provider>);
+  return (<Provider store={store}><App i18n={i18n} /></Provider>);
 };
 
 /**
@@ -28,6 +29,7 @@ export const MiradorComponent = ({ store, plugins }) => {
 export const MenuButton = ({ store }) => <Provider store={store}><WorkspaceMenuButton /></Provider>;
 
 MiradorComponent.propTypes = {
+  i18n: PropTypes.object, // eslint-disable-line
   plugins: PropTypes.object, // eslint-disable-line
   store: PropTypes.object, // eslint-disable-line
 };

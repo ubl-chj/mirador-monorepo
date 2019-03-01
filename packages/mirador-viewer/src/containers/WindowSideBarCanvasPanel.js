@@ -1,11 +1,7 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-<<<<<<< HEAD
-import { withNamespaces } from 'react-i18next';
 import * as actions from '@mirador/core';
-=======
 import { withTranslation } from 'react-i18next';
->>>>>>> df616ce5e8b754e76e600b6881580c95e80186ba
 import { withStyles } from '@material-ui/core/styles';
 import { WindowSideBarCanvasPanel } from '../components/WindowSideBarCanvasPanel';
 import {
