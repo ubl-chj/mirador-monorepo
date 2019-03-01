@@ -22,7 +22,7 @@ export class CanvasThumbnail extends Component {
   handleIntersection(event) {
     const { imageUrl } = this.props;
     const { loaded } = this.state;
-    if (loaded || !event.isIntersecting) return;
+    if (loaded || !event.isIntersecting || !imageUrl) return;
     const image = new Image();
     image.src = imageUrl;
     this.setState({
@@ -32,23 +32,91 @@ export class CanvasThumbnail extends Component {
   }
 
   /**
+   * Return a the image URL if it is loaded and valid, otherwise return a placeholder
+  */
+  imageSrc() {
+    const { isValid } = this.props;
+    const { loaded, image } = this.state;
+
+    if (loaded && isValid && image && image.src) {
+      return image.src;
+    }
+
+    return CanvasThumbnail.defaultImgPlaceholder;
+  }
+
+  /** */
+  imageConstraints() {
+    const {
+      maxHeight, maxWidth, aspectRatio,
+    } = this.props;
+
+    if (maxHeight && maxWidth && aspectRatio) return 'sizeByConfinedWh';
+    if (maxHeight && maxWidth) return 'sizeByDistortedWh';
+    if (maxHeight && !maxWidth) return 'sizeByH';
+    if (!maxHeight && maxWidth) return 'sizeByW';
+
+    return undefined;
+  }
+
+  /**
+   *
+  */
+  imageStyles() {
+    const {
+      maxHeight, maxWidth, aspectRatio, style,
+    } = this.props;
+
+    let height;
+    let width;
+
+    switch (this.imageConstraints()) {
+      case 'sizeByConfinedWh':
+        // size to width
+        if ((maxWidth / maxHeight) < aspectRatio) {
+          height = maxWidth / aspectRatio;
+          width = maxWidth;
+        } else {
+          height = maxHeight;
+          width = maxHeight * aspectRatio;
+        }
+
+        break;
+      case 'sizeByDistortedWh':
+        height = maxHeight;
+        width = maxWidth;
+        break;
+      case 'sizeByH':
+        height = maxHeight;
+        width = 'auto';
+        break;
+      case 'sizeByW':
+        height = 'auto';
+        width = maxWidth;
+        break;
+      default:
+        height = 'auto';
+        width = 'auto';
+    }
+
+    return {
+      height,
+      width,
+      ...style,
+    };
+  }
+
+  /**
    */
   render() {
-    const {
-      height, isValid, onClick, style,
-    } = this.props;
-    const { loaded, image } = this.state;
-    const imgStyle = { height, width: '100%', ...style };
     return (
       <>
         <IntersectionObserver onChange={this.handleIntersection}>
           <img
             alt=""
-            onClick={onClick}
-            onKeyPress={onClick}
             role="presentation"
-            src={loaded && isValid ? image.src : CanvasThumbnail.defaultImgPlaceholder}
-            style={imgStyle}
+            src={this.imageSrc()}
+            style={this.imageStyles()}
           />
         </IntersectionObserver>
       </>
@@ -62,14 +130,17 @@ CanvasThumbnail.defaultImgPlaceholder = 'data:image/png;base64,iVBORw0KGgoAAAANS
 CanvasThumbnail.propTypes = {
   imageUrl: PropTypes.string,
   isValid: PropTypes.bool,
-  height: PropTypes.number,
-  onClick: PropTypes.func.isRequired,
+  maxHeight: PropTypes.number,
+  maxWidth: PropTypes.number,
+  aspectRatio: PropTypes.number,
   style: PropTypes.object, // eslint-disable-line react/forbid-prop-types,
 };
 
 CanvasThumbnail.defaultProps = {
   imageUrl: null,
   isValid: true,
-  height: 150,
+  maxHeight: null,
+  maxWidth: null,
+  aspectRatio: null,
   style: {},
 };
