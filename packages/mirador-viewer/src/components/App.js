@@ -8,7 +8,7 @@ import DiscoveryComponent from '@mirador/custom-components';
 import WorkspaceControlPanel from '../containers/WorkspaceControlPanel';
 import Workspace from '../containers/Workspace';
 import ns from '../config/css-ns';
-
+import i18n from '../i18n';
 /**
  * This is the top level Mirador component.
  * @prop {Object} manifests
@@ -17,8 +17,7 @@ export class App extends Component {
   /** */
   constructor(props) {
     super(props);
-
-    this.i18n = props.i18n;
+    this.i18n = i18n;
   }
 
   /**
@@ -81,7 +80,6 @@ export class App extends Component {
 }
 
 App.propTypes = {
-  i18n: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   language: PropTypes.string.isRequired,
   theme: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   translations: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types

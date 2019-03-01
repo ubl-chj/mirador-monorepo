@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { WorkspaceExport } from '../components/ui/WorkspaceExport'
 
-interface IownProps {
+interface IWorkspaceExportProps {
   handleClose: any,
   open?: boolean;
 }
@@ -13,7 +13,7 @@ interface IownProps {
  * @param state
  * @param ownProps
  */
-const mapStateToProps = (state, ownProps: IownProps) => ({state, ownProps})
+const mapStateToProps = (state, ownProps: IWorkspaceExportProps) => ({state, ownProps})
 
 const enhance = compose(
   connect(mapStateToProps, {}),

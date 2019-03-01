@@ -109,7 +109,6 @@ module.exports = {
       .map(ext => `.${ext}`)
       .filter(ext => useTypeScript || !ext.includes('ts')),
     alias: {
-      react: path.resolve('./node_modules/react'),
       'react-native': 'react-native-web',
     },
     plugins: [
@@ -256,6 +255,11 @@ module.exports = {
               },
               'sass-loader',
             ),
+          },
+          {
+            test: /\.(js|mjs|jsx|ts|tsx)$/,
+            use: ['source-map-loader'],
+            enforce: 'pre'
           },
           // "file" loader makes sure those assets get served by WebpackDevServer.
           // When you `import` an asset, you get its (virtual) filename.

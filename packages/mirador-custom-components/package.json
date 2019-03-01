@@ -15,7 +15,9 @@
   "author": "Christopher Johnson",
   "license": "Apache-2.0",
   "dependencies": {
+    "@material-ui/core": "^3.9.1",
     "@mirador/core": "file:../mirador-core",
+    "react-redux": "^6.0.1",
     "searchkit-fork": "^2.3.1-alpha.8",
     "uuidv5": "^1.0.0"
   },

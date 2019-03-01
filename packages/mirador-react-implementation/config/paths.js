@@ -95,6 +95,7 @@ module.exports = {
   appTsConfig: resolveApp('tsconfig.json'),
   testsSetup: resolveModule(resolveApp, 'src/setupTests'),
   appNodeModules: resolveApp('node_modules'),
+  react: resolveApp('node_modules/react'),
   publicUrl: getPublicUrl(resolveApp('package.json')),
   servedPath: getServedPath(resolveApp('package.json')),
   yarnLockFile: resolveApp('yarn.lock'),
