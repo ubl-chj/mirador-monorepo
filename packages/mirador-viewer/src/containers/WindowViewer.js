@@ -1,7 +1,6 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '@mirador/core';
-import miradorWithPlugins from '../lib/miradorWithPlugins';
 import { WindowViewer } from '../components/WindowViewer';
 
 /**
@@ -25,8 +24,6 @@ const mapDispatchToProps = { fetchInfoResponse: actions.fetchInfoResponse };
 
 const enhance = compose(
   connect(mapStateToProps, mapDispatchToProps),
-  miradorWithPlugins,
-  // further HOC go here
 );
 
 export default enhance(WindowViewer);

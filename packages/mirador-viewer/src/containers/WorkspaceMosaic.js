@@ -1,6 +1,7 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '@mirador/core';
+import { withTranslation } from 'react-i18next';
 import { WorkspaceMosaic } from '../components/WorkspaceMosaic';
 
 /**
@@ -23,6 +24,7 @@ const mapStateToProps = state => (
 const mapDispatchToProps = { updateWorkspaceMosaicLayout: actions.updateWorkspaceMosaicLayout };
 
 const enhance = compose(
+  withTranslation(),
   connect(mapStateToProps, mapDispatchToProps),
   // further HOC go here
 );

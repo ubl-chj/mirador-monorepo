@@ -11,5 +11,8 @@
     "url": "https://github.com/ubl-chj/mirador-monorepo"
   },
   "author": "Christopher Johnson",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "dependencies": {
+    "deepmerge": "^3.2.0"
+  }
 }

@@ -1,8 +1,7 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { withNamespaces } from 'react-i18next';
 import * as actions from '@mirador/core';
-import miradorWithPlugins from '../lib/miradorWithPlugins';
+import { withTranslation } from 'react-i18next';
 import { WorkspaceMenu } from '../components/WorkspaceMenu';
 
 
@@ -23,9 +22,8 @@ const mapStateToProps = state => (
 );
 
 const enhance = compose(
-  withNamespaces(),
+  withTranslation(),
   connect(mapStateToProps, mapDispatchToProps),
-  miradorWithPlugins,
 );
 
 export default enhance(WorkspaceMenu);

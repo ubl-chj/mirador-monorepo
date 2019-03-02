@@ -1,7 +1,6 @@
 import { compose } from 'redux';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { withStyles } from '@material-ui/core';
-import miradorWithPlugins from '../lib/miradorWithPlugins';
 import { WorkspaceMenuButton } from '../components/WorkspaceMenuButton';
 
 /**
@@ -16,10 +15,8 @@ const styles = theme => ({
 });
 
 const enhance = compose(
-  withNamespaces(),
+  withTranslation(),
   withStyles(styles),
-  miradorWithPlugins,
-  // further HOC
 );
 
 export default enhance(WorkspaceMenuButton);

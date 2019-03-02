@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { withNamespaces } from 'react-i18next';
 import * as actions from '@mirador/core';
+import { withTranslation } from 'react-i18next';
 import { ManifestForm } from '../components/ManifestForm';
 
 /**
@@ -12,7 +12,7 @@ import { ManifestForm } from '../components/ManifestForm';
 const mapDispatchToProps = { fetchManifest: actions.fetchManifest };
 
 const enhance = compose(
-  withNamespaces(),
+  withTranslation(),
   connect(null, mapDispatchToProps),
 );
 

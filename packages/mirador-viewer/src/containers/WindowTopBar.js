@@ -1,9 +1,8 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { withNamespaces } from 'react-i18next';
 import * as actions from '@mirador/core';
+import { withTranslation } from 'react-i18next';
 import { withStyles } from '@material-ui/core';
-import miradorWithPlugins from '../lib/miradorWithPlugins';
 import { getWindowManifest, getManifestTitle } from '../state/selectors';
 import { WindowTopBar } from '../components/WindowTopBar';
 
@@ -40,10 +39,9 @@ const styles = theme => ({
 });
 
 const enhance = compose(
-  withNamespaces(),
+  withTranslation(),
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps),
-  miradorWithPlugins,
 );
 
 export default enhance(WindowTopBar);

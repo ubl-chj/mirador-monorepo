@@ -5,7 +5,7 @@ const webpack = require('webpack')
 
 module.exports = {
   mode: 'production',
-  devtool: 'source-map',
+  devtool: 'inline-source-map',
   entry: {
     index: './src/index-component.js',
   },
@@ -17,8 +17,27 @@ module.exports = {
     library: 'Mirador',
   },
   resolve: {
+    alias: {
+      'react': path.resolve(__dirname, './node_modules/react'),
+      'react-dom': path.resolve(__dirname, './node_modules/react-dom'),
+    },
     extensions: ['.js'],
     symlinks: false
+  },
+  externals: {
+    // Don't bundle react or react-dom
+    react: {
+      commonjs: "react",
+      commonjs2: "react",
+      amd: "React",
+      root: "React"
+    },
+    "react-dom": {
+      commonjs: "react-dom",
+      commonjs2: "react-dom",
+      amd: "ReactDOM",
+      root: "ReactDOM"
+    }
   },
   module: {
     rules: [

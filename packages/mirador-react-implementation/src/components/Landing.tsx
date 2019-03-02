@@ -21,6 +21,11 @@ export function Landing() {
             to='/view?manifest=https://iiif.ub.uni-leipzig.de/0000003419/manifest.json'
           >An example Manuscript
           </Link>
+          <br/>
+          <Link
+            to='/cmsExamplePage'
+          >An example WordPress site from the UBL Blog
+          </Link>
         </div>
       </main>
     </Layout>

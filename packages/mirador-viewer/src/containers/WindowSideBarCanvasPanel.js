@@ -1,7 +1,7 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { withNamespaces } from 'react-i18next';
 import * as actions from '@mirador/core';
+import { withTranslation } from 'react-i18next';
 import { withStyles } from '@material-ui/core/styles';
 import { WindowSideBarCanvasPanel } from '../components/WindowSideBarCanvasPanel';
 import {
@@ -27,22 +27,17 @@ const mapDispatchToProps = { setCanvas: actions.setCanvas };
 /**
  *
  * @param theme
- * @returns {{clickable: {cursor: string},
- * label: {fontSize: string, paddingLeft: number}, windowSideBarH2: *}}
+ * @returns {label: {paddingLeft: number}, windowSideBarH2: *}}
  */
 const styles = theme => ({
   windowSideBarH2: theme.typography.h5,
-  clickable: {
-    cursor: 'pointer',
-  },
   label: {
-    fontSize: '8pt',
-    paddingLeft: 8,
+    paddingLeft: theme.spacing.unit,
   },
 });
 
 const enhance = compose(
-  withNamespaces(),
+  withTranslation(),
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps),
 );

@@ -1,16 +1,23 @@
 import {localConfig} from '@mirador/configuration'
 import {addWindow, fetchManifest, setConfig} from '@mirador/core'
+import DiscoveryComponent from '@mirador/custom-components'
 import {MiradorComponent} from '@mirador/react-components'
 import React, {useEffect, useRef, useState} from 'react'
 import {connect, ReactReduxContext} from 'react-redux'
-import {withRouter} from 'react-router'
+import {withRouter} from 'react-router-dom'
 import {addWindows, fetchManifests, resolveAndMergeParams, withControlPanel} from '../api'
 
+const replaceWorkspaceAdd = {
+  component: DiscoveryComponent,
+  modus: 'replace',
+  target: 'WorkspaceAdd',
+}
+
 const MiradorWithPanel = withControlPanel(MiradorComponent)
+
 const MiradorImplementation = (props) => {
   const initialConfiguration = useRef(localConfig)
   const [isInitialized, setIsInitialized] = useState(false)
-
   useEffect(() => {
     let mergedConfig = resolveAndMergeParams(props.location.search, localConfig)
     if (mergedConfig && !isInitialized) {
@@ -40,7 +47,7 @@ const MiradorImplementation = (props) => {
   if (isInitialized) {
     return (
       <ReactReduxContext.Consumer>
-        {({store}) => <MiradorWithPanel store={store}/>}
+        {({store}) => <MiradorWithPanel store={store} plugins={[replaceWorkspaceAdd]}/>}
       </ReactReduxContext.Consumer>)
   } else {
     return null

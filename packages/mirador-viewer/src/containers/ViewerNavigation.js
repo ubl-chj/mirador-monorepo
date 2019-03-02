@@ -1,7 +1,6 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '@mirador/core';
-import miradorWithPlugins from '../lib/miradorWithPlugins';
 import { ViewerNavigation } from '../components/ViewerNavigation';
 
 /**
@@ -10,14 +9,11 @@ import { ViewerNavigation } from '../components/ViewerNavigation';
  * @private
  */
 const mapDispatchToProps = {
-  nextCanvas: actions.nextCanvas,
-  previousCanvas: actions.previousCanvas,
+  setCanvas: actions.setCanvas,
 };
 
 const enhance = compose(
   connect(null, mapDispatchToProps),
-  miradorWithPlugins,
-  // further HOC go here
 );
 
 export default enhance(ViewerNavigation);

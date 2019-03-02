@@ -1,10 +1,10 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { withNamespaces } from 'react-i18next';
 import * as actions from '@mirador/core';
+import { withTranslation } from 'react-i18next';
 import { withStyles } from '@material-ui/core';
 import {
-  getManifestTitle, getManifestLogo, getManifestThumbnail, getManifestCanvases, getManifestProvider,
+  getManifestTitle, getManifestThumbnail, getManifestCanvases, getManifestProvider,
 } from '../state/selectors';
 import { ManifestListItem } from '../components/ManifestListItem';
 
@@ -17,7 +17,6 @@ const mapStateToProps = (state, { manifestId }) => {
     error: manifest.error,
     isFetching: manifest.isFetching,
     title: getManifestTitle(manifest),
-    logo: getManifestLogo(manifest),
     thumbnail: getManifestThumbnail(manifest),
     provider: getManifestProvider(manifest),
     size: getManifestCanvases(manifest).length,
@@ -47,7 +46,7 @@ const styles = theme => ({
 });
 
 const enhance = compose(
-  withNamespaces(),
+  withTranslation(),
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps),
 );

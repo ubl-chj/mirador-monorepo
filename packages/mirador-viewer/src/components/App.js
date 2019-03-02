@@ -9,7 +9,6 @@ import WorkspaceControlPanel from '../containers/WorkspaceControlPanel';
 import Workspace from '../containers/Workspace';
 import ns from '../config/css-ns';
 import i18n from '../i18n';
-
 /**
  * This is the top level Mirador component.
  * @prop {Object} manifests
@@ -18,7 +17,6 @@ export class App extends Component {
   /** */
   constructor(props) {
     super(props);
-
     this.i18n = i18n;
   }
 

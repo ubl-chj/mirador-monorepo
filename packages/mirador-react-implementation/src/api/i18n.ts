@@ -1,5 +1,5 @@
 import i18n from 'i18next'
-import { reactI18nextModule } from 'react-i18next'
+import { initReactI18next } from 'react-i18next'
 import de from '../locales/de/translation.json'
 import en from '../locales/en/translation.json'
 
@@ -9,7 +9,7 @@ const resources = {
 }
 
 i18n
-  .use(reactI18nextModule)
+  .use(initReactI18next)
   .init({
     fallbackLng: 'en',
     interpolation: {
