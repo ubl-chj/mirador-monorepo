@@ -14,29 +14,54 @@ export const StandardGridItem = (props) => {
   } else {
     thumbnail = source.thumbnail + '/full/170,/0/default.jpg'
   }
-  return (
-    <ReduxContext.Consumer>{(actions) =>
-      <div
-        className={bemBlocks.item().mix(bemBlocks.container("item"))}
-        data-qa="hit"
-      >
+
+  const matchManifest = (manifests) => {
+    const matched = manifests[manifestId]
+    return !!(matched && matched.id);
+  }
+
+  const buildItem = (xProps) => {
+    return (
+      <>
         <div className={bemBlocks.item('poster')}>
           <button
             onClick={
-              () => setManifest(actions, manifestId) // tslint:disable-line
+              () => setManifest(xProps, manifestId) // tslint:disable-line
             }
           >{buildImage(thumbnail)}
           </button>
         </div>
-          <a href={workspaceUri}>
-            <div
-              className={bemBlocks.item('title')}
-              title={source.title}
-              data-qa='title'
-              dangerouslySetInnerHTML={{__html: shortenTitle(source.title)}}
-            />
-          </a>
-      </div>
+        <a href={workspaceUri}>
+          <div
+            className={bemBlocks.item('title')}
+            title={source.title}
+            data-qa='title'
+            dangerouslySetInnerHTML={{__html: shortenTitle(source.title)}}
+          />
+        </a>
+      </>
+    )
+  }
+
+  return (
+    <ReduxContext.Consumer>{(xProps) =>
+      <>
+        {matchManifest(xProps.manifests) ?
+            (<div
+              style={{backgroundColor: 'red'}}
+              className={bemBlocks.item().mix(bemBlocks.container("item"))}
+              data-qa="hit"
+            >
+              {buildItem(xProps)}
+            </div>) :
+            (<div
+              className={bemBlocks.item().mix(bemBlocks.container("item"))}
+              data-qa="hit"
+            >
+              {buildItem(xProps)}
+            </div>)
+        }
+      </>
     }
     </ReduxContext.Consumer>)
 }

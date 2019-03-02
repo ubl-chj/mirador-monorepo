@@ -17,20 +17,22 @@ export const nga = {
       ],
       listItem: 'StandardListItem',
       gridItem: 'StandardGridItem',
-      refinementListFilterDef1: {
-        field: 'Artist.keyword',
-        title: 'Artist',
-        id: 'artist'
-      },
-      refinementListFilterDef2: {
-        field: 'Creation Year.keyword',
-        title: 'Creation Year',
-        id: 'creation'
-      },
-      refinementListFilterDef3: {
-        field: 'description.keyword',
-        title: 'description',
-        id: 'description'
+      refinementListFilters: {
+        1: {
+          field: 'Artist.keyword',
+          title: 'Artist',
+          id: 'artist'
+        },
+        2: {
+          field: 'Creation Year.keyword',
+          title: 'Creation Year',
+          id: 'creation'
+        },
+        3: {
+          field: 'description.keyword',
+          title: 'description',
+          id: 'description'
+        },
       },
       hasRangeFilter: true,
       rangeFilter: {

@@ -10,4 +10,4 @@ const mapStateToProps = (state) => (
 
 const mapDispatchToProps = { updateConfig }
 
-export default connect(mapStateToProps, mapDispatchToProps)(IndexSelector)
+export const IndexSelectorContainer = connect(mapStateToProps, mapDispatchToProps)(IndexSelector)

@@ -6,9 +6,9 @@ const mapStateToProps = (state) => (
   {
     discovery: state.config.discovery,
     isWorkspaceAddVisible: state.workspace.isWorkspaceAddVisible,
+    manifests: state.manifests,
   }
 )
 
 const mapDispatchToProps = {addWindow, fetchManifest, setWorkspaceAddVisibility}
-
-export default connect(mapStateToProps, mapDispatchToProps)(DiscoveryComponent)
+export const DiscoveryContainer = connect(mapStateToProps, mapDispatchToProps)(DiscoveryComponent)

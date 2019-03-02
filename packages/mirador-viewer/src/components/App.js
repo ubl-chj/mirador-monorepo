@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Fullscreen from 'react-full-screen';
 import { I18nextProvider } from 'react-i18next';
-import DiscoveryComponent from '@mirador/custom-components';
+import { DiscoveryContainer, IndexSelectorContainer } from '@mirador/custom-components';
 import WorkspaceControlPanel from '../containers/WorkspaceControlPanel';
 import Workspace from '../containers/Workspace';
 import ns from '../config/css-ns';
@@ -34,7 +34,6 @@ export class App extends Component {
    */
   componentDidUpdate(prevProps) {
     const { language } = this.props;
-
     if (prevProps.language !== language) {
       this.i18n.changeLanguage(language);
     }
@@ -53,7 +52,6 @@ export class App extends Component {
     Object.keys(translations).forEach((lng) => {
       this.i18n.addResourceBundle(lng, 'translation', translations[lng], true, true);
     });
-
     return (
       <Fullscreen
         enabled={isFullscreenEnabled}
@@ -64,7 +62,12 @@ export class App extends Component {
             <MuiThemeProvider theme={createMuiTheme(theme)}>
               {
                 isWorkspaceAddVisible
-                  ? <DiscoveryComponent />
+                  ? (
+                    <>
+                      <IndexSelectorContainer />
+                      <DiscoveryContainer />
+                    </>
+                  )
                   : <Workspace />
                }
               {

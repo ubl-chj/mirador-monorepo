@@ -60,20 +60,22 @@ export const ubl = {
         'Umfang',
         'URN',
         'Source PPN (SWB)'],
-      refinementListFilterDef1: {
-        field: 'Sprache.keyword',
-        title: 'Language',
-        id: 'language'
-      },
-      refinementListFilterDef2: {
-        field: 'Collection.keyword',
-        title: 'Collection',
-        id: 'collection'
-      },
-      refinementListFilterDef3: {
-        field: 'Place of publication.keyword',
-        title: 'Place',
-        id: 'place'
+      refinementListFilters: {
+        1: {
+          field: 'Sprache.keyword',
+          title: 'Language',
+          id: 'language'
+        },
+        2: {
+          field: 'Collection.keyword',
+          title: 'Collection',
+          id: 'collection'
+        },
+        3: {
+          field: 'Place of publication.keyword',
+          title: 'Place',
+          id: 'place'
+        },
       },
       rangeFilter: {
         field: 'Date of publication.raw',

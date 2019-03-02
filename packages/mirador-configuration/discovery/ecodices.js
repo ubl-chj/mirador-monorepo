@@ -34,20 +34,22 @@ export const ec = {
       ],
       listItem: 'StandardListItem',
       gridItem: 'StandardGridItem',
-      refinementListFilterDef1: {
-        field: 'Text Language.keyword',
-        title: 'Language',
-        id: 'language'
-      },
-      refinementListFilterDef2: {
-        field: 'Collection Name.keyword',
-        title: 'Collection',
-        id: 'collection'
-      },
-      refinementListFilterDef3: {
-        field: 'Location.keyword',
-        title: 'Location',
-        id: 'place'
+      refinementListFilters: {
+        1: {
+          field: 'Text Language.keyword',
+          title: 'Language',
+          id: 'language'
+        },
+        2: {
+          field: 'Collection Name.keyword',
+          title: 'Collection',
+          id: 'collection'
+        },
+        3: {
+          field: 'Location.keyword',
+          title: 'Location',
+          id: 'place'
+        },
       },
       sortingSelectorOptions: [
         {

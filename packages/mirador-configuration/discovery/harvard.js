@@ -30,20 +30,22 @@ export const harvard = {
         'Date',
         'manifest'
       ],
-      refinementListFilterDef1: {
-        field: 'Classification.keyword',
-        title: 'Classification',
-        id: 'classification'
-      },
-      refinementListFilterDef2: {
-        field: 'Date.keyword',
-        title: 'Date',
-        id: 'date'
-      },
-      refinementListFilterDef3: {
-        field: 'Technique.keyword',
-        title: 'Technique',
-        id: 'technique'
+      refinementListFilters: {
+        1: {
+          field: 'Classification.keyword',
+          title: 'Classification',
+          id: 'classification'
+        },
+        2: {
+          field: 'Date.keyword',
+          title: 'Date',
+          id: 'date'
+        },
+        3: {
+          field: 'Technique.keyword',
+          title: 'Technique',
+          id: 'technique'
+        },
       },
       sortingSelectorOptions: [
         {

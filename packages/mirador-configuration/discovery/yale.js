@@ -22,20 +22,22 @@ export const yale = {
       ],
       listItem: 'StandardListItem',
       gridItem: 'StandardGridItem',
-      refinementListFilterDef1: {
-        field: 'Collection.keyword',
-        title: 'Collection',
-        id: 'collection'
-      },
-      refinementListFilterDef2: {
-        field: 'Creator(s).keyword',
-        title: 'Creator(s)',
-        id: 'creators'
-      },
-      refinementListFilterDef3: {
-        field: 'Medium.keyword',
-        title: 'Medium',
-        id: 'medium'
+      refinementListFilters: {
+        1: {
+          field: 'Collection.keyword',
+          title: 'Collection',
+          id: 'collection'
+        },
+        2: {
+          field: 'Creator(s).keyword',
+          title: 'Creator(s)',
+          id: 'creators'
+        },
+        3: {
+          field: 'Medium.keyword',
+          title: 'Medium',
+          id: 'medium'
+        },
       },
       sortingSelectorOptions: [
         {
