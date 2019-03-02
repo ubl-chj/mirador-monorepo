@@ -1,4 +1,4 @@
-import {ActionTypes} from './action-types'
+import {ActionTypes} from './action-types';
 
 /**
  *
@@ -10,20 +10,22 @@ export function requestManifest(manifestId, properties) {
     manifestId,
     properties,
     type: ActionTypes.REQUEST_MANIFEST,
-  }
+  };
 }
 
 /**
+ * receiveManifest - action creator
  *
- * @param manifestId
- * @param manifestJson
+ * @param  {String} manifestId
+ * @param  {Object} manifestJson
+ * @memberof ActionCreators
  */
 export function receiveManifest(manifestId, manifestJson) {
   return {
     manifestId,
     manifestJson,
     type: ActionTypes.RECEIVE_MANIFEST,
-  }
+  };
 }
 
 /**
@@ -36,7 +38,7 @@ export function receiveManifestFailure(manifestId, error) {
     error,
     manifestId,
     type: ActionTypes.RECEIVE_MANIFEST_FAILURE,
-  }
+  };
 }
 
 /**
@@ -45,19 +47,20 @@ export function receiveManifestFailure(manifestId, error) {
  * @param properties
  */
 export function fetchManifest(manifestId, properties) {
-  return (dispatch) => {
-    dispatch(requestManifest(manifestId, { ...properties, isFetching: true }))
-    return window.fetch(manifestId)
+  return ((dispatch) => {
+    dispatch(requestManifest(manifestId, { ...properties, isFetching: true }));
+
+    return fetch(manifestId)
       .then((response) => response.json())
       .then((json) => dispatch(receiveManifest(manifestId, json)))
       .catch((error) => {
         if (typeof error === 'object') { // Returned by JSON parse failure
-          dispatch(receiveManifestFailure(manifestId, String(error)))
+          dispatch(receiveManifestFailure(manifestId, String(error)));
         } else {
-          dispatch(receiveManifestFailure(manifestId, error))
+          dispatch(receiveManifestFailure(manifestId, error));
         }
-      })
-  }
+      });
+  });
 }
 
 /**
@@ -67,5 +70,5 @@ export function fetchManifest(manifestId, properties) {
  * @memberof ActionCreators
  */
 export function removeManifest(manifestId) {
-  return { type: ActionTypes.REMOVE_MANIFEST, manifestId }
+  return { type: ActionTypes.REMOVE_MANIFEST, manifestId };
 }

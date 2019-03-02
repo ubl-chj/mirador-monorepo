@@ -141,3 +141,37 @@ export function setWindowThumbnailPosition(windowId, position) {
 export function setWindowViewType(windowId, viewType) {
   return { type: ActionTypes.SET_WINDOW_VIEW_TYPE, windowId, viewType }
 }
+
+/**
+ * updateWindowPosition - action creator
+ *
+ * @param  {String} windowId
+ * @param  {Array} position
+ * @memberof ActionCreators
+ */
+export function updateWindowPosition(windowId, position) {
+  return {
+    payload: {
+      position,
+      windowId,
+    },
+    type: ActionTypes.UPDATE_WINDOW_POSITION,
+  };
+}
+
+/**
+ * setWindowSize - action creator
+ *
+ * @param  {String} windowId
+ * @param  {Object} size
+ * @memberof ActionCreators
+ */
+export function setWindowSize(windowId, size) {
+  return {
+    payload: {
+      size,
+      windowId,
+    },
+    type: ActionTypes.SET_WINDOW_SIZE,
+  };
+}

@@ -55,6 +55,26 @@ export const windowsReducer = (state = {}, action) => {
         ),
       },
     }
+    case ActionTypes.UPDATE_WINDOW_POSITION:
+      return {
+        ...state,
+        [action.payload.windowId]: {
+          ...state[action.payload.windowId],
+          x: action.payload.position.x,
+          y: action.payload.position.y,
+        },
+      }
+    case ActionTypes.SET_WINDOW_SIZE:
+      return {
+        ...state,
+        [action.payload.windowId]: {
+          ...state[action.payload.windowId],
+          height: action.payload.size.height,
+          width: action.payload.size.width,
+          x: action.payload.size.x,
+          y: action.payload.size.y,
+        },
+      }
   case ActionTypes.NEXT_CANVAS:
     return setCanvasIndex(state, action.windowId, (currentIndex) => currentIndex + 1)
   case ActionTypes.PREVIOUS_CANVAS:

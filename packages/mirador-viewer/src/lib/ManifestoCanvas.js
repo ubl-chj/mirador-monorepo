@@ -1,3 +1,4 @@
+import flatten from 'lodash/flatten';
 /**
  * ManifestoCanvas - adds additional, testable logic around Manifesto's Canvas
  * https://iiif-commons.github.io/manifesto/classes/_canvas_.manifesto.canvas.html
@@ -22,6 +23,15 @@ export default class ManifestoCanvas {
     return this.canvas.getWidth() / this.canvas.getHeight();
   }
 
+  /** */
+  get annotationListUris() {
+    return flatten(
+      new Array(this.canvas.__jsonld.otherContent), // eslint-disable-line no-underscore-dangle
+    )
+      .filter(otherContent => otherContent && otherContent['@type'] === 'sc:AnnotationList')
+      .map(otherContent => otherContent['@id']);
+  }
+
   /**
    */
   get imageInformationUri() {
@@ -37,6 +47,36 @@ export default class ManifestoCanvas {
     return `${
       this.canvas.getImages()[0].getResource().getServices()[0].id.replace(/\/$/, '')
     }/info.json`;
+  }
+
+  /**
+   * checks whether the canvas has a valid height
+   */
+  get hasValidHeight() {
+    return (
+      typeof this.canvas.getHeight() === 'number'
+      && this.canvas.getHeight() > 0
+    );
+  }
+
+  /**
+   * checks whether the canvas has a valid height
+   */
+  get hasValidWidth() {
+    return (
+      typeof this.canvas.getHeight() === 'number'
+      && this.canvas.getHeight() > 0
+    );
+  }
+
+  /**
+   * checks whether the canvas has valid dimensions
+   */
+  get hasValidDimensions() {
+    return (
+      this.hasValidHeight
+      && this.hasValidWidth
+    );
   }
 
   /**
@@ -78,35 +118,5 @@ export default class ManifestoCanvas {
     const desiredAspectRatio = maxWidth / maxHeight;
 
     return desiredAspectRatio < aspectRatio ? 'sizeByW' : 'sizeByH';
-  }
-
-  /**
-   * checks whether the canvas has a valid height
-   */
-  get hasValidHeight() {
-    return (
-      typeof this.canvas.getHeight() === 'number'
-      && this.canvas.getHeight() > 0
-    );
-  }
-
-  /**
-   * checks whether the canvas has a valid height
-   */
-  get hasValidWidth() {
-    return (
-      typeof this.canvas.getHeight() === 'number'
-      && this.canvas.getHeight() > 0
-    );
-  }
-
-  /**
-   * checks whether the canvas has valid dimensions
-   */
-  get hasValidDimensions() {
-    return (
-      this.hasValidHeight
-      && this.hasValidWidth
-    );
   }
 }

@@ -44,6 +44,36 @@
 }
 
 .mirador {
+  &-viewer {
+    bottom: 0;
+    left: 0;
+    padding-left: 100px;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    top: 60px;
+
+    .mosaic-window-toolbar {
+      display: none;
+    }
+
+    .mosaic-window-body {
+      .mirador-window-top-bar {
+        cursor: move;
+      }
+    }
+  }
+
+  &-workspace-viewport {
+    bottom: 0;
+    left: 90px;
+    overflow: hidden;
+    margin: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
   &-workspace {
     bottom: 0;
     box-sizing: border-box;
@@ -57,9 +87,9 @@
   }
 
   &-workspace-add {
-    padding-left: 110px;
-    padding-right: 20px;
-    padding-top: 20px;
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-top: 92px;
   }
 
   &-window-middle-content {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import Fullscreen from 'react-fullscreen-crossbrowser';
+import Fullscreen from 'react-full-screen';
 import { I18nextProvider } from 'react-i18next';
 import DiscoveryComponent from '@mirador/custom-components';
 import WorkspaceControlPanel from '../containers/WorkspaceControlPanel';
@@ -55,26 +55,26 @@ export class App extends Component {
     });
 
     return (
-      <div className={classNames(classes.background, ns('app'))}>
-        <I18nextProvider i18n={this.i18n}>
-          <MuiThemeProvider theme={createMuiTheme(theme)}>
-            <Fullscreen
-              enabled={isFullscreenEnabled}
-              onChange={setWorkspaceFullscreen}
-            >
+      <Fullscreen
+        enabled={isFullscreenEnabled}
+        onChange={setWorkspaceFullscreen}
+      >
+        <div className={classNames(classes.background, ns('viewer'))}>
+          <I18nextProvider i18n={this.i18n}>
+            <MuiThemeProvider theme={createMuiTheme(theme)}>
               {
                 isWorkspaceAddVisible
                   ? <DiscoveryComponent />
                   : <Workspace />
                }
-            </Fullscreen>
-            {
-              isWorkspaceControlPanelVisible
-                && <WorkspaceControlPanel />
-            }
-          </MuiThemeProvider>
-        </I18nextProvider>
-      </div>
+              {
+                isWorkspaceControlPanelVisible
+                  && <WorkspaceControlPanel />
+              }
+            </MuiThemeProvider>
+          </I18nextProvider>
+        </div>
+      </Fullscreen>
     );
   }
 }

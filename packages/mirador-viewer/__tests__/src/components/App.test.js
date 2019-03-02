@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import Fullscreen from 'react-fullscreen-crossbrowser';
+import Fullscreen from 'react-full-screen';
 import WorkspaceControlPanel from '../../../src/containers/WorkspaceControlPanel';
 import Workspace from '../../../src/containers/Workspace';
 import WorkspaceAdd from '../../../src/containers/WorkspaceAdd';
@@ -28,7 +28,7 @@ function createWrapper(props) {
 describe('App', () => {
   it('should render outer element correctly', () => {
     const wrapper = createWrapper();
-    expect(wrapper.find('div.mirador-app').length).toBe(1);
+    expect(wrapper.find('div.mirador-viewer').length).toBe(1);
   });
 
   it('should render all needed elements ', () => {

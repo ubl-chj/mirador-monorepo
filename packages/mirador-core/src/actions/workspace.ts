@@ -37,3 +37,30 @@ export function updateWorkspaceMosaicLayout(layout) {
 export function setWorkspaceAddVisibility(isWorkspaceAddVisible) {
   return { type: ActionTypes.SET_WORKSPACE_ADD_VISIBILITY, isWorkspaceAddVisible }
 }
+
+/**
+ * setWorkspaceViewportPosition - action creator
+ *
+ * @param  {Object} position
+ * @memberof ActionCreators
+ */
+export function setWorkspaceViewportPosition(position) {
+  return {
+    payload: {
+      position: {
+        x: position.x,
+        y: position.y,
+      },
+    },
+    type: ActionTypes.SET_WORKSPACE_VIEWPORT_POSITION,
+  };
+}
+
+/**
+ *
+ */
+export function toggleWorkspaceExposeMode() {
+  return {
+    type: ActionTypes.TOGGLE_WORKSPACE_EXPOSE_MODE,
+  };
+}

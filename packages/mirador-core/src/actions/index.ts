@@ -1,4 +1,5 @@
 export * from './action-types'
+export * from './annotation'
 export * from './companionWindow'
 export * from './config'
 export * from './window'

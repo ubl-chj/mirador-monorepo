@@ -3,7 +3,8 @@ import * as discovery from './discovery'
 
 const rootConfig = {
   canvasNavigation: {
-    height: 100,
+    height: 50,
+    width: 50,
   },
   discovery: {
     currentIndex: 'm4',

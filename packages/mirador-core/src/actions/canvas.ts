@@ -1,25 +1,4 @@
-import {ActionTypes} from './action-types'
-
-/**
- * nextCanvas - action creator
- *
- * @param  {String} windowId
- * @memberof ActionCreators
- */
-export function nextCanvas(windowId) {
-  return { type: ActionTypes.NEXT_CANVAS, windowId }
-}
-
-/**
- * previousCanvas - action creator
- *
- * @param  {String} windowId
- * @memberof ActionCreators
- */
-export function previousCanvas(windowId) {
-  return { type: ActionTypes.PREVIOUS_CANVAS, windowId }
-}
-
+import {ActionTypes} from './action-types';
 /**
  * setCanvas - action creator
  *
@@ -28,7 +7,7 @@ export function previousCanvas(windowId) {
  * @memberof ActionCreators
  */
 export function setCanvas(windowId, canvasIndex) {
-  return { type: ActionTypes.SET_CANVAS, windowId, canvasIndex }
+  return { type: ActionTypes.SET_CANVAS, windowId, canvasIndex };
 }
 
 /**
@@ -37,5 +16,5 @@ export function setCanvas(windowId, canvasIndex) {
  * @param payload
  */
 export function updateViewport(windowId, payload) {
-  return { type: ActionTypes.UPDATE_VIEWPORT, windowId, payload }
+  return { type: ActionTypes.UPDATE_VIEWPORT, windowId, payload };
 }

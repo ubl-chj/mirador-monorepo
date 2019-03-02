@@ -1,10 +1,13 @@
 @import 'variables';
 
 .mirador {
-  &-app {
-    height: 100%;
-    position: relative;
-    width: 100%;
+  &-viewer {
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    top: 0;
 
     .mosaic-window-toolbar {
       display: none;
@@ -17,25 +20,43 @@
     }
   }
 
-  &-workspace {
+  &-workspace-viewport {
     bottom: 0;
-    box-sizing: border-box;
     left: 0;
+    overflow: hidden;
     margin: 0;
-    overflow: scroll;
     position: absolute;
     right: 0;
     top: 0;
   }
 
+  &-workspace {
+    box-sizing: border-box;
+    margin: 0;
+    overflow: scroll;
+    position: absolute;
+  }
+
   &-workspace-with-control-panel {
-    padding-left: 100px; // The width of the control panel
+    padding-top: 74px; // The height of the control panel
   }
 
   &-workspace-add {
-    padding-left: 110px;
-    padding-right: 20px;
-    padding-top: 20px;
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-top: 92px;
+  }
+
+  @media (min-width: 600px) {
+    &-workspace-with-control-panel {
+      padding-left: 100px;
+      padding-top: 0;
+    }
+
+    &-workspace-add {
+      padding-left: 100px;
+      padding-top: 18px;
+    }
   }
 
   &-window-middle-content {
@@ -48,6 +69,7 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    width: 100%;
   }
 
   &-osd-container {

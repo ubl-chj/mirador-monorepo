@@ -7,6 +7,15 @@ import { WorkspaceFullScreenButton }
   from '../components/WorkspaceFullScreenButton';
 
 /**
+ * mapStateToProps - to hook up connect
+ * @memberof WorkspaceFullScreenButton
+ * @private
+ */
+const mapStateToProps = state => ({
+  isFullscreenEnabled: state.workspace.isFullscreenEnabled,
+});
+
+/**
  * mapDispatchToProps - used to hook up connect to action creators
  * @memberof ManifestListItem
  * @private
@@ -27,7 +36,7 @@ const styles = theme => ({
 const enhance = compose(
   withTranslation(),
   withStyles(styles),
-  connect(null, mapDispatchToProps),
+  connect(mapStateToProps, mapDispatchToProps),
 );
 
 export default enhance(WorkspaceFullScreenButton);

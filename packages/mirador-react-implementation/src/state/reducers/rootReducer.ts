@@ -1,5 +1,12 @@
 import {
-  companionWindowsReducer, configReducer, infoResponsesReducer, manifestsReducer, viewersReducer, windowsReducer, workspaceReducer,
+  annotationsReducer,
+  companionWindowsReducer,
+  configReducer,
+  infoResponsesReducer,
+  manifestsReducer,
+  viewersReducer,
+  windowsReducer,
+  workspaceReducer,
 } from '@mirador/core'
 import { combineReducers } from 'redux'
 
@@ -8,6 +15,7 @@ import { combineReducers } from 'redux'
  * @param pluginReducers
  */
 export const rootReducer = (pluginReducers) => combineReducers({
+  annotations: annotationsReducer,
   companionWindows: companionWindowsReducer,
   config: configReducer,
   infoResponses: infoResponsesReducer,
