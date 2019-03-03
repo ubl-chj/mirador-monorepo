@@ -45,7 +45,7 @@ const rootConfig = {
     type: 'mosaic'
   },
   workspaceControlPanel: {
-    enabled: false,
+    enabled: true,
   }
 }
 

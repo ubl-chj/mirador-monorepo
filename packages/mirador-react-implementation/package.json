@@ -17,6 +17,7 @@
     "@mirador/configuration": "file:../mirador-configuration",
     "@mirador/core": "file:../mirador-core",
     "@mirador/react-components": "file:../mirador-react-components",
+    "classnames": "^2.2.6",
     "deepmerge": "^3.2.0",
     "dompurify": "^1.0.9",
     "i18next": "^15.0.4",

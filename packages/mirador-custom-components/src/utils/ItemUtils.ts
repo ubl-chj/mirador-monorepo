@@ -1,7 +1,8 @@
 import uuidv5 from 'uuidv5'
+import {Domain} from '../enum'
 
 export const handleMissingImage = (target) => {
-  return target.src = 'https://upload.wikimedia.org/wikipedia/commons/9/9a/VisualEditor_icon_page-not-found-ltr.svg'
+  return target.src = Domain.THUMBNAIL_NOTFOUND_SVG
 }
 
 export function resolveManifestId(source) {
@@ -21,16 +22,36 @@ export function resolveManifestId(source) {
 
 export function shortenTitle(name) {
   let shortTitle
-  if (name) {
-    if (!Array.isArray(name)) {
-      if (name.length >= 80) {
-        shortTitle = name.substr(0, 80) + '... '
-      } else {
-        return name
-      }
+  if (name && !Array.isArray(name)) {
+    if (name.length >= 80) {
+      shortTitle = name.substr(0, 80) + '... '
     } else {
-      shortTitle = name[0]
+      return name
     }
+  } else {
+    shortTitle = name[0]
   }
   return shortTitle
+}
+
+export const buildThumbnailReference = (thumbnail) => {
+  let thumbnailLink
+  if (thumbnail) {
+    if (thumbnail.includes('/full')) {
+      thumbnailLink = thumbnail
+      // support image api v1 providers (this should not be a long list)
+    } else if (thumbnail.includes(Domain.LEGACY_API_COLLECTIONS)) {
+      thumbnailLink = thumbnail + Domain.THUMBNAIL_NATIVE_API_REQUEST
+    } else {
+      thumbnailLink = thumbnail + Domain.THUMBNAIL_API_REQUEST
+    }
+  } else {
+    thumbnailLink = thumbnail
+  }
+  return thumbnailLink
+}
+
+export const setManifest = (actions, manifestId) => {
+  actions.fetchManifest(manifestId)
+  actions.addWindow({manifestId, thumbnailNavigationPosition: 'off'})
 }

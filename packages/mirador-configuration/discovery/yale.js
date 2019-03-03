@@ -18,7 +18,8 @@ export const yale = {
         'title',
         'manifest',
         'description',
-        'attribution'
+        'attribution',
+        'thumbnail',
       ],
       listItem: 'StandardListItem',
       gridItem: 'StandardGridItem',

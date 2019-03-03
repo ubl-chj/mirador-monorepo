@@ -1,3 +1,4 @@
+import {withStyles} from '@material-ui/core'
 import {localConfig} from '@mirador/configuration'
 import {addWindow, fetchManifest, setConfig} from '@mirador/core'
 import DiscoveryComponent from '@mirador/custom-components'
@@ -5,7 +6,8 @@ import {MiradorComponent} from '@mirador/react-components'
 import React, {useEffect, useRef, useState} from 'react'
 import {connect, ReactReduxContext} from 'react-redux'
 import {withRouter} from 'react-router-dom'
-import {addWindows, fetchManifests, resolveAndMergeParams, withControlPanel} from '../api'
+import {addWindows, fetchManifests, resolveAndMergeParams, withPersistentDrawer} from '../api'
+import {styles} from '../styles'
 
 const replaceWorkspaceAdd = {
   component: DiscoveryComponent,
@@ -13,7 +15,7 @@ const replaceWorkspaceAdd = {
   target: 'WorkspaceAdd',
 }
 
-const MiradorWithPanel = withControlPanel(MiradorComponent)
+const MiradorWithPanel = withStyles(styles, { withTheme: true })(withPersistentDrawer(MiradorComponent))
 
 const MiradorImplementation = (props) => {
   const initialConfiguration = useRef(localConfig)

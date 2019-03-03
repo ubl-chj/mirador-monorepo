@@ -28,7 +28,8 @@ export const harvard = {
         'Provenance',
         'People',
         'Date',
-        'manifest'
+        'manifest',
+        'thumbnail',
       ],
       refinementListFilters: {
         1: {

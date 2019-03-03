@@ -10,8 +10,7 @@ const IndexSelector = (props) => {
     Object.keys(indices).forEach((key: any) => {
       map.set(key, indices[key].name)
     })
-    const mapSorted = new Map([...map.entries()].sort())
-    return mapSorted
+    return new Map([...map.entries()].sort())
   }
   const indexMap = getIndexNames()
 
