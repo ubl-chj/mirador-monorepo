@@ -1,6 +1,7 @@
 import {withStyles} from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
 import React, {Suspense} from 'react'
+import {ErrorBoundary} from '.'
 import {IWordPressAPIState, withPersistentDrawer} from '../api'
 import {styles} from '../styles'
 
@@ -38,16 +39,19 @@ class CmsPageComponent extends React.Component<any, IWordPressAPIState> {
   render() {
     const {content, title} = this.state
     return (
-      <>
-        {content && (
-          <Suspense fallback={<div>Loading...</div>}>
-            <div className={this.classes.drawerHeader}/>
-            <Typography variant="h6">{title.rendered}</Typography>
-            <Typography component={'span'}>
-              <div dangerouslySetInnerHTML={{__html: content.rendered}}/>
-            </Typography>
-          </Suspense>)}
-      </>
+      <ErrorBoundary>
+        <Suspense fallback={<div>Loading...</div>}>
+          {content &&
+            (<>
+                <div className={this.classes.drawerHeader}/>
+                <Typography variant="h6">{title.rendered}</Typography>
+                <Typography component={'span'}>
+                  <div dangerouslySetInnerHTML={{__html: content.rendered}}/>
+                </Typography>
+              </>)
+          }
+        </Suspense>
+      </ErrorBoundary>
     )
   }
 }
