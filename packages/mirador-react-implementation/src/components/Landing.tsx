@@ -20,60 +20,56 @@ const LandingComponent = (props) => {
       <Grid container={Boolean(true)} className={classes.root} spacing={24}>
         <Grid item={Boolean(true)} xs={12}>
           <Grid container={Boolean(true)} justify="center" spacing={24}>
-            <Card className={classes.card}>
-              <CardActionArea>
-                <CardMedia
-                  className={classes.media}
-                  image="https://media.nga.gov/iiif/public/objects/3/9/2/3/6/39236-primary-0-nativeres.ptif/full/170,/0/default.jpg"
-                  title="Mirador"
-                />
-                <CardContent>
-                  <Typography paragraph={true}>
-                    <Link
-                      title='View Mirador Workspace'
-                      to={{pathname}}
-                    >Mirador Workspace
-                    </Link>
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-              <Divider/>
-            </Card>
-            <Card className={classes.card}>
-              <CardActionArea>
-                <CardMedia
-                  className={classes.media}
-                  image="https://iiif.ub.uni-leipzig.de/iiif/j2k/0000/0034/0000003419/00000002.jpx/full/170,/0/default.jpg"
-                  title="Leipzig, Universitätsbibliothek Leipzig, Fragm. lat. 102"
-                />
-                <CardContent>
-                  <Typography paragraph={true}>
-                    <Link
-                      to='/view?manifest=https://iiif.ub.uni-leipzig.de/0000003419/manifest.json'
-                    >An example Manuscript
-                    </Link>
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-              <Divider/>
-            </Card>
-            <Card className={classes.card}>
-              <CardActionArea>
-                <CardMedia
-                  className={classes.media}
-                  image="https://iiif.ub.uni-leipzig.de/iiif/j2k/0000/0042/0000004253/00000062.jpx/full/170,/0/default.jpg"
-                  title="Contemplative Reptile"
-                />
-                <CardContent>
-                  <Typography paragraph={true}>
-                    <Link
-                      to='/cms'
-                    >An example WordPress site from the UBL Blog
-                    </Link>
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
+            <Link
+              title='View Mirador Workspace'
+              to={{pathname}}
+            >
+              <Card className={classes.card}>
+                <CardActionArea>
+                  <CardMedia
+                    className={classes.media}
+                    image="https://media.nga.gov/iiif/public/objects/3/9/2/3/6/39236-primary-0-nativeres.ptif/full/170,/0/default.jpg"
+                    title="Mirador"
+                  />
+                  <CardContent>
+                    <Typography paragraph={true}>Mirador Workspace</Typography>
+                  </CardContent>
+                </CardActionArea>
+                <Divider/>
+              </Card>
+            </Link>
+            <Link
+              to='/view?manifest=https://iiif.ub.uni-leipzig.de/0000003419/manifest.json'
+            >
+              <Card className={classes.card}>
+                <CardActionArea>
+                  <CardMedia
+                    className={classes.media}
+                    image="https://iiif.ub.uni-leipzig.de/iiif/j2k/0000/0034/0000003419/00000002.jpx/full/170,/0/default.jpg"
+                    title="Leipzig, Universitätsbibliothek Leipzig, Fragm. lat. 102"
+                  />
+                  <CardContent>
+                    <Typography paragraph={true}>An example Manuscript</Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            </Link>
+            <Link
+              to='/cms'
+            >
+              <Card className={classes.card}>
+                <CardActionArea>
+                  <CardMedia
+                    className={classes.media}
+                    image="https://iiif.ub.uni-leipzig.de/iiif/j2k/0000/0042/0000004253/00000062.jpx/full/170,/0/default.jpg"
+                    title="UBL Blog"
+                  />
+                  <CardContent>
+                    <Typography paragraph={true}>An example WordPress post from the UBL Blog</Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            </Link>
           </Grid>
         </Grid>
       </Grid>

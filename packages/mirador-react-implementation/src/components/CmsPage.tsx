@@ -1,48 +1,52 @@
 import {withStyles} from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
-import React from 'react'
-import {withPersistentDrawer} from '../api'
+import React, {Suspense} from 'react'
+import {IWordPressAPIState, withPersistentDrawer} from '../api'
 import {styles} from '../styles'
 
-class CmsPageResponse {
-  id: number
-  title: { rendered: string }
-  content: { rendered: string }
-
-  constructor(id = -1, title = {rendered: ''}, content = {rendered: ''}) {
-    this.id = id
-    this.title = title
-    this.content = content
-  }
-}
-
-class CmsPageComponent extends React.Component {
-  static getPreRenderHtml(response: CmsPageResponse) {
-    return {__html: response.content.rendered}
-  }
-
+class CmsPageComponent extends React.Component<any, IWordPressAPIState> {
   classes: any
-  state = { data: new CmsPageResponse() }
-
   constructor(props) {
     super(props)
     this.classes = props.classes
+    this.state = {
+      content: {
+        rendered: null,
+      },
+      error: null,
+      id: null,
+      isLoading: false,
+      title: {
+        rendered: null,
+      },
+    }
   }
 
-  componentDidMount() {
-    fetch('https://blog.ub.uni-leipzig.de/wp-json/wp/v2/pages/4226')
-      .then((res) => res.json())
-      .then((json) => this.setState({ data: json }))
+  async componentDidMount() {
+    try {
+      const response = await fetch('https://blog.ub.uni-leipzig.de/wp-json/wp/v2/posts/7295')
+      const data = await response.json()
+      this.setState({ content: data.content, id: data.id, title: data.title })
+    } catch (error) {
+      this.setState({
+        error,
+        isLoading: false,
+      })
+    }
   }
 
   render() {
+    const {content, title} = this.state
     return (
       <>
-        <div className={this.classes.drawerHeader} />
-        <Typography paragraph={true}>
-          <h1>{this.state.data.title.rendered}</h1>
-          <div dangerouslySetInnerHTML={CmsPageComponent.getPreRenderHtml(this.state.data)}/>
-        </Typography>
+        {content && (
+          <Suspense fallback={<div>Loading...</div>}>
+            <div className={this.classes.drawerHeader}/>
+            <Typography variant="h6">{title.rendered}</Typography>
+            <Typography component={'span'}>
+              <div dangerouslySetInnerHTML={{__html: content.rendered}}/>
+            </Typography>
+          </Suspense>)}
       </>
     )
   }
