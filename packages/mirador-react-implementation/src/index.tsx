@@ -1,4 +1,4 @@
-import {createMuiTheme, MuiThemeProvider} from "@material-ui/core"
+import {createMuiTheme, MuiThemeProvider} from '@material-ui/core'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'

@@ -128,7 +128,7 @@ class PersistentDrawerLeftComponent extends React.Component<any, any> {
                 <ListItemIcon>
                   <BookOutlined/>
                 </ListItemIcon>
-                <ListItemText primary='CMS' />
+                <ListItemText primary='Blog' />
               </ListItem>
             </Link>
           </List>
