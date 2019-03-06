@@ -5,7 +5,7 @@ import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
-import React, {Suspense} from 'react'
+import React from 'react'
 import {ErrorBoundary} from '.'
 import {IWordPressAPIState, withPersistentDrawer} from '../api'
 import {styles} from '../styles'
@@ -40,9 +40,10 @@ class CmsPageComponent extends React.Component<any, IWordPressAPIState> {
 
   async componentDidMount() {
     try {
+      this.setState({ isLoading: true })
       const response = await fetch(API_LINK)
       const data = await response.json()
-      this.setState({ posts: data })
+      this.setState({ isLoading: false, posts: data })
     } catch (error) {
       this.setState({
         error,
@@ -75,13 +76,13 @@ class CmsPageComponent extends React.Component<any, IWordPressAPIState> {
   }
 
   render() {
-    const {posts} = this.state
+    const {isLoading, posts} = this.state
     if (posts && posts.length) {
       return (
-        <ErrorBoundary>
-          <Suspense fallback={<div>Loading...</div>}>
-            {posts.length &&
-            (<>
+        <>
+          {isLoading ? <div>Loading...</div>
+            : posts && posts.length &&
+            (<ErrorBoundary>
               <div style={{ padding: 20 }} className={this.classes.drawerHeader} />
               <Grid item={Boolean(true)} xs={12}>
                 <Typography variant="h5" gutterBottom={Boolean(true)}>Blog der UB Leipzig</Typography>
@@ -96,10 +97,9 @@ class CmsPageComponent extends React.Component<any, IWordPressAPIState> {
                   {this.buildTitleList(posts)}
                 </Grid>
               </Grid>
-              </>)
-            }
-          </Suspense>
-        </ErrorBoundary>
+            </ErrorBoundary>)
+          }
+          </>
       )
     }
     return null

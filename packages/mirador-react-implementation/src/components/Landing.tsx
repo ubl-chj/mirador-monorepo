@@ -37,7 +37,7 @@ const LandingComponent = (props) => {
   return (
     <>
       <div className={classes.drawerHeader} />
-        <Grid container={Boolean(true)} justify="center" spacing={24} alignItems="center">
+        <Grid style={{height: '100%'}} container={Boolean(true)} justify="center" spacing={0} alignItems="center">
           {buildCard(
             'https://media.nga.gov/iiif/public/objects/3/9/2/3/6/39236-primary-0-nativeres.ptif/full/170,/0/default.jpg',
             '/view',

@@ -4,8 +4,14 @@ export interface IWordPressAPIState {
   },
   error: null,
   id: string,
-  isLoading: false,
-  posts: [],
+  isLoading: boolean,
+  posts: [{
+    _embedded: any,
+    excerpt: string,
+    date: string,
+    id: number,
+    title: string,
+  }],
   title: {
     rendered: string,
   },
