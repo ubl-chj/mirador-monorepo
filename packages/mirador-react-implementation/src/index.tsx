@@ -1,4 +1,5 @@
 import {createMuiTheme, MuiThemeProvider} from '@material-ui/core'
+import {localConfig} from '@mirador/configuration'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
@@ -10,22 +11,8 @@ import './styles/index.scss'
 const supportsHistory = 'pushState' in window.history
 const t = Boolean(true)
 const store = newStore(null)
-
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: '#37474f',
-    },
-    secondary: {
-      contrastText: '#ffcc00',
-      light: '#616161',
-      main: '#0044ff',
-    },
-  },
-  typography: {
-    useNextVariants: true,
-  },
-})
+const defaultTheme = localConfig.theme
+const theme = createMuiTheme(defaultTheme)
 
 ReactDOM.render(
   <MuiThemeProvider theme={theme}>

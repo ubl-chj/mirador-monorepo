@@ -19,7 +19,7 @@ const rootConfig = {
   theme: {
     palette: {
       primary: {
-        main: '#37474f',
+        main: '#071e29',
       },
       secondary: {
         light: '#616161',
