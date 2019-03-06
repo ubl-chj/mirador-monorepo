@@ -10,14 +10,14 @@ import { CompanionWindow } from '../components/CompanionWindow';
  * @memberof CompanionWindow
  * @private
  */
-const mapStateToProps = (state, { id }) => {
+const mapStateToProps = (state, { id, windowId }) => {
   const companionWindow = state.companionWindows[id];
 
   return {
     ...companionWindow,
     isDisplayed: (companionWindow
                   && companionWindow.content
-                  && companionWindow.content.length > 0),
+                  && companionWindow.content.length > 0) && (companionWindow.position !== 'left' || state.windows[windowId].sideBarOpen),
   };
 };
 
@@ -28,6 +28,7 @@ const mapStateToProps = (state, { id }) => {
  */
 const mapDispatchToProps = {
   onCloseClick: actions.closeCompanionWindow,
+  updateCompanionWindow: actions.updateCompanionWindow,
 };
 
 /**
@@ -37,14 +38,13 @@ const mapDispatchToProps = {
  * root: {overflowY: string, width: string}}}
  */
 const styles = theme => ({
-  closeButton: {
-    position: 'absolute',
-    right: 0,
-    top: 0,
+  windowSideBarH2: {
+    ...theme.typography.h5,
+    flexGrow: 1,
   },
   root: {
     ...theme.mixins.gutters(),
-    width: '200px',
+    width: theme.paper.width,
     overflowY: 'scroll',
   },
 });

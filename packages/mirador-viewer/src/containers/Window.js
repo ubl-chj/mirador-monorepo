@@ -1,5 +1,6 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { withStyles } from '@material-ui/core';
 import { Window } from '../components/Window';
 
 
@@ -14,7 +15,55 @@ const mapStateToProps = ({ manifests, windows, config }, props) => ({
   workspaceType: config.workspace.type,
 });
 
+/**
+ * @param theme
+ */
+const styles = theme => ({
+  window: {
+    backgroundColor: theme.palette.primary.dark,
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
+    width: '100%',
+    minHeight: 0,
+  },
+  middle: {
+    display: 'flex',
+    flexDirection: 'row',
+    flex: '1',
+    minHeight: 0,
+  },
+  middleLeft: {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: '1',
+    minHeight: 0,
+  },
+  primaryWindow: {
+    display: 'flex',
+    flex: '1',
+    position: 'relative',
+    height: '300px',
+    minHeight: 0,
+  },
+  companionAreaRight: {
+    display: 'flex',
+    flex: '0',
+    minHeight: 0,
+  },
+  companionAreaBottom: {
+    display: 'flex',
+    flex: '0',
+    minHeight: 0,
+  },
+  thumbnailArea: {
+    backgroundColor: theme.palette.primary.dark,
+    flex: '0',
+  },
+});
+
 const enhance = compose(
+  withStyles(styles),
   connect(mapStateToProps),
 );
 

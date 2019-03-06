@@ -43,42 +43,36 @@ export const windowsReducer = (state = {}, action) => {
         thumbnailNavigationPosition: action.position,
       },
     }
-  case ActionTypes.TOGGLE_WINDOW_SIDE_BAR_PANEL:
+  case ActionTypes.SET_WINDOW_SIDE_BAR_PANEL:
     return {
       ...state,
       [action.windowId]: {
         ...state[action.windowId],
         sideBarPanel: (
-          state[action.windowId].sideBarPanel === action.panelType
-            ? 'closed'
-            : action.panelType
+          action.panelType
         ),
       },
+    };
+  case ActionTypes.UPDATE_WINDOW_POSITION:
+    return {
+      ...state,
+      [action.payload.windowId]: {
+        ...state[action.payload.windowId],
+        x: action.payload.position.x,
+        y: action.payload.position.y,
+      },
     }
-    case ActionTypes.UPDATE_WINDOW_POSITION:
-      return {
-        ...state,
-        [action.payload.windowId]: {
-          ...state[action.payload.windowId],
-          x: action.payload.position.x,
-          y: action.payload.position.y,
-        },
-      }
-    case ActionTypes.SET_WINDOW_SIZE:
-      return {
-        ...state,
-        [action.payload.windowId]: {
-          ...state[action.payload.windowId],
-          height: action.payload.size.height,
-          width: action.payload.size.width,
-          x: action.payload.size.x,
-          y: action.payload.size.y,
-        },
-      }
-  case ActionTypes.NEXT_CANVAS:
-    return setCanvasIndex(state, action.windowId, (currentIndex) => currentIndex + 1)
-  case ActionTypes.PREVIOUS_CANVAS:
-    return setCanvasIndex(state, action.windowId, (currentIndex) => currentIndex - 1)
+  case ActionTypes.SET_WINDOW_SIZE:
+    return {
+      ...state,
+      [action.payload.windowId]: {
+        ...state[action.payload.windowId],
+        height: action.payload.size.height,
+        width: action.payload.size.width,
+        x: action.payload.size.x,
+        y: action.payload.size.y,
+      },
+    }
   case ActionTypes.SET_CANVAS:
     return setCanvasIndex(state, action.windowId, () => action.canvasIndex)
   default:

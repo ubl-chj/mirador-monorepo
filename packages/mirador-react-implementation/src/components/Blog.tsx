@@ -77,11 +77,10 @@ class CmsPageComponent extends React.Component<any, IWordPressAPIState> {
 
   render() {
     const {isLoading, posts} = this.state
-    if (posts && posts.length) {
+    if (!isLoading) {
       return (
         <>
-          {isLoading ? <div>Loading...</div>
-            : posts && posts.length &&
+          {posts && posts.length &&
             (<ErrorBoundary>
               <div style={{ padding: 20 }} className={this.classes.drawerHeader} />
               <Grid item={Boolean(true)} xs={12}>
@@ -102,7 +101,7 @@ class CmsPageComponent extends React.Component<any, IWordPressAPIState> {
           </>
       )
     }
-    return null
+    return <div style={{marginTop: '100px'}}>Loading...</div>
   }
 }
 

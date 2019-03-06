@@ -91,16 +91,22 @@
     padding-top: 92px;
   }
 
-  &-window-middle-content {
+  @media (min-width: 600px) {
+    &-workspace-with-control-panel {
+      padding-left: 0;
+      padding-top: 64px;
+    }
+
+    &-workspace-add {
+      padding-left: 100px;
+      padding-top: 18px;
+    }
+  }
+
+  &-primary-window {
     display: flex;
     flex: 1;
     position: relative;
-  }
-
-  &-window {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
   }
 
   &-osd-container {
@@ -113,16 +119,7 @@
     margin-left: $window-sidebar-width;
   }
 
-  &-window-companion-side {
-    background: lighten($gray, 40%);
-    min-width: 75px;
-    overflow-x: auto;
-    resize: horizontal;
-  }
-
   &-companion-bottom {
-    background: lighten($black, 60%);
-    overflow-y: auto;
     resize: vertical;
   }
 

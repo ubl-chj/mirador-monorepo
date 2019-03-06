@@ -21,10 +21,11 @@
   }
 
   &-workspace-viewport {
+    background: $surface-dark;
     bottom: 0;
     left: 0;
-    overflow: hidden;
     margin: 0;
+    overflow: hidden;
     position: absolute;
     right: 0;
     top: 0;
@@ -42,6 +43,8 @@
   }
 
   &-workspace-add {
+    height: 100%;
+    overflow: auto;
     padding-left: 6px;
     padding-right: 6px;
     padding-top: 92px;
@@ -59,21 +62,13 @@
     }
   }
 
-  &-window-middle-content {
+  &-primary-window {
     display: flex;
     flex: 1;
     position: relative;
   }
 
-  &-window {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
-  }
-
   &-osd-container {
-    background: $gray;
     flex: 1;
     position: relative;
   }
@@ -83,8 +78,6 @@
   }
 
   &-companion-bottom {
-    background: lighten($black, 60%);
-    overflow-y: auto;
     resize: vertical;
   }
 

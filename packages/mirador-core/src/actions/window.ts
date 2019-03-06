@@ -1,6 +1,6 @@
 import uuid from 'uuid/v4'
 import {ActionTypes} from './action-types'
-import { addCompanionWindow, removeCompanionWindow } from './companionWindow'
+import { removeCompanionWindow } from './companionWindow'
 
 /**
  * focusWindow - action creator
@@ -23,13 +23,16 @@ export function addWindow(options) {
     canvasIndex: 0,
     collectionIndex: 0,
     companionWindowIds: [],
+    height: 400,
     id: `window-${uuid()}`,
     manifestId: null,
     rangeId: null,
     rotation: null,
     thumbnailNavigationPosition: 'bottom', // bottom by default in settings.js
     view: 'single',
-    xywh: [0, 0, 400, 400],
+    width: 400,
+    x: 2700,
+    y: 2700,
   }
   return { type: ActionTypes.ADD_WINDOW, window: { ...defaultOptions, ...options } }
 }
@@ -66,32 +69,8 @@ export function toggleWindowSideBar(windowId) {
  * @param  {String} panelType
  * @memberof ActionCreators
  */
-export function toggleWindowSideBarPanel(windowId, panelType) {
-  return { type: ActionTypes.TOGGLE_WINDOW_SIDE_BAR_PANEL, windowId, panelType }
-}
-
-/**
- * popOutCompanionWindow - action creator
- *
- * @param  {String} windowId
- * @param  {String} panelType The type of panel content to be rendered
- *                            in the companion window (e.g. info, canvas_navigation)
- * @param  {String} position The position of the companion window to
- *                           set content for (e.g. right, bottom)
- * @memberof ActionCreators
- */
-export function popOutCompanionWindow(windowId, panelType, position) {
-  return (dispatch, getState) => {
-    const { companionWindowIds } = getState().windows[windowId]
-    companionWindowIds.map((id) => dispatch(removeCompanionWindow(id)))
-
-    const action = dispatch(addCompanionWindow({ content: panelType, position }))
-
-    const companionWindowId = action.id
-    dispatch(updateWindow(windowId, { companionWindowIds: [companionWindowId] }))
-
-    dispatch(toggleWindowSideBarPanel(windowId, 'closed'))
-  }
+export function setWindowSideBarPanel(windowId, panelType) {
+  return { type: ActionTypes.SET_WINDOW_SIDE_BAR_PANEL, windowId, panelType };
 }
 
 /**
@@ -100,24 +79,10 @@ export function popOutCompanionWindow(windowId, panelType, position) {
  */
 export function closeWindow(windowId) {
   return (dispatch, getState) => {
-    const { companionWindowIds } = getState().windows[windowId]
-    companionWindowIds.map((id) => dispatch(removeCompanionWindow(id)))
-    dispatch(removeWindow(windowId))
-  }
-}
-
-/**
- *
- * @param windowId
- * @param companionWindowId
- */
-export function closeCompanionWindow(windowId, companionWindowId) {
-  return (dispatch, getState) => {
-    dispatch(removeCompanionWindow(companionWindowId))
-    const companionWindowIds = getState().windows[windowId].companionWindowIds
-      .filter((id) => id !== companionWindowId)
-    dispatch(updateWindow(windowId, { companionWindowIds }))
-  }
+    const { companionWindowIds } = getState().windows[windowId];
+    companionWindowIds.map(id => dispatch(removeCompanionWindow(id)));
+    dispatch(removeWindow(windowId));
+  };
 }
 
 /**
@@ -128,7 +93,7 @@ export function closeCompanionWindow(windowId, companionWindowId) {
  * @memberof ActionCreators
  */
 export function setWindowThumbnailPosition(windowId, position) {
-  return { type: ActionTypes.SET_WINDOW_THUMBNAIL_POSITION, windowId, position }
+  return { type: ActionTypes.SET_WINDOW_THUMBNAIL_POSITION, windowId, position };
 }
 
 /**
@@ -139,7 +104,7 @@ export function setWindowThumbnailPosition(windowId, position) {
  * @memberof ActionCreators
  */
 export function setWindowViewType(windowId, viewType) {
-  return { type: ActionTypes.SET_WINDOW_VIEW_TYPE, windowId, viewType }
+  return { type: ActionTypes.SET_WINDOW_VIEW_TYPE, windowId, viewType };
 }
 
 /**

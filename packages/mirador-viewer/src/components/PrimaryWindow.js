@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import WindowSideBar from '../containers/WindowSideBar';
-import CompanionWindow from '../containers/CompanionWindow';
 import WindowViewer from '../containers/WindowViewer';
+import CompanionArea from '../containers/CompanionArea';
 import ns from '../config/css-ns';
 
 /**
  * WindowMiddleContent - component that renders the "middle" area of the
  * Mirador Window
  */
-export class WindowMiddleContent extends Component {
+export class PrimaryWindow extends Component {
   /**
    * renderViewer
    *
@@ -32,23 +32,22 @@ export class WindowMiddleContent extends Component {
    * Render the component
    */
   render() {
-    const { companionWindowIds, window } = this.props;
+    const { window } = this.props;
     return (
-      <div className={ns('window-middle-content')}>
+      <div className={ns('primary-window')}>
         <WindowSideBar windowId={window.id} />
+        <CompanionArea windowId={window.id} position="left" />
         {this.renderViewer()}
-        { companionWindowIds.map(id => <CompanionWindow key={id} id={id} windowId={window.id} />) }
       </div>
     );
   }
 }
 
-WindowMiddleContent.propTypes = {
-  companionWindowIds: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
+PrimaryWindow.propTypes = {
   window: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   manifest: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
-WindowMiddleContent.defaultProps = {
+PrimaryWindow.defaultProps = {
   manifest: null,
 };

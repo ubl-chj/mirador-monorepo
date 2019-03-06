@@ -27,6 +27,9 @@ const rootConfig = {
         contrastText: '#ffcc00',
       },
     },
+    paper: {
+      width: 300,
+    },
     typography: {
       useNextVariants: true
     },
