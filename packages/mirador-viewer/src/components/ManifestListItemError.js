@@ -51,7 +51,6 @@ export class ManifestListItemError extends Component {
   }
 }
 
-
 ManifestListItemError.propTypes = {
   classes: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   manifestId: PropTypes.string.isRequired,

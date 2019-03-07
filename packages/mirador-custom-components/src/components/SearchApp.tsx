@@ -14,6 +14,7 @@ import {
   ResetFilters,
   SearchBox,
   SearchkitComponent,
+  SearchkitComponentProps,
   SideBar,
   SortingSelector,
   ViewSwitcherHits,
@@ -22,13 +23,38 @@ import {
 import {StandardGridItem, StandardListItem} from '.'
 import {ReduxContext} from '../utils'
 
-export class SearchApp extends SearchkitComponent<any, any> {
+interface ISearchApp extends SearchkitComponentProps {
+  addWindow: () => void,
+  discovery: {},
+  fetchManifest: () => void,
+  isWorkspaceAddVisible: true
+  manifests: {}
+  routeConfig: {}
+  setWorkspaceAddVisibility: () => void,
+}
+
+export class SearchApp extends SearchkitComponent<ISearchApp, any> {
   routeConfig: any
   props: any
 
   constructor(props) {
     super(props)
+    console.log(props)
     this.routeConfig = props.routeConfig
+  }
+
+  buildRefinementListFilters(refinementListFilters) {
+    return Object.keys(refinementListFilters).map((id: any) => (
+      <RefinementListFilter
+        containerComponent={<Panel collapsable={true} defaultCollapsed={true}/>}
+        field={refinementListFilters[id].field}
+        title={refinementListFilters[id].title}
+        id={refinementListFilters[id].id}
+        key={refinementListFilters[id].id}
+        operator='AND'
+        listComponent={ItemList}
+      />
+    ))
   }
 
   render() {
@@ -38,30 +64,7 @@ export class SearchApp extends SearchkitComponent<any, any> {
         <SearchBox autofocus={true} searchOnChange={true} queryFields={queryFields}/>
         <LayoutBody>
           <SideBar>
-            <RefinementListFilter
-              containerComponent={<Panel collapsable={true} defaultCollapsed={true}/>}
-              field={refinementListFilters[1].field}
-              title={refinementListFilters[1].title}
-              id={refinementListFilters[1].id}
-              operator='AND'
-              listComponent={ItemList}
-            />
-            <RefinementListFilter
-              containerComponent={<Panel collapsable={true} defaultCollapsed={true}/>}
-              field={refinementListFilters[2].field}
-              title={refinementListFilters[2].title}
-              id={refinementListFilters[2].id}
-              operator='AND'
-              listComponent={ItemList}
-            />
-            <RefinementListFilter
-              containerComponent={<Panel collapsable={true} defaultCollapsed={true}/>}
-              field={refinementListFilters[3].field}
-              title={refinementListFilters[3].title}
-              id={refinementListFilters[3].id}
-              operator='AND'
-              listComponent={ItemList}
-            />
+            {this.buildRefinementListFilters(refinementListFilters)}
           </SideBar>
           <LayoutResults>
             <ActionBar>

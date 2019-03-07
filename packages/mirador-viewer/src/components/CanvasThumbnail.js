@@ -80,7 +80,6 @@ export class CanvasThumbnail extends Component {
           height = maxHeight;
           width = maxHeight * aspectRatio;
         }
-
         break;
       case 'sizeByDistortedWh':
         height = maxHeight;
@@ -97,7 +96,7 @@ export class CanvasThumbnail extends Component {
       default:
         height = 'auto';
         width = 'auto';
-    }
+      }
 
     return {
       height,

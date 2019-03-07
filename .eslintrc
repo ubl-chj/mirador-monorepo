@@ -10,7 +10,7 @@
     "es6": true,
     "node": true
   },
-  "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
   "settings": {
     "react": {
       "createClass": "createReactClass",
@@ -19,7 +19,14 @@
     }
   },
   "rules": {
+    "arrow-parens":0,
     "comma-dangle": "off",
+    "generator-star-spacing": 1,
+    "import/no-unresolved": "off",
+    "jest/valid-expect-in-promise": "off",
+    "jest/no-alias-methods": "off",
+    "jest/no-identical-title": "off",
+    "jest/valid-expect": "off",
     "jsx-a11y/href-no-hash": "off",
     "jsx-a11y/anchor-is-valid": [
       "warn",
@@ -34,35 +41,38 @@
     "jsx-a11y/no-noninteractive-element-interactions": "off",
     "jsx-a11y/anchor-has-content": "off",
     "babel/new-cap": "off",
-    "indent": [
-      "error",
-      2
-    ],
+    "indent": "off",
+    "no-await-in-loop": 1,
+    "no-extra-parens": "off",
+    "no-multiple-empty-lines": "off",
+    "no-undef": "off",
+    "no-unused-vars": "off",
     "object-curly-spacing": "off",
-    "quotes": [
-      2,
-      "single"
-    ],
+    "object-shorthand": 1,
+    "operator-linebreak": "off",
+    "quotes": "off",
     "react/prop-types": "off",
+    "react/jsx-uses-react": 2,
+    "react/jsx-uses-vars": 2,
+    "react/react-in-jsx-scope": 2,
+    "semi": 0,
     "space-before-function-paren": "off",
     "strict": [
       2,
       "never"
-    ],
-    "generator-star-spacing": 1,
-    "object-shorthand": 1,
-    "arrow-parens": 1,
-    "no-await-in-loop": 1,
-    "react/jsx-uses-react": 2,
-    "react/jsx-uses-vars": 2,
-    "react/react-in-jsx-scope": 2
+    ]
   },
   "plugins": [
     "babel",
     "jest",
     "react",
     "react-hooks",
-    "jsx-a11y"
+    "jsx-a11y",
+    "@typescript-eslint"
   ]
 }
+
+
+
+
 

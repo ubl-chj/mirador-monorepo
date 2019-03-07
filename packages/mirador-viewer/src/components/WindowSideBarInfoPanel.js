@@ -7,7 +7,6 @@ import { LabelValueMetadata } from './LabelValueMetadata';
 import CompanionWindow from '../containers/CompanionWindow';
 import ns from '../config/css-ns';
 
-
 /**
  * WindowSideBarInfoPanel
  */

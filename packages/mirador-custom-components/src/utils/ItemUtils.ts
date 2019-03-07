@@ -2,7 +2,7 @@ import uuidv5 from 'uuidv5'
 import {Domain} from '../enum'
 
 export const handleMissingImage = (target) => {
-  return target.src = Domain.THUMBNAIL_NOTFOUND_SVG
+  return target.src = Domain.THUMBNAIL_NOTFOUND_SVG // eslint-disable-line
 }
 
 export function resolveManifestId(source) {

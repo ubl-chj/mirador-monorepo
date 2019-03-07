@@ -1,5 +1,5 @@
-import * as React from "react"
-import {handleMissingImage} from "../utils"
+import * as React from 'react'
+import {handleMissingImage} from '../utils'
 
 export const Image = (props) => {
   const {imageSource, width} = props
@@ -7,7 +7,7 @@ export const Image = (props) => {
     <img
       // crossOrigin=''
       width={width}
-      onError={(e) => { // tslint:disable-line
+      onError={(e) => {
         handleMissingImage(e.target as HTMLImageElement)
       }}
       alt='thumbnail'

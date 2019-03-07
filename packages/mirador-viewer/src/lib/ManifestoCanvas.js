@@ -92,14 +92,14 @@ export default class ManifestoCanvas {
     }
 
     switch (this.thumbnailConstraints(maxWidth, maxHeight)) {
-      case 'sizeByH':
-        height = maxHeight;
-        break;
-      case 'sizeByW':
-        width = maxWidth;
-        break;
-      default:
-        height = '150';
+    case 'sizeByH':
+      height = maxHeight;
+      break;
+    case 'sizeByW':
+      width = maxWidth;
+      break;
+    default:
+      height = '150';
     }
 
     // note that, although the IIIF server may support sizeByConfinedWh (e.g. !w,h)

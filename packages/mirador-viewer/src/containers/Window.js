@@ -5,7 +5,6 @@ import { withTranslation } from 'react-i18next';
 import { Window } from '../components/Window';
 import { getWindowManifest, getManifestTitle } from '../state/selectors';
 
-
 /**
  * mapStateToProps - used to hook up connect to action creators
  * @memberof Window

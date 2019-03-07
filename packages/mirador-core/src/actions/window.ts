@@ -80,7 +80,7 @@ export function setWindowSideBarPanel(windowId, panelType) {
 export function closeWindow(windowId) {
   return (dispatch, getState) => {
     const { companionWindowIds } = getState().windows[windowId];
-    companionWindowIds.map(id => dispatch(removeCompanionWindow(id)));
+    companionWindowIds.map((id) => dispatch(removeCompanionWindow(id)));
     dispatch(removeWindow(windowId));
   };
 }
