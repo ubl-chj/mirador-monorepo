@@ -1,6 +1,5 @@
 import {withStyles} from '@material-ui/core'
 import Card from '@material-ui/core/Card'
-import CardActionArea from '@material-ui/core/CardActionArea'
 import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Grid from '@material-ui/core/Grid'
@@ -17,6 +16,14 @@ class CmsPageComponent extends React.Component<any, IWordPressAPIState> {
     const event = new Date(date)
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
     return event.toLocaleDateString('de-DE', options)
+  }
+
+  static buildCardMedia(embedded) {
+    if (embedded['wp:featuredmedia']) {
+      return embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url
+    } else {
+      return 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII='
+    }
   }
 
   classes: any
@@ -55,22 +62,18 @@ class CmsPageComponent extends React.Component<any, IWordPressAPIState> {
   buildTitleList(posts): any {
     return posts.map(({date, id, title, excerpt, _embedded}) => (
       <Card key={id} className={this.classes.card}>
-        <CardActionArea>
-          {_embedded['wp:featuredmedia']
-            ? <CardMedia
-              className={this.classes.media}
-              image={_embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url}
-              title={title.rendered}
-            /> : null
-          }
-          <CardContent>
-            <Typography component='span'><strong><div dangerouslySetInnerHTML={{__html: title.rendered}}/></strong></Typography>
-            <Typography component='title'>{CmsPageComponent.buildDate(date)}</Typography>
-            <Typography component='span'>
-              <div dangerouslySetInnerHTML={{__html: excerpt.rendered}}/>
-            </Typography>
-          </CardContent>
-        </CardActionArea>
+        <CardMedia
+          className={this.classes.media}
+          image={CmsPageComponent.buildCardMedia(_embedded)}
+          title={title.rendered}
+        />
+        <CardContent>
+          <Typography component='span'><strong><div dangerouslySetInnerHTML={{__html: title.rendered}}/></strong></Typography>
+          <Typography component='title'>{CmsPageComponent.buildDate(date)}</Typography>
+          <Typography component='span'>
+            <div dangerouslySetInnerHTML={{__html: excerpt.rendered}}/>
+          </Typography>
+        </CardContent>
       </Card>
     ))
   }
