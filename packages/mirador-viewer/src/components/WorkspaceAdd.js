@@ -7,6 +7,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Drawer from '@material-ui/core/Drawer';
 import Fab from '@material-ui/core/Fab';
 import IconButton from '@material-ui/core/IconButton';
+import List from '@material-ui/core/List';
 import Paper from '@material-ui/core/Paper';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -55,7 +56,10 @@ export class WorkspaceAdd extends React.Component {
 
     return (
       <div className={ns('workspace-add')}>
-        {manifestList}
+        <Typography variant="srOnly" component="h1">{t('miradorResources')}</Typography>
+        <List>
+          {manifestList}
+        </List>
 
         <Fab
           variant="extended"
@@ -87,7 +91,7 @@ export class WorkspaceAdd extends React.Component {
           >
             <AppBar position="absolute" color="secondary" onClick={() => (this.setAddResourcesVisibility(false))}>
               <Toolbar>
-                <IconButton className={classes.menuButton} color="inherit" aria-label={t('closeMenu')}>
+                <IconButton className={classes.menuButton} color="inherit" aria-label={t('closeAddResourceMenu')}>
                   <ExpandMoreIcon />
                 </IconButton>
                 <Typography variant="h2" noWrap color="inherit" className={classes.typographyBody}>

@@ -1,6 +1,7 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '@mirador/core';
+import { withTranslation } from 'react-i18next';
 import CanvasGroupings from '../lib/CanvasGroupings';
 import { ThumbnailNavigation } from '../components/ThumbnailNavigation';
 import { getManifestCanvases } from '../state/selectors';
@@ -24,6 +25,7 @@ const mapDispatchToProps = {
 };
 
 const enhance = compose(
+  withTranslation(),
   connect(mapStateToProps, mapDispatchToProps),
 );
 

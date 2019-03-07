@@ -24,7 +24,9 @@ const rootConfig = {
       secondary: {
         light: '#616161',
         main: '#0044ff',
-        contrastText: '#ffcc00',
+      },
+      error: {
+        main: '#b00020',
       },
     },
     paper: {
