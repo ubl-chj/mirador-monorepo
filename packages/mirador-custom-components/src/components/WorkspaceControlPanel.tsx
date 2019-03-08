@@ -8,8 +8,9 @@ import AddIcon from '@material-ui/icons/Add'
 import ClearIcon from '@material-ui/icons/Clear'
 import Star from '@material-ui/icons/Star'
 import React from 'react'
+import {WorkspaceSettingsMenu} from './WorkspaceSettingsMenu'
 
-export const WorkspaceControlPanelComponent = (props) => {
+export const WorkspaceControlPanelComponent: React.FunctionComponent = (props: any) => {
   const windowCount = props.windows && Object.keys(props.windows).length
   return (
     <Drawer
@@ -40,6 +41,7 @@ export const WorkspaceControlPanelComponent = (props) => {
           </IconButton>
         </ListItem>
       </List>
+      <WorkspaceSettingsMenu {...props}/>
     </Drawer>
   )
 }

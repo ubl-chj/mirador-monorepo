@@ -15,15 +15,15 @@ const defaultTheme = localConfig.theme
 const theme = createMuiTheme(defaultTheme)
 
 ReactDOM.render(
-  <MuiThemeProvider theme={theme}>
-    <Provider store={store}>
-      <BrowserRouter forceRefresh={!supportsHistory}>
-        <Switch>
-          <Route exact={t} path='/' component={Landing}/>
-          <Route exact={t} path='/view/:uuid?' component={Mirador}/>
-          <Route exact={t} path='/cms' component={CmsPage}/>
-        </Switch>
-      </BrowserRouter>
-    </Provider>
-  </MuiThemeProvider>, document.getElementById('app'),
+    <MuiThemeProvider theme={theme}>
+      <Provider store={store}>
+        <BrowserRouter forceRefresh={!supportsHistory}>
+          <Switch>
+            <Route exact={t} path='/' component={Landing}/>
+            <Route exact={t} path='/view/:uuid?' component={Mirador}/>
+            <Route exact={t} path='/cms' component={CmsPage}/>
+          </Switch>
+        </BrowserRouter>
+      </Provider>
+    </MuiThemeProvider>, document.getElementById('app'),
 )

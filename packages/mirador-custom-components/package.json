@@ -18,12 +18,14 @@
   "dependencies": {
     "@material-ui/core": "^3.9.1",
     "@mirador/core": "file:../mirador-core",
+    "react-i18next": "^10.2.0",
     "react-redux": "^6.0.1",
     "searchkit": "^2.3.1-alpha.7",
     "uuidv5": "^1.0.0"
   },
   "devDependencies": {
     "@types/node": "^11.9.6",
-    "@types/react": "^16.8.6"
+    "@types/react": "^16.8.6",
+    "@types/redux": "^3.6.0"
   }
 }

@@ -3,18 +3,19 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core';
 import { withTranslation } from 'react-i18next';
 import { Window } from '../components/Window';
-import { getWindowManifest, getManifestTitle } from '../state/selectors';
+import { getWindowManifest, getManifestTitle, getThumbnailNavigationPosition } from '../state/selectors';
 
 /**
  * mapStateToProps - used to hook up connect to action creators
  * @memberof Window
  * @private
  */
-const mapStateToProps = ({ manifests, windows, config }, props) => ({
-  manifest: manifests[props.window.manifestId],
-  window: windows[props.window.id],
-  workspaceType: config.workspace.type,
-  label: getManifestTitle(getWindowManifest({ manifests, windows }, props.window.id)),
+const mapStateToProps = (state, props) => ({
+  manifest: state.manifests[props.window.manifestId],
+  window: state.windows[props.window.id],
+  workspaceType: state.config.workspace.type,
+  label: getManifestTitle(getWindowManifest(state, props.window.id)),
+  thumbnailNavigationPosition: getThumbnailNavigationPosition(state, props.window.id),
 });
 
 /**
@@ -60,7 +61,11 @@ const styles = theme => ({
   },
   thumbnailArea: {
     backgroundColor: theme.palette.primary.dark,
-    flex: '0',
+  },
+  thumbnailAreaBottom: {
+  },
+  thumbnailAreaRight: {
+    minWidth: 100,
   },
 });
 
