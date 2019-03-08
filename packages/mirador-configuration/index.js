@@ -37,8 +37,9 @@ const rootConfig = {
     },
   },
   thumbnailNavigation: {
-    'defaultPosition': 'off',
-    'height': 100
+    defaultPosition: 'off',
+    height: 100,
+    width: 100,
   },
   translations: {
   },
