@@ -1,5 +1,4 @@
-import { workspaceReducer } from '../../../src/state/reducers/workspace';
-import ActionTypes from '../../../src/state/actions/action-types';
+import {ActionTypes, workspaceReducer} from '@mirador/core';
 
 describe('workspace reducer', () => {
   it('should handle FOCUS_WINDOW', () => {

@@ -1,5 +1,4 @@
-import * as actions from '../../../src/state/actions';
-import ActionTypes from '../../../src/state/actions/action-types';
+import {ActionTypes, setConfig, updateConfig} from '@mirador/core';
 
 describe('config actions', () => {
   describe('setConfig', () => {
@@ -9,7 +8,7 @@ describe('config actions', () => {
         type: ActionTypes.SET_CONFIG,
         config,
       };
-      expect(actions.setConfig(config)).toEqual(expectedAction);
+      expect(setConfig(config)).toEqual(expectedAction);
     });
   });
   describe('updateConfig', () => {
@@ -19,7 +18,7 @@ describe('config actions', () => {
         type: ActionTypes.UPDATE_CONFIG,
         config,
       };
-      expect(actions.updateConfig(config)).toEqual(expectedAction);
+      expect(updateConfig(config)).toEqual(expectedAction);
     });
   });
 });

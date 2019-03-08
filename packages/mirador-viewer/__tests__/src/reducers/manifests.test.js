@@ -1,5 +1,4 @@
-import { manifestsReducer } from '../../../src/state/reducers/manifests';
-import ActionTypes from '../../../src/state/actions/action-types';
+import {ActionTypes, manifestsReducer} from '@mirador/core';
 
 describe('manifests reducer', () => {
   it('should handle REQUEST_MANIFEST', () => {

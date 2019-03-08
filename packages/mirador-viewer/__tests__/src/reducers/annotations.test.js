@@ -1,5 +1,4 @@
-import { annotationsReducer } from '../../../src/state/reducers/annotations';
-import ActionTypes from '../../../src/state/actions/action-types';
+import {ActionTypes, annotationsReducer} from '@mirador/core';
 
 describe('annotation reducer', () => {
   it('should handle REQUEST_ANNOTATION', () => {

@@ -1,5 +1,4 @@
-import { companionWindowsReducer } from '../../../src/state/reducers/companionWindows';
-import ActionTypes from '../../../src/state/actions/action-types';
+import { ActionTypes, companionWindowsReducer } from '@mirador/core';
 
 describe('companionWindowsReducer', () => {
   describe('ADD_COMPANION_WINDOW', () => {

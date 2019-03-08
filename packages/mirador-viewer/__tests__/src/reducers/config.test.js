@@ -1,5 +1,4 @@
-import { configReducer } from '../../../src/state/reducers/config';
-import ActionTypes from '../../../src/state/actions/action-types';
+import { ActionTypes, configReducer } from '@mirador/core';
 
 describe('config reducer', () => {
   describe('SET_CONFIG', () => {

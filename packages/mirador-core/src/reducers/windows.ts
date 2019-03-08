@@ -6,77 +6,94 @@ import {ActionTypes} from '../actions'
  */
 export const windowsReducer = (state = {}, action) => {
   switch (action.type) {
-  case ActionTypes.ADD_WINDOW:
-    return { ...state, [action.window.id]: action.window }
+    case ActionTypes.ADD_WINDOW:
+      return { ...state, [action.window.id]: action.window }
 
-  case ActionTypes.UPDATE_WINDOW:
-    return updateIn(state, [action.id], (orig) => merge(orig, action.payload))
-
-  case ActionTypes.REMOVE_WINDOW:
-    return Object.keys(state).reduce((object, key) => {
-      if (key !== action.windowId) {
-        object[key] = state[key] // eslint-disable-line no-param-reassign
+    case ActionTypes.MAXIMIZE_WINDOW:
+      return {
+        ...state,
+        [action.windowId]: {
+          ...state[action.windowId],
+          maximized: true,
+        },
       }
-      return object
-    }, {})
-  case ActionTypes.TOGGLE_WINDOW_SIDE_BAR:
-    return {
-      ...state,
-      [action.windowId]: {
-        ...state[action.windowId],
-        sideBarOpen: !state[action.windowId].sideBarOpen,
-      },
-    }
-  case ActionTypes.SET_WINDOW_VIEW_TYPE:
-    return {
-      ...state,
-      [action.windowId]: {
-        ...state[action.windowId],
-        view: action.viewType,
-      },
-    }
-  case ActionTypes.SET_WINDOW_THUMBNAIL_POSITION:
-    return {
-      ...state,
-      [action.windowId]: {
-        ...state[action.windowId],
-        thumbnailNavigationPosition: action.position,
-      },
-    }
-  case ActionTypes.SET_WINDOW_SIDE_BAR_PANEL:
-    return {
-      ...state,
-      [action.windowId]: {
-        ...state[action.windowId],
-        sideBarPanel: (
-          action.panelType
-        ),
-      },
-    };
-  case ActionTypes.UPDATE_WINDOW_POSITION:
-    return {
-      ...state,
-      [action.payload.windowId]: {
-        ...state[action.payload.windowId],
-        x: action.payload.position.x,
-        y: action.payload.position.y,
-      },
-    }
-  case ActionTypes.SET_WINDOW_SIZE:
-    return {
-      ...state,
-      [action.payload.windowId]: {
-        ...state[action.payload.windowId],
-        height: action.payload.size.height,
-        width: action.payload.size.width,
-        x: action.payload.size.x,
-        y: action.payload.size.y,
-      },
-    }
-  case ActionTypes.SET_CANVAS:
-    return setCanvasIndex(state, action.windowId, () => action.canvasIndex)
-  default:
-    return state
+    case ActionTypes.MINIMIZE_WINDOW:
+      return {
+        ...state,
+        [action.windowId]: {
+          ...state[action.windowId],
+          maximized: false,
+        },
+      }
+
+    case ActionTypes.UPDATE_WINDOW:
+      return updateIn(state, [action.id], (orig) => merge(orig, action.payload))
+
+    case ActionTypes.REMOVE_WINDOW:
+      return Object.keys(state).reduce((object, key) => {
+        if (key !== action.windowId) {
+          object[key] = state[key] // eslint-disable-line no-param-reassign
+        }
+        return object
+      }, {})
+    case ActionTypes.TOGGLE_WINDOW_SIDE_BAR:
+      return {
+        ...state,
+        [action.windowId]: {
+          ...state[action.windowId],
+          sideBarOpen: !state[action.windowId].sideBarOpen,
+        },
+      }
+    case ActionTypes.SET_WINDOW_VIEW_TYPE:
+      return {
+        ...state,
+        [action.windowId]: {
+          ...state[action.windowId],
+          view: action.viewType,
+        },
+      }
+    case ActionTypes.SET_WINDOW_THUMBNAIL_POSITION:
+      return {
+        ...state,
+        [action.windowId]: {
+          ...state[action.windowId],
+          thumbnailNavigationPosition: action.position,
+        },
+      }
+    case ActionTypes.SET_WINDOW_SIDE_BAR_PANEL:
+      return {
+        ...state,
+        [action.windowId]: {
+          ...state[action.windowId],
+          sideBarPanel: (
+            action.panelType
+          ),
+        },
+      }
+    case ActionTypes.UPDATE_WINDOW_POSITION:
+      return {
+        ...state,
+        [action.payload.windowId]: {
+          ...state[action.payload.windowId],
+          x: action.payload.position.x,
+          y: action.payload.position.y,
+        },
+      }
+    case ActionTypes.SET_WINDOW_SIZE:
+      return {
+        ...state,
+        [action.payload.windowId]: {
+          ...state[action.payload.windowId],
+          height: action.payload.size.height,
+          width: action.payload.size.width,
+          x: action.payload.size.x,
+          y: action.payload.size.y,
+        },
+      }
+    case ActionTypes.SET_CANVAS:
+      return setCanvasIndex(state, action.windowId, () => action.canvasIndex)
+    default:
+      return state
   }
 }
 

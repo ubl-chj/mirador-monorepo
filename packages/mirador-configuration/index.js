@@ -22,8 +22,8 @@ const rootConfig = {
         main: '#071e29',
       },
       secondary: {
-        light: '#616161',
-        main: '#0044ff',
+        light: '#e6e4e4',
+        main: '#26886d',
       },
       error: {
         main: '#b00020',

@@ -1,5 +1,6 @@
-import * as actions from '../../../src/state/actions';
-import ActionTypes from '../../../src/state/actions/action-types';
+import {ActionTypes, addWindow, maximizeWindow, minimizeWindow, removeWindow, setCompanionAreaOpen,
+  setWindowSideBarPanel, setWindowSize, setWindowThumbnailPosition, setWindowViewType, toggleWindowSideBar,
+  updateWindow, updateWindowPosition} from '@mirador/core';
 
 describe('window actions', () => {
   describe('addWindow', () => {
@@ -17,6 +18,7 @@ describe('window actions', () => {
           collectionIndex: 0,
           companionWindowIds: [],
           manifestId: null,
+          maximized: false,
           rangeId: null,
           thumbnailNavigationPosition: 'bottom',
           x: 2700,
@@ -27,7 +29,7 @@ describe('window actions', () => {
           view: 'single',
         },
       };
-      expect(actions.addWindow(options)).toEqual(expectedAction);
+      expect(addWindow(options)).toEqual(expectedAction);
     });
   });
 
@@ -37,7 +39,7 @@ describe('window actions', () => {
         foo: 1,
         bar: 2,
       };
-      const action = actions.updateWindow('window-123', payload);
+      const action = updateWindow('window-123', payload);
       expect(action.type).toBe(ActionTypes.UPDATE_WINDOW);
       expect(action.id).toBe('window-123');
       expect(action.payload).toEqual(payload);
@@ -51,7 +53,29 @@ describe('window actions', () => {
         type: ActionTypes.REMOVE_WINDOW,
         windowId: id,
       };
-      expect(actions.removeWindow(id)).toEqual(expectedAction);
+      expect(removeWindow(id)).toEqual(expectedAction);
+    });
+  });
+
+  describe('maximizeWindow', () => {
+    it('maximizes the window', () => {
+      const maxWindowId = 'abc123';
+      const maximizeWindowAction = {
+        type: ActionTypes.MAXIMIZE_WINDOW,
+        windowId: maxWindowId,
+      };
+      expect(maximizeWindow(maxWindowId)).toEqual(maximizeWindowAction);
+    });
+  });
+
+  describe('minimizeWindow', () => {
+    it('minimizes the window and renders current layout', () => {
+      const minWindowId = 'abc123';
+      const minimizeWindowAction = {
+        type: ActionTypes.MINIMIZE_WINDOW,
+        windowId: minWindowId,
+      };
+      expect(minimizeWindow(minWindowId)).toEqual(minimizeWindowAction);
     });
   });
 
@@ -62,9 +86,22 @@ describe('window actions', () => {
         type: ActionTypes.TOGGLE_WINDOW_SIDE_BAR,
         windowId: id,
       };
-      expect(actions.toggleWindowSideBar(id)).toEqual(expectedAction);
+      expect(toggleWindowSideBar(id)).toEqual(expectedAction);
     });
   });
+
+  describe('setCompanionAreaOpen', () => {
+    it('returns the appropriate action type', () => {
+      const id = 'abc123';
+      const expectedAction = {
+        type: ActionTypes.UPDATE_WINDOW,
+        id,
+        payload: { companionAreaOpen: true },
+      };
+      expect(setCompanionAreaOpen(id, true)).toEqual(expectedAction);
+    });
+  });
+
 
   describe('setWindowThumbnailPosition', () => {
     it('returns the appropriate action type', () => {
@@ -74,7 +111,7 @@ describe('window actions', () => {
         windowId: id,
         position: 'right',
       };
-      expect(actions.setWindowThumbnailPosition(id, 'right')).toEqual(expectedAction);
+      expect(setWindowThumbnailPosition(id, 'right')).toEqual(expectedAction);
     });
   });
 
@@ -86,7 +123,7 @@ describe('window actions', () => {
         windowId: id,
         viewType: 'book',
       };
-      expect(actions.setWindowViewType(id, 'book')).toEqual(expectedAction);
+      expect(setWindowViewType(id, 'book')).toEqual(expectedAction);
     });
   });
 
@@ -99,7 +136,7 @@ describe('window actions', () => {
         windowId,
         panelType,
       };
-      expect(actions.setWindowSideBarPanel(windowId, 'panelType')).toEqual(expectedAction);
+      expect(setWindowSideBarPanel(windowId, 'panelType')).toEqual(expectedAction);
     });
   });
 
@@ -118,7 +155,7 @@ describe('window actions', () => {
           },
         },
       };
-      expect(actions.setWindowSize(id, {
+      expect(setWindowSize(id, {
         x: 20,
         y: 20,
         width: 200,
@@ -140,7 +177,7 @@ describe('window actions', () => {
           },
         },
       };
-      expect(actions.updateWindowPosition(id, {
+      expect(updateWindowPosition(id, {
         x: 20,
         y: 20,
       })).toEqual(expectedAction);

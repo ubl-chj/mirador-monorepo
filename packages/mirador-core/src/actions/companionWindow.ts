@@ -1,6 +1,6 @@
 import uuid from 'uuid/v4';
 import {ActionTypes} from './action-types';
-import { setWindowSideBarPanel, updateWindow } from './window';
+import { setCompanionAreaOpen, setWindowSideBarPanel, updateWindow } from './window';
 
 const defaultProps = {
   content: null,
@@ -74,6 +74,8 @@ export function popOutCompanionWindow(windowId, panelType, position) {
 
     if (position === 'left') {
       dispatch(setWindowSideBarPanel(windowId, panelType));
+
+      dispatch(setCompanionAreaOpen(windowId, true));
     }
 
     const action = dispatch(addCompanionWindow({ content: panelType, position }));

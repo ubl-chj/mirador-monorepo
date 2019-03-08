@@ -1,5 +1,4 @@
-import { infoResponsesReducer } from '../../../src/state/reducers/infoResponses';
-import ActionTypes from '../../../src/state/actions/action-types';
+import { ActionTypes, infoResponsesReducer } from '@mirador/core';
 
 describe('info response reducer', () => {
   it('should handle REQUEST_INFO_RESPONSE', () => {

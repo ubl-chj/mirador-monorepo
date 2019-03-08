@@ -1,8 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import * as actions from '../../../src/state/actions';
-import ActionTypes from '../../../src/state/actions/action-types';
+import {ActionTypes, fetchInfoResponse, receiveInfoResponse, removeInfoResponse, requestInfoResponse} from '@mirador/core';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -15,7 +14,7 @@ describe('infoResponse actions', () => {
         type: ActionTypes.REQUEST_INFO_RESPONSE,
         infoId: id,
       };
-      expect(actions.requestInfoResponse(id)).toEqual(expectedAction);
+      expect(requestInfoResponse(id)).toEqual(expectedAction);
     });
   });
   describe('receiveInfoResponse', () => {
@@ -30,7 +29,7 @@ describe('infoResponse actions', () => {
         infoId: id,
         infoJson: json,
       };
-      expect(actions.receiveInfoResponse(id, json)).toEqual(expectedAction);
+      expect(receiveInfoResponse(id, json)).toEqual(expectedAction);
     });
   });
   describe('fetchInfoResponse', () => {
@@ -43,13 +42,13 @@ describe('infoResponse actions', () => {
         fetch.mockResponseOnce(JSON.stringify({ data: '12345' })); // eslint-disable-line no-undef
       });
       it('dispatches the REQUEST_INFO_RESPONSE action', () => {
-        store.dispatch(actions.fetchInfoResponse('https://stacks.stanford.edu/image/iiif/sn904cj3429%2F12027000/info.json'));
+        store.dispatch(fetchInfoResponse('https://stacks.stanford.edu/image/iiif/sn904cj3429%2F12027000/info.json'));
         expect(store.getActions()).toEqual([
           { infoId: 'https://stacks.stanford.edu/image/iiif/sn904cj3429%2F12027000/info.json', type: 'REQUEST_INFO_RESPONSE' },
         ]);
       });
       it('dispatches the REQUEST_INFO_RESPONSE and then RECEIVE_INFO_RESPONSE', () => {
-        store.dispatch(actions.fetchInfoResponse('https://stacks.stanford.edu/image/iiif/sn904cj3429%2F12027000/info.json'))
+        store.dispatch(fetchInfoResponse('https://stacks.stanford.edu/image/iiif/sn904cj3429%2F12027000/info.json'))
           .then(() => {
             const expectedActions = store.getActions();
             expect(expectedActions).toEqual([
@@ -61,7 +60,7 @@ describe('infoResponse actions', () => {
     });
     describe('error response', () => {
       it('dispatches the REQUEST_INFO_RESPONSE and then RECEIVE_INFO_RESPONSE', () => {
-        store.dispatch(actions.fetchInfoResponse('https://stacks.stanford.edu/image/iiif/sn904cj3429%2F12027000/info.json'))
+        store.dispatch(fetchInfoResponse('https://stacks.stanford.edu/image/iiif/sn904cj3429%2F12027000/info.json'))
           .then(() => {
             const expectedActions = store.getActions();
             expect(expectedActions).toEqual([
@@ -78,7 +77,7 @@ describe('infoResponse actions', () => {
         type: ActionTypes.REMOVE_INFO_RESPONSE,
         infoId: 'foo',
       };
-      expect(actions.removeInfoResponse('foo')).toEqual(expectedAction);
+      expect(removeInfoResponse('foo')).toEqual(expectedAction);
     });
   });
 });

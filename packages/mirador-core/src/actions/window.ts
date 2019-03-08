@@ -26,6 +26,7 @@ export function addWindow(options) {
     height: 400,
     id: `window-${uuid()}`,
     manifestId: null,
+    maximized: false,
     rangeId: null,
     rotation: null,
     thumbnailNavigationPosition: 'bottom', // bottom by default in settings.js
@@ -37,9 +38,32 @@ export function addWindow(options) {
   return { type: ActionTypes.ADD_WINDOW, window: { ...defaultOptions, ...options } }
 }
 
+/**
+ * maximizeWindow
+ * @param  {String} windowId
+ * @memberof ActionCreators
+ */
+export function maximizeWindow(windowId) {
+  return { type: ActionTypes.MAXIMIZE_WINDOW, windowId };
+}
+
+/**
+ * minimizeWindow
+ * @param  {String} windowId
+ * @memberof ActionCreators
+ */
+export function minimizeWindow(windowId) {
+  return { type: ActionTypes.MINIMIZE_WINDOW, windowId };
+}
+
 /** */
 export function updateWindow(id, payload) {
   return { type: ActionTypes.UPDATE_WINDOW, id, payload }
+}
+
+/** */
+export function setCompanionAreaOpen(id, companionAreaOpen) {
+  return { type: ActionTypes.UPDATE_WINDOW, id, payload: { companionAreaOpen } };
 }
 
 /**

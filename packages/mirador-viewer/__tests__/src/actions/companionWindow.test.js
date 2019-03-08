@@ -1,5 +1,4 @@
-import * as actions from '../../../src/state/actions';
-import ActionTypes from '../../../src/state/actions/action-types';
+import {ActionTypes, addCompanionWindow, popOutCompanionWindow, removeCompanionWindow, updateCompanionWindow} from '@mirador/core';
 
 describe('companionWindow actions', () => {
   describe('addCompanionWindow', () => {
@@ -9,7 +8,7 @@ describe('companionWindow actions', () => {
         position: 'right',
         foo: 'bar',
       };
-      const action = actions.addCompanionWindow(payload);
+      const action = addCompanionWindow(payload);
       expect(action.type).toBe(ActionTypes.ADD_COMPANION_WINDOW);
       expect(action.payload).toMatchObject(payload);
       expect(action.payload.id).toMatch(/cw-.*/);
@@ -18,14 +17,14 @@ describe('companionWindow actions', () => {
     it('should set the correct default values', () => {
       const payload = {};
       const defaults = { foo: 'bar' };
-      const action = actions.addCompanionWindow(payload, defaults);
+      const action = addCompanionWindow(payload, defaults);
       expect(action.payload.foo).toBe('bar');
     });
 
     it('should generate a new companionWindow ID', () => {
       const payload = {};
 
-      expect(actions.addCompanionWindow(payload).id).toEqual(
+      expect(addCompanionWindow(payload).id).toEqual(
         expect.stringMatching(/^cw-\w+-\w+/),
       );
     });
@@ -49,7 +48,7 @@ describe('companionWindow actions', () => {
         content: 'info',
         position: 'right',
       };
-      const thunk = actions.updateCompanionWindow('abc123', 'cw-123', payload);
+      const thunk = updateCompanionWindow('abc123', 'cw-123', payload);
 
       const mockDispatch = jest.fn(() => {});
       const mockGetState = jest.fn(() => mockState);
@@ -77,7 +76,7 @@ describe('companionWindow actions', () => {
 
   describe('removeCompanionWindow', () => {
     it('should return correct action object', () => {
-      const action = actions.removeCompanionWindow('cw-123');
+      const action = removeCompanionWindow('cw-123');
       expect(action.type).toBe(ActionTypes.REMOVE_COMPANION_WINDOW);
       expect(action.id).toBe('cw-123');
     });
@@ -101,7 +100,7 @@ describe('companionWindow actions', () => {
       const windowId = 'abc123';
       const panelType = 'info';
       const position = 'right';
-      const thunk = actions.popOutCompanionWindow(windowId, panelType, position);
+      const thunk = popOutCompanionWindow(windowId, panelType, position);
 
       expect(typeof thunk).toEqual('function');
       thunk(mockDispatch, mockGetState);
@@ -136,13 +135,19 @@ describe('companionWindow actions', () => {
       const windowId = 'abc123';
       const panelType = 'info';
       const position = 'left';
-      const thunk = actions.popOutCompanionWindow(windowId, panelType, position);
+      const thunk = popOutCompanionWindow(windowId, panelType, position);
       thunk(mockDispatch, mockGetState);
 
       expect(mockDispatch).toHaveBeenNthCalledWith(1, {
         type: ActionTypes.SET_WINDOW_SIDE_BAR_PANEL,
         windowId: 'abc123',
         panelType: 'info',
+      });
+
+      expect(mockDispatch).toHaveBeenNthCalledWith(2, {
+        type: ActionTypes.UPDATE_WINDOW,
+        id: 'abc123',
+        payload: { companionAreaOpen: true },
       });
     });
   });

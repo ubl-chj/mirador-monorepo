@@ -1,5 +1,4 @@
-import * as actions from '../../../src/state/actions';
-import ActionTypes from '../../../src/state/actions/action-types';
+import {ActionTypes, setCanvas, updateViewport} from '@mirador/core';
 
 describe('canvas actions', () => {
   describe('setCanvas', () => {
@@ -10,7 +9,7 @@ describe('canvas actions', () => {
         windowId: id,
         canvasIndex: 100,
       };
-      expect(actions.setCanvas(id, 100)).toEqual(expectedAction);
+      expect(setCanvas(id, 100)).toEqual(expectedAction);
     });
   });
   describe('updateViewport', () => {
@@ -25,7 +24,7 @@ describe('canvas actions', () => {
           zoom: 0.5,
         },
       };
-      expect(actions.updateViewport(id, { x: 1, y: 0, zoom: 0.5 })).toEqual(expectedAction);
+      expect(updateViewport(id, { x: 1, y: 0, zoom: 0.5 })).toEqual(expectedAction);
     });
   });
 });

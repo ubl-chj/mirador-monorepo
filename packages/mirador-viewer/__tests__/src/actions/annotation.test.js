@@ -1,8 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import * as actions from '../../../src/state/actions';
-import ActionTypes from '../../../src/state/actions/action-types';
+import {ActionTypes, fetchAnnotation, receiveAnnotation, requestAnnotation} from '@mirador/core';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -17,7 +16,7 @@ describe('annotation actions', () => {
         canvasId,
         annotationId,
       };
-      expect(actions.requestAnnotation(canvasId, annotationId)).toEqual(expectedAction);
+      expect(requestAnnotation(canvasId, annotationId)).toEqual(expectedAction);
     });
   });
   describe('receiveAnnotation', () => {
@@ -34,7 +33,7 @@ describe('annotation actions', () => {
         annotationId,
         annotationJson: json,
       };
-      expect(actions.receiveAnnotation(canvasId, annotationId, json)).toEqual(expectedAction);
+      expect(receiveAnnotation(canvasId, annotationId, json)).toEqual(expectedAction);
     });
   });
   describe('fetchAnnotation', () => {
@@ -47,7 +46,7 @@ describe('annotation actions', () => {
         fetch.mockResponseOnce(JSON.stringify({ data: '12345' })); // eslint-disable-line no-undef
       });
       it('dispatches the REQUEST_ANNOTATION action', () => {
-        store.dispatch(actions.fetchAnnotation(
+        store.dispatch(fetchAnnotation(
           'https://iiif.harvardartmuseums.org/manifests/object/299843/canvas/canvas-47174896',
           'https://iiif.harvardartmuseums.org/manifests/object/299843/list/47174896',
         ));
@@ -60,7 +59,7 @@ describe('annotation actions', () => {
         ]);
       });
       it('dispatches the REQUEST_ANNOTATION and then RECEIVE_ANNOTATION', () => {
-        store.dispatch(actions.fetchAnnotation(
+        store.dispatch(fetchAnnotation(
           'https://iiif.harvardartmuseums.org/manifests/object/299843/canvas/canvas-47174896',
           'https://iiif.harvardartmuseums.org/manifests/object/299843/list/47174896',
         ))
@@ -84,7 +83,7 @@ describe('annotation actions', () => {
     });
     describe('error response', () => {
       it('dispatches the REQUEST_ANNOTATION and then RECEIVE_ANNOTATION', () => {
-        store.dispatch(actions.fetchAnnotation(
+        store.dispatch(fetchAnnotation(
           'https://iiif.harvardartmuseums.org/manifests/object/299843/canvas/canvas-47174896',
           'https://iiif.harvardartmuseums.org/manifests/object/299843/list/47174896',
         ))

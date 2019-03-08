@@ -26,6 +26,12 @@ describe('NestedMenu', () => {
     expect(wrapper.find('WithStyles(ListItemIcon)').children().text()).toEqual('GivenIcon');
   });
 
+  it('does not render a ListItemIcon if no icon prop is passed', () => {
+    wrapper = createWrapper({ icon: null });
+
+    expect(wrapper.find('WithStyles(ListItemIcon)').length).toBe(0);
+  });
+
   it('renders the given label wrapped in a MUI Typography', () => {
     wrapper = createWrapper();
 
@@ -46,6 +52,12 @@ describe('NestedMenu', () => {
     expect(wrapper.state().nestedMenuIsOpen).toBe(true);
     wrapper.find('WithStyles(MenuItem)').simulate('click');
     expect(wrapper.state().nestedMenuIsOpen).toBe(false);
+  });
+
+  it('spreads options to the MenuItem', () => {
+    wrapper = createWrapper({ divider: true });
+
+    expect(wrapper.find('WithStyles(MenuItem)').props().divider).toBe(true);
   });
 
   it('renders the appropriate expand/collapse icon based on the menu open state', () => {

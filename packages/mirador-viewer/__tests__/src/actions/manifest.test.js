@@ -1,8 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import * as actions from '../../../src/state/actions';
-import ActionTypes from '../../../src/state/actions/action-types';
+import {ActionTypes, fetchManifest, receiveManifest, removeManifest, requestManifest} from '@mirador/core';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -15,7 +14,7 @@ describe('manifest actions', () => {
         type: ActionTypes.REQUEST_MANIFEST,
         manifestId: id,
       };
-      expect(actions.requestManifest(id)).toEqual(expectedAction);
+      expect(requestManifest(id)).toEqual(expectedAction);
     });
   });
   describe('receiveManifest', () => {
@@ -30,7 +29,7 @@ describe('manifest actions', () => {
         manifestId: id,
         manifestJson: json,
       };
-      expect(actions.receiveManifest(id, json)).toEqual(expectedAction);
+      expect(receiveManifest(id, json)).toEqual(expectedAction);
     });
   });
   describe('fetchManifest', () => {
@@ -43,13 +42,13 @@ describe('manifest actions', () => {
         fetch.mockResponseOnce(JSON.stringify({ data: '12345' })); // eslint-disable-line no-undef
       });
       it('dispatches the REQUEST_MANIFEST action', () => {
-        store.dispatch(actions.fetchManifest('https://purl.stanford.edu/sn904cj3429/iiif/manifest'));
+        store.dispatch(fetchManifest('https://purl.stanford.edu/sn904cj3429/iiif/manifest'));
         expect(store.getActions()).toEqual([
           { manifestId: 'https://purl.stanford.edu/sn904cj3429/iiif/manifest', type: 'REQUEST_MANIFEST', properties: { isFetching: true } },
         ]);
       });
       it('dispatches the REQUEST_MANIFEST and then RECEIVE_MANIFEST', () => {
-        store.dispatch(actions.fetchManifest('https://purl.stanford.edu/sn904cj3429/iiif/manifest'))
+        store.dispatch(fetchManifest('https://purl.stanford.edu/sn904cj3429/iiif/manifest'))
           .then(() => {
             const expectedActions = store.getActions();
             expect(expectedActions).toEqual([
@@ -61,7 +60,7 @@ describe('manifest actions', () => {
     });
     describe('error response', () => {
       it('dispatches the REQUEST_MANIFEST and then RECEIVE_MANIFEST', () => {
-        store.dispatch(actions.fetchManifest('https://purl.stanford.edu/sn904cj3429/iiif/manifest'))
+        store.dispatch(fetchManifest('https://purl.stanford.edu/sn904cj3429/iiif/manifest'))
           .then(() => {
             const expectedActions = store.getActions();
             expect(expectedActions).toEqual([
@@ -78,7 +77,7 @@ describe('manifest actions', () => {
         type: ActionTypes.REMOVE_MANIFEST,
         manifestId: 'foo',
       };
-      expect(actions.removeManifest('foo')).toEqual(expectedAction);
+      expect(removeManifest('foo')).toEqual(expectedAction);
     });
   });
 });
