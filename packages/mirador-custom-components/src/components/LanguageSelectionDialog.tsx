@@ -34,6 +34,13 @@ export const LanguageSelectionDialog: React.FC<ILanguageSelectionDialog> = (prop
       <DialogContent>
         <FormControl>
           <Select
+            MenuProps={{
+              getContentAnchorEl: null,
+              anchorOrigin: {
+                vertical: "bottom",
+                horizontal: "left",
+              }
+            }}
             value={currentLanguage}
             onChange={(event) => {
               updateConfig({

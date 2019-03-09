@@ -3,7 +3,6 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
@@ -23,11 +22,17 @@ export const WorkspaceSelectionDialog: React.FC<IWorkspaceSelectionDialog> = (pr
         open={open}
         onClose={onClose}
       >
-        <DialogTitle id="form-dialog-title">{t('workspaceSelectionTitle')}</DialogTitle>
+        <DialogTitle id="workspace-type">{t('workspaceSelectionTitle')}</DialogTitle>
         <DialogContent>
           <FormControl>
-          <InputLabel htmlFor="workspace-type">{t('workspace')}</InputLabel>
           <Select
+            MenuProps={{
+              getContentAnchorEl: null,
+              anchorOrigin: {
+                vertical: "bottom",
+                horizontal: "left",
+              }
+            }}
             value={workspaceType}
             onChange={(event) => {
               updateConfig({
