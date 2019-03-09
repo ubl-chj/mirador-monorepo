@@ -92,6 +92,31 @@ export const windowsReducer = (state = {}, action) => {
       }
     case ActionTypes.SET_CANVAS:
       return setCanvasIndex(state, action.windowId, () => action.canvasIndex)
+    case ActionTypes.ADD_COMPANION_WINDOW:
+      if (action.payload.position === 'left') {
+        const { companionWindowIds } = state[action.windowId];
+        const { companionWindows } = action;
+        const newCompanionWindowIds = companionWindowIds
+          .filter(id => companionWindows[id].position !== action.payload.position);
+
+        return {
+          ...state,
+          [action.windowId]: {
+            ...state[action.windowId],
+            companionAreaOpen: true,
+            companionWindowIds: newCompanionWindowIds.concat([action.id]),
+            sideBarPanel: action.payload.content,
+          },
+        };
+      }
+
+      return {
+        ...state,
+        [action.windowId]: {
+          ...state[action.windowId],
+          companionWindowIds: state[action.windowId].companionWindowIds.concat([action.id]),
+        },
+      };
     default:
       return state
   }

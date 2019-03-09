@@ -38,20 +38,30 @@ const mapDispatchToProps = {
  * root: {overflowY: string, width: string}}}
  */
 const styles = theme => ({
-  windowSideBarTitle: {
-    ...theme.typography.h5,
-    flexGrow: 1,
+  content: {
+    ...theme.mixins.gutters(),
+    overflowY: 'auto',
+  },
+  horizontal: {
+    height: '200px',
+    width: '100%',
+  },
+  positionButton: {
+    order: -100,
   },
   root: {
+    boxShadow: 'none',
     display: 'flex',
     flexDirection: 'column',
     minHeight: 0,
     width: theme.paper.width,
-    boxShadow: 'none',
   },
-  content: {
-    ...theme.mixins.gutters(),
-    overflowY: 'auto',
+  vertical: {
+    width: theme.paper.width,
+  },
+  windowSideBarTitle: {
+    ...theme.typography.subtitle1,
+    flexGrow: 1,
   },
 });
 

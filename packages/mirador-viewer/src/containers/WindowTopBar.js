@@ -30,9 +30,9 @@ const mapDispatchToProps = (dispatch, { windowId }) => ({
  * windowTopBarStyle: {minHeight: number, paddingLeft: number, backgroundColor: string}}}
  */
 const styles = theme => ({
-  typographyBody: {
+  title: {
+    ...theme.typography.h6,
     flexGrow: 1,
-    fontSize: '1em',
   },
   windowTopBarStyle: {
     minHeight: 32,

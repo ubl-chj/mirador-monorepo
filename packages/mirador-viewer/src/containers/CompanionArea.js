@@ -21,6 +21,12 @@ const mapDispatchToProps = ({
 const styles = theme => ({
   root: {
     position: 'relative',
+    minHeight: 0,
+    display: 'flex',
+  },
+  horizontal: {
+    width: '100%',
+    flexDirection: 'column',
   },
   toggle: {
     position: 'absolute',
