@@ -1,7 +1,12 @@
 import * as React from 'react'
 import {handleMissingImage} from '../utils'
 
-export const Image = (props) => {
+interface IImage {
+  imageSource: string,
+  width: number
+}
+
+export const Image : React.FC<IImage> = (props) => {
   const {imageSource, width} = props
   return (
     <img

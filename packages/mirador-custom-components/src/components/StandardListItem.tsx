@@ -3,9 +3,22 @@ import * as React from 'react'
 import {Image} from '.'
 import {buildThumbnailReference, ReduxContext, setManifest, shortenTitle} from '../utils'
 
-export const StandardListItem = (props) => {
+interface IStandardListItem {
+  bemBlocks: any,
+  result: {
+    highlight: any,
+    _source: {
+      Author: string,
+      manifest: string,
+      thumbnail: string,
+      title: string,
+    }
+  }
+}
+
+export const StandardListItem : React.FC<IStandardListItem> = (props) => {
   const {bemBlocks, result} = props
-  const source: any = Object.assign({}, result._source, result.highlight)
+  const source = Object.assign({}, result._source, result.highlight)
   const thumbnail = buildThumbnailReference(source.thumbnail)
   const manifestId = source.manifest
   return (

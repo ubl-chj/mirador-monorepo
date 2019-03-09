@@ -10,7 +10,24 @@ import Star from '@material-ui/icons/Star'
 import React from 'react'
 import {WorkspaceSettingsMenu} from './WorkspaceSettingsMenu'
 
-export const WorkspaceControlPanelComponent: React.FunctionComponent = (props: any) => {
+interface IWorkspaceControlPanel {
+  currentLanguage: string,
+  isWorkspaceAddVisible: boolean,
+  languages: {
+    current: string,
+    label: string,
+    locale: string
+  },
+  onClose: Function,
+  open: boolean,
+  setWorkspaceAddVisibility: Function
+  t: Function,
+  updateConfig: Function,
+  windows: {},
+  workspaceType: string
+}
+
+export const WorkspaceControlPanelComponent: React.FC<IWorkspaceControlPanel> = (props) => {
   const windowCount = props.windows && Object.keys(props.windows).length
   return (
     <Drawer

@@ -3,18 +3,38 @@ import Menu from '@material-ui/core/Menu'
 import SettingsIcon from '@material-ui/icons/SettingsSharp'
 import IconButton from '@material-ui/core/IconButton'
 import MenuItem from '@material-ui/core/MenuItem'
+import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
+import Language from '@material-ui/icons/Language'
 import ViewQuiltIcon from '@material-ui/icons/ViewQuilt'
 import Typography from '@material-ui/core/Typography'
+import {LanguageSelectionDialog} from './LanguageSelectionDialog'
 import {WorkspaceSelectionDialog} from './WorkspaceSelectionDialog'
+
+
+interface IWorkspaceSettingsMenu {
+  currentLanguage: string,
+  languages: {
+    current: string,
+    label: string,
+    locale: string
+  }
+  onClose: Function,
+  open: boolean,
+  t: Function,
+  updateConfig: Function,
+  workspaceType: string
+}
 
 /**
  *
  * @param props
  * @constructor
  */
-export const WorkspaceSettingsMenu: React.FC<any> = (props) => {
+export const WorkspaceSettingsMenu: React.FC<IWorkspaceSettingsMenu> = (props) => {
   const [anchorEl, setAnchorEl] = useState()
+  const [listItemState, setListItemState] = useState<any>({dialogIsOpen: false, selectedIndex: 1})
+
   const {t} = props
 
   const handleClick: any = (e) => {
@@ -23,6 +43,10 @@ export const WorkspaceSettingsMenu: React.FC<any> = (props) => {
     } else {
       setAnchorEl(null)
     }
+  }
+
+  const handleListItemClick = (index) => {
+    setListItemState({dialogIsOpen: true, selectedIndex: index})
   }
 
   return (
@@ -41,21 +65,54 @@ export const WorkspaceSettingsMenu: React.FC<any> = (props) => {
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={() => handleClick(null)}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
       >
         <MenuItem
           aria-haspopup="true"
           onClick={() => handleClick(null)}
           aria-owns={anchorEl ? 'workspace-selection' : undefined}
         >
-          <ListItemIcon>
-            <ViewQuiltIcon/>
-          </ListItemIcon>
-          <Typography variant="inherit">{t('selectWorkspaceMenu')}</Typography>
+          <ListItem
+            button
+            selected={listItemState.selectedIndex === 0}
+            onClick={() => handleListItemClick(0)}
+          >
+            <ListItemIcon>
+              <ViewQuiltIcon/>
+            </ListItemIcon>
+            <Typography variant="inherit">{t('selectWorkspaceMenu')}</Typography>
+          </ListItem>
+        </MenuItem>
+        <MenuItem
+          aria-haspopup="true"
+          onClick={() => handleClick(null)}
+          aria-owns={anchorEl ? 'language' : undefined}
+        >
+          <ListItem
+            button
+            selected={listItemState.selectedIndex === 1}
+            onClick={() => handleListItemClick(1)}
+          >
+            <ListItemIcon>
+              <Language/>
+            </ListItemIcon>
+            <Typography variant="inherit">{t('language')}</Typography>
+          </ListItem>
         </MenuItem>
       </Menu>
      <WorkspaceSelectionDialog
-       open={Boolean(anchorEl)}
-       onClose={() => handleClick(null)} {...props} />
+       open={listItemState.selectedIndex === 0 && listItemState.dialogIsOpen === true}
+       onClose={() => setListItemState({dialogIsOpen: false})} {...props} />
+     <LanguageSelectionDialog
+        open={listItemState.selectedIndex === 1 && listItemState.dialogIsOpen === true}
+        onClose={() => setListItemState({dialogIsOpen: false})} {...props} />
     </>
   )
 }

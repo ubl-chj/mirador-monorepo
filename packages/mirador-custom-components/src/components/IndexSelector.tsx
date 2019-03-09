@@ -3,7 +3,15 @@ import InputLabel from '@material-ui/core/InputLabel'
 import Select from '@material-ui/core/Select'
 import React from 'react'
 
-const IndexSelector = (props) => {
+interface IIndexSelector {
+  discovery: {
+    currentIndex: string,
+    indices: {}
+  },
+  updateConfig: Function
+}
+
+const IndexSelector : React.FC<IIndexSelector> = (props) => {
   const getIndexNames = () => {
     const indices = props.discovery.indices
     const map = new Map()

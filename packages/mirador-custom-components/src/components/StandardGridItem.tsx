@@ -3,7 +3,19 @@ import * as React from 'react'
 import {Image} from '.'
 import {buildThumbnailReference, ReduxContext, setManifest, shortenTitle} from '../utils'
 
-export const StandardGridItem = (props) => {
+interface IStandardGridItem {
+  bemBlocks: any,
+  result: {
+    _source: {
+      Author: string,
+      manifest: string,
+      thumbnail: string,
+      title: string,
+    }
+  }
+}
+
+export const StandardGridItem : React.FC<IStandardGridItem> = (props) => {
   const {bemBlocks, result} = props
   const source = result._source
   const manifestId = source.manifest

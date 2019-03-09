@@ -5,7 +5,14 @@ import {
 } from 'searchkit'
 import {SearchApp} from '.'
 
-export const DiscoveryComponent = (props) => {
+interface IDiscoveryComponent {
+  discovery: {
+    currentIndex: string,
+    indices: {}
+  },
+}
+
+export const DiscoveryComponent : React.FC<IDiscoveryComponent> = (props) => {
   const {currentIndex} = props.discovery
   const routeConfig = props.discovery.indices[currentIndex]
   const buildSearchKitManager = () => {
