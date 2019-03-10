@@ -106,7 +106,7 @@ export const WorkspaceSettingsMenu: React.FC<IWorkspaceSettingsMenu> = (props): 
   }
 
   return (
-    <>
+    <ListItem alignItems="flex-start" style={{justifyContent: 'center'}}>
       <IconButton
         aria-haspopup="true"
         aria-owns={anchorEl ? 'settings-menu' : undefined}
@@ -141,7 +141,7 @@ export const WorkspaceSettingsMenu: React.FC<IWorkspaceSettingsMenu> = (props): 
       <LanguageSelectionDialog
         onClose={() => setListItemState({dialogIsOpen: false})}
         open={listItemState.selectedIndex === 1 && listItemState.dialogIsOpen === true} {...props} />
-    </>
+    </ListItem>
   )
 }
 

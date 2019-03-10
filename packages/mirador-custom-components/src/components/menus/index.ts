@@ -1,4 +1,5 @@
 export * from './IndexSelectionDialog'
 export * from './LanguageSelectionDialog'
+export * from './WindowListMenu'
 export * from './WorkspaceSelectionDialog'
 export * from './WorkspaceSettingsMenu'

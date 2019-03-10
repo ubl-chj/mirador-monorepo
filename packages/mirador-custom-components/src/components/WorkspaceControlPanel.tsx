@@ -1,15 +1,12 @@
 import React, {EventHandler, ReactElement} from 'react'
+import {WindowListMenu, WorkspaceSettingsMenu} from './menus'
+import {focusWindow, setWorkspaceAddVisibility, updateConfig} from '@mirador/core'
 import AddIcon from '@material-ui/icons/Add'
-import Badge from '@material-ui/core/Badge'
-import Bookmark from '@material-ui/icons/Bookmark'
 import ClearIcon from '@material-ui/icons/Clear'
 import Drawer from '@material-ui/core/Drawer'
 import Fab from '@material-ui/core/Fab'
-import IconButton from '@material-ui/core/IconButton'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
-import {WorkspaceSettingsMenu} from './menus'
-import {updateConfig} from '@mirador/core'
 
 interface IWorkspaceControlPanel {
   currentLanguage: string,
@@ -17,22 +14,23 @@ interface IWorkspaceControlPanel {
     currentIndex: string,
     indices: {}
   },
+  focusWindow: typeof focusWindow
   isWorkspaceAddVisible: boolean,
   languages: {
     current: string,
     label: string,
     locale: string
   },
+  manifests: {}
   onClose: EventHandler<any>,
   open: boolean,
-  setWorkspaceAddVisibility: Function
+  setWorkspaceAddVisibility: typeof setWorkspaceAddVisibility
   updateConfig: typeof updateConfig,
   windows: {},
   workspaceType: string
 }
 
 export const WorkspaceControlPanelComponent: React.FC<IWorkspaceControlPanel> = (props): ReactElement => {
-  const windowCount = props.windows && Object.keys(props.windows).length
   return (
     <Drawer
       PaperProps={{ style: { top: '65px' } }}
@@ -54,15 +52,9 @@ export const WorkspaceControlPanelComponent: React.FC<IWorkspaceControlPanel> = 
             }
           </Fab>
         </ListItem>
-        <ListItem alignItems="flex-start">
-          <IconButton style={{padding: '16px'}}>
-            <Badge badgeContent={windowCount}>
-              <Bookmark />
-            </Badge>
-          </IconButton>
-        </ListItem>
+        <WindowListMenu {...props}/>
+        <WorkspaceSettingsMenu {...props}/>
       </List>
-      <WorkspaceSettingsMenu {...props}/>
     </Drawer>
   )
 }
