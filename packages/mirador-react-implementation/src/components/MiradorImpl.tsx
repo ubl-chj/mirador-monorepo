@@ -1,7 +1,7 @@
 import React, {ReactElement, useEffect, useRef, useState} from 'react'
 import {ReactReduxContext, connect} from 'react-redux'
 import {addWindow, fetchManifest, setConfig} from '@mirador/core'
-import {addWindows, fetchManifests, resolveAndMergeParams, withPersistentDrawer} from '../api'
+import {addWindows, fetchManifests, resolveAndMergeConfig, withPersistentDrawer} from '../api'
 import DiscoveryComponent from '@mirador/custom-components'
 import {MiradorComponent} from '@mirador/react-components'
 import {localConfig} from '@mirador/configuration'
@@ -20,6 +20,7 @@ const MiradorWithPanel = withStyles(styles, { withTheme: true })(withPersistentD
 
 interface IMiradorImplementation {
   addWindow: Function,
+  config: {}
   fetchManifest: Function,
   location: {
     search: {}
@@ -37,7 +38,7 @@ const MiradorImplementation: React.FC<IMiradorImplementation> = (props): ReactEl
    * @param mergedConfig
    * @returns boolean
    */
-  const initializeWorkspace = (mergedConfig) => {
+  const initializeWorkspace = (mergedConfig): boolean => {
     if (Object.keys(props.windows).length === 0) {
       fetchManifests(mergedConfig.windows, props.fetchManifest)
       addWindows(mergedConfig, props.addWindow)
@@ -46,7 +47,7 @@ const MiradorImplementation: React.FC<IMiradorImplementation> = (props): ReactEl
   }
 
   useEffect(() => {
-    let mergedConfig = resolveAndMergeParams(props.location.search, localConfig)
+    let mergedConfig = resolveAndMergeConfig(props.location.search, localConfig, props.config)
     if (mergedConfig && !isInitialized) {
       props.setConfig(mergedConfig)
     } else if (!isInitialized) {
@@ -58,14 +59,10 @@ const MiradorImplementation: React.FC<IMiradorImplementation> = (props): ReactEl
     }
   }, [props, isInitialized])
 
-  if (isInitialized) {
-    return (
-      <ReactReduxContext.Consumer>
-        {({store}) => <MiradorWithPanel plugins={[replaceWorkspaceAdd]} store={store}/>}
-      </ReactReduxContext.Consumer>)
-  } else {
-    return null
-  }
+  return isInitialized ? (
+    <ReactReduxContext.Consumer>
+      {({store}) => <MiradorWithPanel plugins={[replaceWorkspaceAdd]} store={store}/>}
+    </ReactReduxContext.Consumer>) : null
 }
 
 /**

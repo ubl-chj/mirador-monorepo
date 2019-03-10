@@ -6,7 +6,7 @@ import qs from 'query-string'
  * @param windows
  * @param fetch
  */
-export const fetchManifests = (windows, fetch) => {
+export const fetchManifests = (windows, fetch): any => {
   windows.forEach((win) => fetch(win.loadedManifest))
 }
 
@@ -14,7 +14,7 @@ export const fetchManifests = (windows, fetch) => {
  * getThumbnailNavigationPositions
  * @param config
  */
-export const getThumbnailNavigationPositions = (config) => {
+export const getThumbnailNavigationPositions = (config): any => {
   const positions = []
   config.windows.forEach((val) => {
     if (val.thumbnailNavigationPosition) {
@@ -31,7 +31,7 @@ export const getThumbnailNavigationPositions = (config) => {
  * @param windows
  * @param removeWindow
  */
-export const removeWindows = (windows, removeWindow) => {
+export const removeWindows = (windows, removeWindow): any => {
   Object.keys(windows).forEach((key) => {
     removeWindow(key)
   })
@@ -42,7 +42,7 @@ export const removeWindows = (windows, removeWindow) => {
  * @param config
  * @param addWindow
  */
-export const addWindows = (config, addWindow) => {
+export const addWindows = (config, addWindow): any => {
   const thumbnailPositions = getThumbnailNavigationPositions(config)
   thumbnailPositions.forEach((thumbnailNavigationPosition, index) => {
     addWindow({
@@ -53,11 +53,23 @@ export const addWindows = (config, addWindow) => {
   })
 }
 
+const buildSettings = (currentConfig): any => {
+  return Object.keys(currentConfig).length && {
+    discovery: {
+      currentIndex: currentConfig.discovery.currentIndex
+    },
+    language: currentConfig.language,
+    workspace: {
+      type: currentConfig.workspace.type
+    }
+  }
+}
+
 /**
  * buildWindows
  * @param uri
  */
-const buildWindowConfig = (uri) => {
+const buildWindowConfig = (uri): any => {
   return {
     windows: [
       {
@@ -69,25 +81,30 @@ const buildWindowConfig = (uri) => {
 }
 
 /**
- * mergeConfigs
- * @param config
+ *
+ * @param localConfig
+ * @param settings
  * @param windows
  */
-const mergeConfigs = (config, windows) => {
-  return deepmerge(config, windows)
+const mergeConfigs = (localConfig, settings, windows): any => {
+  return deepmerge.all([localConfig, settings, windows])
 }
 
 /**
- * resolveAndMergeParams
+ *
  * @param queryParams
- * @param config
+ * @param localConfig
+ * @param currentConfig
  */
-export const resolveAndMergeParams = (queryParams, config) => {
+export const resolveAndMergeConfig = (queryParams, localConfig, currentConfig): any => {
+  const settings = buildSettings(currentConfig)
   const params = qs.parse(queryParams)
   if (Object.keys(params).length) {
     if (params.manifest) {
       const windowConfig = buildWindowConfig(params.manifest)
-      return mergeConfigs(config, windowConfig)
+      return mergeConfigs(localConfig, settings, windowConfig)
     }
+  } else {
+    return mergeConfigs(localConfig, settings, {})
   }
 }
