@@ -3,7 +3,6 @@ import {ReduxContext, buildThumbnailReference, setManifest, shortenTitle} from '
 import Button from '@material-ui/core/Button'
 import {Image} from '.'
 
-
 interface IStandardGridItem {
   bemBlocks: any,
   result: {

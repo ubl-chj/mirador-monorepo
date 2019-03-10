@@ -1,13 +1,13 @@
 import React, {EventHandler, ReactElement} from 'react'
 import AddIcon from '@material-ui/icons/Add'
 import Badge from '@material-ui/core/Badge'
+import Bookmark from '@material-ui/icons/Bookmark'
 import ClearIcon from '@material-ui/icons/Clear'
 import Drawer from '@material-ui/core/Drawer'
 import Fab from '@material-ui/core/Fab'
 import IconButton from '@material-ui/core/IconButton'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
-import Star from '@material-ui/icons/Star'
 import {WorkspaceSettingsMenu} from './menus'
 import {updateConfig} from '@mirador/core'
 
@@ -45,7 +45,7 @@ export const WorkspaceControlPanelComponent: React.FC<IWorkspaceControlPanel> = 
           <Fab
             color="primary"
             id="addBtn"
-            onClick={() => { props.setWorkspaceAddVisibility(!props.isWorkspaceAddVisible) }} // tslint:disable-line
+            onClick={() => { props.setWorkspaceAddVisibility(!props.isWorkspaceAddVisible) }}
           >
             {
               props.isWorkspaceAddVisible
@@ -57,7 +57,7 @@ export const WorkspaceControlPanelComponent: React.FC<IWorkspaceControlPanel> = 
         <ListItem alignItems="flex-start">
           <IconButton style={{padding: '16px'}}>
             <Badge badgeContent={windowCount}>
-              <Star />
+              <Bookmark />
             </Badge>
           </IconButton>
         </ListItem>

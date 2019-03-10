@@ -54,11 +54,62 @@ export const WorkspaceSettingsMenu: React.FC<IWorkspaceSettingsMenu> = (props): 
     setListItemState({dialogIsOpen: true, selectedIndex: index})
   }
 
+  const menuItems = [
+    {
+      id: 'workspace-selection',
+      index: 0,
+      text: 'selectWorkspaceMenu'
+    },
+    {
+      id: 'language',
+      index: 1,
+      text: 'language'
+    },
+    {
+      id: 'indices',
+      index: 2,
+      text: 'indices'
+    },
+  ]
+
+  const buildListItemIcon = (item): JSX.Element => {
+    switch (item) {
+      case 'workspace-selection':
+        return <ViewQuiltIcon/>
+      case 'language':
+        return <Language/>
+      case 'indices':
+        return <Search/>
+    }
+  }
+
+  const buildMenuItems = (items): JSX.Element => {
+    return items.map((item) =>
+      <MenuItem
+        aria-haspopup="true"
+        aria-owns={anchorEl ? item.id : undefined}
+        key={item.id}
+        onClick={() => handleClick(null)}
+      >
+        <ListItem
+          button
+          onClick={() => handleListItemClick(item.index)}
+          selected={listItemState.selectedIndex === item.index}
+        >
+          <ListItemIcon>
+            {buildListItemIcon(item.id)}
+          </ListItemIcon>
+          <ListItemText classes={{primary: classes.primary}}>{t(item.text)}</ListItemText>
+        </ListItem>
+      </MenuItem>
+    )
+  }
+
   return (
     <>
       <IconButton
         aria-haspopup="true"
-        aria-owns={anchorEl ? 'workspace-menu' : undefined}
+        aria-owns={anchorEl ? 'settings-menu' : undefined}
         color='default'
         id='menuBtn'
         onClick={(e) => handleClick(e)}
@@ -71,7 +122,7 @@ export const WorkspaceSettingsMenu: React.FC<IWorkspaceSettingsMenu> = (props): 
           horizontal: 'right',
           vertical: 'top',
         }}
-        id="workspace-menu"
+        id="settings-menu"
         onClose={() => handleClick(null)}
         open={Boolean(anchorEl)}
         transformOrigin={{
@@ -79,54 +130,7 @@ export const WorkspaceSettingsMenu: React.FC<IWorkspaceSettingsMenu> = (props): 
           vertical: 'top',
         }}
       >
-        <MenuItem
-          aria-haspopup="true"
-          aria-owns={anchorEl ? 'workspace-selection' : undefined}
-          onClick={() => handleClick(null)}
-        >
-          <ListItem
-            button
-            onClick={() => handleListItemClick(0)}
-            selected={listItemState.selectedIndex === 0}
-          >
-            <ListItemIcon>
-              <ViewQuiltIcon/>
-            </ListItemIcon>
-            <ListItemText classes={{primary: classes.primary}}>{t('selectWorkspaceMenu')}</ListItemText>
-          </ListItem>
-        </MenuItem>
-        <MenuItem
-          aria-haspopup="true"
-          aria-owns={anchorEl ? 'language' : undefined}
-          onClick={() => handleClick(null)}
-        >
-          <ListItem
-            button
-            onClick={() => handleListItemClick(1)}
-            selected={listItemState.selectedIndex === 1}
-          >
-            <ListItemIcon>
-              <Language/>
-            </ListItemIcon>
-            <ListItemText classes={{primary: classes.primary}}>{t('language')}</ListItemText>
-          </ListItem>
-        </MenuItem>
-        <MenuItem
-          aria-haspopup="true"
-          aria-owns={anchorEl ? 'language' : undefined}
-          onClick={() => handleClick(null)}
-        >
-          <ListItem
-            button
-            onClick={() => handleListItemClick(2)}
-            selected={listItemState.selectedIndex === 2}
-          >
-            <ListItemIcon>
-              <Search/>
-            </ListItemIcon>
-            <ListItemText classes={{primary: classes.primary}}>{t('indices')}</ListItemText>
-          </ListItem>
-        </MenuItem>
+        {buildMenuItems(menuItems)}
       </Menu>
       <IndexSelectionDialog
         onClose={() => setListItemState({dialogIsOpen: false})}
