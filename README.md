@@ -4,10 +4,11 @@
 
 This contains https://github.com/ProjectMirador/mirador split into distribution packages.
 
-1. `@mirador/core`: Redux Actions and Reducers for Mirador
-2. `@mirador/custom-components`: Custom Components for Mirador
-3. `@mirador/react-components` : Importable React Components.
-4. `@mirador/react-implementation` : A React implementation of Mirador React components.
+1. `@mirador/configuration`: Mirador configuration
+2. `@mirador/core`: Redux Actions and Reducers for Mirador
+3. `@mirador/custom-components`: Custom Components for Mirador
+4. `@mirador/react-components` : Importable React Components.
+5. `@mirador/react-implementation` : A React implementation of Mirador React components.
 
 The upstream (`mirador-viewer`) is symlinked in packages to the react-component
 

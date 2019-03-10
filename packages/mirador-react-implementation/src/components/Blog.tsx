@@ -11,7 +11,16 @@ import {styles} from '../styles'
 
 const API_LINK = 'https://blog.ub.uni-leipzig.de/wp-json/wp/v2/posts?_embed'
 
-class CmsPageComponent extends React.Component<any, IWordPressAPIState> {
+interface ICmsPageComponent {
+  classes: {
+    card: string,
+    drawerHeader: string,
+    media: string,
+    root: string,
+  }
+}
+
+class CmsPageComponent extends React.Component<ICmsPageComponent, IWordPressAPIState> {
   static buildDate(date) {
     const event = new Date(date)
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
@@ -26,7 +35,12 @@ class CmsPageComponent extends React.Component<any, IWordPressAPIState> {
     }
   }
 
-  classes: any
+  classes: {
+    card: string,
+    drawerHeader: string,
+    media: string,
+    root: string,
+  }
 
   constructor(props) {
     super(props)

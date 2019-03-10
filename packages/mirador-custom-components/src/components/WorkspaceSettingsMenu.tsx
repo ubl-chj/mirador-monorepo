@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {EventHandler, useState} from 'react'
 import Menu from '@material-ui/core/Menu'
 import SettingsIcon from '@material-ui/icons/SettingsSharp'
 import IconButton from '@material-ui/core/IconButton'
@@ -10,7 +10,7 @@ import ViewQuiltIcon from '@material-ui/icons/ViewQuilt'
 import Typography from '@material-ui/core/Typography'
 import {LanguageSelectionDialog} from './LanguageSelectionDialog'
 import {WorkspaceSelectionDialog} from './WorkspaceSelectionDialog'
-
+import {updateConfig} from '@mirador/core'
 
 interface IWorkspaceSettingsMenu {
   currentLanguage: string,
@@ -19,10 +19,10 @@ interface IWorkspaceSettingsMenu {
     label: string,
     locale: string
   }
-  onClose: Function,
+  onClose: EventHandler<any>,
   open: boolean,
   t: Function,
-  updateConfig: Function,
+  updateConfig: typeof updateConfig,
   workspaceType: string
 }
 

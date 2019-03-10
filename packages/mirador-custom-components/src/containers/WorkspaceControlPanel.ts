@@ -17,11 +17,11 @@ const mapStateToProps = (state: any) => (
 )
 
 const getLanguagesFromConfigWithCurrent = (state) => {
-    const { availableLanguages, language } = state.config;
-    return Object.keys(availableLanguages).map(key => ({
-        locale: key,
-        label: availableLanguages[key],
-    }));
+  const { availableLanguages, language } = state.config;
+  return Object.keys(availableLanguages).map(key => ({
+    locale: key,
+    label: availableLanguages[key],
+  }));
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({updateConfig, setWorkspaceAddVisibility}, dispatch)

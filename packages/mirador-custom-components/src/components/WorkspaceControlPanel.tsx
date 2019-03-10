@@ -7,8 +7,9 @@ import ListItem from '@material-ui/core/ListItem'
 import AddIcon from '@material-ui/icons/Add'
 import ClearIcon from '@material-ui/icons/Clear'
 import Star from '@material-ui/icons/Star'
-import React from 'react'
+import React, {EventHandler} from 'react'
 import {WorkspaceSettingsMenu} from './WorkspaceSettingsMenu'
+import {updateConfig} from '@mirador/core'
 
 interface IWorkspaceControlPanel {
   currentLanguage: string,
@@ -18,11 +19,11 @@ interface IWorkspaceControlPanel {
     label: string,
     locale: string
   },
-  onClose: Function,
+  onClose: EventHandler<any>,
   open: boolean,
   setWorkspaceAddVisibility: Function
   t: Function,
-  updateConfig: Function,
+  updateConfig: typeof updateConfig,
   windows: {},
   workspaceType: string
 }

@@ -24,22 +24,14 @@ import {StandardGridItem, StandardListItem} from '.'
 import {ReduxContext} from '../utils'
 
 interface ISearchApp extends SearchkitComponentProps {
-  addWindow: () => void,
-  discovery: {},
-  fetchManifest: () => void,
-  isWorkspaceAddVisible: true
-  manifests: {}
   routeConfig: {}
-  setWorkspaceAddVisibility: () => void,
 }
 
 export class SearchApp extends SearchkitComponent<ISearchApp, any> {
   routeConfig: any
-  props: any
 
   constructor(props) {
     super(props)
-    console.log(props)
     this.routeConfig = props.routeConfig
   }
 

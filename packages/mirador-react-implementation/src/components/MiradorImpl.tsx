@@ -17,9 +17,20 @@ const replaceWorkspaceAdd = {
 
 const MiradorWithPanel = withStyles(styles, { withTheme: true })(withPersistentDrawer(MiradorComponent))
 
-const MiradorImplementation = (props) => {
+interface IMiradorImplementation {
+  addWindow: Function,
+  fetchManifest: Function,
+  location: {
+    search: {}
+  },
+  setConfig: Function,
+  windows: {}
+}
+
+const MiradorImplementation : React.FC<IMiradorImplementation> = (props) => {
   const initialConfiguration = useRef(localConfig)
   const [isInitialized, setIsInitialized] = useState(false)
+
   useEffect(() => {
     let mergedConfig = resolveAndMergeParams(props.location.search, localConfig)
     if (mergedConfig && !isInitialized) {

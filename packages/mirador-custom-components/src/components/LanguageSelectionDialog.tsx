@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {EventHandler} from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import {updateConfig} from '@mirador/core'
 
 interface ILanguageSelectionDialog {
   currentLanguage: string,
@@ -12,10 +13,10 @@ interface ILanguageSelectionDialog {
     label: string,
     locale: string
   }
-  onClose: any
+  onClose: EventHandler<any>
   open: boolean,
   t: Function,
-  updateConfig: Function
+  updateConfig: typeof updateConfig
 }
 
 const buildLanguageOptions = (languages) => {

@@ -1,21 +1,28 @@
-import React from 'react';
+import React, {EventHandler} from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import {updateConfig} from '@mirador/core'
 
 interface IWorkspaceSelectionDialog {
-  onClose: any
+  onClose: EventHandler<any>
   open: boolean,
-  updateConfig: Function,
-  workspaceType: string,
   t: Function,
+  updateConfig: typeof updateConfig,
+  workspaceType: string,
 }
 
 export const WorkspaceSelectionDialog: React.FC<IWorkspaceSelectionDialog> = (props) => {
     const {open, onClose, workspaceType, updateConfig, t} = props
+    const workspaceOptions = ['elastic', 'mosaic']
+
+    const buildOptions = () => {
+     return workspaceOptions.map((opt) => <MenuItem key={opt} value={opt}>{t(opt)}</MenuItem>)
+    }
+
     return (
       <Dialog
         id="workspace-settings"
@@ -46,8 +53,7 @@ export const WorkspaceSelectionDialog: React.FC<IWorkspaceSelectionDialog> = (pr
                 id: 'workspace-type',
             }}
           >
-            <MenuItem value="elastic">{t('elastic')}</MenuItem>
-            <MenuItem value="mosaic">{t('mosaic')}</MenuItem>
+            {buildOptions()}
           </Select>
           </FormControl>
         </DialogContent>

@@ -16,7 +16,7 @@ import Home from '@material-ui/icons/Home'
 import ImageOutlined from '@material-ui/icons/ImageOutlined'
 import MenuIcon from '@material-ui/icons/Menu'
 import classNames from 'classnames'
-import React from 'react'
+import React, {EventHandler} from 'react'
 import {Link} from 'react-router-dom'
 
 const drawerWidth = 240
@@ -60,8 +60,25 @@ const styles = (theme) => ({
   },
 })
 
-class PersistentDrawerLeftComponent extends React.Component<any, any> {
-  propTypes: any
+interface IPersistentDrawerLeftComponent {
+  classes: {
+    appBar: string,
+    appBarShift: string,
+    drawer: string,
+    drawerHeader: string,
+    drawerPaper: string,
+    hide: string,
+    menuButton: string,
+  },
+  handleDrawerClose: EventHandler<any>,
+  handleDrawerOpen: EventHandler<any>,
+  open: boolean,
+  theme: {
+    direction: string,
+  }
+}
+
+class PersistentDrawerLeftComponent extends React.Component<IPersistentDrawerLeftComponent, any> {
   state = {
     open: false,
   }

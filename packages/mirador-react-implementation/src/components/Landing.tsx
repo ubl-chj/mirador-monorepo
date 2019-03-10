@@ -10,7 +10,16 @@ import {Link} from 'react-router-dom'
 import {withPersistentDrawer} from '../api'
 import {styles} from '../styles'
 
-const LandingComponent = (props) => {
+interface ILandingComponent {
+  classes: {
+    card: string,
+    drawerHeader: string,
+    media: string
+  }
+}
+
+
+const LandingComponent : React.FC<ILandingComponent> = (props) => {
   const {classes} = props
 
   const buildCard = (imageSrc, linkPath, title, text) => {
