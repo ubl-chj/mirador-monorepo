@@ -1,13 +1,13 @@
-import {withStyles} from '@material-ui/core'
+import {IWordPressAPIState, withPersistentDrawer} from '../api'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
-import Grid from '@material-ui/core/Grid'
-import Typography from '@material-ui/core/Typography'
-import React from 'react'
 import {ErrorBoundary} from '.'
-import {IWordPressAPIState, withPersistentDrawer} from '../api'
+import Grid from '@material-ui/core/Grid'
+import React from 'react'
+import Typography from '@material-ui/core/Typography'
 import {styles} from '../styles'
+import {withStyles} from '@material-ui/core'
 
 const API_LINK = 'https://blog.ub.uni-leipzig.de/wp-json/wp/v2/posts?_embed'
 
@@ -21,13 +21,13 @@ interface ICmsPageComponent {
 }
 
 class CmsPageComponent extends React.Component<ICmsPageComponent, IWordPressAPIState> {
-  static buildDate(date) {
+  private static buildDate(date): string {
     const event = new Date(date)
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' } //eslint-disable-line
     return event.toLocaleDateString('de-DE', options)
   }
 
-  static buildCardMedia(embedded) {
+  private static buildCardMedia(embedded): string {
     if (embedded['wp:featuredmedia']) {
       return embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url
     } else {
@@ -35,14 +35,14 @@ class CmsPageComponent extends React.Component<ICmsPageComponent, IWordPressAPIS
     }
   }
 
-  classes: {
+  private classes: {
     card: string,
     drawerHeader: string,
     media: string,
     root: string,
   }
 
-  constructor(props) {
+  public constructor(props) {
     super(props)
     this.classes = props.classes
     this.state = {
@@ -59,7 +59,7 @@ class CmsPageComponent extends React.Component<ICmsPageComponent, IWordPressAPIS
     }
   }
 
-  async componentDidMount() {
+  public async componentDidMount() {
     try {
       this.setState({ isLoading: true })
       const response = await fetch(API_LINK)
@@ -73,9 +73,9 @@ class CmsPageComponent extends React.Component<ICmsPageComponent, IWordPressAPIS
     }
   }
 
-  buildTitleList(posts): any {
+  private buildTitleList(posts): any {
     return posts.map(({date, id, title, excerpt, _embedded}) => (
-      <Card key={id} className={this.classes.card}>
+      <Card className={this.classes.card} key={id}>
         <CardMedia
           className={this.classes.media}
           image={CmsPageComponent.buildCardMedia(_embedded)}
@@ -92,23 +92,23 @@ class CmsPageComponent extends React.Component<ICmsPageComponent, IWordPressAPIS
     ))
   }
 
-  render() {
+  public render(): any {
     const {isLoading, posts} = this.state
     if (!isLoading) {
       return (
         <>
           {posts && posts.length &&
             (<ErrorBoundary>
-              <div style={{ padding: 20 }} className={this.classes.drawerHeader} />
+              <div className={this.classes.drawerHeader} style={{ padding: 20 }} />
               <Grid item={Boolean(true)} xs={12}>
-                <Typography variant="h5" gutterBottom={Boolean(true)}>Blog der UB Leipzig</Typography>
+                <Typography gutterBottom={Boolean(true)} variant="h5">Blog der UB Leipzig</Typography>
                 <Grid
-                  container={Boolean(true)}
-                  className={this.classes.root}
-                  spacing={0}
                   alignItems="stretch"
-                  justify="center"
+                  className={this.classes.root}
+                  container={Boolean(true)}
                   direction="row"
+                  justify="center"
+                  spacing={0}
                 >
                   {this.buildTitleList(posts)}
                 </Grid>

@@ -27,6 +27,7 @@
     "exitFullScreen": "Exit full screen",
     "fetchManifest": "Add",
     "hideZoomControls": "Hide zoom controls",
+    "indices": "Select an Index",
     "item": "Item: {{label}}",
     "language": "Language",
     "light": "Light",

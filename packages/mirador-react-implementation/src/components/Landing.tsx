@@ -1,14 +1,14 @@
+import React, {ReactElement} from 'react'
 import Card from '@material-ui/core/Card'
 import CardActionArea from '@material-ui/core/CardActionArea'
 import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Grid from '@material-ui/core/Grid'
-import {withStyles} from '@material-ui/core/styles'
-import Typography from '@material-ui/core/Typography'
-import React from 'react'
 import {Link} from 'react-router-dom'
-import {withPersistentDrawer} from '../api'
+import Typography from '@material-ui/core/Typography'
 import {styles} from '../styles'
+import {withPersistentDrawer} from '../api'
+import {withStyles} from '@material-ui/core/styles'
 
 interface ILandingComponent {
   classes: {
@@ -19,7 +19,7 @@ interface ILandingComponent {
 }
 
 
-const LandingComponent : React.FC<ILandingComponent> = (props) => {
+const LandingComponent: React.FC<ILandingComponent> = (props): ReactElement => {
   const {classes} = props
 
   const buildCard = (imageSrc, linkPath, title, text) => {
@@ -46,7 +46,7 @@ const LandingComponent : React.FC<ILandingComponent> = (props) => {
   return (
     <>
       <div className={classes.drawerHeader} />
-        <Grid style={{height: '100%'}} container={Boolean(true)} justify="center" spacing={0} alignItems="center">
+        <Grid alignItems="center" container={Boolean(true)} justify="center" spacing={0} style={{height: '100%'}}>
           {buildCard(
             'https://media.nga.gov/iiif/public/objects/3/9/2/3/6/39236-primary-0-nativeres.ptif/full/170,/0/default.jpg',
             '/view',

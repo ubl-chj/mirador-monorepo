@@ -6,7 +6,7 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "lint": "eslint src/**/**",
+    "lint": "eslint . --ext .js,.jsx,.tsx,.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -24,6 +24,7 @@
     "uuidv5": "^1.0.0"
   },
   "devDependencies": {
+    "@types/material-ui": "^0.21.6",
     "@types/node": "^11.9.6",
     "@types/react": "^16.8.6",
     "@types/redux": "^3.6.0"

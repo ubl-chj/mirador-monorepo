@@ -1,10 +1,17 @@
+import {Dispatch, bindActionCreators} from 'redux'
 import {setWorkspaceAddVisibility, updateConfig} from '@mirador/core'
-import {connect} from 'react-redux'
-import {bindActionCreators, compose, Dispatch} from 'redux'
 import {WorkspaceControlPanelComponent} from '../components'
-import { withTranslation } from 'react-i18next'
+import {connect} from 'react-redux'
 
-const mapStateToProps = (state: any) => (
+const getLanguagesFromConfigWithCurrent = (state): any => {
+  const {availableLanguages} = state.config;
+  return Object.keys(availableLanguages).map(key => ({
+    label: availableLanguages[key],
+    locale: key,
+  }));
+}
+
+const mapStateToProps = (state): any => (
   {
     currentLanguage: state.config.language,
     discovery: state.config.discovery,
@@ -16,17 +23,9 @@ const mapStateToProps = (state: any) => (
   }
 )
 
-const getLanguagesFromConfigWithCurrent = (state) => {
-  const { availableLanguages, language } = state.config;
-  return Object.keys(availableLanguages).map(key => ({
-    locale: key,
-    label: availableLanguages[key],
-  }));
-}
 
-const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({updateConfig, setWorkspaceAddVisibility}, dispatch)
 
-export const WorkspaceControlPanel = compose<any>(
-  withTranslation(),
-  connect(mapStateToProps, mapDispatchToProps)
-)(WorkspaceControlPanelComponent)
+const mapDispatchToProps = (dispatch: Dispatch): any =>
+  bindActionCreators({setWorkspaceAddVisibility, updateConfig, }, dispatch)
+
+export const WorkspaceControlPanel = connect(mapStateToProps, mapDispatchToProps)(WorkspaceControlPanelComponent)

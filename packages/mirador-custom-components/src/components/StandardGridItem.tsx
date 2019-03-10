@@ -1,7 +1,8 @@
+import React, {ReactElement} from 'react'
+import {ReduxContext, buildThumbnailReference, setManifest, shortenTitle} from '../utils'
 import Button from '@material-ui/core/Button'
-import * as React from 'react'
 import {Image} from '.'
-import {buildThumbnailReference, ReduxContext, setManifest, shortenTitle} from '../utils'
+
 
 interface IStandardGridItem {
   bemBlocks: any,
@@ -15,25 +16,24 @@ interface IStandardGridItem {
   }
 }
 
-export const StandardGridItem : React.FC<IStandardGridItem> = (props) => {
+export const StandardGridItem: React.FC<IStandardGridItem> = (props): ReactElement => {
   const {bemBlocks, result} = props
   const source = result._source
   const manifestId = source.manifest
   const workspaceUri = '/view?manifest=' + manifestId
   const thumbnail = buildThumbnailReference(source.thumbnail)
-  const matchManifest = (manifests) => {
+
+  const matchManifest = (manifests): boolean => {
     const matched = manifests[manifestId]
     return !!(matched && matched.id)
   }
 
-  const buildItem = (xProps) => {
+  const buildItem = (xProps): JSX.Element => {
     return (
       <>
         <div className={bemBlocks.item('poster')}>
           <Button
-            onClick={
-              () => setManifest(xProps, manifestId) // tslint:disable-line
-            }
+            onClick={() => setManifest(xProps, manifestId)}
           >
             <Image
               imageSource={thumbnail}
@@ -44,9 +44,9 @@ export const StandardGridItem : React.FC<IStandardGridItem> = (props) => {
         <a href={workspaceUri}>
           <div
             className={bemBlocks.item('title')}
-            title={source.title}
-            data-qa='title'
             dangerouslySetInnerHTML={{__html: shortenTitle(source.title)}}
+            data-qa='title'
+            title={source.title}
           />
         </a>
         <div className={bemBlocks.item('author')} dangerouslySetInnerHTML={{__html: source.Author}}/>
@@ -59,9 +59,9 @@ export const StandardGridItem : React.FC<IStandardGridItem> = (props) => {
       <>
         {matchManifest(xProps.manifests)
           ? (<div
-            style={{backgroundColor: '#baccbc'}}
             className={bemBlocks.item().mix(bemBlocks.container('item'))}
             data-qa="hit"
+            style={{backgroundColor: '#baccbc'}}
           >
             {buildItem(xProps)}
           </div>)

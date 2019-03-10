@@ -10,24 +10,6 @@
   background: $portal-layout-background;
   font-family: $portal-font-family;
 
-  &__logo {
-      color:white;
-      margin-left:7px;
-      line-height: 16px;
-      display: flex;
-      padding: 9px;
-  }
-  &__top-bar {
-    background: $portal-primary-theme-color;
-    height: 60px;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    z-index: 100;
-    box-shadow: 0 0 4px rgba(0, 0, 0, .14), 0 4px 8px rgba(0, 0, 0, .28);
-  }
-
   &__body {
     position: absolute;
     top: 93px;

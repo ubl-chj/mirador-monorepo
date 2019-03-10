@@ -1,11 +1,11 @@
-import uuidv5 from 'uuidv5'
 import {Domain} from '../enum'
+import uuidv5 from 'uuidv5'
 
-export const handleMissingImage = (target) => {
+export const handleMissingImage = (target): string => {
   return target.src = Domain.THUMBNAIL_NOTFOUND_SVG // eslint-disable-line
 }
 
-export function resolveManifestId(source) {
+export const resolveManifestId = (source): string => {
   if (source.manifest) {
     let manifest
     const regexp = /http[^s]/i
@@ -20,7 +20,7 @@ export function resolveManifestId(source) {
   }
 }
 
-export function shortenTitle(name) {
+export const shortenTitle = (name): string => {
   let shortTitle
   if (name && !Array.isArray(name)) {
     if (name.length >= 80) {
@@ -34,7 +34,7 @@ export function shortenTitle(name) {
   return shortTitle
 }
 
-export const buildThumbnailReference = (thumbnail) => {
+export const buildThumbnailReference = (thumbnail): string => {
   let thumbnailLink
   if (thumbnail) {
     if (thumbnail.includes('/full')) {
@@ -51,7 +51,7 @@ export const buildThumbnailReference = (thumbnail) => {
   return thumbnailLink
 }
 
-export const setManifest = (actions, manifestId) => {
+export const setManifest = (actions, manifestId): any => {
   actions.fetchManifest(manifestId)
   actions.addWindow({manifestId, thumbnailNavigationPosition: 'off'})
 }

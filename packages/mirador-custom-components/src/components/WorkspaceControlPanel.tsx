@@ -1,18 +1,22 @@
+import React, {EventHandler, ReactElement} from 'react'
+import AddIcon from '@material-ui/icons/Add'
 import Badge from '@material-ui/core/Badge'
+import ClearIcon from '@material-ui/icons/Clear'
 import Drawer from '@material-ui/core/Drawer'
 import Fab from '@material-ui/core/Fab'
 import IconButton from '@material-ui/core/IconButton'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
-import AddIcon from '@material-ui/icons/Add'
-import ClearIcon from '@material-ui/icons/Clear'
 import Star from '@material-ui/icons/Star'
-import React, {EventHandler} from 'react'
-import {WorkspaceSettingsMenu} from './WorkspaceSettingsMenu'
+import {WorkspaceSettingsMenu} from './menus'
 import {updateConfig} from '@mirador/core'
 
 interface IWorkspaceControlPanel {
   currentLanguage: string,
+  discovery: {
+    currentIndex: string,
+    indices: {}
+  },
   isWorkspaceAddVisible: boolean,
   languages: {
     current: string,
@@ -22,20 +26,19 @@ interface IWorkspaceControlPanel {
   onClose: EventHandler<any>,
   open: boolean,
   setWorkspaceAddVisibility: Function
-  t: Function,
   updateConfig: typeof updateConfig,
   windows: {},
   workspaceType: string
 }
 
-export const WorkspaceControlPanelComponent: React.FC<IWorkspaceControlPanel> = (props) => {
+export const WorkspaceControlPanelComponent: React.FC<IWorkspaceControlPanel> = (props): ReactElement => {
   const windowCount = props.windows && Object.keys(props.windows).length
   return (
     <Drawer
-      variant="permanent"
-      anchor="left"
       PaperProps={{ style: { top: '65px' } }}
+      anchor="left"
       open={true}
+      variant="permanent"
     >
       <List>
         <ListItem alignItems="flex-start">

@@ -1,8 +1,9 @@
 import {addWindow, fetchManifest, setWorkspaceAddVisibility} from '@mirador/core'
-import {connect} from 'react-redux'
 import {DiscoveryComponent} from '../components'
+import {connect} from 'react-redux'
 
-const mapStateToProps = (state) => (
+
+const mapStateToProps = (state): any => (
   {
     discovery: state.config.discovery,
     isWorkspaceAddVisible: state.workspace.isWorkspaceAddVisible,

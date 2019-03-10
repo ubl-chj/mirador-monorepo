@@ -12,9 +12,8 @@ import { combineReducers } from 'redux'
 
 /**
  *
- * @param pluginReducers
  */
-export const rootReducer = (pluginReducers) => combineReducers({
+export const rootReducer = (): any => combineReducers({
   annotations: annotationsReducer,
   companionWindows: companionWindowsReducer,
   config: configReducer,
@@ -23,5 +22,4 @@ export const rootReducer = (pluginReducers) => combineReducers({
   viewers: viewersReducer,
   windows: windowsReducer,
   workspace: workspaceReducer,
-  ...pluginReducers,
 })

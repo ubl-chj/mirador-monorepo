@@ -6,7 +6,7 @@ import qs from 'query-string'
  * @param windows
  * @param fetch
  */
-export function fetchManifests(windows, fetch) {
+export const fetchManifests = (windows, fetch) => {
   windows.forEach((win) => fetch(win.loadedManifest))
 }
 
@@ -14,7 +14,7 @@ export function fetchManifests(windows, fetch) {
  * getThumbnailNavigationPositions
  * @param config
  */
-export function getThumbnailNavigationPositions(config) {
+export const getThumbnailNavigationPositions = (config) => {
   const positions = []
   config.windows.forEach((val) => {
     if (val.thumbnailNavigationPosition) {
@@ -31,7 +31,7 @@ export function getThumbnailNavigationPositions(config) {
  * @param windows
  * @param removeWindow
  */
-export function removeWindows(windows, removeWindow) {
+export const removeWindows = (windows, removeWindow) => {
   Object.keys(windows).forEach((key) => {
     removeWindow(key)
   })
@@ -42,7 +42,7 @@ export function removeWindows(windows, removeWindow) {
  * @param config
  * @param addWindow
  */
-export function addWindows(config, addWindow) {
+export const addWindows = (config, addWindow) => {
   const thumbnailPositions = getThumbnailNavigationPositions(config)
   thumbnailPositions.forEach((thumbnailNavigationPosition, index) => {
     addWindow({
@@ -54,25 +54,10 @@ export function addWindows(config, addWindow) {
 }
 
 /**
- * resolveAndMergeParams
- * @param queryParams
- * @param config
- */
-export function resolveAndMergeParams(queryParams, config) {
-  const params = qs.parse(queryParams)
-  if (Object.keys(params).length) {
-    if (params.manifest) {
-      const windowConfig = buildWindowConfig(params.manifest)
-      return mergeConfigs(config, windowConfig)
-    }
-  }
-}
-
-/**
  * buildWindows
  * @param uri
  */
-function buildWindowConfig(uri) {
+const buildWindowConfig = (uri) => {
   return {
     windows: [
       {
@@ -88,6 +73,21 @@ function buildWindowConfig(uri) {
  * @param config
  * @param windows
  */
-function mergeConfigs(config, windows) {
+const mergeConfigs = (config, windows) => {
   return deepmerge(config, windows)
+}
+
+/**
+ * resolveAndMergeParams
+ * @param queryParams
+ * @param config
+ */
+export const resolveAndMergeParams = (queryParams, config) => {
+  const params = qs.parse(queryParams)
+  if (Object.keys(params).length) {
+    if (params.manifest) {
+      const windowConfig = buildWindowConfig(params.manifest)
+      return mergeConfigs(config, windowConfig)
+    }
+  }
 }

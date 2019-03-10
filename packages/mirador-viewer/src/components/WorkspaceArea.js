@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { DiscoveryContainer, IndexSelectorContainer, WorkspaceControlPanel } from '@mirador/custom-components';
+import { DiscoveryContainer, WorkspaceControlPanel } from '@mirador/custom-components';
 import Workspace from '../containers/Workspace';
 import ns from '../config/css-ns';
 
@@ -25,7 +25,6 @@ export class WorkspaceArea extends Component {
           isWorkspaceAddVisible
             ? (
               <>
-                <IndexSelectorContainer />
                 <DiscoveryContainer />
               </>
             )

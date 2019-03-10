@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {ReactElement} from 'react'
 import {
   SearchkitManager,
   SearchkitProvider,
@@ -12,10 +12,11 @@ interface IDiscoveryComponent {
   },
 }
 
-export const DiscoveryComponent : React.FC<IDiscoveryComponent> = (props) => {
+export const DiscoveryComponent: React.FC<IDiscoveryComponent> = (props): ReactElement => {
   const {currentIndex} = props.discovery
   const routeConfig = props.discovery.indices[currentIndex]
-  const buildSearchKitManager = () => {
+
+  const buildSearchKitManager = (): SearchkitManager => {
     const host = routeConfig.host + '/' + currentIndex
     const options = {
       timeout: 20000,

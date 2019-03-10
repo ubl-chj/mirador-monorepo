@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, {ReactElement} from 'react'
 import {handleMissingImage} from '../utils'
 
 interface IImage {
@@ -6,17 +6,17 @@ interface IImage {
   width: number
 }
 
-export const Image : React.FC<IImage> = (props) => {
+export const Image: React.FC<IImage> = (props): ReactElement => {
   const {imageSource, width} = props
   return (
     <img
       // crossOrigin=''
-      width={width}
+      alt='thumbnail'
       onError={(e) => {
         handleMissingImage(e.target as HTMLImageElement)
       }}
-      alt='thumbnail'
       src={imageSource}
+      width={width}
     />
   )
 }

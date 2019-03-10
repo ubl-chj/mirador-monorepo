@@ -1,7 +1,7 @@
+import React, {ReactElement} from 'react'
+import {ReduxContext, buildThumbnailReference, setManifest, shortenTitle} from '../utils'
 import Button from '@material-ui/core/Button'
-import * as React from 'react'
 import {Image} from '.'
-import {buildThumbnailReference, ReduxContext, setManifest, shortenTitle} from '../utils'
 
 interface IStandardListItem {
   bemBlocks: any,
@@ -16,7 +16,7 @@ interface IStandardListItem {
   }
 }
 
-export const StandardListItem : React.FC<IStandardListItem> = (props) => {
+export const StandardListItem: React.FC<IStandardListItem> = (props): ReactElement => {
   const {bemBlocks, result} = props
   const source = Object.assign({}, result._source, result.highlight)
   const thumbnail = buildThumbnailReference(source.thumbnail)
@@ -41,9 +41,9 @@ export const StandardListItem : React.FC<IStandardListItem> = (props) => {
           >
             <div
               className={bemBlocks.item('title')}
-              title={source.title}
-              data-qa='title'
               dangerouslySetInnerHTML={{__html: shortenTitle(source.title)}}
+              data-qa='title'
+              title={source.title}
             />
           </Button>
           <div

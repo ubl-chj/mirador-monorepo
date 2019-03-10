@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   ActionBar,
   ActionBarRow,
@@ -21,39 +20,47 @@ import {
   ViewSwitcherToggle,
 } from 'searchkit'
 import {StandardGridItem, StandardListItem} from '.'
+import React from 'react'
 import {ReduxContext} from '../utils'
+import Typography from '@material-ui/core/Typography'
 
 interface ISearchApp extends SearchkitComponentProps {
-  routeConfig: {}
+  routeConfig: {
+    name: string,
+    queryFields: {},
+    refinementListFilters: {},
+    sortingSelectorOptions: {}
+  }
 }
 
 export class SearchApp extends SearchkitComponent<ISearchApp, any> {
-  routeConfig: any
+  private routeConfig: any
 
-  constructor(props) {
+  public constructor(props) {
     super(props)
     this.routeConfig = props.routeConfig
   }
 
-  buildRefinementListFilters(refinementListFilters) {
+  private buildRefinementListFilters(refinementListFilters): any {
     return Object.keys(refinementListFilters).map((id: any) => (
       <RefinementListFilter
         containerComponent={<Panel collapsable={true} defaultCollapsed={true}/>}
         field={refinementListFilters[id].field}
-        title={refinementListFilters[id].title}
         id={refinementListFilters[id].id}
         key={refinementListFilters[id].id}
-        operator='AND'
         listComponent={ItemList}
+        operator='AND'
+        title={refinementListFilters[id].title}
       />
     ))
   }
 
-  render() {
-    const {queryFields, refinementListFilters, sortingSelectorOptions} = this.routeConfig
+  public render(): JSX.Element {
+    const {name, queryFields, refinementListFilters, sortingSelectorOptions} = this.routeConfig
     return (
       <Layout>
-        <SearchBox autofocus={true} searchOnChange={true} queryFields={queryFields}/>
+        <Typography variant="subheading">{name}</Typography>
+        <SearchBox autofocus={true} queryFields={queryFields} searchOnChange={true}/>
         <LayoutBody>
           <SideBar>
             {this.buildRefinementListFilters(refinementListFilters)}
@@ -73,13 +80,13 @@ export class SearchApp extends SearchkitComponent<ISearchApp, any> {
             <Pagination showNumbers={true}/>
             <ReduxContext.Provider value={this.props}>
               <ViewSwitcherHits
-                hitsPerPage={12}
-                sourceFilter={queryFields}
                 hitComponents={[
-                  {key: 'grid', title: 'Grid', itemComponent: StandardGridItem, defaultOption: true},
-                  {key: 'list', title: 'List', itemComponent: StandardListItem},
+                  {defaultOption: true, itemComponent: StandardGridItem, key: 'grid', title: 'Grid'},
+                  {itemComponent: StandardListItem, key: 'list', title: 'List'},
                 ]}
+                hitsPerPage={12}
                 scrollTo="body"
+                sourceFilter={queryFields}
               />
             </ReduxContext.Provider>
             <Pagination showNumbers={true}/>

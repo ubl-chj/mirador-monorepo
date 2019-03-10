@@ -1,23 +1,23 @@
+import React, {EventHandler} from 'react'
 import AppBar from '@material-ui/core/AppBar'
+import BookOutlined from '@material-ui/icons/BookOutlined'
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
+import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import Divider from '@material-ui/core/Divider'
 import Drawer from '@material-ui/core/Drawer'
+import Home from '@material-ui/icons/Home'
 import IconButton from '@material-ui/core/IconButton'
+import ImageOutlined from '@material-ui/icons/ImageOutlined'
+import {Link} from 'react-router-dom'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
-import { withStyles } from '@material-ui/core/styles'
+import MenuIcon from '@material-ui/icons/Menu'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
-import BookOutlined from '@material-ui/icons/BookOutlined'
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
-import ChevronRightIcon from '@material-ui/icons/ChevronRight'
-import Home from '@material-ui/icons/Home'
-import ImageOutlined from '@material-ui/icons/ImageOutlined'
-import MenuIcon from '@material-ui/icons/Menu'
 import classNames from 'classnames'
-import React, {EventHandler} from 'react'
-import {Link} from 'react-router-dom'
+import { withStyles } from '@material-ui/core/styles'
 
 const drawerWidth = 240
 
@@ -79,43 +79,43 @@ interface IPersistentDrawerLeftComponent {
 }
 
 class PersistentDrawerLeftComponent extends React.Component<IPersistentDrawerLeftComponent, any> {
-  state = {
+  public state = {
     open: false,
   }
 
-  render() {
+  public render() {
     const { classes, theme, handleDrawerOpen, handleDrawerClose, open } = this.props
 
     return (
       <>
         <AppBar
-          position="fixed"
           className={classNames(classes.appBar, {
             [classes.appBarShift]: open,
           })}
+          position="fixed"
         >
           <Toolbar disableGutters={!open}>
             <IconButton
-              color="inherit"
               aria-label="Open drawer"
-              onClick={handleDrawerOpen}
               className={classNames(classes.menuButton, open && classes.hide)}
+              color="inherit"
+              onClick={handleDrawerOpen}
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" color="inherit" noWrap={true}>
+            <Typography color="inherit" noWrap={true} variant="h6">
               Handschriften Portal
             </Typography>
           </Toolbar>
         </AppBar>
         <Drawer
-          className={classes.drawer}
-          variant="persistent"
           anchor="left"
-          open={open}
+          className={classes.drawer}
           classes={{
             paper: classes.drawerPaper,
           }}
+          open={open}
+          variant="persistent"
         >
           <div className={classes.drawerHeader}>
             <IconButton onClick={handleDrawerClose}>

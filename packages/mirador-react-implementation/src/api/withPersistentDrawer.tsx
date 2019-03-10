@@ -1,45 +1,45 @@
 import CssBaseline from '@material-ui/core/CssBaseline'
-import classNames from 'classnames'
-import React from 'react'
 import {PersistentDrawerLeft} from '../components/ui'
+import React from 'react'
+import classNames from 'classnames'
 
 /**
  *
  * @param Component
  * @returns {*}
  */
-export const withPersistentDrawer = (Component) => {
+export const withPersistentDrawer = (Component): any => {
   /**
    *
    * @param props
    * @constructor
    */
   return class HOC extends React.Component {
-    classes: any
-    state = {
+    public classes: any
+    public state = {
       open: false,
     }
-    constructor(props) {
+    public constructor(props) {
       super(props)
       this.classes = props.classes
     }
 
-    handleDrawerOpen = () => {
+    private handleDrawerOpen = () => {
       this.setState({ open: true })
     }
 
-    handleDrawerClose = () => {
+    private handleDrawerClose = () => {
       this.setState({ open: false })
     }
 
-    render() {
+    public render(): any {
       const {open} = this.state
       return (
         <div className={this.classes.root}>
           <CssBaseline />
           <PersistentDrawerLeft
-            handleDrawerOpen={this.handleDrawerOpen}
             handleDrawerClose={this.handleDrawerClose}
+            handleDrawerOpen={this.handleDrawerOpen}
             open={open}
           />
           <main

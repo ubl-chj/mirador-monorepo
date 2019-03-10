@@ -1,13 +1,14 @@
-import {withStyles} from '@material-ui/core'
-import {localConfig} from '@mirador/configuration'
+import React, {ReactElement, useEffect, useRef, useState} from 'react'
+import {ReactReduxContext, connect} from 'react-redux'
 import {addWindow, fetchManifest, setConfig} from '@mirador/core'
+import {addWindows, fetchManifests, resolveAndMergeParams, withPersistentDrawer} from '../api'
 import DiscoveryComponent from '@mirador/custom-components'
 import {MiradorComponent} from '@mirador/react-components'
-import React, {useEffect, useRef, useState} from 'react'
-import {connect, ReactReduxContext} from 'react-redux'
-import {withRouter} from 'react-router-dom'
-import {addWindows, fetchManifests, resolveAndMergeParams, withPersistentDrawer} from '../api'
+import {localConfig} from '@mirador/configuration'
 import {styles} from '../styles'
+import {withRouter} from 'react-router-dom'
+import {withStyles} from '@material-ui/core'
+
 
 const replaceWorkspaceAdd = {
   component: DiscoveryComponent,
@@ -27,22 +28,9 @@ interface IMiradorImplementation {
   windows: {}
 }
 
-const MiradorImplementation : React.FC<IMiradorImplementation> = (props) => {
+const MiradorImplementation: React.FC<IMiradorImplementation> = (props): ReactElement => {
   const initialConfiguration = useRef(localConfig)
   const [isInitialized, setIsInitialized] = useState(false)
-
-  useEffect(() => {
-    let mergedConfig = resolveAndMergeParams(props.location.search, localConfig)
-    if (mergedConfig && !isInitialized) {
-      props.setConfig(mergedConfig)
-    } else if (!isInitialized) {
-      mergedConfig = initialConfiguration.current
-      props.setConfig(mergedConfig)
-    }
-    if (mergedConfig && !isInitialized) {
-      setIsInitialized(initializeWorkspace(mergedConfig))
-    }
-  }, [props, isInitialized])
 
   /**
    * initializeWorkspace
@@ -57,10 +45,23 @@ const MiradorImplementation : React.FC<IMiradorImplementation> = (props) => {
     return true
   }
 
+  useEffect(() => {
+    let mergedConfig = resolveAndMergeParams(props.location.search, localConfig)
+    if (mergedConfig && !isInitialized) {
+      props.setConfig(mergedConfig)
+    } else if (!isInitialized) {
+      mergedConfig = initialConfiguration.current
+      props.setConfig(mergedConfig)
+    }
+    if (mergedConfig && !isInitialized) {
+      setIsInitialized(initializeWorkspace(mergedConfig))
+    }
+  }, [props, isInitialized])
+
   if (isInitialized) {
     return (
       <ReactReduxContext.Consumer>
-        {({store}) => <MiradorWithPanel store={store} plugins={[replaceWorkspaceAdd]}/>}
+        {({store}) => <MiradorWithPanel plugins={[replaceWorkspaceAdd]} store={store}/>}
       </ReactReduxContext.Consumer>)
   } else {
     return null
@@ -72,7 +73,7 @@ const MiradorImplementation : React.FC<IMiradorImplementation> = (props) => {
  * @param config
  * @param windows
  */
-const mapStateToProps = ({ config, windows }) => ({
+const mapStateToProps = ({ config, windows }): any => ({
   config,
   windows,
 })
