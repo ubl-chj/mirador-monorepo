@@ -46,15 +46,18 @@ const styles = theme => ({
     height: '200px',
     width: '100%',
   },
+  leftPadding: {
+    ...theme.mixins.gutters(),
+    paddingRight: 0,
+  },
   positionButton: {
     order: -100,
   },
   root: {
-    boxShadow: 'none',
     display: 'flex',
-    flexDirection: 'column',
     minHeight: 0,
-    width: theme.paper.width,
+    boxShadow: 'none',
+    flexDirection: 'column',
   },
   vertical: {
     width: theme.paper.width,

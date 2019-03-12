@@ -19,23 +19,28 @@ export function focusWindow(windowId) {
  * @memberof ActionCreators
  */
 export function addWindow(options) {
+  const cwDefault = `cw-${uuid()}`
   const defaultOptions = {
     canvasIndex: 0,
     collectionIndex: 0,
-    companionWindowIds: [],
+    companionWindowIds: [cwDefault],
     height: 400,
     id: `window-${uuid()}`,
     manifestId: null,
     maximized: false,
     rangeId: null,
     rotation: null,
+    sideBarPanel: 'info',
     thumbnailNavigationPosition: 'bottom', // bottom by default in settings.js
     view: 'single',
     width: 400,
     x: 2700,
     y: 2700,
   }
-  return { type: ActionTypes.ADD_WINDOW, window: { ...defaultOptions, ...options } }
+  return {
+    type: ActionTypes.ADD_WINDOW,
+    window: { ...defaultOptions, ...options },
+    companionWindows: [{ id: cwDefault, position: 'left', content: 'info' }] }
 }
 
 /**
