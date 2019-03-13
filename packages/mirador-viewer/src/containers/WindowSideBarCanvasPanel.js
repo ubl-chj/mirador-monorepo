@@ -33,6 +33,13 @@ const styles = theme => ({
   label: {
     paddingLeft: theme.spacing.unit,
   },
+  primary: {
+    fontFamily: 'Google Sans,Roboto,Arial,sans-serif',
+    fontSize: '.875rem',
+    fontWeight: 500,
+    letterSpacing: '.01785714em',
+    lineHeight: '1.25rem'
+  },
 });
 
 const enhance = compose(

@@ -12,7 +12,6 @@ import { WorkspaceAddButton } from '../components/WorkspaceAddButton';
  */
 const mapStateToProps = state => (
   {
-    manifests: state.manifests,
     isWorkspaceAddVisible: state.workspace.isWorkspaceAddVisible,
   }
 );

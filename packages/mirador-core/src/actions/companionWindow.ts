@@ -43,24 +43,7 @@ export function updateCompanionWindow(windowId, id, payload) {
   };
 }
 
-/**
- *
- * @param id
- */
-export function removeCompanionWindow(id) {
-  return { type: ActionTypes.REMOVE_COMPANION_WINDOW, id };
-}
-
-/**
- *
- * @param windowId
- * @param companionWindowId
- */
-export function closeCompanionWindow(windowId, companionWindowId) {
-  return (dispatch, getState) => {
-    dispatch(removeCompanionWindow(companionWindowId));
-    const companionWindowIds = getState().windows[windowId].companionWindowIds
-      .filter((id) => id !== companionWindowId);
-    dispatch(updateWindow(windowId, { companionWindowIds }));
-  };
+/** */
+export function removeCompanionWindow(windowId, id) {
+  return { type: ActionTypes.REMOVE_COMPANION_WINDOW, id, windowId };
 }

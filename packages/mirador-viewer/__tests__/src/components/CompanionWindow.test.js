@@ -45,7 +45,6 @@ describe('CompanionWindow', () => {
       const closeButton = companionWindow.find('WithStyles(IconButton)[aria-label="closeCompanionWindow"]');
       closeButton.simulate('click');
       expect(removeCompanionWindowEvent).toHaveBeenCalledTimes(1);
-      expect(removeCompanionWindowEvent).toHaveBeenCalledWith('x', 'abc123');
     });
   });
 
@@ -71,5 +70,10 @@ describe('CompanionWindow', () => {
     button.simulate('click');
     expect(updateCompanionWindow).toHaveBeenCalledTimes(1);
     expect(updateCompanionWindow).toHaveBeenCalledWith('x', 'abc123', { position: 'right' });
+  });
+
+  it('renders title controls', () => {
+    companionWindow = createWrapper({ position: 'bottom', titleControls: <div className="xyz" /> });
+    expect(companionWindow.find('div.xyz').length).toBe(1);
   });
 });

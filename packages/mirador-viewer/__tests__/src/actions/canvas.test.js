@@ -1,5 +1,7 @@
 import {ActionTypes, setCanvas, updateViewport} from '@mirador/core';
 
+const debounceTime = 100;
+
 describe('canvas actions', () => {
   describe('setCanvas', () => {
     it('sets to a defined canvas', () => {
@@ -16,6 +18,11 @@ describe('canvas actions', () => {
     it('sets viewer state', () => {
       const id = 'abc123';
       const expectedAction = {
+        meta: {
+          debounce: {
+            time: debounceTime,
+          },
+        },
         type: ActionTypes.UPDATE_VIEWPORT,
         windowId: id,
         payload: {

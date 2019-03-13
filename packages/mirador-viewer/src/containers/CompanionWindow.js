@@ -26,10 +26,12 @@ const mapStateToProps = (state, { id, windowId }) => {
  * @memberof CompanionWindow
  * @private
  */
-const mapDispatchToProps = {
-  onCloseClick: actions.closeCompanionWindow,
-  updateCompanionWindow: actions.updateCompanionWindow,
-};
+const mapDispatchToProps = (dispatch, { windowId, id }) => ({
+  onCloseClick: () => dispatch(
+    actions.removeCompanionWindow(windowId, id),
+  ),
+  updateCompanionWindow: (...args) => dispatch(actions.updateCompanionWindow(...args)),
+});
 
 /**
  *
@@ -38,20 +40,9 @@ const mapDispatchToProps = {
  * root: {overflowY: string, width: string}}}
  */
 const styles = theme => ({
-  content: {
-    ...theme.mixins.gutters(),
-    overflowY: 'auto',
-  },
-  horizontal: {
-    height: '200px',
-    width: '100%',
-  },
-  leftPadding: {
-    ...theme.mixins.gutters(),
-    paddingRight: 0,
-  },
-  positionButton: {
-    order: -100,
+  windowSideBarTitle: {
+    ...theme.typography.subtitle1,
+    flexGrow: 1,
   },
   root: {
     display: 'flex',
@@ -59,12 +50,26 @@ const styles = theme => ({
     boxShadow: 'none',
     flexDirection: 'column',
   },
+  horizontal: {
+    height: '200px',
+    width: '100%',
+  },
   vertical: {
     width: theme.paper.width,
   },
-  windowSideBarTitle: {
-    ...theme.typography.subtitle1,
-    flexGrow: 1,
+  positionButton: {
+    order: -100,
+  },
+  toolbar: {
+    minHeight: 'max-content',
+  },
+  leftPadding: {
+    ...theme.mixins.gutters(),
+    paddingRight: 0,
+  },
+  content: {
+    ...theme.mixins.gutters(),
+    overflowY: 'auto',
   },
 });
 

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Paper from '@material-ui/core/Paper';
 import OpenSeadragon from 'openseadragon';
-import debounce from 'lodash/debounce';
 import ns from '../config/css-ns';
-import ZoomControls from '../containers/ZoomControls';
 import OpenSeadragonCanvasOverlay from '../lib/OpenSeadragonCanvasOverlay';
 
 /**
@@ -45,7 +44,7 @@ export class OpenSeadragonViewer extends Component {
 
     this.osdCanvasOverlay = new OpenSeadragonCanvasOverlay(this.viewer);
     this.viewer.addHandler('update-viewport', this.onUpdateViewport);
-    this.viewer.addHandler('viewport-change', debounce(this.onViewportChange, 300));
+    this.viewer.addHandler('viewport-change', this.onViewportChange);
 
     if (viewer) {
       this.viewer.viewport.panTo(viewer, false);
@@ -260,7 +259,7 @@ export class OpenSeadragonViewer extends Component {
    */
   render() {
     const {
-      windowId, children, label, t,
+      windowId, children, classes, label, t,
     } = this.props;
 
     return (
@@ -271,8 +270,9 @@ export class OpenSeadragonViewer extends Component {
           ref={this.ref}
           aria-label={t('item', { label })}
         >
-          <ZoomControls windowId={windowId} />
-          { children }
+          <Paper square className={classes.controls} elevation={0}>
+            { children }
+          </Paper>
         </section>
       </>
     );
@@ -285,6 +285,7 @@ OpenSeadragonViewer.defaultProps = {
   tileSources: [],
   viewer: null,
   label: null,
+  classes: {},
 };
 
 OpenSeadragonViewer.propTypes = {
@@ -296,4 +297,5 @@ OpenSeadragonViewer.propTypes = {
   windowId: PropTypes.string.isRequired,
   label: PropTypes.string,
   t: PropTypes.func.isRequired,
+  classes: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };

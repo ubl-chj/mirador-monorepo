@@ -18,7 +18,7 @@ const mapStateToProps = (state, { windowId }) => ({
  * @private
  */
 const mapDispatchToProps = (dispatch, { windowId }) => ({
-  closeWindow: () => dispatch(actions.closeWindow(windowId)),
+  removeWindow: () => dispatch(actions.removeWindow(windowId)),
   maximizeWindow: () => dispatch(actions.maximizeWindow(windowId)),
   minimizeWindow: () => dispatch(actions.minimizeWindow(windowId)),
   toggleWindowSideBar: () => dispatch(actions.toggleWindowSideBar(windowId)),
