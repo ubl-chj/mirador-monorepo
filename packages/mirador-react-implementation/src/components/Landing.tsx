@@ -4,7 +4,7 @@ import CardActionArea from '@material-ui/core/CardActionArea'
 import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Grid from '@material-ui/core/Grid'
-import {Link} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 import Typography from '@material-ui/core/Typography'
 import {styles} from '../styles'
 import {withPersistentDrawer} from '../api'
@@ -22,9 +22,10 @@ interface ILandingComponent {
 const LandingComponent: React.FC<ILandingComponent> = (props): ReactElement => {
   const {classes} = props
 
-  const buildCard = (imageSrc, linkPath, title, text) => {
+  const buildCard = (imageSrc, linkPath, title, text): JSX.Element => {
     return (
-      <Link
+      <NavLink
+        style={{color: '#2f2c2c', textDecoration: 'none'}}
         title={title}
         to={linkPath}
       >
@@ -40,7 +41,7 @@ const LandingComponent: React.FC<ILandingComponent> = (props): ReactElement => {
             </CardContent>
           </CardActionArea>
         </Card>
-      </Link>)
+      </NavLink>)
   }
 
   return (

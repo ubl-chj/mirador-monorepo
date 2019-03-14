@@ -5,25 +5,6 @@
   width: 100%;
 }
 
-.portal-layout {
-  box-sizing: border-box;
-  background: $portal-layout-background;
-  font-family: $portal-font-family;
-
-  &__body {
-    position: absolute;
-    top: 93px;
-    bottom: 0;
-    right: 0;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    left: 0;
-    background: #000;
-  }
-}
-
 .mirador {
   &-viewer {
     bottom: 0;
@@ -138,87 +119,90 @@
 // override react-mosaic styles to mimic MUI's elevation
 .mosaic {
   &-tile {
-    box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 2px 1px -1px rgba(0,0,0,0.12);
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2),0 1px 1px 0 rgba(0,0,0,0.14),0 2px 1px -1px rgba(0,0,0,0.12);
   }
 
   &-window, &-preview {
     box-shadow: none;
   }
 }
-@media (min-width: 500px) {
-  .sk-hits-grid {
-    display: flex;
-    flex-flow: row wrap;
-    align-items: flex-start;
-    background: #eee;
-  }
 
-  .sk-hits-grid-hit {
-    padding: 10px;
-    max-width: 250px;
-    flex-flow: column nowrap;
-    align-content: center;
-    align-items: normal;
-    flex: 190px 0;
-    background-color: #FFF;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 2px;
-    margin: 5px;
-  }
+.sk {
+  @media (min-width: 500px) {
+    &-hits-grid {
+      display: flex;
+      flex-flow: row wrap;
+      align-items: flex-start;
+      background: #eee;
+    }
 
-  .sk-layout__body {
-    display: flex;
-    margin: 0 auto 0;
-    min-width: 600px;
-  }
+    &-hits-grid-hit {
+      padding: 10px;
+      max-width: 250px;
+      flex-flow: column nowrap;
+      align-content: center;
+      align-items: normal;
+      flex: 190px 0;
+      background-color: #FFF;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      border-radius: 2px;
+      margin: 5px;
+    }
 
-  .sk-search-box {
-    background: #FFF;
-    border-radius: 3px;
-    position: relative;
-    display: flex;
-    flex: 1;
-    height: 40px;
-  }
+    &-layout__body {
+      display: flex;
+      margin: 0 auto 0;
+      min-width: 600px;
+    }
 
-  .sk-hits-grid-hit__poster a {
-    opacity: .01;
-    background: rgba(0, 0, 0, 0.4);
-    z-index: 2;
-    height: 100%;
-    display: block;
-    top: 0;
-    left: 0;
-    position: absolute;
-    width: 100%;
-  }
+    &-search-box {
+      background: #FFF;
+      border-radius: 3px;
+      position: relative;
+      display: flex;
+      flex: 1;
+      height: 40px;
+    }
 
-  .sk-hits-grid-hit__poster button:hover {
-    opacity: 1;
-    background: rgba(0, 0, 0, 0.4);
-  }
+    &-hits-grid-hit__poster a {
+      opacity: .01;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 2;
+      height: 100%;
+      display: block;
+      top: 0;
+      left: 0;
+      position: absolute;
+      width: 100%;
+    }
 
-  .sk-hits-grid-hit__title {
-    margin-top: 10px;
-    font-size: 16px;
-  }
+    &-hits-grid-hit__poster button:hover {
+      opacity: 1;
+      background: rgba(0, 0, 0, 0.4);
+    }
 
-  .sk-hits-grid-hit__author {
-    margin-top: 10px;
-    color: #616161;
-    font-size: 13px;
-  }
+    &-hits-grid-hit__title {
+      margin-top: 10px;
+      font-size: 16px;
+    }
 
-  .sk-hits-grid-hit a {
-    text-decoration: none;
-    color: #212121;
-    transition: .25s ease;
-    opacity: 1;
-  }
+    &-hits-grid-hit__author {
+      margin-top: 10px;
+      color: #616161;
+      font-size: 13px;
+    }
 
-  .sk-toggle-option.is-active {
-    background-color: #12394c;
-    color: #fff;
-    border-color: #08c;
+    &-hits-grid-hit a {
+      text-decoration: none;
+      color: #212121;
+      transition: .25s ease;
+      opacity: 1;
+    }
+
+    &-toggle-option.is-active {
+      background-color: #12394c;
+      color: #fff;
+      border-color: #08c;
+    }
   }
 }

@@ -8,12 +8,12 @@ import Drawer from '@material-ui/core/Drawer'
 import Home from '@material-ui/icons/Home'
 import IconButton from '@material-ui/core/IconButton'
 import ImageOutlined from '@material-ui/icons/ImageOutlined'
-import {Link} from 'react-router-dom'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import MenuIcon from '@material-ui/icons/Menu'
+import {NavLink} from 'react-router-dom'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import classNames from 'classnames'
@@ -21,7 +21,7 @@ import { withStyles } from '@material-ui/core/styles'
 
 const drawerWidth = 240
 
-const styles = (theme) => ({
+const styles = (theme): any => ({
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
       duration: theme.transitions.duration.leavingScreen,
@@ -83,7 +83,55 @@ class PersistentDrawerLeftComponent extends React.Component<IPersistentDrawerLef
     open: false,
   }
 
-  public render() {
+  private listItems = [
+    {
+      id: 'home',
+      index: 0,
+      path: '/',
+      text: 'Home'
+    },
+    {
+      id: 'mirador',
+      index: 1,
+      path: '/view',
+      text: 'Mirador'
+    },
+    {
+      id: 'blog',
+      index: 2,
+      path: '/cms',
+      text: 'Blog'
+    },
+  ]
+
+  private buildListItemIcon = (item): JSX.Element => {
+    switch (item) {
+      case 'home':
+        return <Home/>
+      case 'mirador':
+        return <ImageOutlined/>
+      case 'blog':
+        return <BookOutlined/>
+    }
+  }
+
+  private buildListItems = (items): JSX.Element => {
+    return items.map((item) =>
+      <NavLink
+        key={item.index}
+        style={{color: '#2f2c2c', textDecoration: 'none'}}
+        to={item.path}>
+        <ListItem button={true}>
+          <ListItemIcon>
+            {this.buildListItemIcon(item.id)}
+          </ListItemIcon>
+          <ListItemText primary={item.text} />
+        </ListItem>
+      </NavLink>
+    )
+  }
+
+  public render(): any {
     const { classes, theme, handleDrawerOpen, handleDrawerClose, open } = this.props
 
     return (
@@ -124,30 +172,7 @@ class PersistentDrawerLeftComponent extends React.Component<IPersistentDrawerLef
           </div>
           <Divider />
           <List>
-            <Link to='/'>
-              <ListItem button={true} key='home'>
-                <ListItemIcon>
-                  <Home/>
-                </ListItemIcon>
-                <ListItemText primary='Home' />
-              </ListItem>
-            </Link>
-            <Link to='/view'>
-              <ListItem button={true} key='mirador'>
-                <ListItemIcon>
-                  <ImageOutlined/>
-                </ListItemIcon>
-                <ListItemText primary='Mirador' />
-              </ListItem>
-            </Link>
-            <Link to='/cms'>
-              <ListItem button={true} key='cms'>
-                <ListItemIcon>
-                  <BookOutlined/>
-                </ListItemIcon>
-                <ListItemText primary='Blog' />
-              </ListItem>
-            </Link>
+            {this.buildListItems(this.listItems)}
           </List>
         </Drawer>
       </>
