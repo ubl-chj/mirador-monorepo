@@ -4,11 +4,9 @@ import classNames from 'classnames';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import FilledInput from '@material-ui/core/FilledInput';
-import MenuItem from '@material-ui/core/MenuItem';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import { CanvasThumbnail } from './CanvasThumbnail';
 import ManifestoCanvas from '../lib/ManifestoCanvas';
 import CompanionWindow from '../containers/CompanionWindow';
@@ -22,13 +20,12 @@ export class WindowSideBarCanvasPanel extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { variant: 'thumbnail' };
-    this.handleVariantChange = this.handleVariantChange.bind(this);
+    this.state = { variant: false };
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  /** */
-  handleVariantChange(event) {
-    this.setState({ variant: event.target.value });
+  handleChange(event) {
+    this.setState({ variant: event.target.checked });
   }
 
   /** */
@@ -98,26 +95,16 @@ export class WindowSideBarCanvasPanel extends Component {
         windowId={windowId}
         titleControls={(
           <FormControl>
-            <Select
-              MenuProps={{
-                anchorOrigin: {
-                  horizontal: "left",
-                  vertical: "bottom",
-                },
-                getContentAnchorEl: null,
-              }}
-              value={variant}
-              onChange={this.handleVariantChange}
-              name="variant"
-              autoWidth
-            >
-              <MenuItem value="compact">
-                <ListItemText classes={{primary: classes.primary}}>{ t('compactList') }</ListItemText>
-              </MenuItem>
-              <MenuItem value="thumbnail">
-                <ListItemText classes={{primary: classes.primary}}>{ t('thumbnailList') }</ListItemText>
-              </MenuItem>
-            </Select>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={variant}
+                  onChange={this.handleChange}
+                  value="variant"
+                />
+              }
+              label="Compact"
+            />
           </FormControl>
           )}
       >
@@ -134,8 +121,8 @@ export class WindowSideBarCanvasPanel extends Component {
                   button
                   component="li"
                 >
-                  {variant === 'compact' && this.renderCompact(canvas, canvases[canvasIndex])}
-                  {variant === 'thumbnail' && this.renderThumbnail(canvas, canvases[canvasIndex])}
+                  {variant && this.renderCompact(canvas, canvases[canvasIndex])}
+                  {!variant && this.renderThumbnail(canvas, canvases[canvasIndex])}
                 </ListItem>
               );
             })
