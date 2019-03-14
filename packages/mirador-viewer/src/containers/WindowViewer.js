@@ -14,10 +14,6 @@ import { WindowViewer } from '../components/WindowViewer';
  */
 const mapStateToProps = (state, { window }) => (
   {
-    canvasLabel: getCanvasLabel(
-      getSelectedCanvas(state, window.id),
-      state.windows[window.id].canvasIndex,
-    ),
     infoResponses: state.infoResponses,
   }
 );

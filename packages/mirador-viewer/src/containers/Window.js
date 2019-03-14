@@ -2,6 +2,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core';
 import { withTranslation } from 'react-i18next';
+import * as actions from '@mirador/core';
 import { Window } from '../components/Window';
 import { getWindowManifest, getManifestTitle, getThumbnailNavigationPosition } from '../state/selectors';
 
@@ -16,6 +17,15 @@ const mapStateToProps = (state, props) => ({
   workspaceType: state.config.workspace.type,
   label: getManifestTitle(getWindowManifest(state, props.window.id)),
   thumbnailNavigationPosition: getThumbnailNavigationPosition(state, props.window.id),
+});
+
+/**
+ * mapDispatchToProps - used to hook up connect to action creators
+ * @memberof ManifestListItem
+ * @private
+ */
+const mapDispatchToProps = (dispatch, { window }) => ({
+  focusWindow: () => dispatch(actions.focusWindow(window.id)),
 });
 
 /**
@@ -74,7 +84,7 @@ const styles = theme => ({
 const enhance = compose(
   withTranslation(),
   withStyles(styles),
-  connect(mapStateToProps),
+  connect(mapStateToProps, mapDispatchToProps),
 );
 
 export default enhance(Window);

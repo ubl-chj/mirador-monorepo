@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/MenuSharp';
 import CloseIcon from '@material-ui/icons/CloseSharp';
 import FullscreenIcon from '@material-ui/icons/FullscreenSharp';
@@ -11,6 +10,7 @@ import AppBar from '@material-ui/core/AppBar';
 import classNames from 'classnames';
 import WindowTopMenuButton from '../containers/WindowTopMenuButton';
 import WindowTopBarButtons from '../containers/WindowTopBarButtons';
+import { MiradorMenuButton } from './MiradorMenuButton';
 import ns from '../config/css-ns';
 
 
@@ -25,41 +25,39 @@ export class WindowTopBar extends Component {
   render() {
     const {
       removeWindow, windowId, classes, toggleWindowSideBar, t, manifestTitle,
-      maximizeWindow, maximized, minimizeWindow,
+      maximizeWindow, maximized, minimizeWindow, focused,
     } = this.props;
     return (
       <AppBar position="relative">
-        <Toolbar disableGutters className={classNames(classes.windowTopBarStyle, ns('window-top-bar'))} variant="dense">
-          <IconButton
+        <Toolbar disableGutters className={classNames(classes.windowTopBarStyle, focused ? classes.focused : null, ns('window-top-bar'))} variant="dense">
+          <MiradorMenuButton
             aria-label={t('toggleWindowSideBar')}
             color="inherit"
             onClick={toggleWindowSideBar}
           >
             <MenuIcon />
-          </IconButton>
+          </MiradorMenuButton>
           <Typography variant="h2" noWrap color="inherit" className={classes.title}>
             {manifestTitle}
           </Typography>
           <WindowTopBarButtons windowId={windowId} />
           <WindowTopMenuButton className={ns('window-menu-btn')} windowId={windowId} />
-          <IconButton
-            color="inherit"
+          <MiradorMenuButton
+            aria-label={(maximized ? t('minimizeWindow') : t('maximizeWindow'))}
             className={ns('window-maximize')}
-            aria-label={t('maximizeWindow')}
+            color="inherit"
             onClick={(maximized ? minimizeWindow : maximizeWindow)}
           >
-            {maximized
-              ? <FullscreenExitIcon />
-              : <FullscreenIcon />}
-          </IconButton>
-          <IconButton
-            color="inherit"
-            className={ns('window-close')}
+            {(maximized ? <FullscreenExitIcon /> : <FullscreenIcon />)}
+          </MiradorMenuButton>
+          <MiradorMenuButton
             aria-label={t('closeWindow')}
+            className={ns('window-close')}
+            color="inherit"
             onClick={removeWindow}
           >
             <CloseIcon />
-          </IconButton>
+          </MiradorMenuButton>
         </Toolbar>
       </AppBar>
     );
@@ -76,6 +74,7 @@ WindowTopBar.propTypes = {
   classes: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   toggleWindowSideBar: PropTypes.func.isRequired,
   t: PropTypes.func,
+  focused: PropTypes.bool,
 };
 
 WindowTopBar.defaultProps = {
@@ -84,4 +83,5 @@ WindowTopBar.defaultProps = {
   maximized: false,
   minimizeWindow: () => {},
   t: key => key,
+  focused: false,
 };

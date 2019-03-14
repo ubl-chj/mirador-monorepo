@@ -22,6 +22,10 @@ export class WorkspaceArea extends Component {
     return (
       <main className={classNames(classes.background, ns('viewer'))} aria-label={t('workspace')}>
         {
+          isWorkspaceControlPanelVisible
+            && <WorkspaceControlPanel />
+        }
+        {
           isWorkspaceAddVisible
             ? (
               <>
@@ -30,10 +34,6 @@ export class WorkspaceArea extends Component {
             )
             : <Workspace />
          }
-        {
-          isWorkspaceControlPanelVisible
-            && <WorkspaceControlPanel />
-        }
       </main>
     );
   }

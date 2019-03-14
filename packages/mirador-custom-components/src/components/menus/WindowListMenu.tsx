@@ -51,6 +51,7 @@ export const WindowListMenu: React.FC<IWindowListMenu> = (props): ReactElement =
         onClick={() => handleClick(null)}
       >
         <ListItem
+          button={Boolean(true)}
           onClick={() => focusWindow(window.id)}
         >
           <ListItemText classes={{primary: classes.primary}}>
@@ -77,7 +78,7 @@ export const WindowListMenu: React.FC<IWindowListMenu> = (props): ReactElement =
           horizontal: 'right',
           vertical: 'top',
         }}
-        id="settings-menu"
+        id="windowlist-menu"
         onClose={() => handleClick(null)}
         open={Boolean(anchorEl)}
         transformOrigin={{

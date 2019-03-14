@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Collapse from '@material-ui/core/Collapse';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -47,13 +46,12 @@ export class NestedMenu extends Component {
     } = this.props;
     return (
       <>
-        <MenuItem onClick={this.handleMenuClick} {...otherProps}>
+        <MenuItem onClick={this.handleMenuClick} divider={nestedMenuIsOpen} {...otherProps}>
           {icon
             && (<ListItemIcon>{icon}</ListItemIcon>)
           }
-          {/* ListItemText adds left padding and we want this to line-up with menu items */}
-          <ListItemText style={{ paddingLeft: 0 }}>
-            <Typography varient="inherit">{label}</Typography>
+          <ListItemText>
+            <Typography varient="body1">{label}</Typography>
           </ListItemText>
           {
             nestedMenuIsOpen
@@ -61,9 +59,7 @@ export class NestedMenu extends Component {
               : <ExpandMore />
           }
         </MenuItem>
-        <Collapse in={nestedMenuIsOpen} timeout="auto" unmountOnExit>
-          {children}
-        </Collapse>
+        {nestedMenuIsOpen && children}
       </>
     );
   }
