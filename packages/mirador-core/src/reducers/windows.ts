@@ -51,15 +51,7 @@ export const windowsReducer = (state = {}, action) => {
           ...state[action.windowId],
           view: action.viewType,
         },
-      }
-    case ActionTypes.SET_WINDOW_THUMBNAIL_POSITION:
-      return {
-        ...state,
-        [action.windowId]: {
-          ...state[action.windowId],
-          thumbnailNavigationPosition: action.position,
-        },
-      }
+      };
     case ActionTypes.SET_WINDOW_SIDE_BAR_PANEL:
       return {
         ...state,

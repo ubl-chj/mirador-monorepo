@@ -6,16 +6,25 @@ import {ActionTypes} from '../actions';
 export const workspaceReducer = (
   state = { // we'll need to abstract this more, methinks.
     exposeModeOn: false,
+    height: 5000,
     viewportPosition: {
-      x: -2500,
-      y: -2500,
+      x: 0,
+      y: 0,
     },
+    width: 5000,
   },
   action,
 ) => {
   switch (action.type) {
   case ActionTypes.FOCUS_WINDOW:
-    return { ...state, focusedWindowId: action.windowId };
+      return {
+        ...state,
+        focusedWindowId: action.windowId,
+        viewportPosition: {
+          ...state.viewportPosition,
+          ...action.position,
+        },
+      };
   case ActionTypes.SET_WORKSPACE_FULLSCREEN:
     return { ...state, isFullscreenEnabled: action.isFullscreenEnabled };
   case ActionTypes.TOGGLE_ZOOM_CONTROLS:

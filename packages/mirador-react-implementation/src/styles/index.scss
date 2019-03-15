@@ -17,10 +17,33 @@
       display: none !important;
     }
 
-    .mosaic-window-body {
+    .react-draggable, .mosaic-window-body {
       .mirador-window-top-bar {
         cursor: move;
       }
+    }
+  }
+
+  &-workspace {
+    transition-duration: 0.7s;
+
+    &.react-draggable-dragging {
+      transition-duration: unset;
+    }
+  }
+
+  &-companion-window-header {
+    flex-wrap: wrap;
+  }
+
+  &-companion-window-title-controls {
+    order: 1000;
+    flex-grow: 1;
+  }
+
+  &-companion-window-bottom {
+    .mirador-companion-window-title-controls {
+      order: unset;
     }
   }
 
@@ -58,6 +81,10 @@
     z-index: 10000;
   }
 
+  &-workspace-focused-window {
+    z-index: 9000;
+  }
+
   &-workspace-add {
     padding-left: 6px;
     padding-right: 6px;
@@ -88,17 +115,34 @@
     position: relative;
   }
 
-  &-window-sidebar-panel-drawer {
-    margin-left: $window-sidebar-width;
+  div + &-osd-navigation:before {
+    content: '|';
+    color: $gray;
+    position: absolute;
+    font-size: 24px;
+    top: 12px;
   }
 
   &-osd-navigation {
-    bottom: 10px;
-    left: 0;
-    position: absolute;
-    right: 0;
+    order: 1;
+  }
+
+  &-osd-info {
+    order: 2
+  }
+
+  &-canvas-nav {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
     text-align: center;
-    z-index: 33;
+  }
+
+  &-canvas-label {
+    width: 100%;
+    text-overflow: ellipsis;
+    padding-bottom: 3px;
   }
 
   &-thumb-navigation {

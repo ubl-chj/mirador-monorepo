@@ -7,8 +7,17 @@ import {ActionTypes} from './action-types'
  * @param  {String} windowId
  * @memberof ActionCreators
  */
-export function focusWindow(windowId) {
-  return { type: ActionTypes.FOCUS_WINDOW, windowId }
+export function focusWindow(windowId, pan = false) {
+  return (dispatch, getState) => {
+    const { windows } = getState();
+    const { x, y } = windows[windowId];
+
+    dispatch({
+      type: ActionTypes.FOCUS_WINDOW,
+      windowId,
+      position: pan ? { x: x - 200, y: y - 200 } : {},
+    });
+  };
 }
 
 /**
@@ -18,28 +27,39 @@ export function focusWindow(windowId) {
  * @memberof ActionCreators
  */
 export function addWindow(options) {
-  const cwDefault = `cw-${uuid()}`
-  const defaultOptions = {
-    canvasIndex: 0,
-    collectionIndex: 0,
-    companionWindowIds: [cwDefault],
-    height: 400,
-    id: `window-${uuid()}`,
-    manifestId: null,
-    maximized: false,
-    rangeId: null,
-    rotation: null,
-    sideBarPanel: 'info',
-    thumbnailNavigationPosition: 'bottom', // bottom by default in settings.js
-    view: 'single',
-    width: 400,
-    x: 2700,
-    y: 2700,
-  }
-  return {
-    type: ActionTypes.ADD_WINDOW,
-    window: { ...defaultOptions, ...options },
-    companionWindows: [{ id: cwDefault, position: 'left', content: 'info' }] }
+  return (dispatch, getState) => {
+    const { windows } = getState();
+    const numWindows = Object.keys(windows).length;
+
+    const cwDefault = `cw-${uuid()}`;
+    const cwThumbs = `cw-${uuid()}`;
+    const defaultOptions = {
+      id: `window-${uuid()}`,
+      canvasIndex: 0,
+      collectionIndex: 0,
+      manifestId: null,
+      rangeId: null,
+      thumbnailNavigationId: cwThumbs,
+      width: 400,
+      height: 400,
+      x: 200 + (Math.floor(numWindows / 10) * 50 + (numWindows * 30) % 300),
+      y: 200 + ((numWindows * 50) % 300),
+      companionWindowIds: [cwDefault, cwThumbs],
+      sideBarPanel: 'info',
+      rotation: null,
+      view: 'single',
+      maximized: false,
+    };
+
+    dispatch({
+      type: ActionTypes.ADD_WINDOW,
+      window: { ...defaultOptions, ...options },
+      companionWindows: [
+        { id: cwDefault, position: 'left', content: 'info' },
+        { id: cwThumbs, position: options.thumbnailNavigationPosition || 'far-bottom', content: 'thumbnail_navigation' },
+      ],
+    });
+  };
 }
 
 /**
@@ -114,7 +134,14 @@ export function setWindowSideBarPanel(windowId, panelType) {
  * @memberof ActionCreators
  */
 export function setWindowThumbnailPosition(windowId, position) {
-  return { type: ActionTypes.SET_WINDOW_THUMBNAIL_POSITION, windowId, position };
+  return (dispatch, getState) => {
+    const { windows } = getState();
+    const { thumbnailNavigationId } = windows[windowId];
+
+    dispatch({
+      type: ActionTypes.UPDATE_COMPANION_WINDOW, id: thumbnailNavigationId, payload: { position },
+    });
+  };
 }
 
 /**

@@ -3,6 +3,55 @@ import {ActionTypes, addWindow, maximizeWindow, minimizeWindow, removeWindow, se
   updateWindow, updateWindowPosition} from '@mirador/core';
 
 describe('window actions', () => {
+  describe('focusWindow', () => {
+    it('should return correct action object with pan=true', () => {
+      const expectedAction = {
+        type: ActionTypes.FOCUS_WINDOW,
+        windowId: 'window',
+        position: { x: -150, y: -188 },
+      };
+
+      const mockState = {
+        windows: {
+          window: { x: 50, y: 12 },
+        },
+        companionWindows: {},
+      };
+
+      const mockDispatch = jest.fn(() => ({}));
+      const mockGetState = jest.fn(() => mockState);
+      const thunk = actions.focusWindow('window', true);
+
+      thunk(mockDispatch, mockGetState);
+
+      const action = mockDispatch.mock.calls[0][0];
+      expect(action).toEqual(expectedAction);
+    });
+    it('should return correct action object with pan=false', () => {
+      const expectedAction = {
+        type: ActionTypes.FOCUS_WINDOW,
+        windowId: 'window',
+        position: {},
+      };
+
+      const mockState = {
+        windows: {
+          window: { x: 50, y: 12 },
+        },
+        companionWindows: {},
+      };
+
+      const mockDispatch = jest.fn(() => ({}));
+      const mockGetState = jest.fn(() => mockState);
+      const thunk = actions.focusWindow('window');
+
+      thunk(mockDispatch, mockGetState);
+
+      const action = mockDispatch.mock.calls[0][0];
+      expect(action).toEqual(expectedAction);
+    });
+  });
+
   describe('addWindow', () => {
     it('should create a new window with merged defaults', () => {
       const options = {
@@ -19,21 +68,37 @@ describe('window actions', () => {
           manifestId: null,
           maximized: false,
           rangeId: null,
-          thumbnailNavigationPosition: 'bottom',
-          x: 2700,
-          y: 2700,
+          x: 260,
+          y: 300,
           sideBarPanel: 'info',
           width: 400,
           height: 400,
           rotation: null,
           view: 'single',
         },
-        companionWindows: [{ position: 'left', content: 'info' }],
+        companionWindows: [
+          { position: 'left', content: 'info' },
+          { position: 'far-bottom', content: 'thumbnail_navigation' },
+        ],
       };
-      const action = actions.addWindow(options);
+
+      const mockState = {
+        windows: { a: {}, b: {} },
+      };
+
+      const mockDispatch = jest.fn(() => ({}));
+      const mockGetState = jest.fn(() => mockState);
+      const thunk = actions.addWindow(options);
+
+      thunk(mockDispatch, mockGetState);
+
+      const action = mockDispatch.mock.calls[0][0];
+
       expect(action).toMatchObject(expectedAction);
-      expect(action.window.companionWindowIds.length).toEqual(1);
+      expect(action.window.companionWindowIds.length).toEqual(2);
       expect(action.window.companionWindowIds[0]).toEqual(action.companionWindows[0].id);
+      expect(action.window.companionWindowIds[1]).toEqual(action.window.thumbnailNavigationId);
+      expect(action.window.companionWindowIds[1]).toEqual(action.companionWindows[1].id);
     });
   });
 
@@ -125,12 +190,31 @@ describe('window actions', () => {
   describe('setWindowThumbnailPosition', () => {
     it('returns the appropriate action type', () => {
       const id = 'abc123';
+
       const expectedAction = {
-        type: ActionTypes.SET_WINDOW_THUMBNAIL_POSITION,
-        windowId: id,
-        position: 'right',
+        type: ActionTypes.UPDATE_COMPANION_WINDOW,
+        id,
+        payload: { position: 'right' },
       };
+
+      const mockState = {
+        windows: {
+          somewindow: { thumbnailNavigationId: id },
+        },
+      };
+<<<<<<< HEAD
       expect(setWindowThumbnailPosition(id, 'right')).toEqual(expectedAction);
+=======
+
+      const mockDispatch = jest.fn(() => ({}));
+      const mockGetState = jest.fn(() => mockState);
+      const thunk = actions.setWindowThumbnailPosition('somewindow', 'right');
+
+      thunk(mockDispatch, mockGetState);
+
+      const action = mockDispatch.mock.calls[0][0];
+      expect(action).toEqual(expectedAction);
+>>>>>>> 414f532ac21b7ce3ebf3cd5f765342489a97379b
     });
   });
 

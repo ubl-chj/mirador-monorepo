@@ -20,6 +20,14 @@
     }
   }
 
+  &-workspace {
+    transition-duration: 0.7s;
+
+    &.react-draggable-dragging {
+      transition-duration: unset;
+    }
+  }
+
   &-companion-window-header {
     flex-wrap: wrap;
   }
@@ -111,10 +119,19 @@
     top: 12px;
   }
 
+  &-osd-navigation {
+    order: 1;
+  }
+
+  &-osd-info {
+    order: 2
+  }
+
   &-canvas-nav {
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
     text-align: center;
   }
 
