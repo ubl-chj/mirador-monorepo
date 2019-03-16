@@ -12,6 +12,7 @@ import {useTranslation} from 'react-i18next'
 
 interface IWindowListMenu {
   focusWindow: typeof focusWindow
+  focusedWindowId: string
   manifests: {}
   windows: {
     [key: string]: {
@@ -19,11 +20,13 @@ interface IWindowListMenu {
     }
   }
 }
+
+
 export const WindowListMenu: React.FC<IWindowListMenu> = (props): ReactElement => {
   const [anchorEl, setAnchorEl] = useState()
   const classes: any = useListItemTextStyles
   const {t} = useTranslation()
-  const {focusWindow, windows} = props
+  const {focusWindow, focusedWindowId, windows} = props
   const windowCount = windows && Object.keys(windows).length
 
   const handleClick: any = (e): void => {
@@ -49,12 +52,14 @@ export const WindowListMenu: React.FC<IWindowListMenu> = (props): ReactElement =
       <MenuItem
         key={window.id}
         onClick={() => handleClick(null)}
+        selected={focusedWindowId === window.id}
       >
         <ListItem
-          button={Boolean(true)}
+          button={true}
+          divider={true}
           onClick={() => focusWindow(window.id)}
         >
-          <ListItemText classes={{primary: classes.primary}}>
+          <ListItemText className={classes.primary}>
             {titleContent(window)}
           </ListItemText>
         </ListItem>

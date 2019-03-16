@@ -56,16 +56,13 @@ const style = theme => ({
       '@media (hover: none)': {
         backgroundColor: 'transparent',
       },
-      '&$disabled': {
-        backgroundColor: 'transparent',
-      },
     },
   },
   tabSelected: {
-    backgroundColor: theme.palette.secondary.light,
-    borderRight: `4px solid ${theme.palette.secondary.main}`,
+    backgroundColor: theme.palette.tabSelected.main,
+    borderRight: `4px solid ${theme.palette.focused.main}`,
     '&:hover': {
-      backgroundColor: theme.palette.secondary.light,
+      backgroundColor: theme.palette.tabSelected.main,
     },
   },
 });

@@ -11,6 +11,7 @@ interface IWorkspaceControlPanel {
     indices: {}
   },
   focusWindow: typeof focusWindow
+  focusedWindowId: string
   isWorkspaceAddVisible: boolean,
   languages: {
     current: string,

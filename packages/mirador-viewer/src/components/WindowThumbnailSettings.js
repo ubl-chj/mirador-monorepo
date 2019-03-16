@@ -44,9 +44,9 @@ export class WindowThumbnailSettings extends Component {
         <MenuItem className={classes.MenuItem} onClick={() => { this.handleChange('off'); handleClose(); }}>
           <FormControlLabel
             value="off"
-            classes={{ label: thumbnailNavigationPosition === 'off' ? classes.selectedLabel : undefined }}
+            classes={{ label: thumbnailNavigationPosition === 'off' ? classes.selectedLabel : classes.optionLabel }}
             control={
-              <ThumbnailsOffIcon color={thumbnailNavigationPosition === 'off' ? 'secondary' : undefined} />
+              <ThumbnailsOffIcon nativeColor='gray' color={thumbnailNavigationPosition === 'off' ? 'primary' : 'inherit'} />
             }
             label={t('off')}
             labelPlacement="bottom"
@@ -55,9 +55,9 @@ export class WindowThumbnailSettings extends Component {
         <MenuItem className={classes.MenuItem} onClick={() => { this.handleChange('far-bottom'); handleClose(); }}>
           <FormControlLabel
             value="far-bottom"
-            classes={{ label: thumbnailNavigationPosition === 'far-bottom' ? classes.selectedLabel : undefined }}
+            classes={{ label: thumbnailNavigationPosition === 'far-bottom' ? classes.selectedLabel : classes.optionLabel }}
             control={
-              <ThumbnailNavigationBottomIcon color={thumbnailNavigationPosition === 'far-bottom' ? 'secondary' : undefined} />
+              <ThumbnailNavigationBottomIcon nativeColor='gray' color={thumbnailNavigationPosition === 'far-bottom' ? 'primary' : 'inherit'} />
             }
             label={t('bottom')}
             labelPlacement="bottom"
@@ -66,9 +66,9 @@ export class WindowThumbnailSettings extends Component {
         <MenuItem className={classes.MenuItem} onClick={() => { this.handleChange('far-right'); handleClose(); }}>
           <FormControlLabel
             value="far-right"
-            classes={{ label: thumbnailNavigationPosition === 'far-right' ? classes.selectedLabel : undefined }}
+            classes={{ label: thumbnailNavigationPosition === 'far-right' ? classes.selectedLabel : classes.optionLabel }}
             control={
-              <ThumbnailNavigationRightIcon color={thumbnailNavigationPosition === 'far-right' ? 'secondary' : undefined} />
+              <ThumbnailNavigationRightIcon nativeColor='gray' color={thumbnailNavigationPosition === 'far-right' ? 'primary' : 'inherit'} />
             }
             label={t('right')}
             labelPlacement="bottom"

@@ -18,17 +18,32 @@ const rootConfig = {
   language: 'en',
   theme: {
     palette: {
+      action: {
+        hover: '#d2e2ce59',
+        selected: '#2b691c59'
+      },
       error: {
         main: '#b00020',
       },
+      focused: {
+        main: '#102027',
+      },
       primary: {
+        contrastText: 'white',
         main: '#071e29',
       },
       secondary: {
+        contrastText: 'white',
         light: '#e6e4e4',
-        main: '#26886d',
+        main: '#37474f',
       },
-      text: 'white'
+      tabSelected: {
+        main: '#2b691c59'
+      },
+      text: {
+        primary: 'black',
+        secondary: 'gray'
+      }
     },
     paper: {
       width: 300,
@@ -103,6 +118,7 @@ const rootConfig = {
         lineHeight: "1.55em",
       },
       h6: {
+        color: "inherit",
         fontSize: "1.067rem",
         fontWeight: 400,
         letterSpacing: "0.01em",

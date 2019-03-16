@@ -68,8 +68,8 @@ export class WindowViewSettings extends Component {
         >
           <FormControlLabel
             value="single"
-            classes={{ label: windowViewType === 'single' ? classes.selectedLabel : undefined }}
-            control={<SingleIcon color={windowViewType === 'single' ? 'secondary' : undefined} />}
+            classes={{ label: windowViewType === 'single' ? classes.selectedLabel : classes.optionLabel }}
+            control={<SingleIcon nativeColor='gray' color={windowViewType === 'single' ? 'primary' : 'inherit'} />}
             label={t('single')}
             labelPlacement="bottom"
           />
@@ -77,8 +77,8 @@ export class WindowViewSettings extends Component {
         <MenuItem className={classes.MenuItem} onClick={() => { this.handleChange('book'); handleClose(); }}>
           <FormControlLabel
             value="book"
-            classes={{ label: windowViewType === 'book' ? classes.selectedLabel : undefined }}
-            control={<BookViewIcon color={windowViewType === 'book' ? 'secondary' : undefined} />}
+            classes={{ label: windowViewType === 'book' ? classes.selectedLabel : classes.optionLabel }}
+            control={<BookViewIcon nativeColor='gray' color={windowViewType === 'book' ? 'primary' : 'inherit'} />}
             label={t('book')}
             labelPlacement="bottom"
           />

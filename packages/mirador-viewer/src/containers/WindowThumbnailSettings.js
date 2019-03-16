@@ -27,7 +27,10 @@ const mapStateToProps = (state, props) => (
 /** */
 const styles = theme => ({
   selectedLabel: {
-    color: theme.palette.secondary.main,
+    color: theme.palette.text.primary,
+  },
+  optionLabel: {
+    color: theme.palette.text.secondary,
   },
   MenuItem: {
     display: 'inline',

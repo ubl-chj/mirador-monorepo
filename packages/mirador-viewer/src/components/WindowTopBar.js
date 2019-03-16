@@ -29,6 +29,7 @@ export class WindowTopBar extends Component {
     } = this.props;
     return (
       <AppBar
+        color="secondary"
         position="relative"
         style={{height: 48}}
       >
@@ -37,10 +38,11 @@ export class WindowTopBar extends Component {
             aria-label={t('toggleWindowSideBar')}
             color="inherit"
             onClick={toggleWindowSideBar}
+            style={{marginRight: 20, padding: 8}}
           >
             <MenuIcon />
           </MiradorMenuButton>
-          <Typography variant="h2" noWrap color="inherit" className={classes.title}>
+          <Typography variant="h2" noWrap className={classes.title}>
             {manifestTitle}
           </Typography>
           <WindowTopBarButtons windowId={windowId} />
