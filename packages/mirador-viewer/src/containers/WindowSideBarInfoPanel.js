@@ -24,6 +24,7 @@ const mapStateToProps = (state, { windowId }) => ({
   ),
   canvasDescription: getCanvasDescription(getSelectedCanvas(state, windowId)),
   canvasMetadata: getDestructuredMetadata(getSelectedCanvas(state, windowId)),
+  manifestId: state.windows[windowId].manifestId,
   manifestLabel: getManifestTitle(getWindowManifest(state, windowId)),
   manifestDescription: getManifestDescription(getWindowManifest(state, windowId)),
   manifestMetadata: getDestructuredMetadata(getWindowManifest(state, windowId).manifestation),

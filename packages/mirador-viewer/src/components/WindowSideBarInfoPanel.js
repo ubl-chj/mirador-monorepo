@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import { SanitizedHtml } from './SanitizedHtml';
-import { LabelValueMetadata } from './LabelValueMetadata';
+import { ManifestURI, MetadataList } from '@mirador/custom-components';
 import CompanionWindow from '../containers/CompanionWindow';
 import ns from '../config/css-ns';
 
@@ -21,7 +21,7 @@ export class WindowSideBarInfoPanel extends Component {
       canvasLabel,
       canvasMetadata,
       manifestDescription,
-      manifestLabel,
+      manifestId,
       manifestMetadata,
       windowId,
       id,
@@ -46,19 +46,10 @@ export class WindowSideBarInfoPanel extends Component {
         )}
 
         {canvasMetadata.length > 0 && (
-          <LabelValueMetadata labelValuePairs={canvasMetadata} />
+          <MetadataList labelValuePairs={canvasMetadata} />
         )}
 
         <Divider />
-
-        {manifestLabel && (
-          <>
-            <Typography variant="overline" id={`${id}-resource`} component="p">{t('resource')}</Typography>
-            <Typography aria-labelledby={`${id}-resource`} variant="h4">
-              {manifestLabel}
-            </Typography>
-          </>
-        )}
 
         {manifestDescription && (
           <Typography variant="body2">
@@ -67,9 +58,9 @@ export class WindowSideBarInfoPanel extends Component {
         )}
 
         {manifestMetadata.length > 0 && (
-          <LabelValueMetadata labelValuePairs={manifestMetadata} />
+          <MetadataList labelValuePairs={manifestMetadata} />
         )}
-
+        <ManifestURI manifestId={manifestId}/>
       </CompanionWindow>
     );
   }
@@ -81,6 +72,7 @@ WindowSideBarInfoPanel.propTypes = {
   canvasMetadata: PropTypes.array, // eslint-disable-line react/forbid-prop-types
   manifestLabel: PropTypes.string,
   manifestDescription: PropTypes.string,
+  manifestId: PropTypes.string,
   manifestMetadata: PropTypes.array, // eslint-disable-line react/forbid-prop-types
   t: PropTypes.func,
   windowId: PropTypes.string.isRequired,

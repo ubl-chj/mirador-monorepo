@@ -1,4 +1,6 @@
 export * from './DiscoveryComponent'
+export * from './ManifestURI'
+export * from './MetadataList'
 export * from './StandardGridItem'
 export * from './StandardListItem'
 export * from './SearchApp'
