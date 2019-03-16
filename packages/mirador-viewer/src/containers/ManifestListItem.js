@@ -4,7 +4,7 @@ import * as actions from '@mirador/core';
 import { withTranslation } from 'react-i18next';
 import { withStyles } from '@material-ui/core';
 import {
-  getManifestTitle, getManifestThumbnail, getManifestCanvases, getManifestProvider,
+  getManifestTitle, getManifestThumbnail, getManifestCanvases, getManifestLogo, getManifestProvider,
 } from '../state/selectors';
 import { ManifestListItem } from '../components/ManifestListItem';
 
@@ -20,6 +20,7 @@ const mapStateToProps = (state, { manifestId }) => {
     thumbnail: getManifestThumbnail(manifest),
     provider: getManifestProvider(manifest),
     size: getManifestCanvases(manifest).length,
+    manifestLogo: getManifestLogo(state.manifests[manifestId]),
   };
 };
 
@@ -42,6 +43,13 @@ const styles = theme => ({
   label: {
     textTransform: 'initial',
     textAlign: 'left',
+  },
+  logo: {
+    height: '2.5rem',
+    paddingRight: 8,
+  },
+  placeholder: {
+    backgroundColor: theme.palette.grey[300],
   },
 });
 

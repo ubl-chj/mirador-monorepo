@@ -2,11 +2,12 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '@mirador/core';
 import { withStyles } from '@material-ui/core';
+import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withTranslation } from 'react-i18next';
 import {
   getCompanionWindowForPosition,
   getSelectedCanvas,
-  getSelectedCanvasAnnotations,
+  getSelectedTargetAnnotations,
   getAnnotationResourcesByMotivation,
 } from '../state/selectors';
 import { WindowSideBarButtons } from '../components/WindowSideBarButtons';
@@ -31,7 +32,7 @@ const mapDispatchToProps = (dispatch, { windowId }) => ({
  */
 const mapStateToProps = (state, { windowId }) => ({
   hasAnnotations: getAnnotationResourcesByMotivation(
-    getSelectedCanvasAnnotations(state, (getSelectedCanvas(state, windowId) || {}).id),
+    getSelectedTargetAnnotations(state, (getSelectedCanvas(state, windowId) || {}).id),
     ['oa:commenting', 'sc:painting'],
   ).length > 0,
   sideBarPanel: (getCompanionWindowForPosition(state, windowId, 'left') || {}).content,
@@ -48,10 +49,24 @@ const style = theme => ({
   tab: {
     minWidth: 'auto',
     borderRight: '4px solid transparent',
+    '&:hover': {
+      textDecoration: 'none',
+      backgroundColor: fade(theme.palette.text.primary, theme.palette.action.hoverOpacity),
+      // Reset on touch devices, it doesn't add specificity
+      '@media (hover: none)': {
+        backgroundColor: 'transparent',
+      },
+      '&$disabled': {
+        backgroundColor: 'transparent',
+      },
+    },
   },
   tabSelected: {
     backgroundColor: theme.palette.secondary.light,
     borderRight: `4px solid ${theme.palette.secondary.main}`,
+    '&:hover': {
+      backgroundColor: theme.palette.secondary.light,
+    },
   },
 });
 

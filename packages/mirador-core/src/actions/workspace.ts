@@ -11,9 +11,10 @@ export function setWorkspaceFullscreen(isFullscreenEnabled) {
 }
 
 /**
- * toggleZoomControls
- * @param showZoomControls
- */
+ * toggleZoomControls - action creator
+ * @param {Boolean} showZoomControls
+ * @memberof ActionCreators
+*/
 export function toggleZoomControls(showZoomControls) {
   return { type: ActionTypes.TOGGLE_ZOOM_CONTROLS, showZoomControls }
 }
@@ -46,18 +47,39 @@ export function setWorkspaceAddVisibility(isWorkspaceAddVisible) {
  */
 export function setWorkspaceViewportPosition(position) {
   return {
+    type: ActionTypes.SET_WORKSPACE_VIEWPORT_POSITION,
     payload: {
       position: {
         x: position.x,
         y: position.y,
       },
     },
-    type: ActionTypes.SET_WORKSPACE_VIEWPORT_POSITION,
   };
 }
 
 /**
+ * setWorkspaceViewportDimensions - action creator
  *
+ * @param  {Object} position
+ * @memberof ActionCreators
+ */
+export function setWorkspaceViewportDimensions({ width, height }) {
+  return {
+    type: ActionTypes.SET_WORKSPACE_VIEWPORT_POSITION,
+    payload: {
+      position: {
+        width,
+        height,
+      },
+    },
+  };
+}
+
+/**
+ * toggleWorkspaceExposeMode - action creator
+ *
+ * @param  {Object} position
+ * @memberof ActionCreators
  */
 export function toggleWorkspaceExposeMode() {
   return {

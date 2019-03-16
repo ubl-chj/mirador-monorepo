@@ -1,6 +1,6 @@
 {
   "name": "mirador",
-  "version": "3.0.0-alpha.0",
+  "version": "3.0.0-alpha.1",
   "description": "",
   "main": "dist/mirador.min.js",
   "files": [
@@ -29,7 +29,7 @@
   "repository": "https://github.com/ProjectMirador/mirador",
   "size-limit": [
     {
-      "limit": "350 KB",
+      "limit": "360 KB",
       "path": "dist/mirador.min.js"
     }
   ],
@@ -54,9 +54,11 @@
     "prop-types": "^15.6.2",
     "react-full-screen": "^0.2.4",
     "react-i18next": "^10.2.0",
+    "react-image": "^2.0.0",
     "react-mosaic-component": "^2.1.0",
     "react-placeholder": "^3.0.1",
     "react-redux": "^6.0.0",
+    "react-resize-observer": "^1.1.1",
     "react-rnd": "^9.1.1",
     "react-virtualized": "^9.21.0",
     "redux": "4.0.1",
@@ -115,9 +117,5 @@
     "terser-webpack-plugin": "^1.2.1",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.1.2"
-  },
-  "peerDependencies": {
-    "react": "^16.8.3",
-    "react-dom": "^16.8.3"
   }
 }

@@ -4,7 +4,6 @@ export const styles = (theme) => ({
   card: {
     maxHeight: 650,
     maxWidth: 345,
-    minHeight: 400,
     minWidth: 345,
   },
   content: {
