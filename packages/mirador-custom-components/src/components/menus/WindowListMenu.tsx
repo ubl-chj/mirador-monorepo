@@ -66,7 +66,7 @@ export const WindowListMenu: React.FC<IWindowListMenu> = (props): ReactElement =
     <ListItem alignItems="flex-start">
       <IconButton
         onClick={(e) => handleClick(e)}
-        style={{padding: '16px'}}
+        style={{padding: '10px'}}
       >
         <Badge badgeContent={windowCount}>
           <Bookmark />

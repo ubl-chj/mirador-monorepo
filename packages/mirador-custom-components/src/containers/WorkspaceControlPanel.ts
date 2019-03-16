@@ -1,4 +1,4 @@
-import {bindActionCreators, Dispatch} from 'redux'
+import {Dispatch, bindActionCreators} from 'redux'
 import {focusWindow, setWorkspaceAddVisibility, updateConfig} from '@mirador/core'
 import {WorkspaceControlPanelComponent} from '../components'
 import {connect} from 'react-redux'

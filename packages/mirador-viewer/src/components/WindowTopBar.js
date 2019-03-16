@@ -28,7 +28,10 @@ export class WindowTopBar extends Component {
       maximizeWindow, maximized, minimizeWindow, focused,
     } = this.props;
     return (
-      <AppBar position="relative">
+      <AppBar
+        position="relative"
+        style={{height: 48}}
+      >
         <Toolbar disableGutters className={classNames(classes.windowTopBarStyle, focused ? classes.focused : null, ns('window-top-bar'))} variant="dense">
           <MiradorMenuButton
             aria-label={t('toggleWindowSideBar')}

@@ -9,6 +9,7 @@ import ThumbnailNavigationBottomIcon from './icons/ThumbnailNavigationBottomIcon
 import ThumbnailNavigationRightIcon from './icons/ThumbnailNavigationRightIcon';
 import { MiradorMenuButton } from './MiradorMenuButton';
 import ns from '../config/css-ns';
+import Box from '@material-ui/core/Box';
 
 /**
  * CompanionWindow
@@ -36,12 +37,12 @@ export class CompanionWindow extends Component {
         aria-label={title}
       >
         <Toolbar className={[classes.toolbar, position === 'left' ? classes.leftPadding : undefined, ns('companion-window-header')].join(' ')} disableGutters>
-          <Typography variant="h3" className={classes.windowSideBarTitle}>
-            {title}
-          </Typography>
-          <div className={ns('companion-window-title-controls')}>
-            {titleControls}
-          </div>
+            <Typography variant="h3" className={classes.windowSideBarTitle}>
+                {title}
+            </Typography>
+            <div className={ns('companion-window-title-controls')}>
+              {titleControls}
+            </div>
           {
             position === 'left'
               ? updateCompanionWindow
