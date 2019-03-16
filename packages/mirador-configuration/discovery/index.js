@@ -4,4 +4,7 @@ import {harvard} from './harvard'
 import {nga} from './nga'
 import {yale} from './yale'
 import {ec} from './ecodices'
-export const discovery = deepmerge.all([ubl, harvard, nga, yale, ec])
+import {ox} from './ox'
+import {mdz} from './mdz'
+import {uc} from './uc'
+export const discovery = deepmerge.all([mdz, ox, ubl, uc, harvard, nga, yale, ec])

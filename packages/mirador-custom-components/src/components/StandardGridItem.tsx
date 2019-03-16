@@ -4,13 +4,14 @@ import Button from '@material-ui/core/Button'
 import {Image} from '.'
 
 interface IStandardGridItem {
-  bemBlocks: any,
+  bemBlocks: any
   result: {
     _source: {
-      Author: string,
-      manifest: string,
-      thumbnail: string,
-      title: string,
+      Author: string
+      manifest: string
+      Manifest: string
+      thumbnail: string
+      title: string
     }
   }
 }
@@ -18,7 +19,7 @@ interface IStandardGridItem {
 export const StandardGridItem: React.FC<IStandardGridItem> = (props): ReactElement => {
   const {bemBlocks, result} = props
   const source = result._source
-  const manifestId = source.manifest
+  const manifestId = source.manifest ? source.manifest : source.Manifest
   const workspaceUri = '/view?manifest=' + manifestId
   const thumbnail = buildThumbnailReference(source.thumbnail)
 

@@ -4,14 +4,15 @@ import Button from '@material-ui/core/Button'
 import {Image} from '.'
 
 interface IStandardListItem {
-  bemBlocks: any,
+  bemBlocks: any
   result: {
-    highlight: any,
+    highlight: any
     _source: {
-      Author: string,
-      manifest: string,
-      thumbnail: string,
-      title: string,
+      Author: string
+      manifest: string
+      Manifest: string
+      thumbnail: string
+      title: string
     }
   }
 }
@@ -20,7 +21,7 @@ export const StandardListItem: React.FC<IStandardListItem> = (props): ReactEleme
   const {bemBlocks, result} = props
   const source = Object.assign({}, result._source, result.highlight)
   const thumbnail = buildThumbnailReference(source.thumbnail)
-  const manifestId = source.manifest
+  const manifestId = source.manifest ? source.manifest : source.Manifest
   return (
     <ReduxContext.Consumer>{(actions) =>
       <div
