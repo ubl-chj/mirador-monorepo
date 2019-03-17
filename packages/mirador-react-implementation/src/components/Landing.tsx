@@ -48,25 +48,23 @@ const LandingComponent: React.FC<ILandingComponent> = (props): ReactElement => {
 
   const buildCards = (cards): JSX.Element => {
     return cards.map((card) =>
-      <NavLink
+      <Card
+        className={classes.card}
         key={card.index}
-        style={{color: '#2f2c2c', textDecoration: 'none'}}
-        title={card.title}
-        to={card.linkPath}
       >
-        <Card className={classes.card}>
-          <CardActionArea>
-            <CardMedia
-              className={classes.media}
-              image={card.imageSrc}
-              title={card.title}
-            />
-            <CardContent>
-              <Typography paragraph={true}>{card.text}</Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      </NavLink>)
+        <CardActionArea
+          component={props => <NavLink title={card.title} to={card.linkPath}{...props} />}
+        >
+          <CardMedia
+            className={classes.media}
+            image={card.imageSrc}
+            title={card.title}
+          />
+          <CardContent>
+            <Typography paragraph={true}>{card.text}</Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>)
   }
 
   return (

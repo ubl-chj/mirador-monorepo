@@ -117,17 +117,19 @@ class PersistentDrawerLeftComponent extends React.Component<IPersistentDrawerLef
 
   private buildListItems = (items): JSX.Element => {
     return items.map((item) =>
-      <NavLink
+      <ListItem
+        button
+        component={props => <NavLink to={item.path} {...props} />}
         key={item.index}
         style={{color: '#2f2c2c', textDecoration: 'none'}}
-        to={item.path}>
-        <ListItem button={true}>
-          <ListItemIcon>
-            {this.buildListItemIcon(item.id)}
-          </ListItemIcon>
-          <ListItemText primary={item.text} />
-        </ListItem>
-      </NavLink>
+
+      >
+        <ListItemIcon>
+          {this.buildListItemIcon(item.id)}
+        </ListItemIcon>
+        <ListItemText primary={item.text} />
+      </ListItem>
+
     )
   }
 
@@ -171,7 +173,9 @@ class PersistentDrawerLeftComponent extends React.Component<IPersistentDrawerLef
             </IconButton>
           </div>
           <Divider />
-          <List>
+          <List
+            component="nav"
+          >
             {this.buildListItems(this.listItems)}
           </List>
         </Drawer>

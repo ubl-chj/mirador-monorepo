@@ -1,5 +1,7 @@
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const paths = require('../config/paths');
 const webpack = require('webpack')
 
@@ -80,22 +82,33 @@ module.exports = {
         },
       },
       {
-        test: /\.s?css$/,
-        use: ['style-loader', // creates style nodes from JS strings
-          'css-loader', // translates CSS into CommonJS
-          'sass-loader', // compiles Sass to CSS, using Node Sass by default
-        ],
-      }],
+        test: /\.(sa|sc|c)ss$/,
+        use: [ MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader', ],
+      },
+    ],
   },
   optimization: {
-    minimizer: [new TerserPlugin({
-      extractComments: true,
-    }),
+    minimizer: [
+      new TerserPlugin({
+        cache: true,
+        extractComments: true,
+        parallel: true,
+        sourceMap: false
+      }),
+      new OptimizeCSSAssetsPlugin({
+        cssProcessorPluginOptions: {
+          preset: ['default', { discardComments: { removeAll: true } }],
+        },
+      }),
     ],
   },
   plugins: [
     new webpack.IgnorePlugin({
       resourceRegExp: /@blueprintjs\/(core|icons)/, // ignore optional UI framework dependencies
+    }),
+    new MiniCssExtractPlugin({
+      chunkFilename: '[chunkhash:8].css',
+      filename: 'vendors.css',
     }),
   ]
 };

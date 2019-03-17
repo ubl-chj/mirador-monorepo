@@ -1,6 +1,6 @@
 @import 'variables';
-@import url('./theme.css');
-
+@import url('~searchkit/release/theme.css');
+@import url('~@mirador/react-components/lib/vendors.css');
 #app {
   width: 100%;
 }
