@@ -61,16 +61,17 @@ export class Workspace extends React.Component {
    * render
    */
   render() {
-    const { isWorkspaceControlPanelVisible, t } = this.props;
-
+    const { isFullscreenEnabled, isWorkspaceControlPanelVisible, t } = this.props;
+    const style = isFullscreenEnabled ? {paddingTop: 0} : {paddingTop: 64}
     return (
       <div
         className={
           classNames(
             ns('workspace-viewport'),
-            (isWorkspaceControlPanelVisible && ns('workspace-with-control-panel')),
+            (isWorkspaceControlPanelVisible && !isFullscreenEnabled && ns('workspace-with-control-panel')),
           )
         }
+        style={style}
       >
         <Typography variant="srOnly" component="h1">{t('miradorViewer')}</Typography>
         {this.workspaceByType()}

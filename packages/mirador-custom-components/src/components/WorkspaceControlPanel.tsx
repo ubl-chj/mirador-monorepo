@@ -1,6 +1,6 @@
+import {FullScreenButton, WindowListMenu, WorkspaceAddItem, WorkspaceSettingsMenu} from './menus'
 import React, {EventHandler, ReactElement} from 'react'
-import {WindowListMenu, WorkspaceAddItem, WorkspaceSettingsMenu} from './menus'
-import {focusWindow, setWorkspaceAddVisibility, updateConfig} from '@mirador/core'
+import {focusWindow, setWorkspaceAddVisibility, setWorkspaceFullscreen, updateConfig} from '@mirador/core'
 import Drawer from '@material-ui/core/Drawer'
 import List from '@material-ui/core/List'
 
@@ -12,6 +12,7 @@ interface IWorkspaceControlPanel {
   },
   focusWindow: typeof focusWindow
   focusedWindowId: string
+  isFullscreenEnabled: boolean,
   isWorkspaceAddVisible: boolean,
   languages: {
     current: string,
@@ -22,6 +23,7 @@ interface IWorkspaceControlPanel {
   onClose: EventHandler<any>,
   open: boolean,
   setWorkspaceAddVisibility: typeof setWorkspaceAddVisibility
+  setWorkspaceFullscreen: typeof setWorkspaceFullscreen,
   updateConfig: typeof updateConfig,
   windows: {},
   workspaceType: string
@@ -39,6 +41,7 @@ export const WorkspaceControlPanelComponent: React.FC<IWorkspaceControlPanel> = 
         <WorkspaceAddItem {...props}/>
         <WindowListMenu {...props}/>
         <WorkspaceSettingsMenu {...props}/>
+        <FullScreenButton {...props}/>
       </List>
     </Drawer>
   )

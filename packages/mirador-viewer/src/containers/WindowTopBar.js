@@ -5,6 +5,8 @@ import { withTranslation } from 'react-i18next';
 import { withStyles } from '@material-ui/core';
 import { getWindowManifest, getManifestTitle } from '../state/selectors';
 import { WindowTopBar } from '../components/WindowTopBar';
+import {MiradorMenuButton} from "../components/MiradorMenuButton"
+import React from "react"
 
 /** mapStateToProps */
 const mapStateToProps = (state, { windowId }) => ({
@@ -36,7 +38,6 @@ const styles = theme => ({
     flexGrow: 1,
   },
   windowTopBarStyle: {
-    minHeight: 32,
     paddingLeft: 4,
     borderTop: '4px solid transparent',
   },

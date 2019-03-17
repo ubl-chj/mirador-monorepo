@@ -2,21 +2,11 @@ import React, {ReactElement, useEffect, useRef, useState} from 'react'
 import {ReactReduxContext, connect} from 'react-redux'
 import {addWindow, fetchManifest, setConfig} from '@mirador/core'
 import {addWindows, fetchManifests, resolveAndMergeConfig, withPersistentDrawer} from '../api'
-import DiscoveryComponent from '@mirador/custom-components'
 import {MiradorComponent} from '@mirador/react-components'
 import {localConfig} from '@mirador/configuration'
 import {styles} from '../styles'
 import {withRouter} from 'react-router-dom'
 import {withStyles} from '@material-ui/core'
-
-
-const replaceWorkspaceAdd = {
-  component: DiscoveryComponent,
-  modus: 'replace',
-  target: 'WorkspaceAdd',
-}
-
-const MiradorWithPanel = withStyles(styles, { withTheme: true })(withPersistentDrawer(MiradorComponent))
 
 interface IMiradorImplementation {
   addWindow: Function,
@@ -26,8 +16,11 @@ interface IMiradorImplementation {
     search: {}
   },
   setConfig: Function,
+  setWorkspaceFullscreen: any
   windows: {}
 }
+
+const MiradorWithPanel = withStyles(styles, { withTheme: true })(withPersistentDrawer(MiradorComponent))
 
 const MiradorImplementation: React.FC<IMiradorImplementation> = (props): ReactElement => {
   const initialConfiguration = useRef(localConfig)
@@ -61,18 +54,19 @@ const MiradorImplementation: React.FC<IMiradorImplementation> = (props): ReactEl
 
   return isInitialized ? (
     <ReactReduxContext.Consumer>
-      {({store}) => <MiradorWithPanel plugins={[replaceWorkspaceAdd]} store={store}/>}
+      {({store}) =>
+        <MiradorWithPanel store={store}/>
+      }
     </ReactReduxContext.Consumer>) : null
 }
 
 /**
  *
- * @param config
- * @param windows
+ * @param state
  */
-const mapStateToProps = ({ config, windows }): any => ({
-  config,
-  windows,
+const mapStateToProps = (state): any => ({
+  config: state.config,
+  windows: state.windows
 })
 
 /**

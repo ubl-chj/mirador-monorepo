@@ -1,5 +1,5 @@
 import {Dispatch, bindActionCreators} from 'redux'
-import {focusWindow, setWorkspaceAddVisibility, updateConfig} from '@mirador/core'
+import {focusWindow, setWorkspaceAddVisibility, setWorkspaceFullscreen, updateConfig} from '@mirador/core'
 import {WorkspaceControlPanelComponent} from '../components'
 import {connect} from 'react-redux'
 
@@ -25,6 +25,7 @@ const mapStateToProps = (state): any => (
     currentLanguage: state.config.language,
     discovery: state.config.discovery,
     focusedWindowId: state.workspace.focusedWindowId,
+    isFullscreenEnabled: state.workspace.isFullscreenEnabled,
     isWorkspaceAddVisible: state.workspace.isWorkspaceAddVisible,
     languages: getLanguagesFromConfigWithCurrent(state),
     manifests: state.manifests,
@@ -37,6 +38,6 @@ const mapStateToProps = (state): any => (
 
 
 const mapDispatchToProps = (dispatch: Dispatch): any =>
-  bindActionCreators({focusWindow, setWorkspaceAddVisibility, updateConfig}, dispatch)
+  bindActionCreators({focusWindow, setWorkspaceAddVisibility, setWorkspaceFullscreen, updateConfig}, dispatch)
 
 export const WorkspaceControlPanel = connect(mapStateToProps, mapDispatchToProps)(WorkspaceControlPanelComponent)

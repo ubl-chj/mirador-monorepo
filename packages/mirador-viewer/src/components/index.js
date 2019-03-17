@@ -21,7 +21,6 @@ export * from './WindowSideBarCanvasPanel';
 export * from './WindowSideBarInfoPanel';
 export * from './WindowThumbnailSettings';
 export * from './WindowTopBar';
-export * from './WindowTopBarButtons';
 export * from './WindowTopMenu';
 export * from './WindowTopMenuButton';
 export * from './WindowViewer';

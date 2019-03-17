@@ -9,7 +9,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import AppBar from '@material-ui/core/AppBar';
 import classNames from 'classnames';
 import WindowTopMenuButton from '../containers/WindowTopMenuButton';
-import WindowTopBarButtons from '../containers/WindowTopBarButtons';
 import { MiradorMenuButton } from './MiradorMenuButton';
 import ns from '../config/css-ns';
 
@@ -29,11 +28,11 @@ export class WindowTopBar extends Component {
     } = this.props;
     return (
       <AppBar
+        className={classNames(classes.windowTopBarStyle, focused ? classes.focused : null, ns('window-top-bar'))}
         color="secondary"
-        position="relative"
-        style={{height: 48}}
+        position="static"
       >
-        <Toolbar disableGutters className={classNames(classes.windowTopBarStyle, focused ? classes.focused : null, ns('window-top-bar'))} variant="dense">
+        <Toolbar disableGutters variant="dense">
           <MiradorMenuButton
             aria-label={t('toggleWindowSideBar')}
             color="inherit"
@@ -45,11 +44,10 @@ export class WindowTopBar extends Component {
           <Typography variant="h2" noWrap className={classes.title}>
             {manifestTitle}
           </Typography>
-          <WindowTopBarButtons windowId={windowId} />
-          <WindowTopMenuButton className={ns('window-menu-btn')} windowId={windowId} />
+          <WindowTopMenuButton
+            windowId={windowId} />
           <MiradorMenuButton
             aria-label={(maximized ? t('minimizeWindow') : t('maximizeWindow'))}
-            className={ns('window-maximize')}
             color="inherit"
             onClick={(maximized ? minimizeWindow : maximizeWindow)}
           >
@@ -57,7 +55,6 @@ export class WindowTopBar extends Component {
           </MiradorMenuButton>
           <MiradorMenuButton
             aria-label={t('closeWindow')}
-            className={ns('window-close')}
             color="inherit"
             onClick={removeWindow}
           >
