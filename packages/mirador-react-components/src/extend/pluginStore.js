@@ -1,17 +1,10 @@
-let pluginStore = [];
-
-/**
- *
- * @param plugins
- */
-export function storePlugins(plugins) {
-  pluginStore = plugins || [];
-}
-
-/**
- *
- * @returns {Array}
- */
-export function getPlugins() {
-  return pluginStore;
-}
+export const pluginStore = {
+  /** */
+  storePlugins(plugins) {
+    this.plugins = plugins || [];
+  },
+  /** */
+  getPlugins() {
+    return this.plugins || [];
+  },
+};

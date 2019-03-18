@@ -1,32 +1,37 @@
 import React from 'react';
-import { getPlugins } from './pluginStore';
+import curry from 'lodash/curry';
+import { connect } from 'react-redux';
+import { pluginStore } from '.';
 
-// withPlugins must be the innermost HOC to match the name of the target component
-
-/**
- *
- * @param TargetComponent
- */
-export const withPlugins = TargetComponent => class HOC extends React.Component {
-  /**
-   *
-   * @returns {*}
-   */
-  render() {
-    const plugin = getPlugins().find(p => p.target === TargetComponent.name);
-    console.log(TargetComponent.name);
-    if (!plugin) {
-      return (<TargetComponent {...this.props} />);
+/** withPlugins should be the innermost HOC */
+const _withPlugins = (targetName, TargetComponent) => { // eslint-disable-line no-underscore-dangle
+  const PluginHoc = (props) => {
+    const connectPluginComponent = (plugin) => {
+      return connect(plugin.mapStateToProps, plugin.mapDispatchToProps)(plugin.component);
     }
-    if (plugin.modus === 'remove') {
+    const plugin = pluginStore.getPlugins().find(p => p.target === targetName);
+
+    if (plugin && plugin.mode === 'delete') {
       return null;
     }
-    if (plugin.modus === 'replace') {
-      return React.createElement(plugin.component, { ...this.props });
+    if (plugin && plugin.mode === 'replace') {
+      const PluginComponent = connectPluginComponent(plugin);
+      return <PluginComponent {...props} />;
     }
-    if (plugin.modus === 'add') {
-      return (<TargetComponent {...this.props} PluginComponent={plugin.component} />);
+    if (plugin && plugin.mode === 'add') {
+      const PluginComponent = connectPluginComponent(plugin);
+      return <TargetComponent {...props} PluginComponent={PluginComponent} />;
     }
-    return null;
+    if (plugin && plugin.mode === 'wrap') {
+      const PluginComponent = connectPluginComponent(plugin);
+      return <PluginComponent {...props} TargetComponent={TargetComponent} />;
+    }
+    return <TargetComponent {...props} />;
   }
-};
+
+  PluginHoc.displayName = `WithPlugins(${targetName})`;
+  return PluginHoc;
+}
+
+/** withPlugins('MyComponent')(MyComponent) */
+export const withPlugins = curry(_withPlugins);

@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import { SanitizedHtml } from './SanitizedHtml';
-import { ManifestURI, MetadataList } from '@mirador/custom-components';
+import { ManifestURI } from '@mirador/custom-components';
 import CompanionWindow from '../containers/CompanionWindow';
+import LabelValueMetadata from '../containers/LabelValueMetadata'
 import ns from '../config/css-ns';
 
 /**
@@ -47,7 +48,7 @@ export class WindowSideBarInfoPanel extends Component {
           )}
 
           {canvasMetadata.length > 0 && (
-            <MetadataList labelValuePairs={canvasMetadata} />
+            <LabelValueMetadata labelValuePairs={canvasMetadata} />
           )}
           {manifestDescription && (
             <Typography variant="body2">
@@ -55,7 +56,7 @@ export class WindowSideBarInfoPanel extends Component {
             </Typography>
           )}
           {manifestMetadata.length > 0 && (
-            <MetadataList labelValuePairs={manifestMetadata} />
+            <LabelValueMetadata labelValuePairs={manifestMetadata} />
           )}
           <ManifestURI manifestId={manifestId}/>
         </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import App from './containers/App';
-import { storePlugins } from './extend';
+import { pluginStore } from '../src/extend';
 
 export * from './components';
 
@@ -15,7 +15,7 @@ export * from './components';
  * @constructor
  */
 export const MiradorComponent = ({ store, plugins }) => {
-  storePlugins(plugins);
+  pluginStore.storePlugins(plugins);
   return (<Provider store={store}><App/></Provider>);
 };
 

@@ -7,6 +7,7 @@ import {localConfig} from '@mirador/configuration'
 import {styles} from '../styles'
 import {withRouter} from 'react-router-dom'
 import {withStyles} from '@material-ui/core'
+import {MetadataList} from '@mirador/custom-components'
 
 interface IMiradorImplementation {
   addWindow: Function,
@@ -19,6 +20,12 @@ interface IMiradorImplementation {
   setWorkspaceFullscreen: any
   windows: {}
 }
+
+const plugins = [{
+  component: MetadataList,
+  mode: 'replace',
+  target: 'LabelValueMetadata',
+}]
 
 const MiradorWithPanel = withStyles(styles, { withTheme: true })(withPersistentDrawer(MiradorComponent))
 
@@ -55,7 +62,7 @@ const MiradorImplementation: React.FC<IMiradorImplementation> = (props): ReactEl
   return isInitialized ? (
     <ReactReduxContext.Consumer>
       {({store}) =>
-        <MiradorWithPanel store={store}/>
+        <MiradorWithPanel store={store} plugins={plugins}/>
       }
     </ReactReduxContext.Consumer>) : null
 }
