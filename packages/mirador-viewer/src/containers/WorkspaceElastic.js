@@ -48,7 +48,6 @@ const mapDispatchToProps = (dispatch, props) => ({
 
 const enhance = compose(
   connect(mapStateToProps, mapDispatchToProps),
-  // further HOC go here
 );
 
 export default enhance(WorkspaceElastic);

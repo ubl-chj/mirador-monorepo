@@ -25,7 +25,6 @@ const mapStateToProps = (state, props) => {
 const enhance = compose(
   withTranslation(),
   connect(mapStateToProps, null),
-  // further HOC go here
 );
 
 export default enhance(ViewerInfo);

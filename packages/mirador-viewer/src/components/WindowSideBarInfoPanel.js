@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import { SanitizedHtml } from './SanitizedHtml';
 import { ManifestURI, MetadataList } from '@mirador/custom-components';
@@ -25,42 +24,41 @@ export class WindowSideBarInfoPanel extends Component {
       manifestMetadata,
       windowId,
       id,
+      classes,
       t,
     } = this.props;
 
     return (
       <CompanionWindow title={t('aboutThisItem')} paperClassName={ns('window-sidebar-info-panel')} windowId={windowId} id={id}>
-        {canvasLabel && (
-          <>
-            <Typography variant="overline" id={`${id}-currentItem`}>{t('currentItem')}</Typography>
-            <Typography aria-labelledby={`${id}-currentItem`} variant="h4">
-              {canvasLabel}
+        <div className={classes.section}>
+          {canvasLabel && (
+            <>
+              <Typography variant="overline" id={`${id}-currentItem`}>{t('currentItem')}</Typography>
+              <Typography aria-labelledby={`${id}-currentItem`} variant="h4">
+                {canvasLabel}
+              </Typography>
+            </>
+          )}
+
+          {canvasDescription && (
+            <Typography variant="body1">
+              <SanitizedHtml htmlString={canvasDescription} ruleSet="iiif" />
             </Typography>
-          </>
-        )}
+          )}
 
-        {canvasDescription && (
-          <Typography variant="body1">
-            <SanitizedHtml htmlString={canvasDescription} ruleSet="iiif" />
-          </Typography>
-        )}
-
-        {canvasMetadata.length > 0 && (
-          <MetadataList labelValuePairs={canvasMetadata} />
-        )}
-
-        <Divider />
-
-        {manifestDescription && (
-          <Typography variant="body2">
-            <SanitizedHtml htmlString={manifestDescription} ruleSet="iiif" />
-          </Typography>
-        )}
-
-        {manifestMetadata.length > 0 && (
-          <MetadataList labelValuePairs={manifestMetadata} />
-        )}
-        <ManifestURI manifestId={manifestId}/>
+          {canvasMetadata.length > 0 && (
+            <MetadataList labelValuePairs={canvasMetadata} />
+          )}
+          {manifestDescription && (
+            <Typography variant="body2">
+              <SanitizedHtml htmlString={manifestDescription} ruleSet="iiif" />
+            </Typography>
+          )}
+          {manifestMetadata.length > 0 && (
+            <MetadataList labelValuePairs={manifestMetadata} />
+          )}
+          <ManifestURI manifestId={manifestId}/>
+        </div>
       </CompanionWindow>
     );
   }
@@ -77,6 +75,7 @@ WindowSideBarInfoPanel.propTypes = {
   t: PropTypes.func,
   windowId: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
+  classes: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
 WindowSideBarInfoPanel.defaultProps = {
@@ -87,4 +86,5 @@ WindowSideBarInfoPanel.defaultProps = {
   manifestDescription: null,
   manifestMetadata: [],
   t: key => key,
+  classes: {},
 };

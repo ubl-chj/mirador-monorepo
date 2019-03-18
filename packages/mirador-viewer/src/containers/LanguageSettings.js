@@ -1,3 +1,4 @@
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '@mirador/core';
 import { getLanguagesFromConfigWithCurrent } from '../state/selectors';
@@ -21,4 +22,7 @@ const mapDispatchToProps = (dispatch, { afterSelect }) => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(LanguageSettings);
+
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+)(LanguageSettings);

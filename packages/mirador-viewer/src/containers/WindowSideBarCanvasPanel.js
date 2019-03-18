@@ -38,7 +38,11 @@ const styles = theme => ({
     fontSize: '.875rem',
     fontWeight: 500,
     letterSpacing: '.01785714em',
-    lineHeight: '1.25rem'
+    lineHeight: '1.25rem',
+  },
+  listItem: {
+    borderBottom: '0.5px solid rgba(0,0,0,0.12)',
+    paddingRight: theme.spacing.unit,
   },
 });
 

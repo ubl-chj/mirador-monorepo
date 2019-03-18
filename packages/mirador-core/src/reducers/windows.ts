@@ -1,5 +1,5 @@
-import { merge, updateIn } from 'immutable'
-import {ActionTypes} from '../actions'
+import { remove, updateIn, merge } from 'immutable';
+import ActionTypes from '../actions/action-types';
 
 /**
  * windowsReducer
@@ -118,9 +118,53 @@ export const windowsReducer = (state = {}, action) => {
             .companionWindowIds.filter(id => id !== action.id),
         },
       };
+    case ActionTypes.SELECT_ANNOTATION:
+      return {
+        ...state,
+        [action.windowId]: {
+          ...state[action.windowId],
+          selectedAnnotations: {
+            ...state[action.windowId].selectedAnnotations,
+            [action.canvasId]: [
+              ...((state[action.windowId].selectedAnnotations || {})[action.canvasId] || []),
+              action.annotationId,
+            ],
+          },
+        },
+      };
+    case ActionTypes.DESELECT_ANNOTATION: {
+      const selectedAnnotations = updatedSelectedAnnotations(state, action);
+
+      return {
+        ...state,
+        [action.windowId]: {
+          ...state[action.windowId],
+          selectedAnnotations,
+        },
+      };
+    }
     default:
       return state
   }
+};
+
+/**
+ * Handle removing IDs from selectedAnnotations
+ * where empty canvasIDs are removed from state as well
+ */
+function updatedSelectedAnnotations(state, action) {
+  const filteredIds = state[action.windowId]
+    .selectedAnnotations[action.canvasId]
+    .filter(id => id !== action.annotationId);
+
+  if (filteredIds.length > 0) {
+    return {
+      ...state[action.windowId].selectedAnnotations,
+      [action.canvasId]: filteredIds,
+    };
+  }
+
+  return remove(state[action.windowId].selectedAnnotations, action.canvasId);
 }
 
 /**

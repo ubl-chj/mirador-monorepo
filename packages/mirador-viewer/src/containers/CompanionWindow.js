@@ -49,13 +49,23 @@ const styles = theme => ({
     minHeight: 0,
     boxShadow: 'none',
     flexDirection: 'column',
+    boxSizing: 'border-box',
   },
   horizontal: {
-    height: '200px',
+    height: '201px',
     width: '100%',
   },
   vertical: {
     width: theme.paper.width,
+  },
+  'companionWindow-left': {
+
+  },
+  'companionWindow-right': {
+    borderLeft: '0.5px solid rgba(0, 0, 0, 0.12)',
+  },
+  'companionWindow-bottom': {
+    borderTop: '0.5px solid rgba(0, 0, 0, 0.12)',
   },
   positionButton: {
     order: -100,
@@ -64,11 +74,9 @@ const styles = theme => ({
     minHeight: 'max-content',
   },
   leftPadding: {
-    ...theme.mixins.gutters(),
-    paddingRight: 0,
+    paddingLeft: theme.spacing.unit * 2,
   },
   content: {
-    ...theme.mixins.gutters(),
     overflowY: 'auto',
   },
 });

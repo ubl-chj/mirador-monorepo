@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import * as actions from '@mirador/core';
 import { App } from '../components/App';
 
+
 /**
  * mapStateToProps - to hook up connect
  * @memberof App

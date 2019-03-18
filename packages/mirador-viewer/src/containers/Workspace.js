@@ -20,7 +20,6 @@ const mapStateToProps = state => (
 const enhance = compose(
   withTranslation(),
   connect(mapStateToProps),
-  // further HOC go here
 );
 
 export default enhance(Workspace);

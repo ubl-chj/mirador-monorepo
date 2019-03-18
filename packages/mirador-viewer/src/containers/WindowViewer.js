@@ -1,10 +1,6 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '@mirador/core';
-import {
-  getCanvasLabel,
-  getSelectedCanvas,
-} from '../state/selectors';
 import { WindowViewer } from '../components/WindowViewer';
 
 /**

@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import * as actions from '@mirador/core';
 import { withTranslation } from 'react-i18next';
+import { withStyles } from '@material-ui/core';
 import { WorkspaceFullScreenButton }
   from '../components/WorkspaceFullScreenButton';
 

@@ -39,7 +39,6 @@ const enhance = compose(
   withStyles(styles),
   withTranslation(),
   connect(mapStateToProps, mapDispatchToProps),
-  // further HOC go here
 );
 
 export default enhance(WorkspaceMosaic);

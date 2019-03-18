@@ -36,9 +36,13 @@ const styles = theme => ({
   title: {
     ...theme.typography.h6,
     flexGrow: 1,
+    paddingLeft: theme.spacing.unit / 2,
   },
   windowTopBarStyle: {
-    paddingLeft: 4,
+    minHeight: 32,
+    paddingLeft: theme.spacing.unit / 2,
+    paddingRight: theme.spacing.unit / 2,
+    backgroundColor: theme.palette.primary.light,
     borderTop: '4px solid transparent',
   },
   focused: {

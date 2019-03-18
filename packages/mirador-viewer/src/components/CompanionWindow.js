@@ -26,7 +26,7 @@ export class CompanionWindow extends Component {
 
     return (
       <Paper
-        className={[classes.root, position === 'bottom' ? classes.horizontal : classes.vertical, ns(`companion-window-${position}`), paperClassName].join(' ')}
+        className={[classes.root, position === 'bottom' ? classes.horizontal : classes.vertical, classes[`companionWindow-${position}`], ns(`companion-window-${position}`), paperClassName].join(' ')}
         style={{
           display: isDisplayed ? null : 'none',
           order: position === 'left' ? -1 : null,
@@ -61,7 +61,7 @@ export class CompanionWindow extends Component {
                     updateCompanionWindow && (
                       <MiradorMenuButton
                         aria-label={position === 'bottom' ? t('moveCompanionWindowToRight') : t('moveCompanionWindowToBottom')}
-                        className={classes.positionButton}
+                        wrapperClassName={classes.positionButton}
                         onClick={() => { updateCompanionWindow(windowId, id, { position: position === 'bottom' ? 'right' : 'bottom' }); }}
                       >
                         {position === 'bottom' ? <ThumbnailNavigationRightIcon /> : <ThumbnailNavigationBottomIcon />}
