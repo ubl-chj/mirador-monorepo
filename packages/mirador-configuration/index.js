@@ -81,6 +81,7 @@ const rootConfig = {
         lineHeight: "2.25rem",
       },
       caption: {
+        color: "white",
         fontSize: "0.772rem",
         letterSpacing: "0.33em",
         lineHeight: "1.6rem",

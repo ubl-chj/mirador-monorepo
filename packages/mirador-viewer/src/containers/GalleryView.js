@@ -1,33 +1,31 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '@mirador/core';
-import { withTranslation } from 'react-i18next';
-import { withStyles } from '@material-ui/core';
-import { WorkspaceMosaic } from '../components/WorkspaceMosaic';
 import { withPlugins } from '../extend';
+import { GalleryView } from '../components/GalleryView';
 
 /**
  * mapStateToProps - to hook up connect
- * @memberof Workspace
+ * @memberof WindowViewer
  * @private
  */
 const mapStateToProps = state => (
-  {
-    workspace: state.workspace,
-  }
+  {}
 );
-
 
 /**
  * mapDispatchToProps - used to hook up connect to action creators
- * @memberof Workspace
+ * @memberof WindowViewer
  * @private
  */
-const mapDispatchToProps = { updateWorkspaceMosaicLayout: actions.updateWorkspaceMosaicLayout };
+const mapDispatchToProps = {
+  setCanvas: actions.setCanvas,
+};
 
 const enhance = compose(
   connect(mapStateToProps, mapDispatchToProps),
-  withPlugins('WorkspaceMosaic')
+  withPlugins('GalleryView'),
+  // further HOC go here
 );
 
-export default enhance(WorkspaceMosaic);
+export default enhance(GalleryView);

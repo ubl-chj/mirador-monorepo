@@ -13,6 +13,8 @@ const mapStateToProps = (state, { windowId }) => ({
   manifestTitle: getManifestTitle(getWindowManifest(state, windowId)),
   maximized: state.windows[windowId].maximized,
   focused: state.workspace.focusedWindowId === windowId,
+  allowClose: state.config.window.allowClose,
+  allowFullscreen: state.config.window.allowFullscreen,
 });
 
 /**

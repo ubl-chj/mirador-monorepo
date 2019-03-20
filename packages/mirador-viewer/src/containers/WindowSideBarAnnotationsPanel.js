@@ -6,8 +6,8 @@ import * as actions from '@mirador/core';
 import {
   getIdAndContentOfResources,
   getSelectedAnnotationIds,
-  getSelectedCanvas,
-  getSelectedTargetAnnotations,
+  getSelectedCanvases,
+  getSelectedTargetsAnnotations,
   getAnnotationResourcesByMotivation,
 } from '../state/selectors';
 import { WindowSideBarAnnotationsPanel } from '../components/WindowSideBarAnnotationsPanel';
@@ -20,11 +20,14 @@ import { withPlugins } from '../extend';
  */
 const mapStateToProps = (state, { windowId }) => ({
   selectedAnnotationIds: getSelectedAnnotationIds(
-    state, windowId, [getSelectedCanvas(state, windowId).id],
+    state, windowId, getSelectedCanvases(state, windowId).map(canvas => canvas.id),
   ),
   annotations: getIdAndContentOfResources(
     getAnnotationResourcesByMotivation(
-      getSelectedTargetAnnotations(state, getSelectedCanvas(state, windowId).id),
+      getSelectedTargetsAnnotations(
+        state,
+        getSelectedCanvases(state, windowId).map(canvas => canvas.id),
+      ),
       ['oa:commenting', 'sc:painting'],
     ),
   ),

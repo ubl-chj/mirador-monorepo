@@ -50,8 +50,11 @@ export class WindowSideBarInfoPanel extends Component {
           {canvasMetadata.length > 0 && (
             <LabelValueMetadata labelValuePairs={canvasMetadata} />
           )}
+        </div>
+
+        <div className={classes.section}>
           {manifestDescription && (
-            <Typography variant="body2">
+            <Typography variant="body1">
               <SanitizedHtml htmlString={manifestDescription} ruleSet="iiif" />
             </Typography>
           )}

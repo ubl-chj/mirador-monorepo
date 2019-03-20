@@ -45,6 +45,14 @@ const styles = theme => ({
     borderBottom: '0.5px solid rgba(0,0,0,0.12)',
     paddingRight: theme.spacing.unit,
   },
+  select: {
+    '&:focus': {
+      backgroundColor: theme.palette.background.paper,
+    },
+  },
+  selectEmpty: {
+    backgroundColor: theme.palette.background.paper,
+  },
 });
 
 const enhance = compose(

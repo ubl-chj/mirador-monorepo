@@ -34,8 +34,11 @@ describe('OpenSeadragonViewer', () => {
   it('renders the component', () => {
     expect(wrapper.find('.mirador-osd-container').length).toBe(1);
   });
-  it('renders child components', () => {
+  it('renders child components enhanced with additional props', () => {
     expect(wrapper.find('.foo').length).toBe(1);
+    expect(wrapper.find('.foo').props()).toEqual(expect.objectContaining({
+      zoomToWorld: wrapper.instance().zoomToWorld,
+    }));
   });
   it('renders viewer controls', () => {
     expect(wrapper.find('.controls').length).toBe(1);
@@ -71,20 +74,13 @@ describe('OpenSeadragonViewer', () => {
       ).toHaveBeenCalledWith(expect.any(OpenSeadragon.Rect), true);
     });
   });
-  describe('boundsFromTileSources', () => {
-    it('generates bounds from a set of tileSources', () => {
-      expect(wrapper.instance().boundsFromTileSources()).toEqual(expect.arrayContaining(
-        [0, 0, 249, 200],
-      ));
-    });
-  });
-  describe('boundingRectFromTileSource', () => {
-    it('creates a bounding area for the current tileSource offset if needed', () => {
-      expect(wrapper.instance().boundingRectFromTileSource(
-        { '@id': 'http://bar', width: 150, height: 201 }, 1,
-      )).toEqual(expect.arrayContaining(
-        [100, 0, 149, 200],
-      ));
+
+  describe('zoomToWorld', () => {
+    it('uses fitBounds with the existing CanvasWorld', () => {
+      const fitBounds = jest.fn();
+      wrapper.instance().fitBounds = fitBounds;
+      wrapper.instance().zoomToWorld();
+      expect(fitBounds).toHaveBeenCalledWith(0, 0, 0, Infinity, true);
     });
   });
 
