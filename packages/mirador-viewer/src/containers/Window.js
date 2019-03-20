@@ -5,6 +5,7 @@ import { withTranslation } from 'react-i18next';
 import * as actions from '@mirador/core';
 import { Window } from '../components/Window';
 import { getWindowManifest, getManifestTitle, getThumbnailNavigationPosition } from '../state/selectors';
+import { withPlugins } from '../extend';
 
 /**
  * mapStateToProps - used to hook up connect to action creators
@@ -85,6 +86,7 @@ const enhance = compose(
   withTranslation(),
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps),
+  withPlugins('Window'),
 );
 
 export default enhance(Window);

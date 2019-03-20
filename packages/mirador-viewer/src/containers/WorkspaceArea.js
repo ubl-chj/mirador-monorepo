@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { withStyles } from '@material-ui/core/styles';
 import { WorkspaceArea } from '../components/WorkspaceArea';
+import { withPlugins } from '../extend';
 
 /**
  * mapStateToProps - to hook up connect
@@ -31,6 +32,7 @@ const enhance = compose(
   withTranslation(),
   withStyles(styles),
   connect(mapStateToProps),
+  withPlugins('WorkspaceArea'),
 );
 
 export default enhance(WorkspaceArea);

@@ -5,6 +5,7 @@ import { withTranslation } from 'react-i18next';
 import { withStyles } from '@material-ui/core/styles';
 import { getThumbnailNavigationPosition } from '../state/selectors';
 import { WindowThumbnailSettings } from '../components/WindowThumbnailSettings';
+import { withPlugins } from '../extend';
 
 /**
  * mapDispatchToProps - used to hook up connect to action creators
@@ -41,6 +42,7 @@ const enhance = compose(
   withStyles(styles),
   withTranslation(),
   connect(mapStateToProps, mapDispatchToProps),
+  withPlugins('WindowThumbnailSettings'),
 );
 
 export default enhance(WindowThumbnailSettings);

@@ -3,6 +3,7 @@ import { compose } from 'redux';
 import * as actions from '@mirador/core';
 import { withTranslation } from 'react-i18next';
 import { WindowList } from '../components/WindowList';
+import { withPlugins } from '../extend';
 
 /**
  * mapDispatchToProps - used to hook up connect to action creators
@@ -29,6 +30,7 @@ const mapStateToProps = state => (
 const enhance = compose(
   withTranslation(),
   connect(mapStateToProps, mapDispatchToProps),
+  withPlugins('WindowList'),
 );
 
 export default enhance(WindowList);

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as actions from '@mirador/core';
 import { withTranslation } from 'react-i18next';
 import { WorkspaceMenu } from '../components/WorkspaceMenu';
-
+import { withPlugins } from '../extend';
 
 /**
  * mapDispatchToProps - used to hook up connect to action creators
@@ -27,6 +27,7 @@ const mapStateToProps = state => ({
 const enhance = compose(
   withTranslation(),
   connect(mapStateToProps, mapDispatchToProps),
+  withPlugins('WorkspaceMenu')
 );
 
 export default enhance(WorkspaceMenu);

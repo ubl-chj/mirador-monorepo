@@ -4,6 +4,7 @@ import { withTranslation } from 'react-i18next';
 import { withStyles } from '@material-ui/core/styles';
 import { fetchManifest, removeManifest } from '@mirador/core';
 import { ManifestListItemError } from '../components/ManifestListItemError';
+import { withPlugins } from '../extend';
 
 /** */
 const mapDispatchToProps = {
@@ -32,6 +33,7 @@ const enhance = compose(
   withTranslation(),
   withStyles(styles),
   connect(null, mapDispatchToProps),
+  withPlugins('ManifestListItem'),
 );
 
 export default enhance(ManifestListItemError);

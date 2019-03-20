@@ -11,6 +11,7 @@ import {
   getSelectedCanvas,
   getSelectedTargetAnnotationResources,
 } from '../state/selectors';
+import { withPlugins } from '../extend';
 
 /**
  * mapStateToProps - used to hook up connect to action creators
@@ -60,6 +61,7 @@ const enhance = compose(
   withStyles(styles),
   withTranslation(),
   connect(mapStateToProps, mapDispatchToProps),
+  withPlugins('OpenSeadragonViewer'),
 );
 
 

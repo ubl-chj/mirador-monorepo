@@ -6,6 +6,8 @@ import { withStyles } from '@material-ui/core/styles';
 import CanvasGroupings from '../lib/CanvasGroupings';
 import { ThumbnailNavigation } from '../components/ThumbnailNavigation';
 import { getManifestCanvases, getWindowManifest } from '../state/selectors';
+import { withPlugins } from '../extend';
+
 /**
  * mapStateToProps - used to hook up state to props
  * @memberof ThumbnailNavigation
@@ -50,6 +52,7 @@ const enhance = compose(
   withStyles(styles),
   withTranslation(),
   connect(mapStateToProps, mapDispatchToProps),
+  withPlugins('ThumnailNavigation'),
 );
 
 export default enhance(ThumbnailNavigation);

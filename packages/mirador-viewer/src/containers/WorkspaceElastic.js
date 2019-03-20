@@ -2,6 +2,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '@mirador/core';
 import WorkspaceElastic from '../components/WorkspaceElastic';
+import { withPlugins } from '../extend';
 
 /**
  * mapStateToProps - to hook up connect
@@ -48,6 +49,7 @@ const mapDispatchToProps = (dispatch, props) => ({
 
 const enhance = compose(
   connect(mapStateToProps, mapDispatchToProps),
+  withPlugins('WorkspaceElastic')
 );
 
 export default enhance(WorkspaceElastic);

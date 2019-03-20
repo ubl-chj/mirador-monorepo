@@ -5,6 +5,7 @@ import {
   getSelectedCanvas,
 } from '../state/selectors';
 import { WindowCanvasNavigationControls } from '../components/WindowCanvasNavigationControls';
+import { withPlugins } from '../extend';
 
 /** */
 const mapStateToProps = (state, { windowId }) => ({
@@ -18,6 +19,7 @@ const mapStateToProps = (state, { windowId }) => ({
 
 const enhance = compose(
   connect(mapStateToProps),
+  withPlugins('WindowCanvasNavigationControls'),
 );
 
 export default enhance(WindowCanvasNavigationControls);

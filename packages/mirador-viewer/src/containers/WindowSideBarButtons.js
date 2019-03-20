@@ -11,7 +11,7 @@ import {
   getAnnotationResourcesByMotivation,
 } from '../state/selectors';
 import { WindowSideBarButtons } from '../components/WindowSideBarButtons';
-
+import { withPlugins } from '../extend';
 
 /**
  * mapDispatchToProps - used to hook up connect to action creators
@@ -71,6 +71,7 @@ const enhance = compose(
   withTranslation(),
   withStyles(style),
   connect(mapStateToProps, mapDispatchToProps),
+  withPlugins('WindowSideBarButtons'),
 );
 
 export default enhance(WindowSideBarButtons);

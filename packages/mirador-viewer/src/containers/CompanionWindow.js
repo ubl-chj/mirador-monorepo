@@ -4,6 +4,7 @@ import * as actions from '@mirador/core';
 import { withTranslation } from 'react-i18next';
 import { withStyles } from '@material-ui/core';
 import { CompanionWindow } from '../components/CompanionWindow';
+import { withPlugins } from '../extend';
 
 /**
  * mapStateToProps - to hook up connect
@@ -85,6 +86,7 @@ const enhance = compose(
   withTranslation(),
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps),
+  withPlugins('CompanionWindow'),
 );
 
 export default enhance(CompanionWindow);

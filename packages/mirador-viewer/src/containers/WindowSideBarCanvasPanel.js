@@ -8,6 +8,7 @@ import {
   getManifestCanvases,
   getWindowManifest,
 } from '../state/selectors';
+import { withPlugins } from '../extend';
 
 /**
  * mapStateToProps - to hook up connect
@@ -50,6 +51,7 @@ const enhance = compose(
   withTranslation(),
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps),
+  withPlugins('WindowSideBarCanvasPanel'),
 );
 
 export default enhance(WindowSideBarCanvasPanel);

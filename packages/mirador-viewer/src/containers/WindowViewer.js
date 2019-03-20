@@ -2,6 +2,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '@mirador/core';
 import { WindowViewer } from '../components/WindowViewer';
+import { withPlugins } from '../extend';
 
 /**
  * mapStateToProps - to hook up connect
@@ -27,6 +28,7 @@ const mapDispatchToProps = {
 
 const enhance = compose(
   connect(mapStateToProps, mapDispatchToProps),
+  withPlugins('WindowViewer'),
 );
 
 export default enhance(WindowViewer);

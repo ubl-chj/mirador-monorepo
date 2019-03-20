@@ -12,6 +12,7 @@ import {
   getCanvasDescription,
 } from '../state/selectors';
 import { WindowSideBarInfoPanel } from '../components/WindowSideBarInfoPanel';
+import { withPlugins } from '../extend';
 
 /**
  * mapStateToProps - to hook up connect
@@ -50,6 +51,7 @@ const enhance = compose(
   withTranslation(),
   withStyles(styles),
   connect(mapStateToProps, null),
+  withPlugins('WindowSideBarInfoPanel'),
 );
 
 export default enhance(WindowSideBarInfoPanel);

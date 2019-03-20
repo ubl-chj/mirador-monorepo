@@ -2,7 +2,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '@mirador/core';
 import { App } from '../components/App';
-
+import { withPlugins } from '../extend';
 
 /**
  * mapStateToProps - to hook up connect
@@ -29,6 +29,7 @@ const mapDispatchToProps = {
 
 const enhance = compose(
   connect(mapStateToProps, mapDispatchToProps),
+  withPlugins('App')
 );
 
 export default enhance(App);

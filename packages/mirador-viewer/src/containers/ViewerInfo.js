@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { ViewerInfo } from '../components/ViewerInfo';
 import { getCanvasLabel, getWindowManifest, getManifestCanvases } from '../state/selectors';
+import { withPlugins } from '../extend';
 
 /**
  * mapStateToProps - to hook up connect
@@ -25,6 +26,7 @@ const mapStateToProps = (state, props) => {
 const enhance = compose(
   withTranslation(),
   connect(mapStateToProps, null),
+  withPlugins('ViewerInfo'),
 );
 
 export default enhance(ViewerInfo);

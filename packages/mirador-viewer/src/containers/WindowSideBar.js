@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withStyles } from '@material-ui/core';
 import { WindowSideBar } from '../components/WindowSideBar';
+import { withPlugins } from '../extend';
 
 /**
  * mapStateToProps - to hook up connect
@@ -42,6 +43,7 @@ const styles = theme => ({
 const enhance = compose(
   withStyles(styles),
   connect(mapStateToProps, null),
+  withPlugins('WindowSideBar'),
 );
 
 export default enhance(WindowSideBar);

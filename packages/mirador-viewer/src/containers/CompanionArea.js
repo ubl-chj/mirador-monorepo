@@ -5,6 +5,7 @@ import { withTranslation } from 'react-i18next';
 import { getCompanionWindowsOfWindow } from '../state/selectors';
 import * as actions from '@mirador/core';
 import { CompanionArea } from '../components/CompanionArea';
+import { withPlugins } from '../extend';
 
 /** */
 const mapStateToProps = (state, { windowId, position }) => ({
@@ -46,6 +47,7 @@ const enhance = compose(
   withTranslation(),
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps),
+  withPlugins('CompanionArea'),
 );
 
 export default enhance(CompanionArea);

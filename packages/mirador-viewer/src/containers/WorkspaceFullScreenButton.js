@@ -5,6 +5,7 @@ import { withTranslation } from 'react-i18next';
 import { withStyles } from '@material-ui/core';
 import { WorkspaceFullScreenButton }
   from '../components/WorkspaceFullScreenButton';
+import { withPlugins } from '../extend';
 
 /**
  * mapStateToProps - to hook up connect
@@ -25,6 +26,7 @@ const mapDispatchToProps = { setWorkspaceFullscreen: actions.setWorkspaceFullscr
 const enhance = compose(
   withTranslation(),
   connect(mapStateToProps, mapDispatchToProps),
+  withPlugins('WorkspaceFullScreenButton')
 );
 
 export default enhance(WorkspaceFullScreenButton);

@@ -4,6 +4,7 @@ import * as actions from '@mirador/core';
 import { withTranslation } from 'react-i18next';
 import { withStyles } from '@material-ui/core';
 import { WorkspaceAdd } from '../components/WorkspaceAdd';
+import { withPlugins } from '../extend';
 
 /**
  * mapStateToProps - to hook up connect
@@ -55,6 +56,7 @@ const enhance = compose(
   withTranslation(),
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps),
+  withPlugins('WorkspaceAdd'),
 );
 
 export default enhance(WorkspaceAdd);

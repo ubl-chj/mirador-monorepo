@@ -7,6 +7,7 @@ import {
   getManifestTitle, getManifestThumbnail, getManifestCanvases, getManifestLogo, getManifestProvider,
 } from '../state/selectors';
 import { ManifestListItem } from '../components/ManifestListItem';
+import { withPlugins } from '../extend';
 
 /** */
 const mapStateToProps = (state, { manifestId }) => {
@@ -57,6 +58,7 @@ const enhance = compose(
   withTranslation(),
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps),
+  withPlugins('ManifestListItem'),
 );
 
 export default enhance(ManifestListItem);

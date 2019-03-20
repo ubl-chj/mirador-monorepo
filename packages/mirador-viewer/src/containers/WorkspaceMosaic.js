@@ -4,6 +4,7 @@ import * as actions from '@mirador/core';
 import { withTranslation } from 'react-i18next';
 import { withStyles } from '@material-ui/core';
 import { WorkspaceMosaic } from '../components/WorkspaceMosaic';
+import { withPlugins } from '../extend';
 
 /**
  * mapStateToProps - to hook up connect
@@ -39,6 +40,7 @@ const enhance = compose(
   withStyles(styles),
   withTranslation(),
   connect(mapStateToProps, mapDispatchToProps),
+  withPlugins('WorkspaceMosaic')
 );
 
 export default enhance(WorkspaceMosaic);

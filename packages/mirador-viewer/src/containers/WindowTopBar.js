@@ -5,8 +5,8 @@ import { withTranslation } from 'react-i18next';
 import { withStyles } from '@material-ui/core';
 import { getWindowManifest, getManifestTitle } from '../state/selectors';
 import { WindowTopBar } from '../components/WindowTopBar';
-import {MiradorMenuButton} from "../components/MiradorMenuButton"
 import React from "react"
+import { withPlugins } from '../extend';
 
 /** mapStateToProps */
 const mapStateToProps = (state, { windowId }) => ({
@@ -54,6 +54,7 @@ const enhance = compose(
   withTranslation(),
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps),
+  withPlugins('WindowTopBar'),
 );
 
 export default enhance(WindowTopBar);

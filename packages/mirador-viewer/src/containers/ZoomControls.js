@@ -4,6 +4,7 @@ import { withTranslation } from 'react-i18next';
 import { withStyles } from '@material-ui/core';
 import * as actions from '@mirador/core';
 import { ZoomControls } from '../components/ZoomControls';
+import { withPlugins } from '../extend';
 
 /**
  * mapStateToProps - to hook up connect
@@ -45,6 +46,7 @@ const enhance = compose(
   withTranslation(),
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps),
+  withPlugins('ZoomControls')
 );
 
 export default enhance(ZoomControls);
