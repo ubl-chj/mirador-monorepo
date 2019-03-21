@@ -13,8 +13,8 @@ const mapStateToProps = state => (
   {
     isFullscreenEnabled: state.workspace.isFullscreenEnabled,
     isWorkspaceControlPanelVisible: state.config.workspaceControlPanel.enabled,
-    workspaceType: state.config.workspace.type,
     windows: state.windows,
+    workspaceType: state.config.workspace.type,
   }
 );
 

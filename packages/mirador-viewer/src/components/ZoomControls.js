@@ -3,7 +3,7 @@ import AddCircleIcon from '@material-ui/icons/AddCircleOutlineSharp';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircleOutlineSharp';
 import PropTypes from 'prop-types';
 import RestoreZoomIcon from './icons/RestoreZoomIcon';
-import { MiradorMenuButton } from './MiradorMenuButton';
+import MiradorMenuButton from '../containers/MiradorMenuButton';
 
 /**
  */
@@ -76,23 +76,23 @@ export class ZoomControls extends Component {
 }
 
 ZoomControls.propTypes = {
-  windowId: PropTypes.string,
+  classes: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   showZoomControls: PropTypes.bool,
+  t: PropTypes.func,
+  updateViewport: PropTypes.func,
   viewer: PropTypes.shape({
     x: PropTypes.number,
     y: PropTypes.number,
     zoom: PropTypes.number,
   }),
-  updateViewport: PropTypes.func,
-  classes: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-  t: PropTypes.func,
+  windowId: PropTypes.string,
   zoomToWorld: PropTypes.func.isRequired,
 };
 
 ZoomControls.defaultProps = {
-  windowId: '',
   showZoomControls: false,
-  viewer: {},
-  updateViewport: () => {},
   t: key => key,
+  updateViewport: () => {},
+  viewer: {},
+  windowId: '',
 };

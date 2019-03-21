@@ -70,5 +70,5 @@ export function fetchManifest(manifestId, properties) {
  * @memberof ActionCreators
  */
 export function removeManifest(manifestId) {
-  return { type: ActionTypes.REMOVE_MANIFEST, manifestId };
+  return { manifestId, type: ActionTypes.REMOVE_MANIFEST };
 }

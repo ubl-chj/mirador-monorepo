@@ -11,8 +11,8 @@ describe('manifest actions', () => {
     it('requests a manifest given a url', () => {
       const id = 'abc123';
       const expectedAction = {
-        type: ActionTypes.REQUEST_MANIFEST,
         manifestId: id,
+        type: ActionTypes.REQUEST_MANIFEST,
       };
       expect(requestManifest(id)).toEqual(expectedAction);
     });
@@ -21,13 +21,13 @@ describe('manifest actions', () => {
     it('receives a manifest', () => {
       const id = 'abc123';
       const json = {
-        id,
         content: 'lots of metadata, canvases, and other IIIFy things',
+        id,
       };
       const expectedAction = {
-        type: ActionTypes.RECEIVE_MANIFEST,
         manifestId: id,
         manifestJson: json,
+        type: ActionTypes.RECEIVE_MANIFEST,
       };
       expect(receiveManifest(id, json)).toEqual(expectedAction);
     });
@@ -44,7 +44,11 @@ describe('manifest actions', () => {
       it('dispatches the REQUEST_MANIFEST action', () => {
         store.dispatch(fetchManifest('https://purl.stanford.edu/sn904cj3429/iiif/manifest'));
         expect(store.getActions()).toEqual([
-          { manifestId: 'https://purl.stanford.edu/sn904cj3429/iiif/manifest', type: 'REQUEST_MANIFEST', properties: { isFetching: true } },
+          {
+            manifestId: 'https://purl.stanford.edu/sn904cj3429/iiif/manifest',
+            properties: { isFetching: true },
+            type: 'REQUEST_MANIFEST',
+          },
         ]);
       });
       it('dispatches the REQUEST_MANIFEST and then RECEIVE_MANIFEST', () => {
@@ -52,8 +56,16 @@ describe('manifest actions', () => {
           .then(() => {
             const expectedActions = store.getActions();
             expect(expectedActions).toEqual([
-              { manifestId: 'https://purl.stanford.edu/sn904cj3429/iiif/manifest', type: 'REQUEST_MANIFEST', properties: { isFetching: true } },
-              { manifestId: 'https://purl.stanford.edu/sn904cj3429/iiif/manifest', manifestJson: { data: '12345' }, type: 'RECEIVE_MANIFEST' },
+              {
+                manifestId: 'https://purl.stanford.edu/sn904cj3429/iiif/manifest',
+                properties: { isFetching: true },
+                type: 'REQUEST_MANIFEST',
+              },
+              {
+                manifestId: 'https://purl.stanford.edu/sn904cj3429/iiif/manifest',
+                manifestJson: { data: '12345' },
+                type: 'RECEIVE_MANIFEST',
+              },
             ]);
           });
       });
@@ -64,8 +76,16 @@ describe('manifest actions', () => {
           .then(() => {
             const expectedActions = store.getActions();
             expect(expectedActions).toEqual([
-              { manifestId: 'https://purl.stanford.edu/sn904cj3429/iiif/manifest', type: 'REQUEST_MANIFEST', properties: { isFetching: true } },
-              { manifestId: 'https://purl.stanford.edu/sn904cj3429/iiif/manifest', error: 'FetchError: invalid json response body at undefined reason: Unexpected end of JSON input', type: 'RECEIVE_MANIFEST_FAILURE' },
+              {
+                manifestId: 'https://purl.stanford.edu/sn904cj3429/iiif/manifest',
+                properties: { isFetching: true },
+                type: 'REQUEST_MANIFEST',
+              },
+              {
+                error: 'FetchError: invalid json response body at undefined reason: Unexpected end of JSON input',
+                manifestId: 'https://purl.stanford.edu/sn904cj3429/iiif/manifest',
+                type: 'RECEIVE_MANIFEST_FAILURE',
+              },
             ]);
           });
       });
@@ -74,8 +94,8 @@ describe('manifest actions', () => {
   describe('removeManifest', () => {
     it('removes an existing manifest', () => {
       const expectedAction = {
-        type: ActionTypes.REMOVE_MANIFEST,
         manifestId: 'foo',
+        type: ActionTypes.REMOVE_MANIFEST,
       };
       expect(removeManifest('foo')).toEqual(expectedAction);
     });

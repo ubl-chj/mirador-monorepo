@@ -1,6 +1,5 @@
 import uuid from 'uuid/v4';
 import {ActionTypes} from './action-types';
-import { updateWindow } from './window';
 
 const defaultProps = {
   content: null,
@@ -45,5 +44,9 @@ export function updateCompanionWindow(windowId, id, payload) {
 
 /** */
 export function removeCompanionWindow(windowId, id) {
-  return { type: ActionTypes.REMOVE_COMPANION_WINDOW, id, windowId };
+  return {
+    id,
+    type: ActionTypes.REMOVE_COMPANION_WINDOW,
+    windowId,
+  };
 }

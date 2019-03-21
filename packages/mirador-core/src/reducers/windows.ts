@@ -7,7 +7,7 @@ import ActionTypes from '../actions/action-types';
 export const windowsReducer = (state = {}, action) => {
   switch (action.type) {
     case ActionTypes.ADD_WINDOW:
-      return { ...state, [action.window.id]: action.window }
+      return { ...state, [action.window.id]: action.window };
 
     case ActionTypes.MAXIMIZE_WINDOW:
       return {
@@ -16,7 +16,7 @@ export const windowsReducer = (state = {}, action) => {
           ...state[action.windowId],
           maximized: true,
         },
-      }
+      };
     case ActionTypes.MINIMIZE_WINDOW:
       return {
         ...state,
@@ -27,15 +27,15 @@ export const windowsReducer = (state = {}, action) => {
       }
 
     case ActionTypes.UPDATE_WINDOW:
-      return updateIn(state, [action.id], (orig) => merge(orig, action.payload))
+      return updateIn(state, [action.id], orig => merge(orig, action.payload));
 
     case ActionTypes.REMOVE_WINDOW:
       return Object.keys(state).reduce((object, key) => {
         if (key !== action.windowId) {
-          object[key] = state[key] // eslint-disable-line no-param-reassign
+          object[key] = state[key]; // eslint-disable-line no-param-reassign
         }
-        return object
-      }, {})
+        return object;
+      }, {});
     case ActionTypes.TOGGLE_WINDOW_SIDE_BAR:
       return {
         ...state,
@@ -143,6 +143,14 @@ export const windowsReducer = (state = {}, action) => {
         },
       };
     }
+    case ActionTypes.TOGGLE_ANNOTATION_DISPLAY:
+      return {
+        ...state,
+        [action.windowId]: {
+          ...state[action.windowId],
+          displayAllAnnotations: !state[action.windowId].displayAllAnnotations,
+        },
+      };
     default:
       return state
   }

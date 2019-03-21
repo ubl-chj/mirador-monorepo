@@ -9,7 +9,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import AppBar from '@material-ui/core/AppBar';
 import classNames from 'classnames';
 import WindowTopMenuButton from '../containers/WindowTopMenuButton';
-import { MiradorMenuButton } from './MiradorMenuButton';
+import MiradorMenuButton from '../containers/MiradorMenuButton';
 import ns from '../config/css-ns';
 
 
@@ -74,25 +74,25 @@ export class WindowTopBar extends Component {
 WindowTopBar.propTypes = {
   allowClose: PropTypes.bool,
   allowMaximize: PropTypes.bool,
+  classes: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  focused: PropTypes.bool,
   manifestTitle: PropTypes.string,
-  maximizeWindow: PropTypes.func,
   maximized: PropTypes.bool,
+  maximizeWindow: PropTypes.func,
   minimizeWindow: PropTypes.func,
   removeWindow: PropTypes.func.isRequired,
-  windowId: PropTypes.string.isRequired,
-  classes: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-  toggleWindowSideBar: PropTypes.func.isRequired,
   t: PropTypes.func,
-  focused: PropTypes.bool,
+  toggleWindowSideBar: PropTypes.func.isRequired,
+  windowId: PropTypes.string.isRequired,
 };
 
 WindowTopBar.defaultProps = {
   allowClose: true,
   allowMaximize: true,
+  focused: false,
   manifestTitle: '',
-  maximizeWindow: () => {},
   maximized: false,
+  maximizeWindow: () => {},
   minimizeWindow: () => {},
   t: key => key,
-  focused: false,
 };

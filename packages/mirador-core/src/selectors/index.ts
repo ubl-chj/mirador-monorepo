@@ -7,18 +7,6 @@ export * from './manifests';
 export * from './windows';
 
 /**
-* Return ids and labels of canvases
-* @ param {Array} canvases
-* @return {Array} - [ {id: 'id', label: 'label' }, ... ]
-*/
-export function getIdAndLabelOfCanvases(canvases) {
-  return canvases.map((canvas, index) => ({
-    id: canvas.id,
-    label: getCanvasLabel(canvas, index),
-  }));
-}
-
-/**
 * Return annotations for an array of targets
 * @param {object} state
 * @param {Array} targets
@@ -58,7 +46,7 @@ export function getSelectedTargetAnnotations(state, target) {
 */
 export function getAnnotationResourcesByMotivation(annotations, motivations) {
   const resources : any = flatten(annotations.map(annotation => annotation.resources));
-
+  console.log(resources)
   return filter(resources, resource => resource.motivations.some(
     motivation => motivations.includes(motivation),
   ));
@@ -70,93 +58,10 @@ export function getAnnotationResourcesByMotivation(annotations, motivations) {
  */
 export function getIdAndContentOfResources(resources) {
   return resources.map((resource) => ({
+    content: resource.chars,
     id: resource.id,
     targetId: resource.targetId,
-    content: resource.chars,
   }));
-}
-
-/** Return position of thumbnail navigation in a certain window.
-* @param {object} state
-* @param {String} windowId
-* @param {String}
-*/
-export function getThumbnailNavigationPosition(state, windowId) {
-  return state.windows[windowId]
-    && state.windows[windowId].thumbnailNavigationId
-    && state.companionWindows[state.windows[windowId].thumbnailNavigationId]
-    && state.companionWindows[state.windows[windowId].thumbnailNavigationId].position;
-}
-
-
-/** Return type of view in a certain window.
-* @param {object} state
-* @param {object} props
-* @param {string} props.manifestId
-* @param {string} props.windowId
-* @param {String}
-*/
-export function getWindowViewType(state, windowId) {
-  return state.windows[windowId] && state.windows[windowId].view;
-}
-
-/**
-* Return canvas label, or alternatively return the given index + 1 to be displayed
-* @param {object} canvas
-* @return {String|Integer}
-*/
-export function getCanvasLabel(canvas, canvasIndex) {
-  if (!canvas) {
-    return undefined;
-  }
-  if (canvas.getLabel().length > 0) {
-    return canvas.getLabel().map(label => label.value)[0];
-  }
-  return String(canvasIndex + 1);
-}
-
-/**
-* Return canvas description
-* @param {object} canvas
-* @param {String}
-*/
-export function getCanvasDescription(canvas) {
-  return canvas
-    && canvas.getProperty('description');
-}
-
-/**
-* Return the companion window string from state in a given windowId and position
-* @param {object} state
-* @param {String} windowId
-* @param {String} position
-* @return {String}
-*/
-export function getCompanionWindowForPosition(state, windowId, position) {
-  return ((state.windows[windowId] || {}).companionWindowIds || []).map(key => (
-    state.companionWindows[key]
-  )).find(cw => (
-    cw.position === position
-  ));
-}
-
-/**
-* Return compantion window ids from a window
-* @param {String} windowId
-* @return {Array}
-*/
-export function getCompanionWindowIds(state, windowId) {
-  return state.windows[windowId].companionWindowIds;
-}
-
-/**
- * Return companion windows of a window
- * @param {String} windowId
- * @return {Array}
- */
-export function getCompanionWindowsOfWindow(state, windowId) {
-  return getCompanionWindowIds(state, windowId)
-    .map(id => state.companionWindows[id]);
 }
 
 /**
@@ -168,9 +73,9 @@ export function getLanguagesFromConfigWithCurrent(state) {
   const { availableLanguages, language } = state.config;
 
   return Object.keys(availableLanguages).map(key => ({
-    locale: key,
-    label: availableLanguages[key],
     current: key === language,
+    label: availableLanguages[key],
+    locale: key,
   }));
 }
 
@@ -195,8 +100,25 @@ export function getSelectedAnnotationIds(state, windowId, targetIds) {
 */
 export function getSelectedTargetAnnotationResources(state, targetIds, annotationIds) {
   return getSelectedTargetsAnnotations(state, targetIds)
-    .map(annotation  => ({
+    .map(annotation => ({
       id: (annotation['@id'] || annotation.id),
       resources: annotation.resources.filter(r => annotationIds && annotationIds.includes(r.id)),
     }));
+}
+
+/**
+* Return all of the given canvases annotations if the window
+* is set to display all, otherwise only return selected
+* @param {object} state
+* @param {String} windowId
+* @param {Array} targetIds
+* @param {Array} annotationIds
+* @return {Array}
+*/
+export function getAllOrSelectedAnnotations(state, windowId, targetIds, annotationIds) {
+  if (state.windows[windowId].displayAllAnnotations) {
+    return getSelectedTargetsAnnotations(state, targetIds);
+  }
+
+  return getSelectedTargetAnnotationResources(state, targetIds, annotationIds);
 }

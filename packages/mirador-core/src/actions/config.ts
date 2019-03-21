@@ -5,7 +5,7 @@ import {ActionTypes} from './action-types'
  * @param config
  */
 export function setConfig(config) {
-  return { type: ActionTypes.SET_CONFIG, config }
+  return { config, type: ActionTypes.SET_CONFIG };
 }
 
 /**
@@ -13,5 +13,5 @@ export function setConfig(config) {
  * @param config
  */
 export function updateConfig(config) {
-  return { type: ActionTypes.UPDATE_CONFIG, config }
+  return { config, type: ActionTypes.UPDATE_CONFIG };
 }

@@ -87,8 +87,8 @@ export class WindowViewSettings extends Component {
         <MenuItem className={classes.MenuItem} onClick={() => { this.handleChange('gallery'); handleClose(); }}>
           <FormControlLabel
             value="gallery"
-            classes={{ label: windowViewType === 'gallery' ? classes.selectedLabel : undefined }}
-            control={<GalleryViewIcon color={windowViewType === 'gallery' ? 'secondary' : undefined} />}
+            classes={{ label: windowViewType === 'gallery' ? classes.selectedLabel : classes.optionLabel }}
+            control={<GalleryViewIcon nativeColor='gray' color={windowViewType === 'gallery' ? 'primary' : 'inherit'} />}
             label={t('gallery')}
             labelPlacement="bottom"
           />
@@ -101,10 +101,10 @@ export class WindowViewSettings extends Component {
 WindowViewSettings.propTypes = {
   classes: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   handleClose: PropTypes.func,
-  windowId: PropTypes.string.isRequired,
   setWindowViewType: PropTypes.func.isRequired,
-  windowViewType: PropTypes.string.isRequired,
   t: PropTypes.func,
+  windowId: PropTypes.string.isRequired,
+  windowViewType: PropTypes.string.isRequired,
 };
 WindowViewSettings.defaultProps = {
   handleClose: () => {},

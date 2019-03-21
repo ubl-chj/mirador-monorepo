@@ -2,6 +2,11 @@ import { createSelector } from 'reselect';
 import CanvasGroupings from '../utils/CanvasGroupings';
 import { getManifestoInstance } from './manifests';
 
+export const getCanvases = createSelector(
+  [getManifestoInstance],
+  manifest => manifest && manifest.getSequences()[0].getCanvases(),
+);
+
 /**
 * Return the current canvas selected in a window
 * @param {object} state
@@ -10,16 +15,31 @@ import { getManifestoInstance } from './manifests';
 * @param {string} props.windowId
 * @return {Object}
 */
-export const getSelectedCanvas = createSelector(
+export const getCanvas = createSelector(
   [
     getManifestoInstance,
-    (state, { windowId }) => state.windows[windowId].canvasIndex,
+    (state, { windowId, canvasIndex }) => (
+      canvasIndex === 'selected'
+        ? state.windows[windowId].canvasIndex
+        : canvasIndex
+    ),
   ],
   (manifest, canvasIndex) => manifest
     && manifest
       .getSequences()[0]
       .getCanvasByIndex(canvasIndex),
 );
+
+/**
+* Return the current canvas selected in a window
+* @param {object} state
+* @param {object} props
+* @param {string} props.windowId
+* @return {Object}
+*/
+export function getSelectedCanvas(state, {windowId}) {
+  return getCanvas(state, { windowId, canvasIndex: 'selected' });
+}
 
 /**
 * Return the current canvases selected in a window
@@ -32,12 +52,36 @@ export const getSelectedCanvas = createSelector(
 */
 export const getSelectedCanvases = createSelector(
   [
-    getManifestoInstance,
+    getCanvases,
     (state, { windowId }) => state.windows[windowId],
   ],
-  (manifest, { canvasIndex, view }) => manifest
+  (canvases, { canvasIndex, view }) => canvases
     && new CanvasGroupings(
-      manifest.getSequences()[0].getCanvases(),
+      canvases,
       view,
     ).getCanvases(canvasIndex),
+);
+
+/**
+* Return canvas label, or alternatively return the given index + 1 to be displayed
+* @param {object} canvas
+* @return {String|Integer}
+*/
+export const getCanvasLabel = createSelector(
+  [getCanvas],
+  canvas => (canvas && (
+    canvas.getLabel().length > 0
+      ? canvas.getLabel().map(label => label.value)[0]
+      : String(canvas.index + 1)
+  )),
+);
+
+/**
+* Return canvas description
+* @param {object} canvas
+* @param {String}
+*/
+export const getCanvasDescription = createSelector(
+  [getCanvas],
+  canvas => canvas && canvas.getProperty('description'),
 );

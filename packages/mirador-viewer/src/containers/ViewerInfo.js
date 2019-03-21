@@ -18,7 +18,10 @@ const mapStateToProps = (state, props) => {
   return {
     canvasCount: canvases.length,
     canvasIndex,
-    canvasLabel: getCanvasLabel(canvases[canvasIndex], canvasIndex),
+    canvasLabel: getCanvasLabel(state, {
+      canvasIndex,
+      windowId,
+    }),
   };
 };
 

@@ -16,7 +16,7 @@ export const workspaceReducer = (
   action,
 ) => {
   switch (action.type) {
-  case ActionTypes.FOCUS_WINDOW:
+    case ActionTypes.FOCUS_WINDOW:
       return {
         ...state,
         focusedWindowId: action.windowId,

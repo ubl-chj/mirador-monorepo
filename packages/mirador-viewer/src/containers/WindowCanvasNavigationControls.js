@@ -9,12 +9,12 @@ import { withPlugins } from '../extend';
 
 /** */
 const mapStateToProps = (state, { windowId }) => ({
-  window: state.windows[windowId],
-  canvasLabel: getCanvasLabel(
-    getSelectedCanvas(state, { windowId }),
-    state.windows[windowId].canvasIndex,
-  ),
+  canvasLabel: getCanvasLabel(state, {
+    canvasIndex: 'selected',
+    windowId,
+  }),
   visible: state.workspace.focusedWindowId === windowId,
+  window: state.windows[windowId],
 });
 
 const enhance = compose(

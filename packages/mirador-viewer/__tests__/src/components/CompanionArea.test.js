@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import MiradorMenuButton from '../../../src/containers/MiradorMenuButton';
 import { CompanionArea } from '../../../src/components/CompanionArea';
 import CompanionWindowFactory from '../../../src/containers/CompanionWindowFactory';
 
@@ -11,8 +12,14 @@ function createWrapper(props) {
       windowId="abc123"
       position="right"
       companionWindows={[
-        { position: 'right', id: 'foo' },
-        { position: 'right', id: 'baz' },
+        {
+          id: 'foo',
+          position: 'right',
+        },
+        {
+          id: 'baz',
+          position: 'right',
+        },
       ]}
       t={key => key}
       {...props}
@@ -42,16 +49,19 @@ describe('CompanionArea', () => {
     const setCompanionAreaOpen = jest.fn();
 
     const wrapper = createWrapper({
-      position: 'left', sideBarOpen: true, setCompanionAreaOpen, companionAreaOpen: false,
+      companionAreaOpen: false,
+      position: 'left',
+      setCompanionAreaOpen,
+      sideBarOpen: true,
     });
 
-    expect(wrapper.find('MiradorMenuButton').length).toBe(1);
-    expect(wrapper.find('MiradorMenuButton').first().children('pure(ArrowRightSharpIcon)').length).toBe(1);
+    expect(wrapper.find(MiradorMenuButton).length).toBe(1);
+    expect(wrapper.find(MiradorMenuButton).first().children('pure(ArrowRightSharpIcon)').length).toBe(1);
 
     expect(wrapper.find('div.mirador-companion-windows').length).toBe(1);
     expect(wrapper.find('div.mirador-companion-windows').props().style.display).toBe('none');
 
-    wrapper.find('MiradorMenuButton').first().props().onClick(); // Trigger the onClick prop
+    wrapper.find(MiradorMenuButton).first().props().onClick(); // Trigger the onClick prop
 
     expect(setCompanionAreaOpen).toHaveBeenCalledWith('abc123', true);
   });
@@ -60,33 +70,42 @@ describe('CompanionArea', () => {
     const setCompanionAreaOpen = jest.fn();
 
     const wrapper = createWrapper({
-      position: 'left', sideBarOpen: true, setCompanionAreaOpen, companionAreaOpen: true,
+      companionAreaOpen: true,
+      position: 'left',
+      setCompanionAreaOpen,
+      sideBarOpen: true,
     });
 
-    expect(wrapper.find('MiradorMenuButton').length).toBe(1);
-    expect(wrapper.find('MiradorMenuButton').first().children('pure(ArrowLeftSharpIcon)').length).toBe(1);
+    expect(wrapper.find(MiradorMenuButton).length).toBe(1);
+    expect(wrapper.find(MiradorMenuButton).first().children('pure(ArrowLeftSharpIcon)').length).toBe(1);
 
     expect(wrapper.find('div.mirador-companion-windows').length).toBe(1);
     expect(wrapper.find('div.mirador-companion-windows').props().style.display).toBe('flex');
 
-    wrapper.find('MiradorMenuButton').first().props().onClick(); // Trigger the onClick prop
+    wrapper.find(MiradorMenuButton).first().props().onClick(); // Trigger the onClick prop
 
     expect(setCompanionAreaOpen).toHaveBeenCalledWith('abc123', false);
   });
 
   it('does not show a toggle if the sidebar is collapsed', () => {
     const wrapper = createWrapper({
-      position: 'left', sideBarOpen: false, setCompanionAreaOpen: () => {}, companionAreaOpen: true,
+      companionAreaOpen: true,
+      position: 'left',
+      setCompanionAreaOpen: () => {},
+      sideBarOpen: false,
     });
 
-    expect(wrapper.find('MiradorMenuButton').length).toBe(0);
+    expect(wrapper.find(MiradorMenuButton).length).toBe(0);
   });
 
   it('does not show a toggle in other positions', () => {
     const wrapper = createWrapper({
-      position: 'whatever', sideBarOpen: true, setCompanionAreaOpen: () => {}, companionAreaOpen: true,
+      companionAreaOpen: true,
+      position: 'whatever',
+      setCompanionAreaOpen: () => {},
+      sideBarOpen: true,
     });
 
-    expect(wrapper.find('MiradorMenuButton').length).toBe(0);
+    expect(wrapper.find(MiradorMenuButton).length).toBe(0);
   });
 });

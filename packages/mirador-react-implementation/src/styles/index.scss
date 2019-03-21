@@ -33,7 +33,13 @@
   }
 
   &-companion-window-header {
+    background: $surface-dark;
     flex-wrap: wrap;
+  }
+
+  &-companion-window-title-controls {
+    flex-grow: 1;
+    order: 1000;
   }
 
   &-companion-window-bottom {
@@ -105,12 +111,14 @@
     position: relative;
   }
 
-  div + &-osd-navigation:before {
-    content: '|';
-    color: $gray;
-    position: absolute;
-    font-size: 24px;
-    top: 12px;
+  div + &-osd-navigation {
+    &::before {
+        content: '|';
+        color: $gray;
+        position: absolute;
+        font-size: 24px;
+        top: 12px;
+    }
   }
 
   &-osd-navigation {
@@ -118,7 +126,12 @@
   }
 
   &-osd-info {
-    order: 2
+    order: 2;
+    overflow: hidden;
+    padding-bottom: 3px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
   }
 
   &-canvas-nav {
@@ -161,7 +174,7 @@
     max-width: 100px;
     height: 160px;
     overflow: hidden;
-    text-overflow: elipsis;
+    text-overflow: ellipsis;
     margin: 10px 5px;
     padding: 5px;
     box-sizing: border-box;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import MiradorMenuButton from '../../../src/containers/MiradorMenuButton';
 import { CompanionWindow } from '../../../src/components/CompanionWindow';
 
 /** create wrapper */
@@ -23,11 +24,11 @@ describe('CompanionWindow', () => {
     it('passes the the updateCompanionWindow prop to MiradorMenuButton with the appropriate args', () => {
       const updateCompanionWindow = jest.fn();
       companionWindow = createWrapper({
-        updateCompanionWindow,
         position: 'left',
+        updateCompanionWindow,
       });
 
-      const button = companionWindow.find('MiradorMenuButton');
+      const button = companionWindow.find(MiradorMenuButton);
       button.props().onClick(); // Trigger the onClick prop
       expect(updateCompanionWindow).toHaveBeenCalledTimes(1);
       expect(updateCompanionWindow).toHaveBeenCalledWith('x', 'abc123', { position: 'right' });
@@ -41,7 +42,7 @@ describe('CompanionWindow', () => {
         onCloseClick: removeCompanionWindowEvent,
       });
 
-      const button = companionWindow.find('MiradorMenuButton');
+      const button = companionWindow.find(MiradorMenuButton);
       button.props().onClick(); // Trigger the onClick prop
       expect(removeCompanionWindowEvent).toHaveBeenCalledTimes(1);
     });
@@ -49,11 +50,14 @@ describe('CompanionWindow', () => {
 
   describe('when the companion window is on the right', () => {
     const updateCompanionWindow = jest.fn();
-    companionWindow = createWrapper({ updateCompanionWindow, position: 'right' });
+    companionWindow = createWrapper({
+      position: 'right',
+      updateCompanionWindow,
+    });
 
     expect(companionWindow.find('WithStyles(Paper).vertical').length).toBe(1);
 
-    const button = companionWindow.find('MiradorMenuButton').first();
+    const button = companionWindow.find(MiradorMenuButton).first();
     button.props().onClick(); // Trigger the onClick prop
     expect(updateCompanionWindow).toHaveBeenCalledTimes(1);
     expect(updateCompanionWindow).toHaveBeenCalledWith('x', 'abc123', { position: 'bottom' });
@@ -61,11 +65,14 @@ describe('CompanionWindow', () => {
 
   describe('when the companion window is on the bottom', () => {
     const updateCompanionWindow = jest.fn();
-    companionWindow = createWrapper({ updateCompanionWindow, position: 'bottom' });
+    companionWindow = createWrapper({
+      position: 'bottom',
+      updateCompanionWindow,
+    });
 
     expect(companionWindow.find('WithStyles(Paper).horizontal').length).toBe(1);
 
-    const button = companionWindow.find('MiradorMenuButton').first();
+    const button = companionWindow.find(MiradorMenuButton).first();
     button.props().onClick(); // Trigger the onClick prop
     expect(updateCompanionWindow).toHaveBeenCalledTimes(1);
     expect(updateCompanionWindow).toHaveBeenCalledWith('x', 'abc123', { position: 'right' });

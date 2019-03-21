@@ -7,9 +7,9 @@ describe('canvas actions', () => {
     it('sets to a defined canvas', () => {
       const id = 'abc123';
       const expectedAction = {
+        canvasIndex: 100,
         type: ActionTypes.SET_CANVAS,
         windowId: id,
-        canvasIndex: 100,
       };
       expect(setCanvas(id, 100)).toEqual(expectedAction);
     });
@@ -23,13 +23,13 @@ describe('canvas actions', () => {
             time: debounceTime,
           },
         },
-        type: ActionTypes.UPDATE_VIEWPORT,
-        windowId: id,
         payload: {
           x: 1,
           y: 0,
           zoom: 0.5,
         },
+        type: ActionTypes.UPDATE_VIEWPORT,
+        windowId: id,
       };
       expect(updateViewport(id, { x: 1, y: 0, zoom: 0.5 })).toEqual(expectedAction);
     });

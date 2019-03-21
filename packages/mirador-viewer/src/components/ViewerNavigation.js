@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import NavigationIcon from '@material-ui/icons/PlayCircleOutlineSharp';
 import PropTypes from 'prop-types';
-import { MiradorMenuButton } from './MiradorMenuButton';
+import MiradorMenuButton from '../containers/MiradorMenuButton';
 import ns from '../config/css-ns';
 
 /**
@@ -92,6 +92,6 @@ export class ViewerNavigation extends Component {
 ViewerNavigation.propTypes = {
   canvases: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
   setCanvas: PropTypes.func.isRequired,
-  window: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   t: PropTypes.func.isRequired,
+  window: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
 };

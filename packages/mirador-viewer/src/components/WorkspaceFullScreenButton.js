@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import FullscreenIcon from '@material-ui/icons/FullscreenSharp';
 import FullscreenExitIcon from '@material-ui/icons/FullscreenExitSharp';
 import PropTypes from 'prop-types';
-import { MiradorMenuButton } from './MiradorMenuButton';
+import MiradorMenuButton from '../containers/MiradorMenuButton';
 /**
  */
 export class WorkspaceFullScreenButton extends Component {
@@ -26,9 +26,9 @@ export class WorkspaceFullScreenButton extends Component {
 }
 
 WorkspaceFullScreenButton.propTypes = {
+  classes: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   isFullscreenEnabled: PropTypes.bool,
   setWorkspaceFullscreen: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   t: PropTypes.func,
 };
 

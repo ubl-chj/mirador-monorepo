@@ -19,22 +19,22 @@ const mapDispatchToProps = { setWindowThumbnailPosition };
  * @memberof WindowViewer
  * @private
  */
-const mapStateToProps = (state, props) => (
+const mapStateToProps = (state, { windowId }) => (
   {
-    thumbnailNavigationPosition: getThumbnailNavigationPosition(state, props.windowId),
+    thumbnailNavigationPosition: getThumbnailNavigationPosition(state, { windowId }),
   }
 );
 
 /** */
 const styles = theme => ({
-  selectedLabel: {
-    color: theme.palette.text.primary,
+  MenuItem: {
+    display: 'inline',
   },
   optionLabel: {
     color: theme.palette.text.secondary,
   },
-  MenuItem: {
-    display: 'inline',
+  selectedLabel: {
+    color: theme.palette.text.primary,
   },
 });
 

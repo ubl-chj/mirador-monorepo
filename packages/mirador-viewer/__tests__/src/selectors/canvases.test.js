@@ -1,37 +1,39 @@
+import manifestFixture001 from '../../fixtures/version-2/001.json';
 import manifestFixture019 from '../../fixtures/version-2/019.json';
 import {
   getSelectedCanvas,
   getSelectedCanvases,
+  getCanvasLabel,
 } from '../../../src/state/selectors/canvases';
 
 describe('getSelectedCanvas', () => {
   const state = {
-    windows: {
-      a: {
-        id: 'a',
-        manifestId: 'x',
-        canvasIndex: 1,
-      },
-    },
     manifests: {
       x: {
         id: 'x',
         json: manifestFixture019,
       },
     },
+    windows: {
+      a: {
+        canvasIndex: 1,
+        id: 'a',
+        manifestId: 'x',
+      },
+    },
   };
 
   const noManifestationState = {
-    windows: {
-      a: {
-        id: 'a',
-        manifestId: 'x',
-        canvasIndex: 1,
-      },
-    },
     manifests: {
       x: {
         id: 'x',
+      },
+    },
+    windows: {
+      a: {
+        canvasIndex: 1,
+        id: 'a',
+        manifestId: 'x',
       },
     },
   };
@@ -53,33 +55,33 @@ describe('getSelectedCanvas', () => {
 
 describe('getSelectedCanvases', () => {
   const state = {
-    windows: {
-      a: {
-        id: 'a',
-        manifestId: 'x',
-        canvasIndex: 1,
-        view: 'book',
-      },
-    },
     manifests: {
       x: {
         id: 'x',
         json: manifestFixture019,
       },
     },
+    windows: {
+      a: {
+        canvasIndex: 1,
+        id: 'a',
+        manifestId: 'x',
+        view: 'book',
+      },
+    },
   };
 
   const noManifestationState = {
-    windows: {
-      a: {
-        id: 'a',
-        manifestId: 'x',
-        canvasIndex: 1,
-      },
-    },
     manifests: {
       x: {
         id: 'x',
+      },
+    },
+    windows: {
+      a: {
+        canvasIndex: 1,
+        id: 'a',
+        manifestId: 'x',
       },
     },
   };
@@ -98,5 +100,49 @@ describe('getSelectedCanvases', () => {
     const selectedCanvas = getSelectedCanvases(noManifestationState, { windowId: 'a' });
 
     expect(selectedCanvas).toBeUndefined();
+  });
+});
+
+describe('getCanvasLabel', () => {
+  it('should return label of the canvas', () => {
+    const state = { manifests: { a: { json: manifestFixture001 } } };
+    const received = getCanvasLabel(state, {
+      canvasIndex: 0,
+      manifestId: 'a',
+    });
+    expect(received).toBe('Whole Page');
+  });
+
+  it('should return undefined if the canvas is undefined', () => {
+    const state = { manifests: { } };
+    expect(getCanvasLabel(state, {
+      canvasIndex: 0,
+      manifestId: 'b',
+    })).toBeUndefined();
+  });
+
+  it('should return the canvas index as (+1) as string if no label given', () => {
+    const manifest = {
+      '@context': 'http://iiif.io/api/presentation/2/context.json',
+      '@id':
+       'http://iiif.io/api/presentation/2.1/example/fixtures/19/manifest.json',
+      '@type': 'sc:Manifest',
+      sequences: [
+        {
+          canvases: [
+            {
+              '@id': 'some-canvas-without-a-label',
+            },
+          ],
+        },
+      ],
+    };
+
+    const state = { manifests: { a: { json: manifest } } };
+    const received = getCanvasLabel(state, {
+      canvasIndex: 0,
+      manifestId: 'a',
+    });
+    expect(received).toBe('1');
   });
 });

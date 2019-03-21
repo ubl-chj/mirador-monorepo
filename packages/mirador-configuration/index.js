@@ -155,6 +155,8 @@ const rootConfig = {
   translations: {
   },
   window: {
+    allowClose: true, // Configure if windows can be closed or not
+    allowMaximize: true,
     defaultView: 'single',
   },
   windows: [],

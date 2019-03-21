@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
 import ThumbnailNavigationBottomIcon from './icons/ThumbnailNavigationBottomIcon';
 import ThumbnailNavigationRightIcon from './icons/ThumbnailNavigationRightIcon';
-import { MiradorMenuButton } from './MiradorMenuButton';
+import MiradorMenuButton from '../containers/MiradorMenuButton';
 import ns from '../config/css-ns';
 
 /**
@@ -87,28 +87,28 @@ export class CompanionWindow extends Component {
 }
 
 CompanionWindow.propTypes = {
+  children: PropTypes.node,
   classes: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types,
-  paperClassName: PropTypes.string,
   id: PropTypes.string.isRequired,
-  onCloseClick: PropTypes.func,
-  updateCompanionWindow: PropTypes.func,
-  position: PropTypes.string,
   isDisplayed: PropTypes.bool,
+  onCloseClick: PropTypes.func,
+  paperClassName: PropTypes.string,
+  position: PropTypes.string,
   t: PropTypes.func,
   title: PropTypes.string,
   titleControls: PropTypes.node,
+  updateCompanionWindow: PropTypes.func,
   windowId: PropTypes.string.isRequired,
-  children: PropTypes.node,
 };
 
 CompanionWindow.defaultProps = {
-  paperClassName: '',
-  onCloseClick: () => {},
-  updateCompanionWindow: undefined,
-  isDisplayed: false,
-  position: null,
-  title: null,
-  t: key => key,
   children: undefined,
+  isDisplayed: false,
+  onCloseClick: () => {},
+  paperClassName: '',
+  position: null,
+  t: key => key,
+  title: null,
   titleControls: null,
+  updateCompanionWindow: undefined,
 };

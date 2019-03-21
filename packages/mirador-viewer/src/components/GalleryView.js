@@ -52,8 +52,8 @@ export class GalleryView extends Component {
                     maxWidth={100}
                     aspectRatio={manifestoCanvas.aspectRatio}
                   />
-                  <Typography variant='caption'>
-                    {getCanvasLabel(canvas, canvas.index)}
+                  <Typography variant="caption">
+                    {manifestoCanvas.getLabel()}
                   </Typography>
                 </div>
               );
@@ -67,6 +67,6 @@ export class GalleryView extends Component {
 
 GalleryView.propTypes = {
   canvases: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
-  window: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   setCanvas: PropTypes.func.isRequired,
+  window: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
 };

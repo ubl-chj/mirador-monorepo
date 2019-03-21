@@ -20,14 +20,11 @@ import { withPlugins } from '../extend';
  * @private
  */
 const mapStateToProps = (state, { windowId }) => ({
-  canvasLabel: getCanvasLabel(
-    getSelectedCanvas(state, { windowId }),
-    state.windows[windowId].canvasIndex,
-  ),
-  canvasDescription: getCanvasDescription(getSelectedCanvas(state, { windowId })),
+  canvasDescription: getCanvasDescription(state, { canvasIndex: 'selected', windowId }),
+  canvasLabel: getCanvasLabel(state, { canvasIndex: 'selected', windowId }),
   canvasMetadata: getDestructuredMetadata(getSelectedCanvas(state, { windowId })),
-  manifestLabel: getManifestTitle(state, { windowId }),
   manifestDescription: getManifestDescription(state, { windowId }),
+  manifestLabel: getManifestTitle(state, { windowId }),
   manifestMetadata: getManifestMetadata(state, { windowId }),
 });
 

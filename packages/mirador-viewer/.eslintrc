@@ -60,7 +60,12 @@
     "strict": [
       2,
       "never"
-    ]
+    ],
+    "react/prefer-stateless-function": "off",
+    "sort-keys": ["error", "asc", {
+      "caseSensitive": false,
+      "natural": false
+    }]
   },
   "plugins": [
     "babel",

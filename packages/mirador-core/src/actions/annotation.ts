@@ -75,7 +75,10 @@ export function fetchAnnotation(canvasId, annotationId) {
  */
 export function selectAnnotation(windowId, canvasId, annotationId) {
   return {
-    type: ActionTypes.SELECT_ANNOTATION, windowId, canvasId, annotationId,
+    annotationId,
+    canvasId,
+    type: ActionTypes.SELECT_ANNOTATION,
+    windowId,
   };
 }
 
@@ -89,6 +92,21 @@ export function selectAnnotation(windowId, canvasId, annotationId) {
  */
 export function deselectAnnotation(windowId, canvasId, annotationId) {
   return {
-    type: ActionTypes.DESELECT_ANNOTATION, windowId, canvasId, annotationId,
+    annotationId,
+    canvasId,
+    type: ActionTypes.DESELECT_ANNOTATION,
+    windowId,
+  };
+}
+
+/**
+ * toggleAnnotationDisplay - action creator
+ *
+ * @param  {String} windowId
+ * @memberof ActionCreators
+ */
+export function toggleAnnotationDisplay(windowId) {
+  return {
+    type: ActionTypes.TOGGLE_ANNOTATION_DISPLAY, windowId,
   };
 }

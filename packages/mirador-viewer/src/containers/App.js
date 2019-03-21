@@ -11,10 +11,10 @@ import { withPlugins } from '../extend';
  */
 const mapStateToProps = state => (
   {
+    isFullscreenEnabled: state.workspace.isFullscreenEnabled,
     language: state.config.language,
     theme: state.config.theme,
     translations: state.config.translations,
-    isFullscreenEnabled: state.workspace.isFullscreenEnabled,
   }
 );
 

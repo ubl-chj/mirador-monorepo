@@ -9,11 +9,11 @@ import { withPlugins } from '../extend';
 
 /** mapStateToProps */
 const mapStateToProps = (state, { windowId }) => ({
-  manifestTitle: getManifestTitle(state, { windowId }),
-  maximized: state.windows[windowId].maximized,
-  focused: state.workspace.focusedWindowId === windowId,
   allowClose: state.config.window.allowClose,
   allowFullscreen: state.config.window.allowFullscreen,
+  focused: state.workspace.focusedWindowId === windowId,
+  manifestTitle: getManifestTitle(state, { windowId }),
+  maximized: state.windows[windowId].maximized,
 });
 
 /**
@@ -22,9 +22,9 @@ const mapStateToProps = (state, { windowId }) => ({
  * @private
  */
 const mapDispatchToProps = (dispatch, { windowId }) => ({
-  removeWindow: () => dispatch(removeWindow(windowId)),
   maximizeWindow: () => dispatch(maximizeWindow(windowId)),
   minimizeWindow: () => dispatch(minimizeWindow(windowId)),
+  removeWindow: () => dispatch(removeWindow(windowId)),
   toggleWindowSideBar: () => dispatch(toggleWindowSideBar(windowId)),
 });
 
@@ -34,20 +34,19 @@ const mapDispatchToProps = (dispatch, { windowId }) => ({
  * windowTopBarStyle: {minHeight: number, paddingLeft: number, backgroundColor: string}}}
  */
 const styles = theme => ({
+  focused: {
+    borderTop: `4px solid ${theme.palette.focused.main}`,
+  },
   title: {
     ...theme.typography.h6,
     flexGrow: 1,
     paddingLeft: theme.spacing.unit / 2,
   },
   windowTopBarStyle: {
+    backgroundColor: theme.palette.primary.light,
     minHeight: 32,
     paddingLeft: theme.spacing.unit / 2,
     paddingRight: theme.spacing.unit / 2,
-    backgroundColor: theme.palette.primary.light,
-    borderTop: '4px solid transparent',
-  },
-  focused: {
-    borderTop: `4px solid ${theme.palette.focused.main}`,
   },
 });
 

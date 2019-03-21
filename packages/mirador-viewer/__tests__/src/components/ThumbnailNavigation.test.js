@@ -15,8 +15,8 @@ function createWrapper(props) {
       }
       classes={{}}
       window={{
-        id: 'foobar',
         canvasIndex: 1,
+        id: 'foobar',
       }}
       config={{ thumbnailNavigation: { height: 150, width: 100 } }}
       position="far-bottom"
@@ -64,8 +64,7 @@ describe('ThumbnailNavigation', () => {
     expect(setCanvas).toHaveBeenCalledWith('foobar', 0);
   });
   it('sets up calculated width based off of height of area and dimensions of canvas', () => {
-    expect(renderedGrid.find('.mirador-thumbnail-nav-container').first().prop('style').width).toEqual(108);
-    expect(renderedGrid.find('.mirador-thumbnail-nav-canvas').first().prop('style').width).toEqual(100);
+    expect(renderedGrid.find('.mirador-thumbnail-nav-container').first().prop('style').width).toEqual(95);
   });
   it('renders canvas thumbnails', () => {
     expect(renderedGrid.find('CanvasThumbnail').length).toBe(3);
@@ -79,8 +78,8 @@ describe('ThumbnailNavigation', () => {
   });
   it('renders containers based off of canvas groupings ', () => {
     wrapper = createWrapper({
-      setCanvas,
       canvasGroupings: new CanvasGroupings(manifesto.create(manifestJson).getSequences()[0].getCanvases(), 'book'),
+      setCanvas,
     });
     grid = wrapper.find('AutoSizer')
       .dive()
@@ -95,8 +94,8 @@ describe('ThumbnailNavigation', () => {
     wrapper.instance().gridRef = { current: { recomputeGridSize: mockRecompute } };
     wrapper.setProps({
       window: {
-        id: 'foobar',
         canvasIndex: 1,
+        id: 'foobar',
         thumbnailNavigationPosition: 'bottom',
         view: 'book',
       },
@@ -105,11 +104,14 @@ describe('ThumbnailNavigation', () => {
   });
   describe('calculating instance methods', () => {
     beforeEach(() => {
-      rightWrapper = createWrapper({ setCanvas, position: 'far-right' });
+      rightWrapper = createWrapper({
+        position: 'far-right',
+        setCanvas,
+      });
     });
     it('style', () => {
       expect(wrapper.instance().style()).toMatchObject({ height: '150px', width: '100%' });
-      expect(rightWrapper.instance().style()).toMatchObject({ height: '100%', width: '100px' });
+      expect(rightWrapper.instance().style()).toMatchObject({ height: '100%', width: '131px' });
     });
     it('rightWidth', () => {
       expect(wrapper.instance().rightWidth()).toEqual(100);
@@ -117,8 +119,8 @@ describe('ThumbnailNavigation', () => {
       wrapper.instance().gridRef = { current: { recomputeGridSize: mockRecompute } };
       wrapper.setProps({
         window: {
-          id: 'foobar',
           canvasIndex: 1,
+          id: 'foobar',
           thumbnailNavigationPosition: 'bottom',
           view: 'book',
         },
@@ -126,12 +128,12 @@ describe('ThumbnailNavigation', () => {
       expect(wrapper.instance().rightWidth()).toEqual(200);
     });
     it('calculateScaledWidth', () => {
-      expect(wrapper.instance().calculateScaledWidth({ index: 0 })).toEqual(108);
-      expect(rightWrapper.instance().calculateScaledWidth({ index: 0 })).toEqual(100);
+      expect(wrapper.instance().calculateScaledWidth({ index: 0 })).toEqual(95);
+      expect(rightWrapper.instance().calculateScaledWidth({ index: 0 })).toEqual(116);
     });
     it('calculateScaledHeight', () => {
-      expect(wrapper.instance().calculateScaledHeight({ index: 0 })).toEqual(150);
-      expect(rightWrapper.instance().calculateScaledHeight({ index: 0 })).toEqual(150);
+      expect(wrapper.instance().calculateScaledHeight({ index: 0 })).toEqual(135);
+      expect(rightWrapper.instance().calculateScaledHeight({ index: 0 })).toEqual(166);
     });
 
     it('columnCount', () => {

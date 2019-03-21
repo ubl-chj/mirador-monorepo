@@ -12,11 +12,11 @@ import { focusWindow, getManifestTitle, getThumbnailNavigationPosition } from '@
  * @private
  */
 const mapStateToProps = (state, props) => ({
+  label: getManifestTitle(state, { windowId: props.window.id }),
   manifest: state.manifests[props.window.manifestId],
+  thumbnailNavigationPosition: getThumbnailNavigationPosition(state, { windowId: props.window.id }),
   window: state.windows[props.window.id],
   workspaceType: state.config.workspace.type,
-  label: getManifestTitle(state, { windowId: props.window.id }),
-  thumbnailNavigationPosition: getThumbnailNavigationPosition(state, props.window.id),
 });
 
 /**
@@ -32,32 +32,10 @@ const mapDispatchToProps = (dispatch, { window }) => ({
  * @param theme
  */
 const styles = theme => ({
-  window: {
-    backgroundColor: theme.palette.primary.dark,
+  companionAreaBottom: {
     display: 'flex',
-    flexDirection: 'column',
-    height: '100%',
-    width: '100%',
-    minHeight: 0,
-    overflow: 'hidden',
-  },
-  middle: {
-    display: 'flex',
-    flexDirection: 'row',
-    flex: '1',
-    minHeight: 0,
-  },
-  middleLeft: {
-    display: 'flex',
-    flexDirection: 'column',
-    flex: '1',
-    minHeight: 0,
-  },
-  primaryWindow: {
-    display: 'flex',
-    flex: '1',
-    position: 'relative',
-    height: '300px',
+    flex: '0',
+    flexBasis: 'auto',
     minHeight: 0,
   },
   companionAreaRight: {
@@ -65,11 +43,24 @@ const styles = theme => ({
     flex: '0',
     minHeight: 0,
   },
-  companionAreaBottom: {
+  middle: {
     display: 'flex',
-    flex: '0',
+    flex: '1',
+    flexDirection: 'row',
     minHeight: 0,
-    flexBasis: 'auto',
+  },
+  middleLeft: {
+    display: 'flex',
+    flex: '1',
+    flexDirection: 'column',
+    minHeight: 0,
+  },
+  primaryWindow: {
+    display: 'flex',
+    flex: '1',
+    height: '300px',
+    minHeight: 0,
+    position: 'relative',
   },
   thumbnailArea: {
     backgroundColor: theme.palette.primary.dark,
@@ -78,6 +69,15 @@ const styles = theme => ({
   },
   thumbnailAreaRight: {
     minWidth: 100,
+  },
+  window: {
+    backgroundColor: theme.palette.primary.dark,
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
+    minHeight: 0,
+    overflow: 'hidden',
+    width: '100%',
   },
 });
 

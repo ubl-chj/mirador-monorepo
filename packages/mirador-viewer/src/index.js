@@ -6,10 +6,10 @@ import * as selectors from './state/selectors';
 export * from './components';
 
 const exports = {
-  App,
-  viewer: init,
   actions,
+  App,
   selectors,
+  viewer: init,
 };
 
 export default exports;

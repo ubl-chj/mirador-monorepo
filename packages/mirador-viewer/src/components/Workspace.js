@@ -82,7 +82,7 @@ export class Workspace extends React.Component {
 
 Workspace.propTypes = {
   isWorkspaceControlPanelVisible: PropTypes.bool.isRequired,
+  t: PropTypes.func.isRequired,
   windows: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   workspaceType: PropTypes.string.isRequired, // eslint-disable-line react/forbid-prop-types
-  t: PropTypes.func.isRequired,
 };

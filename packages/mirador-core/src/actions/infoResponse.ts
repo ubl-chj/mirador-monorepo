@@ -64,5 +64,5 @@ export function fetchInfoResponse(infoId) {
  * @memberof ActionCreators
  */
 export function removeInfoResponse(infoId) {
-  return { type: ActionTypes.REMOVE_INFO_RESPONSE, infoId }
+  return { infoId, type: ActionTypes.REMOVE_INFO_RESPONSE };
 }

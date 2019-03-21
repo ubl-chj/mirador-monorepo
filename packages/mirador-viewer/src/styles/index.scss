@@ -77,10 +77,8 @@
 
   &-workspace-add {
     height: 100%;
-    overflow: auto;
-    padding-left: 6px;
-    padding-right: 6px;
-    padding-top: 92px;
+    overflow: hidden auto;
+    padding-top: 68px;
   }
 
   @media (min-width: 600px) {
@@ -91,7 +89,7 @@
 
     &-workspace-add {
       padding-left: 68px;
-      padding-top: 18px;
+      padding-top: 0;
     }
   }
 
@@ -103,25 +101,25 @@
 
   &-gallery-container {
     flex: 1;
-    overflow-y: scroll;
     overflow-x: hidden;
+    overflow-y: scroll;
     padding: 50px 0 50px 20px;
   }
 
   &-gallery-view-item {
-    display: inline-block;
-    max-width: 100px;
-    height: 160px;
-    overflow: hidden;
-    text-overflow: elipsis;
-    margin: 10px 5px;
-    padding: 5px;
     box-sizing: border-box;
     cursor: pointer;
-    transition: 0.1s transform ease-out;
+    display: inline-block;
+    height: 160px;
+    margin: 10px 5px;
+    max-width: 100px;
+    overflow: hidden;
+    padding: 5px;
+    text-overflow: elipsis;
+    transition: .1s transform ease-out;
 
     span {
-      text-align: 'center',
+      text-align: 'center';
     }
 
     &.current-canvas {
@@ -130,10 +128,10 @@
     }
 
     &:hover {
-      transition: 0.1s transform ease-out;
-      transform: scale(1.05);
       border: 2px solid deepskyblue;
       padding: 3px;
+      transition: .1s transform ease-out;
+      transform: scale(.05);
     }
 
     &:focus {
@@ -183,22 +181,13 @@
   }
 
   &-thumb-navigation {
-
-    .mirador-thumbnail-nav-canvas {
-      border: 1px solid $black;
-      color: $white;
-      cursor: pointer;
-      height: 100%;
-
-      &.mirador-current-canvas {
-        border: 3px solid $blue;
-      }
-    }
+    margin: 2px;
+    padding: 2px;
   }
 
   &-label-value-metadata {
     dd {
-      margin-bottom: 0.5em;
+      margin-bottom: .5em;
       margin-left: 0;
     }
   }

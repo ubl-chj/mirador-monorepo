@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import MoreVertIcon from '@material-ui/icons/MoreVertSharp';
 import PropTypes from 'prop-types';
 import WindowTopMenu from '../containers/WindowTopMenu';
-import { MiradorMenuButton } from './MiradorMenuButton';
+import MiradorMenuButton from '../containers/MiradorMenuButton';
 
 /**
  */
@@ -68,9 +68,9 @@ export class WindowTopMenuButton extends Component {
 }
 
 WindowTopMenuButton.propTypes = {
-  windowId: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   t: PropTypes.func,
+  windowId: PropTypes.string.isRequired,
 };
 
 WindowTopMenuButton.defaultProps = {

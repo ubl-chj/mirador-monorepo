@@ -10,7 +10,6 @@ import FormControl from '@material-ui/core/FormControl';
 import { CanvasThumbnail } from './CanvasThumbnail';
 import ManifestoCanvas from '../lib/ManifestoCanvas';
 import CompanionWindow from '../containers/CompanionWindow';
-import { getIdAndLabelOfCanvases } from '@mirador/core';
 
 /**
  * a panel showing the canvases for a given manifest
@@ -25,7 +24,22 @@ export class WindowSideBarCanvasPanel extends Component {
   }
 
   handleChange(event) {
-    this.setState({ variant: event.target.checked });
+    this.setState({variant: event.target.checked});
+  }
+
+  /** @private */
+  getIdAndLabelOfCanvases() {
+    const { canvases } = this.props;
+
+    return canvases.map((canvas, index) => ({
+      id: canvas.id,
+      label: new ManifestoCanvas(canvas).getLabel(),
+    }));
+  }
+
+  /** */
+  handleVariantChange(event) {
+    this.setState({ variant: event.target.value });
   }
 
   /** */
@@ -87,7 +101,7 @@ export class WindowSideBarCanvasPanel extends Component {
     const { variant } = this.state;
 
 
-    const canvasesIdAndLabel = getIdAndLabelOfCanvases(canvases);
+    const canvasesIdAndLabel = this.getIdAndLabelOfCanvases(canvases);
     return (
       <CompanionWindow
         title={t('canvasIndex')}
@@ -138,8 +152,8 @@ WindowSideBarCanvasPanel.propTypes = {
   canvases: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
   classes: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   config: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  id: PropTypes.string.isRequired,
   setCanvas: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
   windowId: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
 };

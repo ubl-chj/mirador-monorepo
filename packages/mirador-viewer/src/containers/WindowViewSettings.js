@@ -18,22 +18,22 @@ const mapDispatchToProps = { setWindowViewType };
  * @memberof WindowViewer
  * @private
  */
-const mapStateToProps = (state, props) => (
+const mapStateToProps = (state, { windowId }) => (
   {
-    windowViewType: getWindowViewType(state, props.windowId),
+    windowViewType: getWindowViewType(state, { windowId }),
   }
 );
 
 /** */
 const styles = theme => ({
+  MenuItem: {
+    display: 'inline',
+  },
   optionLabel: {
     color: theme.palette.text.secondary,
   },
   selectedLabel: {
     color: theme.palette.text.primary,
-  },
-  MenuItem: {
-    display: 'inline',
   },
 });
 

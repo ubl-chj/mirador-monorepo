@@ -12,8 +12,8 @@ import { fetchAnnotation, fetchInfoResponse, getManifestCanvases } from '@mirado
  */
 const mapStateToProps = (state, { window }) => (
   {
-    infoResponses: state.infoResponses,
     canvases: getManifestCanvases(state, { windowId: window.id }),
+    infoResponses: state.infoResponses,
   }
 );
 
