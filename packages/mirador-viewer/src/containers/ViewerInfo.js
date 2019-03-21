@@ -2,8 +2,8 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { ViewerInfo } from '../components/ViewerInfo';
-import { getCanvasLabel, getWindowManifest, getManifestCanvases } from '../state/selectors';
 import { withPlugins } from '../extend';
+import { getCanvasLabel, getManifestCanvases } from '@mirador/core';
 
 /**
  * mapStateToProps - to hook up connect
@@ -12,8 +12,7 @@ import { withPlugins } from '../extend';
  */
 const mapStateToProps = (state, props) => {
   const { windowId } = props;
-  const manifest = getWindowManifest(state, windowId);
-  const canvases = getManifestCanvases(manifest);
+  const canvases = getManifestCanvases(state, { windowId });
   const { canvasIndex } = state.windows[windowId];
 
   return {

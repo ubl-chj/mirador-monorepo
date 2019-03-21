@@ -1,7 +1,6 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from '@mirador/core';
-import { getLanguagesFromConfigWithCurrent } from '../state/selectors';
+import { getLanguagesFromConfigWithCurrent, updateConfig } from '@mirador/core';
 import { LanguageSettings } from '../components/LanguageSettings';
 import { withPlugins } from '../extend';
 
@@ -17,7 +16,7 @@ const mapStateToProps = state => ({
  */
 const mapDispatchToProps = (dispatch, { afterSelect }) => ({
   handleClick: (language) => {
-    dispatch(actions.updateConfig({ language }));
+    dispatch(updateConfig({ language }));
 
     afterSelect && afterSelect();
   },

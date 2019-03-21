@@ -1,9 +1,9 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from '@mirador/core';
 import { withTranslation } from 'react-i18next';
 import { withStyles } from '@material-ui/core/styles';
-import { getThumbnailNavigationPosition } from '../state/selectors';
+import { getThumbnailNavigationPosition,
+  setWindowThumbnailPosition } from '@mirador/core';
 import { WindowThumbnailSettings } from '../components/WindowThumbnailSettings';
 import { withPlugins } from '../extend';
 
@@ -12,7 +12,7 @@ import { withPlugins } from '../extend';
  * @memberof ManifestListItem
  * @private
  */
-const mapDispatchToProps = { setWindowThumbnailPosition: actions.setWindowThumbnailPosition };
+const mapDispatchToProps = { setWindowThumbnailPosition };
 
 /**
  * mapStateToProps - to hook up connect

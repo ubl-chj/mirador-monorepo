@@ -2,10 +2,9 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core';
 import { withTranslation } from 'react-i18next';
-import * as actions from '@mirador/core';
 import { Window } from '../components/Window';
-import { getWindowManifest, getManifestTitle, getThumbnailNavigationPosition } from '../state/selectors';
 import { withPlugins } from '../extend';
+import { focusWindow, getManifestTitle, getThumbnailNavigationPosition } from '@mirador/core';
 
 /**
  * mapStateToProps - used to hook up connect to action creators
@@ -16,7 +15,7 @@ const mapStateToProps = (state, props) => ({
   manifest: state.manifests[props.window.manifestId],
   window: state.windows[props.window.id],
   workspaceType: state.config.workspace.type,
-  label: getManifestTitle(getWindowManifest(state, props.window.id)),
+  label: getManifestTitle(state, { windowId: props.window.id }),
   thumbnailNavigationPosition: getThumbnailNavigationPosition(state, props.window.id),
 });
 
@@ -26,7 +25,7 @@ const mapStateToProps = (state, props) => ({
  * @private
  */
 const mapDispatchToProps = (dispatch, { window }) => ({
-  focusWindow: () => dispatch(actions.focusWindow(window.id)),
+  focusWindow: () => dispatch(focusWindow(window.id)),
 });
 
 /**

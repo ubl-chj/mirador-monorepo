@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import * as actions from '@mirador/core';
 import { withTranslation } from 'react-i18next';
-import { WindowList } from '../components/WindowList';
 import { withPlugins } from '../extend';
+import { focusWindow, getWindowTitles } from '@mirador/core';
+import { WindowList } from '../components/WindowList';
 
 /**
  * mapDispatchToProps - used to hook up connect to action creators
@@ -11,7 +11,7 @@ import { withPlugins } from '../extend';
  * @private
  */
 const mapDispatchToProps = {
-  focusWindow: actions.focusWindow,
+  focusWindow,
 };
 
 /**
@@ -22,8 +22,8 @@ const mapDispatchToProps = {
 const mapStateToProps = state => (
   {
     containerId: state.config.id,
+    titles: getWindowTitles(state),
     windows: state.windows,
-    manifests: state.manifests,
   }
 );
 

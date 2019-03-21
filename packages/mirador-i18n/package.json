@@ -1,0 +1,18 @@
+{
+  "name": "@mirador/i18n",
+  "version": "0.1.0",
+  "description": "mirador internationalization",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ubl-chj/mirador-monorepo"
+  },
+  "dependencies": {
+    "i18next": "^15.0.7",
+    "react-i18next": "^10.5.2"},
+  "author": "Christopher Johnson",
+  "license": "Apache-2.0"
+}

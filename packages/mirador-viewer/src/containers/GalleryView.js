@@ -1,16 +1,18 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from '@mirador/core';
 import { withPlugins } from '../extend';
 import { GalleryView } from '../components/GalleryView';
+import { getManifestCanvases, setCanvas } from '@mirador/core';
 
 /**
  * mapStateToProps - to hook up connect
  * @memberof WindowViewer
  * @private
  */
-const mapStateToProps = state => (
-  {}
+const mapStateToProps = (state, ownProps) => (
+  {
+    canvases: getManifestCanvases(state, { windowId: ownProps.window.id }),
+  }
 );
 
 /**
@@ -19,7 +21,7 @@ const mapStateToProps = state => (
  * @private
  */
 const mapDispatchToProps = {
-  setCanvas: actions.setCanvas,
+  setCanvas
 };
 
 const enhance = compose(

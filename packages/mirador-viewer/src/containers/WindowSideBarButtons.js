@@ -1,15 +1,15 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from '@mirador/core';
 import { withStyles } from '@material-ui/core';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withTranslation } from 'react-i18next';
 import {
+  addCompanionWindow,
   getCompanionWindowForPosition,
   getSelectedCanvas,
   getSelectedTargetAnnotations,
   getAnnotationResourcesByMotivation,
-} from '../state/selectors';
+} from '@mirador/core';
 import { WindowSideBarButtons } from '../components/WindowSideBarButtons';
 import { withPlugins } from '../extend';
 
@@ -20,7 +20,7 @@ import { withPlugins } from '../extend';
  */
 const mapDispatchToProps = (dispatch, { windowId }) => ({
   addCompanionWindow: content => dispatch(
-    actions.addCompanionWindow(windowId, { content, position: 'left' }),
+    addCompanionWindow(windowId, { content, position: 'left' }),
   ),
 });
 
@@ -32,7 +32,7 @@ const mapDispatchToProps = (dispatch, { windowId }) => ({
  */
 const mapStateToProps = (state, { windowId }) => ({
   hasAnnotations: getAnnotationResourcesByMotivation(
-    getSelectedTargetAnnotations(state, (getSelectedCanvas(state, windowId) || {}).id),
+    getSelectedTargetAnnotations(state, (getSelectedCanvas(state, { windowId }) || {}).id),
     ['oa:commenting', 'sc:painting'],
   ).length > 0,
   sideBarPanel: (getCompanionWindowForPosition(state, windowId, 'left') || {}).content,

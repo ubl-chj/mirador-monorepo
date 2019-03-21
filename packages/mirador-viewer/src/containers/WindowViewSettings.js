@@ -1,9 +1,8 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from '@mirador/core';
 import { withTranslation } from 'react-i18next';
 import { withStyles } from '@material-ui/core/styles';
-import { getWindowViewType } from '../state/selectors';
+import { getWindowViewType, setWindowViewType } from '@mirador/core';
 import { WindowViewSettings } from '../components/WindowViewSettings';
 import { withPlugins } from '../extend';
 
@@ -12,7 +11,7 @@ import { withPlugins } from '../extend';
  * @memberof ManifestListItem
  * @private
  */
-const mapDispatchToProps = { setWindowViewType: actions.setWindowViewType };
+const mapDispatchToProps = { setWindowViewType };
 
 /**
  * mapStateToProps - to hook up connect

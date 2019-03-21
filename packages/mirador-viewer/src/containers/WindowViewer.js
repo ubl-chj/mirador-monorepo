@@ -1,8 +1,9 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from '@mirador/core';
 import { WindowViewer } from '../components/WindowViewer';
 import { withPlugins } from '../extend';
+import { fetchAnnotation, fetchInfoResponse, getManifestCanvases } from '@mirador/core';
+
 
 /**
  * mapStateToProps - to hook up connect
@@ -12,6 +13,7 @@ import { withPlugins } from '../extend';
 const mapStateToProps = (state, { window }) => (
   {
     infoResponses: state.infoResponses,
+    canvases: getManifestCanvases(state, { windowId: window.id }),
   }
 );
 
@@ -21,8 +23,8 @@ const mapStateToProps = (state, { window }) => (
  * @private
  */
 const mapDispatchToProps = {
-  fetchAnnotation: actions.fetchAnnotation,
-  fetchInfoResponse: actions.fetchInfoResponse,
+  fetchAnnotation,
+  fetchInfoResponse,
 };
 
 

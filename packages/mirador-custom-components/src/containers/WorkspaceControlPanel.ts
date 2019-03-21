@@ -1,5 +1,5 @@
 import {Dispatch, bindActionCreators} from 'redux'
-import {focusWindow, setWorkspaceAddVisibility, setWorkspaceFullscreen, updateConfig} from '@mirador/core'
+import {focusWindow, getWindowTitles, setWorkspaceAddVisibility, setWorkspaceFullscreen, updateConfig} from '@mirador/core'
 import {WorkspaceControlPanelComponent} from '../components'
 import {connect} from 'react-redux'
 
@@ -29,6 +29,7 @@ const mapStateToProps = (state): any => (
     isWorkspaceAddVisible: state.workspace.isWorkspaceAddVisible,
     languages: getLanguagesFromConfigWithCurrent(state),
     manifests: state.manifests,
+    titles: getWindowTitles(state),
     theme: state.config.theme,
     windows: state.windows,
     workspaceType: state.config.workspace.type

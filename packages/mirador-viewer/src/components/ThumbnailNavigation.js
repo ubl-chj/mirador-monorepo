@@ -5,7 +5,7 @@ import Grid from 'react-virtualized/dist/commonjs/Grid';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import Typography from '@material-ui/core/Typography';
-import { getCanvasLabel } from '../state/selectors';
+import { getCanvasLabel } from '@mirador/core';
 import { CanvasThumbnail } from './CanvasThumbnail';
 import ManifestoCanvas from '../lib/ManifestoCanvas';
 import ns from '../config/css-ns';

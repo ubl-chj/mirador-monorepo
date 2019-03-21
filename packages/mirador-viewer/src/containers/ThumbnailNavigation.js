@@ -1,12 +1,11 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from '@mirador/core';
 import { withTranslation } from 'react-i18next';
 import { withStyles } from '@material-ui/core/styles';
 import CanvasGroupings from '../lib/CanvasGroupings';
 import { ThumbnailNavigation } from '../components/ThumbnailNavigation';
-import { getManifestCanvases, getWindowManifest } from '../state/selectors';
 import { withPlugins } from '../extend';
+import { getManifestCanvases, setCanvas } from '@mirador/core';
 
 /**
  * mapStateToProps - used to hook up state to props
@@ -17,9 +16,7 @@ const mapStateToProps = ({
   companionWindows, config, manifests, windows,
 }, { windowId }) => ({
   canvasGroupings: new CanvasGroupings(
-    getManifestCanvases(
-      getWindowManifest({ windows, manifests }, windowId),
-    ),
+    getManifestCanvases({ windows, manifests }, { windowId }),
     windows[windowId].view,
   ),
   position: companionWindows[windows[windowId].thumbnailNavigationId].position,
@@ -33,7 +30,7 @@ const mapStateToProps = ({
  * @private
  */
 const mapDispatchToProps = {
-  setCanvas: actions.setCanvas,
+  setCanvas,
 };
 
 /**

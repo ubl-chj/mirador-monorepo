@@ -2,8 +2,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core';
 import { withTranslation } from 'react-i18next';
-import { getCompanionWindowsOfWindow } from '../state/selectors';
-import * as actions from '@mirador/core';
+import { getCompanionWindowsOfWindow, setCompanionAreaOpen } from '@mirador/core';
 import { CompanionArea } from '../components/CompanionArea';
 import { withPlugins } from '../extend';
 
@@ -16,7 +15,7 @@ const mapStateToProps = (state, { windowId, position }) => ({
 });
 
 const mapDispatchToProps = ({
-  setCompanionAreaOpen: actions.setCompanionAreaOpen,
+  setCompanionAreaOpen,
 });
 
 /** */

@@ -1,8 +1,6 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '@mirador/core';
-import { withTranslation } from 'react-i18next';
-import { withStyles } from '@material-ui/core';
 import { WorkspaceMosaic } from '../components/WorkspaceMosaic';
 import { withPlugins } from '../extend';
 

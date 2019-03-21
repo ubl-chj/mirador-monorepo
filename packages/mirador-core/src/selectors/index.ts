@@ -1,101 +1,10 @@
 import filter from 'lodash/filter';
 import flatten from 'lodash/flatten';
-import { LanguageMap } from 'manifesto.js';
-import Annotation from '../../lib/Annotation';
-import ManifestoCanvas from '../../lib/ManifestoCanvas';
-import CanvasGroupings from '../../lib/CanvasGroupings';
+import Annotation from '../utils/Annotation';
 
-/**
-* Return the manifest that belongs to a certain window.
-* @param {object} state
-* @param {String} windowId
-* @return {object}
-*/
-export function getWindowManifest(state, windowId) {
-  return state.windows[windowId]
-    && state.windows[windowId].manifestId
-    && state.manifests[state.windows[windowId].manifestId];
-}
-
-/**
-* Return the logo of a manifest or null
-* @param {object} manifest
-* @return {String|null}
-*/
-export function getManifestLogo(manifest) {
-  return manifest.manifestation
-    && manifest.manifestation.getLogo();
-}
-
-/**
-* Return the IIIF v3 provider of a manifest or null
-* @param {object} manifest
-* @return {String|null}
-*/
-export function getManifestProvider(manifest) {
-  if (manifest && manifest.provider) {
-    return manifest.provider;
-  }
-
-  return manifest
-    && manifest.manifestation
-    && manifest.manifestation.getProperty('provider')
-    && manifest.manifestation.getProperty('provider')[0].label
-    && LanguageMap.parse(manifest.manifestation.getProperty('provider')[0].label, manifest.manifestation.options.locale).map(label => label.value)[0];
-}
-
-/**
-* Return the supplied thumbnail for a manifest or null
-* @param {object} manifest
-* @return {String|null}
-*/
-export function getManifestThumbnail(manifest) {
-  /** */
-  function getTopLevelManifestThumbnail() {
-    return manifest.manifestation
-      && manifest.manifestation.getThumbnail()
-      && manifest.manifestation.getThumbnail().id;
-  }
-
-  /** */
-  function getFirstCanvasThumbnail() {
-    const canvases = getManifestCanvases(manifest);
-
-    return canvases.length > 0 && canvases[0].getThumbnail() && canvases[0].getThumbnail().id;
-  }
-
-  /** */
-  function generateThumbnailFromFirstCanvas() {
-    const canvases = getManifestCanvases(manifest);
-
-    if (canvases.length === 0) return null;
-
-    const manifestoCanvas = new ManifestoCanvas(canvases[0]);
-
-    return manifestoCanvas.thumbnail(null, 80);
-  }
-
-  return getTopLevelManifestThumbnail()
-    || getFirstCanvasThumbnail()
-    || generateThumbnailFromFirstCanvas();
-}
-
-/**
-* Return the logo of a manifest or null
-* @param {object} manifest
-* @return {String|null}
-*/
-export function getManifestCanvases(manifest) {
-  if (!manifest.manifestation) {
-    return [];
-  }
-
-  if (!manifest.manifestation.getSequences || !manifest.manifestation.getSequences()[0]) {
-    return [];
-  }
-
-  return manifest.manifestation.getSequences()[0].getCanvases();
-}
+export * from './canvases';
+export * from './manifests';
+export * from './windows';
 
 /**
 * Return ids and labels of canvases
@@ -110,50 +19,12 @@ export function getIdAndLabelOfCanvases(canvases) {
 }
 
 /**
-* Return the current canvas selected in a window
-* @param {object} state
-* @param {String} windowId
-* @return {Object}
-*/
-export function getSelectedCanvas(state, windowId) {
-  const manifest = getWindowManifest(state, windowId);
-  const { canvasIndex } = state.windows[windowId];
-
-  return manifest
-    && manifest.manifestation
-    && manifest.manifestation
-      .getSequences()[0]
-      .getCanvasByIndex(canvasIndex);
-}
-
-/**
-* Return the current canvases selected in a window
-* For book view returns 2, for single returns 1
-* @param {object} state
-* @param {String} windowId
-* @return {Array}
-*/
-export function getSelectedCanvases(state, windowId) {
-  const manifest = getWindowManifest(state, windowId);
-  const { canvasIndex, view } = state.windows[windowId];
-  console.debug();
-
-  return manifest
-    && manifest.manifestation
-    && new CanvasGroupings(
-      manifest.manifestation.getSequences()[0].getCanvases(),
-      view,
-    ).getCanvases(canvasIndex);
-}
-
-
-/**
 * Return annotations for an array of targets
 * @param {object} state
 * @param {Array} targets
 * @return {Array}
 */
-export function getSelectedTargetsAnnotations(state, targets) {
+export function getSelectedTargetsAnnotations(state, targets) : any {
   const annotations = state.annotations
     && targets.map(target => getSelectedTargetAnnotations(state, target));
   if (!annotations) return [];
@@ -186,7 +57,7 @@ export function getSelectedTargetAnnotations(state, target) {
 * @return {Array}
 */
 export function getAnnotationResourcesByMotivation(annotations, motivations) {
-  const resources = flatten(annotations.map(annotation => annotation.resources));
+  const resources : any = flatten(annotations.map(annotation => annotation.resources));
 
   return filter(resources, resource => resource.motivations.some(
     motivation => motivations.includes(motivation),
@@ -198,7 +69,7 @@ export function getAnnotationResourcesByMotivation(annotations, motivations) {
  * @return {Array} [{ id: 'abc123', content: 'Annotation Content' }, ...]
  */
 export function getIdAndContentOfResources(resources) {
-  return resources.map((resource, i) => ({
+  return resources.map((resource) => ({
     id: resource.id,
     targetId: resource.targetId,
     content: resource.chars,
@@ -217,35 +88,16 @@ export function getThumbnailNavigationPosition(state, windowId) {
     && state.companionWindows[state.windows[windowId].thumbnailNavigationId].position;
 }
 
-/**
-* Return manifest title
-* @param {object} manifest
-* @return {String}
-*/
-export function getManifestTitle(manifest) {
-  return manifest
-    && manifest.manifestation
-    && manifest.manifestation.getLabel().map(label => label.value)[0];
-}
 
 /** Return type of view in a certain window.
 * @param {object} state
-* @param {String} windowId
+* @param {object} props
+* @param {string} props.manifestId
+* @param {string} props.windowId
 * @param {String}
 */
 export function getWindowViewType(state, windowId) {
   return state.windows[windowId] && state.windows[windowId].view;
-}
-
-/**
-* Return manifest description
-* @param {object} manifest
-* @return {String}
-*/
-export function getManifestDescription(manifest) {
-  return manifest
-    && manifest.manifestation
-    && manifest.manifestation.getDescription().map(label => label.value)[0];
 }
 
 /**
@@ -261,23 +113,6 @@ export function getCanvasLabel(canvas, canvasIndex) {
     return canvas.getLabel().map(label => label.value)[0];
   }
   return String(canvasIndex + 1);
-}
-
-/**
-* Return metadata in a label / value structure
-* This is a potential seam for pulling the i18n locale from
-* state and plucking out the appropriate language.
-* For now we're just getting the first.
-* @param {object} Manifesto IIIF Resource (e.g. canvas, manifest)
-* @return {Array[Object]}
-*/
-export function getDestructuredMetadata(iiifResource) {
-  return (iiifResource
-    && iiifResource.getMetadata().map(labelValuePair => ({
-      label: labelValuePair.getLabel(),
-      value: labelValuePair.getValue(),
-    }))
-  );
 }
 
 /**
@@ -360,7 +195,7 @@ export function getSelectedAnnotationIds(state, windowId, targetIds) {
 */
 export function getSelectedTargetAnnotationResources(state, targetIds, annotationIds) {
   return getSelectedTargetsAnnotations(state, targetIds)
-    .map(annotation => ({
+    .map(annotation  => ({
       id: (annotation['@id'] || annotation.id),
       resources: annotation.resources.filter(r => annotationIds && annotationIds.includes(r.id)),
     }));

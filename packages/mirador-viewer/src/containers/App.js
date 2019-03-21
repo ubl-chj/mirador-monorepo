@@ -1,6 +1,6 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from '@mirador/core';
+import { setWorkspaceFullscreen } from '@mirador/core';
 import { App } from '../components/App';
 import { withPlugins } from '../extend';
 
@@ -24,7 +24,7 @@ const mapStateToProps = state => (
  * @private
  */
 const mapDispatchToProps = {
-  setWorkspaceFullscreen: actions.setWorkspaceFullscreen,
+  setWorkspaceFullscreen
 };
 
 const enhance = compose(

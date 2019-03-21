@@ -1,21 +1,19 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from '@mirador/core';
 import { withTranslation } from 'react-i18next';
 import { withStyles } from '@material-ui/core/styles';
 import { WindowSideBarCanvasPanel } from '../components/WindowSideBarCanvasPanel';
 import {
   getManifestCanvases,
-  getWindowManifest,
-} from '../state/selectors';
+  setCanvas
+} from '@mirador/core';
 import { withPlugins } from '../extend';
 
 /**
  * mapStateToProps - to hook up connect
  */
 const mapStateToProps = (state, { windowId }) => {
-  const manifest = getWindowManifest(state, windowId);
-  const canvases = getManifestCanvases(manifest);
+  const canvases = getManifestCanvases(state, { windowId });
   const { config } = state;
   return {
     canvases,
@@ -23,7 +21,7 @@ const mapStateToProps = (state, { windowId }) => {
   };
 };
 
-const mapDispatchToProps = { setCanvas: actions.setCanvas };
+const mapDispatchToProps = { setCanvas };
 
 /**
  *

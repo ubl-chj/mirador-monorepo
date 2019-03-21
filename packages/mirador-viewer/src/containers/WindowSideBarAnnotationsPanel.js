@@ -2,14 +2,15 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { withStyles } from '@material-ui/core/styles';
-import * as actions from '@mirador/core';
 import {
+  deselectAnnotation,
   getIdAndContentOfResources,
   getSelectedAnnotationIds,
   getSelectedCanvases,
   getSelectedTargetsAnnotations,
   getAnnotationResourcesByMotivation,
-} from '../state/selectors';
+  selectAnnotation
+} from '@mirador/core';
 import { WindowSideBarAnnotationsPanel } from '../components/WindowSideBarAnnotationsPanel';
 import { withPlugins } from '../extend';
 
@@ -20,13 +21,13 @@ import { withPlugins } from '../extend';
  */
 const mapStateToProps = (state, { windowId }) => ({
   selectedAnnotationIds: getSelectedAnnotationIds(
-    state, windowId, getSelectedCanvases(state, windowId).map(canvas => canvas.id),
+    state, windowId, getSelectedCanvases(state, { windowId }).map(canvas => canvas.id),
   ),
   annotations: getIdAndContentOfResources(
     getAnnotationResourcesByMotivation(
       getSelectedTargetsAnnotations(
         state,
-        getSelectedCanvases(state, windowId).map(canvas => canvas.id),
+        getSelectedCanvases(state, { windowId }).map(canvas => canvas.id),
       ),
       ['oa:commenting', 'sc:painting'],
     ),
@@ -39,8 +40,8 @@ const mapStateToProps = (state, { windowId }) => ({
  * @private
  */
 const mapDispatchToProps = {
-  selectAnnotation: actions.selectAnnotation,
-  deselectAnnotation: actions.deselectAnnotation,
+  selectAnnotation,
+  deselectAnnotation,
 };
 
 /** */

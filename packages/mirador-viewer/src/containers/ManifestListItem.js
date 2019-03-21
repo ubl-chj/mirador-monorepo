@@ -1,11 +1,12 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from '@mirador/core';
 import { withTranslation } from 'react-i18next';
 import { withStyles } from '@material-ui/core';
 import {
-  getManifestTitle, getManifestThumbnail, getManifestCanvases, getManifestLogo, getManifestProvider,
-} from '../state/selectors';
+  addWindow, fetchManifest,
+  getManifestTitle, getManifestThumbnail, getManifestCanvases,
+  getManifestLogo, getManifestProvider,
+} from '@mirador/core';
 import { ManifestListItem } from '../components/ManifestListItem';
 import { withPlugins } from '../extend';
 
@@ -14,14 +15,14 @@ const mapStateToProps = (state, { manifestId }) => {
   const manifest = state.manifests[manifestId];
 
   return {
-    ready: !!manifest.manifestation,
+    ready: !!manifest.json,
     error: manifest.error,
     isFetching: manifest.isFetching,
-    title: getManifestTitle(manifest),
-    thumbnail: getManifestThumbnail(manifest),
-    provider: getManifestProvider(manifest),
-    size: getManifestCanvases(manifest).length,
-    manifestLogo: getManifestLogo(state.manifests[manifestId]),
+    title: getManifestTitle(state, { manifestId }),
+    thumbnail: getManifestThumbnail(state, { manifestId }),
+    provider: manifest.provider || getManifestProvider(state, { manifestId }),
+    size: getManifestCanvases(state, { manifestId }).length,
+    manifestLogo: getManifestLogo(state, { manifestId }),
   };
 };
 
@@ -30,7 +31,7 @@ const mapStateToProps = (state, { manifestId }) => {
  * @memberof ManifestListItem
  * @private
  */
-const mapDispatchToProps = { addWindow: actions.addWindow, fetchManifest: actions.fetchManifest };
+const mapDispatchToProps = { addWindow, fetchManifest };
 
 /**
  *

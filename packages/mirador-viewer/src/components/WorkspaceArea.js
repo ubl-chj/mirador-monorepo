@@ -23,7 +23,7 @@ export class WorkspaceArea extends Component {
       <main className={classNames(classes.background, ns('viewer'))} aria-label={t('workspace')}>
         {
           isWorkspaceControlPanelVisible
-            && <WorkspaceControlPanel />
+            && <WorkspaceControlPanel {...this.props}/>
         }
         {
           isWorkspaceAddVisible

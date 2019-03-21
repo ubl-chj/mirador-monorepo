@@ -1,6 +1,5 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from '@mirador/core';
 import { withTranslation } from 'react-i18next';
 import { withStyles } from '@material-ui/core';
 import { fade } from '@material-ui/core/styles/colorManipulator';
@@ -10,7 +9,8 @@ import {
   getSelectedAnnotationIds,
   getSelectedCanvas,
   getSelectedTargetAnnotationResources,
-} from '../state/selectors';
+  updateViewport
+} from '@mirador/core';
 import { withPlugins } from '../extend';
 
 /**
@@ -23,7 +23,7 @@ const mapStateToProps = ({
 }, { windowId, currentCanvases }) => ({
   viewer: viewers[windowId],
   label: getCanvasLabel(
-    getSelectedCanvas({ windows, manifests }, windowId),
+    getSelectedCanvas({ windows, manifests }, { windowId }),
     windows[windowId].canvasIndex,
   ),
   annotations: getSelectedTargetAnnotationResources(
@@ -39,7 +39,7 @@ const mapStateToProps = ({
  * @private
  */
 const mapDispatchToProps = {
-  updateViewport: actions.updateViewport,
+  updateViewport,
 };
 
 /**

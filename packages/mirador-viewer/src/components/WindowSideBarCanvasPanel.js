@@ -10,7 +10,7 @@ import FormControl from '@material-ui/core/FormControl';
 import { CanvasThumbnail } from './CanvasThumbnail';
 import ManifestoCanvas from '../lib/ManifestoCanvas';
 import CompanionWindow from '../containers/CompanionWindow';
-import { getIdAndLabelOfCanvases } from '../state/selectors';
+import { getIdAndLabelOfCanvases } from '@mirador/core';
 
 /**
  * a panel showing the canvases for a given manifest

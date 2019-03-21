@@ -3,7 +3,7 @@ import { compose } from 'redux';
 import {
   getCanvasLabel,
   getSelectedCanvas,
-} from '../state/selectors';
+} from '@mirador/core';
 import { WindowCanvasNavigationControls } from '../components/WindowCanvasNavigationControls';
 import { withPlugins } from '../extend';
 
@@ -11,7 +11,7 @@ import { withPlugins } from '../extend';
 const mapStateToProps = (state, { windowId }) => ({
   window: state.windows[windowId],
   canvasLabel: getCanvasLabel(
-    getSelectedCanvas(state, windowId),
+    getSelectedCanvas(state, { windowId }),
     state.windows[windowId].canvasIndex,
   ),
   visible: state.workspace.focusedWindowId === windowId,

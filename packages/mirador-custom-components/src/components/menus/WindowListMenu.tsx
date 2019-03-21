@@ -14,6 +14,7 @@ interface IWindowListMenu {
   focusWindow: typeof focusWindow
   focusedWindowId: string
   manifests: {}
+  titles: {}
   windows: {
     [key: string]: {
       id: string
@@ -37,14 +38,9 @@ export const WindowListMenu: React.FC<IWindowListMenu> = (props): ReactElement =
     }
   }
 
-  const titleContent = (window): string => {
-    const {manifests} = props
-    if (window.manifestId
-      && manifests[window.manifestId]
-      && manifests[window.manifestId].manifestation) {
-      return manifests[window.manifestId].manifestation.getLabel().map(label => label.value)[0]
-    }
-    return t('untitled')
+  const titleContent = (window) => {
+    const { titles } = props;
+    return titles[window.id] || t('untitled');
   }
 
   const buildMenuItems = (): any => {

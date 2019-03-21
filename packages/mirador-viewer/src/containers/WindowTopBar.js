@@ -1,16 +1,15 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from '@mirador/core';
 import { withTranslation } from 'react-i18next';
 import { withStyles } from '@material-ui/core';
-import { getWindowManifest, getManifestTitle } from '../state/selectors';
+import { getManifestTitle, removeWindow, maximizeWindow, minimizeWindow, toggleWindowSideBar } from '@mirador/core';
 import { WindowTopBar } from '../components/WindowTopBar';
 import React from "react"
 import { withPlugins } from '../extend';
 
 /** mapStateToProps */
 const mapStateToProps = (state, { windowId }) => ({
-  manifestTitle: getManifestTitle(getWindowManifest(state, windowId)),
+  manifestTitle: getManifestTitle(state, { windowId }),
   maximized: state.windows[windowId].maximized,
   focused: state.workspace.focusedWindowId === windowId,
   allowClose: state.config.window.allowClose,
@@ -23,10 +22,10 @@ const mapStateToProps = (state, { windowId }) => ({
  * @private
  */
 const mapDispatchToProps = (dispatch, { windowId }) => ({
-  removeWindow: () => dispatch(actions.removeWindow(windowId)),
-  maximizeWindow: () => dispatch(actions.maximizeWindow(windowId)),
-  minimizeWindow: () => dispatch(actions.minimizeWindow(windowId)),
-  toggleWindowSideBar: () => dispatch(actions.toggleWindowSideBar(windowId)),
+  removeWindow: () => dispatch(removeWindow(windowId)),
+  maximizeWindow: () => dispatch(maximizeWindow(windowId)),
+  minimizeWindow: () => dispatch(minimizeWindow(windowId)),
+  toggleWindowSideBar: () => dispatch(toggleWindowSideBar(windowId)),
 });
 
 /**
