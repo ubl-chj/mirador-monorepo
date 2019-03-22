@@ -43,6 +43,9 @@ const styles = theme => ({
     paddingLeft: theme.spacing.unit / 2,
   },
   windowTopBarStyle: {
+    '&$focused': {
+      borderTop: `4px solid ${theme.palette.secondary.main}`,
+    },
     backgroundColor: theme.palette.primary.light,
     minHeight: 32,
     paddingLeft: theme.spacing.unit / 2,

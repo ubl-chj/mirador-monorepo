@@ -26,24 +26,6 @@ export class CompanionArea extends Component {
 
     return (
       <div className={[classes.root, this.areaLayoutClass(), ns(`companion-area-${position}`)].join(' ')}>
-        {
-          setCompanionAreaOpen && position === 'left' && sideBarOpen && companionWindows.length > 0
-          && (
-            <MiradorMenuButton
-              aria-label={companionAreaOpen ? t('collapseSidePanel') : t('expandSidePanel')}
-              className={classes.toggle}
-              onClick={() => { setCompanionAreaOpen(windowId, !companionAreaOpen); }}
-              TooltipProps={{
-                style: {
-                  position: 'absolute',
-                  right: '0',
-                },
-              }}
-            >
-              {companionAreaOpen ? <ArrowLeftIcon /> : <ArrowRightIcon />}
-            </MiradorMenuButton>
-          )
-        }
         <div className={[ns('companion-windows'), this.areaLayoutClass()].join(' ')} style={{ display: companionAreaOpen && (position !== 'left' || sideBarOpen) ? 'flex' : 'none' }}>
           {
             companionWindows.map(cw => (

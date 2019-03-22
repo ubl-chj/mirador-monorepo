@@ -21,7 +21,6 @@ export class WindowSideBarButtons extends Component {
   /** */
   handleChange(event, value) {
     const { addCompanionWindow } = this.props;
-
     addCompanionWindow(value);
   }
 
@@ -34,7 +33,7 @@ export class WindowSideBarButtons extends Component {
     const {
       classes, hasAnnotations, sideBarPanel, t,
     } = this.props;
-
+    console.log(sideBarPanel)
     return (
       <Tabs
         classes={{ flexContainer: classes.tabsFlexContainer, indicator: classes.tabsIndicator }}
@@ -55,6 +54,7 @@ export class WindowSideBarButtons extends Component {
               <InfoIcon />
             </Tooltip>
           )}
+          TouchRippleProps={{ classes: { child: classes.tabRipple } }}
           value="info"
         />
         <Tab
@@ -67,6 +67,7 @@ export class WindowSideBarButtons extends Component {
               <CanvasIndexIcon />
             </Tooltip>
           )}
+          TouchRippleProps={{ classes: { child: classes.tabRipple } }}
           value="canvas_navigation"
         />
         <Tab
@@ -81,6 +82,7 @@ export class WindowSideBarButtons extends Component {
               </Badge>
             </Tooltip>
           )}
+          TouchRippleProps={{ classes: { child: classes.tabRipple } }}
           value="annotations"
         />
       </Tabs>

@@ -13,6 +13,9 @@ const rootConfig = {
     height: 50,
     width: 50,
   },
+  companionWindows: {
+    defaultPosition: 'left'
+  },
   discovery: {
     currentIndex: 'm4',
     indices: {},

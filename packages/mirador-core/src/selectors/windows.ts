@@ -81,6 +81,6 @@ export const getCompanionWindowsOfWindow = createSelector(
 */
 export const getCompanionWindowForPosition : any = createSelector(
     'getCompanionWindowForPosition',
-  [getCompanionWindowsOfWindow, ({ position }) => position],
+  [getCompanionWindowsOfWindow, (state) => state.config.companionWindows.defaultPosition],
   (companionWindows: any, position) => companionWindows.find(cw => cw.position === position),
 );
