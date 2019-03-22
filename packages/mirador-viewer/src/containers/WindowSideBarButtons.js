@@ -6,8 +6,6 @@ import { withTranslation } from 'react-i18next';
 import {
   addCompanionWindow,
   getCompanionWindowForPosition,
-  getSelectedCanvas,
-  getSelectedTargetAnnotations,
   getAnnotationResourcesByMotivation,
 } from '@mirador/core';
 import { WindowSideBarButtons } from '../components/WindowSideBarButtons';
@@ -31,14 +29,8 @@ const mapDispatchToProps = (dispatch, { windowId }) => ({
  * @private
  */
 const mapStateToProps = (state, { windowId }) => ({
-  hasAnnotations: getAnnotationResourcesByMotivation(
-    getSelectedTargetAnnotations(state, (getSelectedCanvas(state, { windowId }) || {}).id),
-    ['oa:commenting', 'sc:painting'],
-  ).length > 0,
-  sideBarPanel: (getCompanionWindowForPosition(state, {
-    position: 'left',
-    windowId,
-  }) || {}).content,
+  hasAnnotations: getAnnotationResourcesByMotivation(state, { windowId }).length > 0,
+  sideBarPanel: (getCompanionWindowForPosition(state, { position: 'left', windowId }) || {}).content,
 });
 
 /** */

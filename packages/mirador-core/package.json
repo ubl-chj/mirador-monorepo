@@ -18,7 +18,8 @@
     "@types/node": "^11.11.4",
     "i18next": "^15.0.7",
     "immutable": "^4.0.0-rc.12",
-    "manifesto.js": "^3.0.9"
+    "manifesto.js": "^3.0.9",
+    "reselect-change-memoize": "^1.1.0"
   },
   "devDependencies": {
     "@types/react": "^16.8.6"

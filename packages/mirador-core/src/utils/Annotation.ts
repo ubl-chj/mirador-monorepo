@@ -1,10 +1,5 @@
 import AnnotationResource from './AnnotationResource';
 
-interface IAnnotation {
-  json: any
-  target: any
-}
-
 /** */
 export default class Annotation {
 
@@ -12,9 +7,8 @@ export default class Annotation {
   target: any
 
   /** */
-  constructor(json, target) {
+  constructor(json) {
     this.json = json;
-    this.target = target;
   }
 
   /** */

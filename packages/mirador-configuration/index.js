@@ -2,6 +2,9 @@ import deepmerge from 'deepmerge'
 import * as discovery from './discovery'
 
 const rootConfig = {
+  annotations: {
+    motivations: ['oa:commenting', 'sc:painting']
+  },
   availableLanguages: {
     de: 'Deutsch',
     en: 'English',

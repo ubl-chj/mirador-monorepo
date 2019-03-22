@@ -4,15 +4,24 @@ import { withTranslation } from 'react-i18next';
 import { withStyles } from '@material-ui/core/styles';
 import {
   deselectAnnotation,
-  getIdAndContentOfResources,
   getSelectedAnnotationIds,
-  getSelectedCanvases,
-  getSelectedTargetsAnnotations,
   getAnnotationResourcesByMotivation,
   selectAnnotation
 } from '@mirador/core';
 import { WindowSideBarAnnotationsPanel } from '../components/WindowSideBarAnnotationsPanel';
 import { withPlugins } from '../extend';
+
+/**
+ * @param {Array} resources
+ * @return {Array} [{ id: 'abc123', content: 'Annotation Content' }, ...]
+ */
+function getIdAndContentOfResources(resources) {
+  return resources.map((resource, i) => ({
+    content: resource.chars,
+    id: resource.id,
+    targetId: resource.targetId,
+  }));
+}
 
 /**
  * mapStateToProps - to hook up connect
@@ -21,17 +30,9 @@ import { withPlugins } from '../extend';
  */
 const mapStateToProps = (state, { windowId }) => ({
   annotations: getIdAndContentOfResources(
-    getAnnotationResourcesByMotivation(
-      getSelectedTargetsAnnotations(
-        state,
-        getSelectedCanvases(state, { windowId }).map(canvas => canvas.id),
-      ),
-      ['oa:commenting', 'sc:painting'],
-    ),
+    getAnnotationResourcesByMotivation(state, { windowId }),
   ),
-  selectedAnnotationIds: getSelectedAnnotationIds(
-    state, windowId, getSelectedCanvases(state, { windowId }).map(canvas => canvas.id),
-  ),
+  selectedAnnotationIds: getSelectedAnnotationIds(state, { windowId }),
 });
 
 /**

@@ -1,9 +1,14 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from '@mirador/core';
 import { withTranslation } from 'react-i18next';
-import { ViewerNavigation } from '../components/ViewerNavigation';
 import { withPlugins } from '../extend';
+import { getManifestCanvases, setCanvas } from '@mirador/core';
+import { ViewerNavigation } from '../components/ViewerNavigation';
+
+/** */
+const mapStateToProps = (state, { window }) => ({
+  canvases: getManifestCanvases(state, { windowId: window.id }),
+});
 
 /**
  * mapDispatchToProps - used to hook up connect to action creators
@@ -11,12 +16,12 @@ import { withPlugins } from '../extend';
  * @private
  */
 const mapDispatchToProps = {
-  setCanvas: actions.setCanvas,
+  setCanvas,
 };
 
 const enhance = compose(
   withTranslation(),
-  connect(null, mapDispatchToProps),
+  connect(mapStateToProps, mapDispatchToProps),
   withPlugins('ViewerNavigation'),
 );
 

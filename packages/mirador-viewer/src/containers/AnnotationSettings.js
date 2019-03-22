@@ -4,8 +4,6 @@ import { withTranslation } from 'react-i18next';
 import { withPlugins } from '../extend';
 import {
   getAnnotationResourcesByMotivation,
-  getSelectedTargetAnnotations,
-  getSelectedCanvas,
   toggleAnnotationDisplay
 } from '@mirador/core';
 import { AnnotationSettings } from '../components/AnnotationSettings';
@@ -16,7 +14,7 @@ import { AnnotationSettings } from '../components/AnnotationSettings';
  */
 const mapStateToProps = (state, { windowId }) => ({
   displayAll: state.windows[windowId].displayAllAnnotations,
-  displayAllDisabled: false
+  displayAllDisabled: getAnnotationResourcesByMotivation(state, { windowId }).length < 2,
 });
 
 /**

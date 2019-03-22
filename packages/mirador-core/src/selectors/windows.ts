@@ -1,4 +1,4 @@
-import { createSelector } from 'reselect';
+import { createSelector } from 'reselect-change-memoize'
 import { getManifestTitle } from './manifests';
 
 /**
@@ -26,6 +26,7 @@ function getWindow(state, { windowId }): any {
 * @param {String}
 */
 export const getThumbnailNavigationPosition = createSelector(
+    'getThumbnailNavigationPosition',
   [
     getWindow,
     state => state.companionWindows,
@@ -43,6 +44,7 @@ export const getThumbnailNavigationPosition = createSelector(
 * @param {String}
 */
 export const getWindowViewType: any = createSelector(
+    'getWindowViewType',
   [getWindow],
   window => window && window.view,
 );
@@ -53,6 +55,7 @@ export const getWindowViewType: any = createSelector(
 * @return {Array}
 */
 export const getCompanionWindowIds : any = createSelector(
+    'getCompanionWindowIds',
   [getWindow],
   window => (window && window.companionWindowIds) || [],
 );
@@ -64,6 +67,7 @@ export const getCompanionWindowIds : any = createSelector(
  */
 
 export const getCompanionWindowsOfWindow = createSelector(
+    'getCompanionWindowsOfWindow',
   [getCompanionWindowIds, (state: any)  => state.companionWindows],
   (companionWindowIds: any, companionWindows: any) => companionWindowIds.map(id => companionWindows[id]),
 );
@@ -76,6 +80,7 @@ export const getCompanionWindowsOfWindow = createSelector(
 * @return {String}
 */
 export const getCompanionWindowForPosition : any = createSelector(
+    'getCompanionWindowForPosition',
   [getCompanionWindowsOfWindow, ({ position }) => position],
   (companionWindows: any, position) => companionWindows.find(cw => cw.position === position),
 );

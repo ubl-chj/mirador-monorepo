@@ -2,8 +2,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { WindowViewer } from '../components/WindowViewer';
 import { withPlugins } from '../extend';
-import { fetchAnnotation, fetchInfoResponse, getManifestCanvases } from '@mirador/core';
-
+import { fetchAnnotation, fetchInfoResponse, getManifestCanvases, getSelectedCanvases } from '@mirador/core';
 
 /**
  * mapStateToProps - to hook up connect
@@ -12,7 +11,7 @@ import { fetchAnnotation, fetchInfoResponse, getManifestCanvases } from '@mirado
  */
 const mapStateToProps = (state, { window }) => (
   {
-    canvases: getManifestCanvases(state, { windowId: window.id }),
+    currentCanvases: getSelectedCanvases(state, { windowId: window.id }),
     infoResponses: state.infoResponses,
   }
 );

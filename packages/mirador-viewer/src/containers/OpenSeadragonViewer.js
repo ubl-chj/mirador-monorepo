@@ -4,36 +4,26 @@ import { withTranslation } from 'react-i18next';
 import { withStyles } from '@material-ui/core';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { OpenSeadragonViewer } from '../components/OpenSeadragonViewer';
+import CanvasWorld from '../lib/CanvasWorld';
 import {
-  getAllOrSelectedAnnotations,
+  getAllOrSelectedAnnotationsOnCanvases,
   getCanvasLabel,
-  getSelectedAnnotationIds,
+  getSelectedCanvases,
   updateViewport
 } from '@mirador/core';
 import { withPlugins } from '../extend';
+
 
 /**
  * mapStateToProps - used to hook up connect to action creators
  * @memberof Window
  * @private
  */
-const mapStateToProps = ({
-  viewers, windows, manifests, annotations,
-}, { windowId, currentCanvases }) => ({
-  annotations: getAllOrSelectedAnnotations(
-    { annotations, windows },
-    windowId,
-    currentCanvases.map(c => c.id),
-    getSelectedAnnotationIds({ windows }, windowId, currentCanvases.map(c => c.id)),
-  ),
-  label: getCanvasLabel({
-    manifests,
-    windows,
-  }, {
-    canvasIndex: 'selected',
-    windowId,
-  }),
-  viewer: viewers[windowId],
+const mapStateToProps = (state, { windowId }) => ({
+  annotations: getAllOrSelectedAnnotationsOnCanvases(state, { windowId }),
+  canvasWorld: new CanvasWorld(getSelectedCanvases(state, { windowId })),
+  label: getCanvasLabel(state, { canvasIndex: 'selected', windowId }),
+  viewer: state.viewers[windowId],
 });
 
 /**

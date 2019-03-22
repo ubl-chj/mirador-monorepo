@@ -15,7 +15,6 @@ export class AnnotationSettings extends Component {
     const {
       displayAll, displayAllDisabled, t, toggleAnnotationDisplay,
     } = this.props;
-  console.log(this.props)
     return (
       <FormControlLabel
         control={(
