@@ -1,67 +1,63 @@
+import {IManifestResource, ISequence, LanguageMap} from 'manifesto'
+import {IManifest} from "mirador-core-model"
 import ManifestoCanvas from '../utils/ManifestoCanvas';
-import { createSelector } from 'reselect';
+import { createSelector } from 'reselect'
 const manifesto = require('manifesto.js'); //eslint-disable-line
 
+export interface IManifesto {
+  getDescription(): LanguageMap
+  getLabel(): LanguageMap
+  getLogo(): string
+  getProperty(property: string): any
+  options: {
+    locale: {}
+  }
+  getSequences(): ISequence[]
+}
+
+
 /** Get the relevant manifest information */
-export function getManifest(state, { windowId, manifestId, canvasIndex, motivations }: {
-  windowId: string, manifestId?: string, canvasIndex?: string, motivations?: any}) {
+export const getManifest = (state, { windowId, manifestId, canvasIndex, motivations }: {
+  windowId: string, manifestId?: string, canvasIndex?: string, motivations?: any}) => {
   return state.manifests[manifestId || canvasIndex || motivations || (windowId && state.windows && state.windows[windowId] && state.windows[windowId].manifestId)];
 }
 
 /** Instantiate a manifesto instance */
 export const getManifestoInstance = createSelector(
-  [getManifest],
-  manifest => manifest && manifest.json && manifesto.create(manifest.json),
+  getManifest,
+  (manifest: IManifest) => manifest && manifest.json && manifesto.create(manifest.json),
 );
 
 /**
- * Get the logo for a manifest
- * @param {object} state
- * @param {object} props
- * @param {string} props.manifestId
- * @param {string} props.windowId
- * @return {String|null}
- */
-
-/**
- * Return the logo of a manifest or null
- * @param {object} state
- * @param {object} props
- * @param {string} props.manifestId
- * @param {string} props.windowId
- * @return {String|null}
+ *
  */
 export const getManifestCanvases = createSelector(
-  [getManifestoInstance],
-  (manifest) => {
+  getManifestoInstance,
+  (manifest: IManifesto) => {
     if (!manifest) {
       return [];
     }
-
     if (!manifest.getSequences || !manifest.getSequences()[0]) {
       return [];
     }
-
     return manifest.getSequences()[0].getCanvases();
   },
 );
 
+/**
+ *
+ */
 export const getManifestLogo = createSelector(
-  [getManifestoInstance],
-  manifest => manifest && manifest.getLogo(),
+  getManifestoInstance,
+  (manifest: IManifesto) => manifest && manifest.getLogo(),
 );
 
 /**
-* Return the IIIF v3 provider of a manifest or null
-* @param {object} state
-* @param {object} props
-* @param {string} props.manifestId
-* @param {string} props.windowId
-* @return {String|null}
-*/
+ *
+ */
 export const getManifestProvider = createSelector(
-  [getManifestoInstance],
-  manifest => manifest
+  getManifestoInstance,
+  (manifest: IManifesto) => manifest
     && manifest.getProperty('provider')
     && manifest.getProperty('provider')[0].label
     && manifesto.LanguageMap.parse(manifest.getProperty('provider')[0].label, manifest.options.locale).map(label => label.value)[0],
@@ -75,9 +71,9 @@ export const getManifestProvider = createSelector(
 * @param {string} props.windowId
 * @return {String|null}
 */
-export function getManifestThumbnail(state, props) {
+export const getManifestThumbnail = (state, props) => {
   /** */
-  function getTopLevelManifestThumbnail() {
+  function getTopLevelManifestThumbnail(): string {
     const manifest = getManifestoInstance(state, props);
 
     return manifest
@@ -117,8 +113,8 @@ export function getManifestThumbnail(state, props) {
 * @return {String}
 */
 export const getManifestTitle = createSelector(
-  [getManifestoInstance],
-  manifest => manifest
+  getManifestoInstance,
+  (manifest: IManifesto) => manifest
     && manifest.getLabel().map(label => label.value)[0],
 );
 
@@ -131,20 +127,16 @@ export const getManifestTitle = createSelector(
 * @return {String}
 */
 export const getManifestDescription = createSelector(
-  [getManifestoInstance],
-  manifest => manifest
+  getManifestoInstance,
+  (manifest: IManifesto) => manifest
     && manifest.getDescription().map(label => label.value)[0],
 );
 
 /**
-* Return metadata in a label / value structure
-* This is a potential seam for pulling the i18n locale from
-* state and plucking out the appropriate language.
-* For now we're just getting the first.
-* @param {object} Manifesto IIIF Resource (e.g. canvas, manifest)
-* @return {Array[Object]}
-*/
-export function getDestructuredMetadata(iiifResource) {
+ *
+ * @param iiifResource
+ */
+export const getDestructuredMetadata = (iiifResource: IManifestResource) => {
   return (iiifResource
     && iiifResource.getMetadata().map(labelValuePair => ({
       label: labelValuePair.getLabel(),
@@ -162,6 +154,6 @@ export function getDestructuredMetadata(iiifResource) {
  * @return {Array[Object]}
  */
 export const getManifestMetadata = createSelector(
-  [getManifestoInstance],
-  manifest => manifest && getDestructuredMetadata(manifest),
+  getManifestoInstance,
+  (manifest: IManifestResource) => manifest && getDestructuredMetadata(manifest),
 );

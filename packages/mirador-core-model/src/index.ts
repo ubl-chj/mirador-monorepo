@@ -7,6 +7,11 @@ export interface IManifest {
   },
 }
 
+export interface IManifesto {
+  getDescription(): Function
+  getLabel(): Function
+}
+
 export interface IWindow {
   [windowId: string]: {
     canvasIndex: number
