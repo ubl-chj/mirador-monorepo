@@ -1,11 +1,11 @@
-import {ActionTypes} from '../actions'
+import {RECEIVE_ANNOTATION, RECEIVE_ANNOTATION_FAILURE, REQUEST_ANNOTATION} from '../actions'
 
 /**
  * annotationReducer
  */
 export const annotationsReducer = (state = {}, action) => {
   switch (action.type) {
-    case ActionTypes.REQUEST_ANNOTATION:
+    case REQUEST_ANNOTATION:
       return {
         ...state,
         [action.canvasId]: {
@@ -15,7 +15,7 @@ export const annotationsReducer = (state = {}, action) => {
           },
         },
       };
-    case ActionTypes.RECEIVE_ANNOTATION:
+    case RECEIVE_ANNOTATION:
       return {
         ...state,
         [action.canvasId]: {
@@ -26,7 +26,7 @@ export const annotationsReducer = (state = {}, action) => {
           },
         },
       };
-    case ActionTypes.RECEIVE_ANNOTATION_FAILURE:
+    case RECEIVE_ANNOTATION_FAILURE:
       return {
         ...state,
         [action.canvasId]: {

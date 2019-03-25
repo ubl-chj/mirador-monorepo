@@ -1,4 +1,4 @@
-import {ActionTypes} from './action-types'
+import {RECEIVE_INFO_RESPONSE, RECEIVE_INFO_RESPONSE_FAILURE, REMOVE_INFO_RESPONSE, REQUEST_INFO_RESPONSE} from './action-types'
 
 /**
  * requestInfoResponse - action creator
@@ -6,10 +6,10 @@ import {ActionTypes} from './action-types'
  * @param  {String} infoId
  * @memberof ActionCreators
  */
-export function requestInfoResponse(infoId) {
+export const requestInfoResponse = (infoId) => {
   return {
     infoId,
-    type: ActionTypes.REQUEST_INFO_RESPONSE,
+    type: REQUEST_INFO_RESPONSE,
   }
 }
 
@@ -18,11 +18,11 @@ export function requestInfoResponse(infoId) {
  * @param infoId
  * @param infoJson
  */
-export function receiveInfoResponse(infoId, infoJson) {
+export const receiveInfoResponse = (infoId, infoJson) => {
   return {
     infoId,
     infoJson,
-    type: ActionTypes.RECEIVE_INFO_RESPONSE,
+    type: RECEIVE_INFO_RESPONSE,
   }
 }
 
@@ -33,11 +33,11 @@ export function receiveInfoResponse(infoId, infoJson) {
  * @param  {String} error
  * @memberof ActionCreators
  */
-export function receiveInfoResponseFailure(infoId, error) {
+export const receiveInfoResponseFailure = (infoId, error) => {
   return {
     error,
     infoId,
-    type: ActionTypes.RECEIVE_INFO_RESPONSE_FAILURE,
+    type: RECEIVE_INFO_RESPONSE_FAILURE,
   }
 }
 
@@ -47,7 +47,7 @@ export function receiveInfoResponseFailure(infoId, error) {
  * @param  {String} infoId
  * @memberof ActionCreators
  */
-export function fetchInfoResponse(infoId) {
+export const fetchInfoResponse = (infoId) => {
   return (dispatch) => {
     dispatch(requestInfoResponse(infoId))
     return window.fetch(infoId)
@@ -63,6 +63,6 @@ export function fetchInfoResponse(infoId) {
  * @param  {String} infoId
  * @memberof ActionCreators
  */
-export function removeInfoResponse(infoId) {
-  return { infoId, type: ActionTypes.REMOVE_INFO_RESPONSE };
+export const removeInfoResponse = (infoId) => {
+  return { infoId, type: REMOVE_INFO_RESPONSE };
 }

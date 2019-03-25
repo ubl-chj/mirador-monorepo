@@ -1,0 +1,17 @@
+{
+  "name": "@types/mirador-core-model",
+  "version": "0.1.0",
+  "description": "mirador core-model",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ubl-chj/mirador-monorepo"
+  },
+  "author": "Christopher Johnson",
+  "license": "Apache-2.0"
+}

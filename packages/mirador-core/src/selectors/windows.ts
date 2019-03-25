@@ -1,4 +1,5 @@
-import { createSelector } from 'reselect-change-memoize'
+import {ICompanionWindow, IWindow, IWindowsReducer} from 'mirador-core-model';
+import { createSelector } from 'reselect'
 import { getManifestTitle } from './manifests';
 
 /**
@@ -6,7 +7,7 @@ import { getManifestTitle } from './manifests';
  * @param {object} state
  * @return {object}
  */
-export function getWindowTitles(state: any): any {
+export function getWindowTitles(state: IWindowsReducer) {
   const result = {};
 
   Object.keys(state.windows).forEach((windowId) => {
@@ -16,7 +17,7 @@ export function getWindowTitles(state: any): any {
 }
 
 /** */
-function getWindow(state, { windowId }): any {
+function getWindow(state: any, { windowId }) {
   return state.windows && state.windows[windowId];
 }
 
@@ -26,12 +27,8 @@ function getWindow(state, { windowId }): any {
 * @param {String}
 */
 export const getThumbnailNavigationPosition = createSelector(
-    'getThumbnailNavigationPosition',
-  [
-    getWindow,
-    state => state.companionWindows,
-  ],
-  (window, companionWindows) => window
+  [getWindow, (state: any) => state.companionWindows],
+  (window: any, companionWindows: ICompanionWindow) => window
     && companionWindows[window.thumbnailNavigationId]
     && companionWindows[window.thumbnailNavigationId].position,
 );
@@ -43,10 +40,9 @@ export const getThumbnailNavigationPosition = createSelector(
 * @param {string} props.windowId
 * @param {String}
 */
-export const getWindowViewType: any = createSelector(
-    'getWindowViewType',
-  [getWindow],
-  window => window && window.view,
+export const getWindowViewType = createSelector(
+  getWindow,
+  (window: IWindow) => window && window.view,
 );
 
 /**
@@ -54,10 +50,9 @@ export const getWindowViewType: any = createSelector(
 * @param {String} windowId
 * @return {Array}
 */
-export const getCompanionWindowIds : any = createSelector(
-    'getCompanionWindowIds',
-  [getWindow],
-  window => (window && window.companionWindowIds) || [],
+export const getCompanionWindowIds = createSelector(
+  getWindow,
+  (window: IWindow) => (window && window.companionWindowIds) || [],
 );
 
 /**
@@ -67,9 +62,8 @@ export const getCompanionWindowIds : any = createSelector(
  */
 
 export const getCompanionWindowsOfWindow = createSelector(
-    'getCompanionWindowsOfWindow',
-  [getCompanionWindowIds, (state: any)  => state.companionWindows],
-  (companionWindowIds: any, companionWindows: any) => companionWindowIds.map(id => companionWindows[id]),
+  [getCompanionWindowIds, (state: any) => state.companionWindows],
+  (companionWindowIds: [], companionWindows: ICompanionWindow) => companionWindowIds.map(id => companionWindows[id]),
 );
 
 /**
@@ -79,8 +73,7 @@ export const getCompanionWindowsOfWindow = createSelector(
 * @param {String} position
 * @return {String}
 */
-export const getCompanionWindowForPosition : any = createSelector(
-    'getCompanionWindowForPosition',
+export const getCompanionWindowForPosition = createSelector(
   [getCompanionWindowsOfWindow, (state) => state.config.companionWindows.defaultPosition],
   (companionWindows: any, position) => companionWindows.find(cw => cw.position === position),
 );

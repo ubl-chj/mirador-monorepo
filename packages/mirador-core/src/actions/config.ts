@@ -1,17 +1,17 @@
-import {ActionTypes} from './action-types'
+import {SET_CONFIG, UPDATE_CONFIG} from './action-types'
 
 /**
  * setConfig
  * @param config
  */
-export function setConfig(config) {
-  return { config, type: ActionTypes.SET_CONFIG };
+export const setConfig = (config) => {
+  return { config, type: SET_CONFIG };
 }
 
 /**
  * updateConfig
  * @param config
  */
-export function updateConfig(config) {
-  return { config, type: ActionTypes.UPDATE_CONFIG };
+export const updateConfig = (config) => {
+  return { config, type: UPDATE_CONFIG };
 }

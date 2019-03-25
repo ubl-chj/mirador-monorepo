@@ -1,16 +1,15 @@
-import { createSelector } from 'reselect-change-memoize';
+import Annotation from '../utils/Annotation';
+import { createSelector } from 'reselect';
 import filter from 'lodash/filter';
 import flatten from 'lodash/flatten';
-import Annotation from '../utils/Annotation';
 import { getSelectedCanvases } from './canvases';
 
 const getAnnotationsOnSelectedCanvases = createSelector(
-    'getAnnotationsOnSelectedCanvases',
   [
     getSelectedCanvases,
-    state => state.annotations,
+    (state: any) => state.annotations,
   ],
-  (canvases, annotations) => {
+  (canvases: any, annotations) => {
     if (!annotations || !canvases) return [];
     return flatten(
       canvases.map(c => c.id).map(
@@ -21,12 +20,9 @@ const getAnnotationsOnSelectedCanvases = createSelector(
 );
 
 const getPresentAnnotationsOnSelectedCanvases = createSelector(
-    'getPresentAnnotationsOnSelectedCanvases',
-  [
-    getAnnotationsOnSelectedCanvases,
-  ],
+  getAnnotationsOnSelectedCanvases,
   annotations => filter(
-    Object.values(annotations).map((annotation: any)  => annotation && new Annotation(annotation.json)),
+    Object.values(annotations).map((annotation: any) => annotation && new Annotation(annotation.json)),
     annotation => annotation && annotation.present(),
   ),
 );
@@ -38,7 +34,6 @@ const getPresentAnnotationsOnSelectedCanvases = createSelector(
 * @return {Array}
 */
 export const getAnnotationResourcesByMotivation = createSelector(
-    'getAnnotationResourcesByMotivation',
   [
     getPresentAnnotationsOnSelectedCanvases,
     (state) => state.config.annotations.motivations,
@@ -59,12 +54,11 @@ export const getAnnotationResourcesByMotivation = createSelector(
  * @return {Array}
  */
 export const getSelectedAnnotationIds = createSelector(
-    'getSelectedAnnotationIds',
   [
     (state, { windowId }) => state.windows[windowId].selectedAnnotations,
     getSelectedCanvases,
   ],
-  (selectedAnnotations, canvases) => (
+  (selectedAnnotations, canvases: any) => (
     flatten(
       canvases.map(c => c.id).map(targetId => selectedAnnotations && selectedAnnotations[targetId]),
     )
@@ -72,7 +66,6 @@ export const getSelectedAnnotationIds = createSelector(
 );
 
 export const getAllOrSelectedAnnotationsOnCanvases = createSelector(
-    'getAllOrSelectedAnnotationsOnCanvases',
   [
     getPresentAnnotationsOnSelectedCanvases,
     getSelectedAnnotationIds,

@@ -9,6 +9,7 @@ RUN npm i npm@latest -g
 RUN npm install --global lerna
 WORKDIR /srv/mirador
 RUN lerna bootstrap --hoist
+RUN lerna run --scope @types/mirador-core-model build
 RUN lerna run --scope @mirador/core build
 RUN lerna run --scope @mirador/custom-components build
 RUN lerna run --scope @mirador/react-components build

@@ -1,12 +1,15 @@
-import {ActionTypes} from '../actions'
+import {RECEIVE_MANIFEST, RECEIVE_MANIFEST_FAILURE, REMOVE_MANIFEST, REQUEST_MANIFEST} from '../actions'
+import {IManifest} from 'mirador-core-model'
 import omit from 'lodash/omit';
+
+const initialState: IManifest = {}
 
 /**
  * manifestsReducer
  */
-export const manifestsReducer = (state = {}, action) => {
+export const manifests = (state: IManifest = initialState, action) => {
   switch (action.type) {
-    case ActionTypes.REQUEST_MANIFEST:
+    case REQUEST_MANIFEST:
       return {
         [action.manifestId]: {
           ...state[action.manifestId],
@@ -15,7 +18,7 @@ export const manifestsReducer = (state = {}, action) => {
         },
         ...omit(state, action.manifestId),
       };
-    case ActionTypes.RECEIVE_MANIFEST:
+    case RECEIVE_MANIFEST:
       return {
         ...state,
         [action.manifestId]: {
@@ -26,7 +29,7 @@ export const manifestsReducer = (state = {}, action) => {
           json: action.manifestJson,
         },
       };
-    case ActionTypes.RECEIVE_MANIFEST_FAILURE:
+    case RECEIVE_MANIFEST_FAILURE:
       return {
         ...state,
         [action.manifestId]: {
@@ -36,7 +39,7 @@ export const manifestsReducer = (state = {}, action) => {
           isFetching: false,
         },
       };
-    case ActionTypes.REMOVE_MANIFEST:
+    case REMOVE_MANIFEST:
       return Object.keys(state).reduce((object, key) => {
         if (key !== action.manifestId) {
           object[key] = state[key]; // eslint-disable-line no-param-reassign

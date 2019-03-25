@@ -1,21 +1,15 @@
-import { createSelector } from 'reselect-change-memoize';
-const manifesto = require('manifesto.js');
 import ManifestoCanvas from '../utils/ManifestoCanvas';
+import { createSelector } from 'reselect';
+const manifesto = require('manifesto.js'); //eslint-disable-line
 
 /** Get the relevant manifest information */
 export function getManifest(state, { windowId, manifestId, canvasIndex, motivations }: {
-    windowId: string, manifestId?: string, canvasIndex?: string, motivations?: any}) {
-  return state.manifests[
-    manifestId
-    || canvasIndex
-    || motivations
-    || (windowId && state.windows && state.windows[windowId] && state.windows[windowId].manifestId)
-  ];
+  windowId: string, manifestId?: string, canvasIndex?: string, motivations?: any}) {
+  return state.manifests[manifestId || canvasIndex || motivations || (windowId && state.windows && state.windows[windowId] && state.windows[windowId].manifestId)];
 }
 
 /** Instantiate a manifesto instance */
 export const getManifestoInstance = createSelector(
-    'getManifestoInstance',
   [getManifest],
   manifest => manifest && manifest.json && manifesto.create(manifest.json),
 );
@@ -28,8 +22,31 @@ export const getManifestoInstance = createSelector(
  * @param {string} props.windowId
  * @return {String|null}
  */
+
+/**
+ * Return the logo of a manifest or null
+ * @param {object} state
+ * @param {object} props
+ * @param {string} props.manifestId
+ * @param {string} props.windowId
+ * @return {String|null}
+ */
+export const getManifestCanvases = createSelector(
+  [getManifestoInstance],
+  (manifest) => {
+    if (!manifest) {
+      return [];
+    }
+
+    if (!manifest.getSequences || !manifest.getSequences()[0]) {
+      return [];
+    }
+
+    return manifest.getSequences()[0].getCanvases();
+  },
+);
+
 export const getManifestLogo = createSelector(
-    'getManifestLogo',
   [getManifestoInstance],
   manifest => manifest && manifest.getLogo(),
 );
@@ -43,7 +60,6 @@ export const getManifestLogo = createSelector(
 * @return {String|null}
 */
 export const getManifestProvider = createSelector(
-    'getManifestProvider',
   [getManifestoInstance],
   manifest => manifest
     && manifest.getProperty('provider')
@@ -93,30 +109,6 @@ export function getManifestThumbnail(state, props) {
 }
 
 /**
-* Return the logo of a manifest or null
-* @param {object} state
-* @param {object} props
-* @param {string} props.manifestId
-* @param {string} props.windowId
-* @return {String|null}
-*/
-export const getManifestCanvases = createSelector(
-    'getManifestCanvases',
-  [getManifestoInstance],
-  (manifest) => {
-    if (!manifest) {
-      return [];
-    }
-
-    if (!manifest.getSequences || !manifest.getSequences()[0]) {
-      return [];
-    }
-
-    return manifest.getSequences()[0].getCanvases();
-  },
-);
-
-/**
 * Return manifest title
 * @param {object} state
 * @param {object} props
@@ -125,7 +117,6 @@ export const getManifestCanvases = createSelector(
 * @return {String}
 */
 export const getManifestTitle = createSelector(
-    'getManifestTitle',
   [getManifestoInstance],
   manifest => manifest
     && manifest.getLabel().map(label => label.value)[0],
@@ -140,7 +131,6 @@ export const getManifestTitle = createSelector(
 * @return {String}
 */
 export const getManifestDescription = createSelector(
-    'getManifestDescription',
   [getManifestoInstance],
   manifest => manifest
     && manifest.getDescription().map(label => label.value)[0],
@@ -172,7 +162,6 @@ export function getDestructuredMetadata(iiifResource) {
  * @return {Array[Object]}
  */
 export const getManifestMetadata = createSelector(
-    'getManifestMetadata',
   [getManifestoInstance],
   manifest => manifest && getDestructuredMetadata(manifest),
 );

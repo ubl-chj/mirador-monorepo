@@ -8,6 +8,7 @@
     "@material-ui/icons": "^3.0.2",
     "@mirador/configuration": "file:packages/mirador-configuration",
     "@mirador/core": "file:packages/mirador-core",
+    "@types/mirador-core-model": "file:packages/mirador-core-model",
     "@mirador/custom-components": "file:packages/mirador-custom-components",
     "@mirador/i18n": "file:packages/mirador-i18n",
     "@mirador/react-components": "file:packages/mirador-react-components",

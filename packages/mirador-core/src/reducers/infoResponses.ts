@@ -1,11 +1,11 @@
-import {ActionTypes} from '../actions'
+import {RECEIVE_INFO_RESPONSE, RECEIVE_INFO_RESPONSE_FAILURE, REMOVE_INFO_RESPONSE, REQUEST_INFO_RESPONSE} from '../actions'
 
 /**
  * infoResponsesReducer
  */
 export const infoResponsesReducer = (state = {}, action) => {
   switch (action.type) {
-    case ActionTypes.REQUEST_INFO_RESPONSE:
+    case REQUEST_INFO_RESPONSE:
       return {
         ...state,
         [action.infoId]: {
@@ -13,7 +13,7 @@ export const infoResponsesReducer = (state = {}, action) => {
           isFetching: true,
         },
       };
-    case ActionTypes.RECEIVE_INFO_RESPONSE:
+    case RECEIVE_INFO_RESPONSE:
       return {
         ...state,
         [action.infoId]: {
@@ -22,7 +22,7 @@ export const infoResponsesReducer = (state = {}, action) => {
           json: action.infoJson,
         },
       };
-    case ActionTypes.RECEIVE_INFO_RESPONSE_FAILURE:
+    case RECEIVE_INFO_RESPONSE_FAILURE:
       return {
         ...state,
         [action.infoId]: {
@@ -31,7 +31,7 @@ export const infoResponsesReducer = (state = {}, action) => {
           isFetching: false,
         },
       };
-    case ActionTypes.REMOVE_INFO_RESPONSE:
+    case REMOVE_INFO_RESPONSE:
       return Object.keys(state).reduce((object, key) => {
         if (key !== action.infoId) {
           object[key] = state[key]; // eslint-disable-line no-param-reassign
