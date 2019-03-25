@@ -1,5 +1,5 @@
+import {ADD_COMPANION_WINDOW, REMOVE_COMPANION_WINDOW, UPDATE_COMPANION_WINDOW} from './action-types';
 import uuid from 'uuid/v4';
-import {ActionTypes} from './action-types';
 
 const defaultProps = {
   content: null,
@@ -12,7 +12,7 @@ const defaultProps = {
  * @param payload
  * @param defaults
  */
-export function addCompanionWindow(windowId, payload, defaults = defaultProps) {
+export const addCompanionWindow = (windowId, payload, defaults = defaultProps) => {
   return (dispatch, getState) => {
     const { companionWindows } = getState();
     const id = `cw-${uuid()}`;
@@ -21,7 +21,7 @@ export function addCompanionWindow(windowId, payload, defaults = defaultProps) {
       companionWindows,
       id,
       payload: { ...defaults, ...payload, id },
-      type: ActionTypes.ADD_COMPANION_WINDOW,
+      type: ADD_COMPANION_WINDOW,
       windowId,
     });
   };
@@ -33,20 +33,20 @@ export function addCompanionWindow(windowId, payload, defaults = defaultProps) {
  * @param id
  * @param payload
  */
-export function updateCompanionWindow(windowId, id, payload) {
+export const updateCompanionWindow = (windowId, id, payload) => {
   return {
     id,
     payload,
-    type: ActionTypes.UPDATE_COMPANION_WINDOW,
+    type: UPDATE_COMPANION_WINDOW,
     windowId,
   };
 }
 
 /** */
-export function removeCompanionWindow(windowId, id) {
+export const removeCompanionWindow = (windowId, id) => {
   return {
     id,
-    type: ActionTypes.REMOVE_COMPANION_WINDOW,
+    type: REMOVE_COMPANION_WINDOW,
     windowId,
   };
 }

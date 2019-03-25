@@ -1,15 +1,15 @@
-import {ActionTypes} from './action-types';
+import {RECEIVE_MANIFEST, RECEIVE_MANIFEST_FAILURE, REMOVE_MANIFEST, REQUEST_MANIFEST} from './action-types';
 
 /**
  *
  * @param manifestId
  * @param properties
  */
-export function requestManifest(manifestId, properties) {
+export const requestManifest = (manifestId, properties) => {
   return {
     manifestId,
     properties,
-    type: ActionTypes.REQUEST_MANIFEST,
+    type: REQUEST_MANIFEST,
   };
 }
 
@@ -20,11 +20,11 @@ export function requestManifest(manifestId, properties) {
  * @param  {Object} manifestJson
  * @memberof ActionCreators
  */
-export function receiveManifest(manifestId, manifestJson) {
+export const receiveManifest = (manifestId, manifestJson) => {
   return {
     manifestId,
     manifestJson,
-    type: ActionTypes.RECEIVE_MANIFEST,
+    type: RECEIVE_MANIFEST,
   };
 }
 
@@ -33,11 +33,11 @@ export function receiveManifest(manifestId, manifestJson) {
  * @param manifestId
  * @param error
  */
-export function receiveManifestFailure(manifestId, error) {
+export const receiveManifestFailure = (manifestId, error) => {
   return {
     error,
     manifestId,
-    type: ActionTypes.RECEIVE_MANIFEST_FAILURE,
+    type: RECEIVE_MANIFEST_FAILURE,
   };
 }
 
@@ -46,7 +46,7 @@ export function receiveManifestFailure(manifestId, error) {
  * @param manifestId
  * @param properties
  */
-export function fetchManifest(manifestId, properties) {
+export const fetchManifest = (manifestId, properties) => {
   return ((dispatch) => {
     dispatch(requestManifest(manifestId, { ...properties, isFetching: true }));
 
@@ -69,6 +69,6 @@ export function fetchManifest(manifestId, properties) {
  * @param  {String} manifestId
  * @memberof ActionCreators
  */
-export function removeManifest(manifestId) {
-  return { manifestId, type: ActionTypes.REMOVE_MANIFEST };
+export const removeManifest = (manifestId) => {
+  return { manifestId, type: REMOVE_MANIFEST };
 }

@@ -1,15 +1,57 @@
-import { remove, updateIn, merge } from 'immutable';
-import ActionTypes from '../actions/action-types';
+import {ADD_COMPANION_WINDOW, ADD_WINDOW, DESELECT_ANNOTATION, MAXIMIZE_WINDOW, MINIMIZE_WINDOW, REMOVE_COMPANION_WINDOW, REMOVE_WINDOW,
+  SELECT_ANNOTATION, SET_CANVAS, SET_WINDOW_SIDE_BAR_PANEL, SET_WINDOW_SIZE, SET_WINDOW_VIEW_TYPE, TOGGLE_ANNOTATION_DISPLAY,
+  TOGGLE_WINDOW_SIDE_BAR, UPDATE_WINDOW, UPDATE_WINDOW_POSITION} from '../actions';
+import { merge, remove, updateIn } from 'immutable';
+import {IWindow} from 'Models'
+/**
+ * Handle removing IDs from selectedAnnotations
+ * where empty canvasIDs are removed from state as well
+ */
+const updatedSelectedAnnotations = (state, action) => {
+  const filteredIds = state[action.windowId]
+    .selectedAnnotations[action.canvasId]
+    .filter(id => id !== action.annotationId);
+
+  if (filteredIds.length > 0) {
+    return {
+      ...state[action.windowId].selectedAnnotations,
+      [action.canvasId]: filteredIds,
+    };
+  }
+
+  return remove(state[action.windowId].selectedAnnotations, action.canvasId);
+}
+
+/**
+ * @param {Object} state
+ * @param {String} windowId
+ * @param {Function} getIndex - gets curent canvas index passed and should return new index
+ */
+const setCanvasIndex = (state, windowId, getIndex) => {
+  return Object.values(state).reduce((object, window: any) => {
+    if (window.id === windowId) {
+      return {
+        ...object,
+        [window.id]: {
+          ...window,
+          canvasIndex: getIndex(window.canvasIndex),
+        },
+      }
+    }
+    return { ...object, [window.id]: window }
+  }, {})
+}
+
 
 /**
  * windowsReducer
  */
-export const windowsReducer = (state = {}, action) => {
+export const windowsReducer = (state, action) => {
   switch (action.type) {
-    case ActionTypes.ADD_WINDOW:
+    case ADD_WINDOW:
       return { ...state, [action.window.id]: action.window };
 
-    case ActionTypes.MAXIMIZE_WINDOW:
+    case MAXIMIZE_WINDOW:
       return {
         ...state,
         [action.windowId]: {
@@ -17,7 +59,7 @@ export const windowsReducer = (state = {}, action) => {
           maximized: true,
         },
       };
-    case ActionTypes.MINIMIZE_WINDOW:
+    case MINIMIZE_WINDOW:
       return {
         ...state,
         [action.windowId]: {
@@ -26,17 +68,17 @@ export const windowsReducer = (state = {}, action) => {
         },
       }
 
-    case ActionTypes.UPDATE_WINDOW:
+    case UPDATE_WINDOW:
       return updateIn(state, [action.id], orig => merge(orig, action.payload));
 
-    case ActionTypes.REMOVE_WINDOW:
+    case REMOVE_WINDOW:
       return Object.keys(state).reduce((object, key) => {
         if (key !== action.windowId) {
           object[key] = state[key]; // eslint-disable-line no-param-reassign
         }
         return object;
       }, {});
-    case ActionTypes.TOGGLE_WINDOW_SIDE_BAR:
+    case TOGGLE_WINDOW_SIDE_BAR:
       return {
         ...state,
         [action.windowId]: {
@@ -44,7 +86,7 @@ export const windowsReducer = (state = {}, action) => {
           sideBarOpen: !state[action.windowId].sideBarOpen,
         },
       }
-    case ActionTypes.SET_WINDOW_VIEW_TYPE:
+    case SET_WINDOW_VIEW_TYPE:
       return {
         ...state,
         [action.windowId]: {
@@ -52,7 +94,7 @@ export const windowsReducer = (state = {}, action) => {
           view: action.viewType,
         },
       };
-    case ActionTypes.SET_WINDOW_SIDE_BAR_PANEL:
+    case SET_WINDOW_SIDE_BAR_PANEL:
       return {
         ...state,
         [action.windowId]: {
@@ -62,7 +104,7 @@ export const windowsReducer = (state = {}, action) => {
           ),
         },
       }
-    case ActionTypes.UPDATE_WINDOW_POSITION:
+    case UPDATE_WINDOW_POSITION:
       return {
         ...state,
         [action.payload.windowId]: {
@@ -71,7 +113,7 @@ export const windowsReducer = (state = {}, action) => {
           y: action.payload.position.y,
         },
       }
-    case ActionTypes.SET_WINDOW_SIZE:
+    case SET_WINDOW_SIZE:
       return {
         ...state,
         [action.payload.windowId]: {
@@ -82,9 +124,9 @@ export const windowsReducer = (state = {}, action) => {
           y: action.payload.size.y,
         },
       }
-    case ActionTypes.SET_CANVAS:
+    case SET_CANVAS:
       return setCanvasIndex(state, action.windowId, () => action.canvasIndex)
-    case ActionTypes.ADD_COMPANION_WINDOW:
+    case ADD_COMPANION_WINDOW:
       if (action.payload.position === 'left') {
         const { companionWindowIds } = state[action.windowId];
         const { companionWindows } = action;
@@ -109,7 +151,7 @@ export const windowsReducer = (state = {}, action) => {
           companionWindowIds: state[action.windowId].companionWindowIds.concat([action.id]),
         },
       };
-    case ActionTypes.REMOVE_COMPANION_WINDOW:
+    case REMOVE_COMPANION_WINDOW:
       return {
         ...state,
         [action.windowId]: {
@@ -118,7 +160,7 @@ export const windowsReducer = (state = {}, action) => {
             .companionWindowIds.filter(id => id !== action.id),
         },
       };
-    case ActionTypes.SELECT_ANNOTATION:
+    case SELECT_ANNOTATION:
       return {
         ...state,
         [action.windowId]: {
@@ -132,7 +174,7 @@ export const windowsReducer = (state = {}, action) => {
           },
         },
       };
-    case ActionTypes.DESELECT_ANNOTATION: {
+    case DESELECT_ANNOTATION: {
       const selectedAnnotations = updatedSelectedAnnotations(state, action);
 
       return {
@@ -143,7 +185,7 @@ export const windowsReducer = (state = {}, action) => {
         },
       };
     }
-    case ActionTypes.TOGGLE_ANNOTATION_DISPLAY:
+    case TOGGLE_ANNOTATION_DISPLAY:
       return {
         ...state,
         [action.windowId]: {
@@ -156,41 +198,4 @@ export const windowsReducer = (state = {}, action) => {
   }
 };
 
-/**
- * Handle removing IDs from selectedAnnotations
- * where empty canvasIDs are removed from state as well
- */
-function updatedSelectedAnnotations(state, action) {
-  const filteredIds = state[action.windowId]
-    .selectedAnnotations[action.canvasId]
-    .filter(id => id !== action.annotationId);
 
-  if (filteredIds.length > 0) {
-    return {
-      ...state[action.windowId].selectedAnnotations,
-      [action.canvasId]: filteredIds,
-    };
-  }
-
-  return remove(state[action.windowId].selectedAnnotations, action.canvasId);
-}
-
-/**
- * @param {Object} state
- * @param {String} windowId
- * @param {Function} getIndex - gets curent canvas index passed and should return new index
- */
-function setCanvasIndex(state, windowId, getIndex) {
-  return Object.values(state).reduce((object, window: any) => {
-    if (window.id === windowId) {
-      return {
-        ...object,
-        [window.id]: {
-          ...window,
-          canvasIndex: getIndex(window.canvasIndex),
-        },
-      }
-    }
-    return { ...object, [window.id]: window }
-  }, {})
-}

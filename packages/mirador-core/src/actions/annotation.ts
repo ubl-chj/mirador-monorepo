@@ -1,4 +1,5 @@
-import {ActionTypes} from './action-types'
+import {DESELECT_ANNOTATION, RECEIVE_ANNOTATION, RECEIVE_ANNOTATION_FAILURE,
+  REQUEST_ANNOTATION, SELECT_ANNOTATION, TOGGLE_ANNOTATION_DISPLAY} from './action-types'
 
 /**
  * requestAnnotation - action creator
@@ -7,11 +8,11 @@ import {ActionTypes} from './action-types'
  * @param  {String} annotationId
  * @memberof ActionCreators
  */
-export function requestAnnotation(canvasId, annotationId) {
+export const requestAnnotation = (canvasId, annotationId) => {
   return {
     annotationId,
     canvasId,
-    type: ActionTypes.REQUEST_ANNOTATION,
+    type: REQUEST_ANNOTATION,
   };
 }
 
@@ -23,12 +24,12 @@ export function requestAnnotation(canvasId, annotationId) {
  * @param  {Object} annotationJson
  * @memberof ActionCreators
  */
-export function receiveAnnotation(canvasId, annotationId, annotationJson) {
+export const receiveAnnotation = (canvasId, annotationId, annotationJson) => {
   return {
     annotationId,
     annotationJson,
     canvasId,
-    type: ActionTypes.RECEIVE_ANNOTATION,
+    type: RECEIVE_ANNOTATION,
   };
 }
 
@@ -40,12 +41,12 @@ export function receiveAnnotation(canvasId, annotationId, annotationJson) {
  * @param  {String} error
  * @memberof ActionCreators
  */
-export function receiveAnnotationFailure(canvasId, annotationId, error) {
+export const receiveAnnotationFailure = (canvasId, annotationId, error) => {
   return {
     annotationId,
     canvasId,
     error,
-    type: ActionTypes.RECEIVE_ANNOTATION_FAILURE,
+    type: RECEIVE_ANNOTATION_FAILURE,
   };
 }
 
@@ -55,7 +56,7 @@ export function receiveAnnotationFailure(canvasId, annotationId, error) {
  * @param  {String} annotationId
  * @memberof ActionCreators
  */
-export function fetchAnnotation(canvasId, annotationId) {
+export const fetchAnnotation = (canvasId, annotationId) => {
   return ((dispatch) => {
     dispatch(requestAnnotation(canvasId, annotationId));
     return window.fetch(annotationId)
@@ -73,11 +74,11 @@ export function fetchAnnotation(canvasId, annotationId) {
  * @param  {String} annotationId
  * @memberof ActionCreators
  */
-export function selectAnnotation(windowId, canvasId, annotationId) {
+export const selectAnnotation = (windowId, canvasId, annotationId) => {
   return {
     annotationId,
     canvasId,
-    type: ActionTypes.SELECT_ANNOTATION,
+    type: SELECT_ANNOTATION,
     windowId,
   };
 }
@@ -90,11 +91,11 @@ export function selectAnnotation(windowId, canvasId, annotationId) {
  * @param  {String} annotationId
  * @memberof ActionCreators
  */
-export function deselectAnnotation(windowId, canvasId, annotationId) {
+export const deselectAnnotation = (windowId, canvasId, annotationId) => {
   return {
     annotationId,
     canvasId,
-    type: ActionTypes.DESELECT_ANNOTATION,
+    type: DESELECT_ANNOTATION,
     windowId,
   };
 }
@@ -105,8 +106,8 @@ export function deselectAnnotation(windowId, canvasId, annotationId) {
  * @param  {String} windowId
  * @memberof ActionCreators
  */
-export function toggleAnnotationDisplay(windowId) {
+export const toggleAnnotationDisplay = (windowId) => {
   return {
-    type: ActionTypes.TOGGLE_ANNOTATION_DISPLAY, windowId,
+    type: TOGGLE_ANNOTATION_DISPLAY, windowId,
   };
 }

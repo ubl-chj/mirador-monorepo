@@ -1,13 +1,14 @@
+import {ADD_WINDOW, FOCUS_WINDOW, MAXIMIZE_WINDOW, MINIMIZE_WINDOW, REMOVE_WINDOW,
+  SET_WINDOW_SIDE_BAR_PANEL, SET_WINDOW_SIZE, SET_WINDOW_VIEW_TYPE,
+  TOGGLE_WINDOW_SIDE_BAR, UPDATE_COMPANION_WINDOW, UPDATE_WINDOW, UPDATE_WINDOW_POSITION} from './action-types';
 import uuid from 'uuid/v4'
-import {ActionTypes} from './action-types'
 
 /**
- * focusWindow - action creator
  *
- * @param  {String} windowId
- * @memberof ActionCreators
+ * @param windowId
+ * @param pan
  */
-export function focusWindow(windowId, pan = false) {
+export const focusWindow = (windowId, pan = false) => {
   return (dispatch, getState) => {
     const { windows, workspace } = getState();
 
@@ -25,7 +26,7 @@ export function focusWindow(windowId, pan = false) {
     }
     dispatch({
       position,
-      type: ActionTypes.FOCUS_WINDOW,
+      type: FOCUS_WINDOW,
       windowId,
     });
   };
@@ -37,7 +38,7 @@ export function focusWindow(windowId, pan = false) {
  * @param  {Object} options
  * @memberof ActionCreators
  */
-export function addWindow(options) {
+export const addWindow = (options) => {
   return (dispatch, getState) => {
     const { windows } = getState();
     const numWindows = Object.keys(windows).length;
@@ -76,7 +77,7 @@ export function addWindow(options) {
           position: options.thumbnailNavigationPosition || 'far-bottom',
         },
       ],
-      type: ActionTypes.ADD_WINDOW,
+      type: ADD_WINDOW,
       window: { ...defaultOptions, ...options },
     });
   };
@@ -87,8 +88,8 @@ export function addWindow(options) {
  * @param  {String} windowId
  * @memberof ActionCreators
  */
-export function maximizeWindow(windowId) {
-  return { type: ActionTypes.MAXIMIZE_WINDOW, windowId };
+export const maximizeWindow = (windowId) => {
+  return { type: MAXIMIZE_WINDOW, windowId };
 }
 
 /**
@@ -96,25 +97,25 @@ export function maximizeWindow(windowId) {
  * @param  {String} windowId
  * @memberof ActionCreators
  */
-export function minimizeWindow(windowId) {
-  return { type: ActionTypes.MINIMIZE_WINDOW, windowId };
+export const minimizeWindow = (windowId) => {
+  return { type: MINIMIZE_WINDOW, windowId };
 }
 
 /** */
-export function updateWindow(id, payload) {
+export const updateWindow = (id, payload) => {
   return {
     id,
     payload,
-    type: ActionTypes.UPDATE_WINDOW,
+    type: UPDATE_WINDOW,
   };
 }
 
 /** */
-export function setCompanionAreaOpen(id, companionAreaOpen) {
+export const setCompanionAreaOpen = (id, companionAreaOpen) => {
   return {
     id,
     payload: { companionAreaOpen },
-    type: ActionTypes.UPDATE_WINDOW,
+    type: UPDATE_WINDOW,
   };
 }
 
@@ -124,14 +125,14 @@ export function setCompanionAreaOpen(id, companionAreaOpen) {
  * @param  {String} windowId
  * @memberof ActionCreators
  */
-export function removeWindow(windowId) {
+export const removeWindow = (windowId) => {
   return (dispatch, getState) => {
     const { windows } = getState();
     const { companionWindowIds } = windows[windowId];
 
     dispatch({
       companionWindowIds,
-      type: ActionTypes.REMOVE_WINDOW,
+      type: REMOVE_WINDOW,
       windowId,
     });
   };
@@ -143,8 +144,8 @@ export function removeWindow(windowId) {
  * @param  {String} windowId
  * @memberof ActionCreators
  */
-export function toggleWindowSideBar(windowId) {
-  return { type: ActionTypes.TOGGLE_WINDOW_SIDE_BAR, windowId };
+export const toggleWindowSideBar = (windowId) => {
+  return { type: TOGGLE_WINDOW_SIDE_BAR, windowId };
 }
 
 /**
@@ -154,10 +155,10 @@ export function toggleWindowSideBar(windowId) {
  * @param  {String} panelType
  * @memberof ActionCreators
  */
-export function setWindowSideBarPanel(windowId, panelType) {
+export const setWindowSideBarPanel = (windowId, panelType) => {
   return {
     panelType,
-    type: ActionTypes.SET_WINDOW_SIDE_BAR_PANEL,
+    type: SET_WINDOW_SIDE_BAR_PANEL,
     windowId,
   };
 }
@@ -169,7 +170,7 @@ export function setWindowSideBarPanel(windowId, panelType) {
  * @param  {String} position
  * @memberof ActionCreators
  */
-export function setWindowThumbnailPosition(windowId, position) {
+export const setWindowThumbnailPosition = (windowId, position) => {
   return (dispatch, getState) => {
     const { windows } = getState();
     const { thumbnailNavigationId } = windows[windowId];
@@ -177,7 +178,7 @@ export function setWindowThumbnailPosition(windowId, position) {
     dispatch({
       id: thumbnailNavigationId,
       payload: { position },
-      type: ActionTypes.UPDATE_COMPANION_WINDOW,
+      type: UPDATE_COMPANION_WINDOW,
     });
   };
 }
@@ -189,9 +190,9 @@ export function setWindowThumbnailPosition(windowId, position) {
  * @param  {String} viewType
  * @memberof ActionCreators
  */
-export function setWindowViewType(windowId, viewType) {
+export const setWindowViewType = (windowId, viewType) => {
   return {
-    type: ActionTypes.SET_WINDOW_VIEW_TYPE,
+    type: SET_WINDOW_VIEW_TYPE,
     viewType,
     windowId,
   };
@@ -204,13 +205,13 @@ export function setWindowViewType(windowId, viewType) {
  * @param  {Array} position
  * @memberof ActionCreators
  */
-export function updateWindowPosition(windowId, position) {
+export const updateWindowPosition = (windowId, position) => {
   return {
     payload: {
       position,
       windowId,
     },
-    type: ActionTypes.UPDATE_WINDOW_POSITION,
+    type: UPDATE_WINDOW_POSITION,
   };
 }
 
@@ -221,12 +222,12 @@ export function updateWindowPosition(windowId, position) {
  * @param  {Object} size
  * @memberof ActionCreators
  */
-export function setWindowSize(windowId, size) {
+export const setWindowSize = (windowId, size) => {
   return {
     payload: {
       size,
       windowId,
     },
-    type: ActionTypes.SET_WINDOW_SIZE,
+    type: SET_WINDOW_SIZE,
   };
 }

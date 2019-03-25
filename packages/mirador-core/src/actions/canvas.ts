@@ -1,4 +1,4 @@
-import {ActionTypes} from './action-types';
+import {SET_CANVAS, UPDATE_VIEWPORT} from './action-types';
 /**
  * setCanvas - action creator
  *
@@ -6,10 +6,10 @@ import {ActionTypes} from './action-types';
  * @param  {Number} canvasIndex
  * @memberof ActionCreators
  */
-export function setCanvas(windowId, canvasIndex) {
+export const setCanvas = (windowId, canvasIndex) => {
   return {
     canvasIndex,
-    type: ActionTypes.SET_CANVAS,
+    type: SET_CANVAS,
     windowId,
   };
 }
@@ -20,7 +20,7 @@ export function setCanvas(windowId, canvasIndex) {
  * @param payload
  * @returns {{payload: *, meta: {debounce: {time: number}}, type: string, windowId: *}}
  */
-export function updateViewport(windowId, payload) {
+export const updateViewport = (windowId, payload) => {
   return {
     meta: {
       debounce: {
@@ -29,7 +29,7 @@ export function updateViewport(windowId, payload) {
       },
     },
     payload,
-    type: ActionTypes.UPDATE_VIEWPORT,
+    type: UPDATE_VIEWPORT,
     windowId,
   };
 }

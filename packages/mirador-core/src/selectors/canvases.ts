@@ -1,9 +1,8 @@
-import { createSelector } from 'reselect-change-memoize';
 import CanvasGroupings from '../utils/CanvasGroupings';
+import { createSelector } from 'reselect';
 import { getManifestoInstance } from './manifests';
 
 export const getCanvases = createSelector(
-  'getCanvases',
   [getManifestoInstance],
   manifest => manifest && manifest.getSequences()[0].getCanvases(),
 );
@@ -17,7 +16,6 @@ export const getCanvases = createSelector(
 * @return {Object}
 */
 export const getCanvas = createSelector(
-    'getCanvas',
   [
     getManifestoInstance,
     (state, { windowId, canvasIndex }) => (
@@ -40,7 +38,7 @@ export const getCanvas = createSelector(
 * @return {Object}
 */
 export function getSelectedCanvas(state, {windowId}) {
-  return getCanvas(state, { windowId, canvasIndex: 'selected' });
+  return getCanvas(state, {canvasIndex: 'selected', windowId});
 }
 
 /**
@@ -53,7 +51,6 @@ export function getSelectedCanvas(state, {windowId}) {
 * @return {Array}
 */
 export const getSelectedCanvases = createSelector(
-    'getSelectedCanvases',
   [
     getCanvases,
     (state, { windowId }) => state.windows[windowId],
@@ -71,7 +68,6 @@ export const getSelectedCanvases = createSelector(
 * @return {String|Integer}
 */
 export const getCanvasLabel = createSelector(
-    'getCanvasLabel',
   [getCanvas],
   canvas => (canvas && (
     canvas.getLabel().length > 0
@@ -86,7 +82,6 @@ export const getCanvasLabel = createSelector(
 * @param {String}
 */
 export const getCanvasDescription = createSelector(
-    'getCanvasDescription',
   [getCanvas],
   canvas => canvas && canvas.getProperty('description'),
 );
