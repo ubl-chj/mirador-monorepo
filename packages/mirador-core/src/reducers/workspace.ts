@@ -1,6 +1,9 @@
-import {FOCUS_WINDOW, SET_WORKSPACE_ADD_VISIBILITY, SET_WORKSPACE_FULLSCREEN, SET_WORKSPACE_VIEWPORT_POSITION,
-  TOGGLE_WORKSPACE_EXPOSE_MODE, TOGGLE_ZOOM_CONTROLS, UPDATE_WORKSPACE_MOSAIC_LAYOUT} from '../actions';
+import * as workspaceActions from '../actions/workspace';
+import {ActionType, getType} from 'typesafe-actions';
+import {FOCUS_WINDOW, SET_WORKSPACE_ADD_VISIBILITY, SET_WORKSPACE_VIEWPORT_POSITION, TOGGLE_WORKSPACE_EXPOSE_MODE,
+  TOGGLE_ZOOM_CONTROLS, UPDATE_WORKSPACE_MOSAIC_LAYOUT, setWorkspaceFullscreen} from '../actions';
 
+export type WorkspaceAction = ActionType<typeof workspaceActions>;
 /**
  * workspaceReducer
  */
@@ -26,8 +29,8 @@ export const workspaceReducer = (
           ...action.position,
         },
       };
-    case SET_WORKSPACE_FULLSCREEN:
-      return { ...state, isFullscreenEnabled: action.isFullscreenEnabled };
+    case getType(setWorkspaceFullscreen):
+      return { ...state, isFullscreenEnabled: action.payload.isFullscreenEnabled };
     case TOGGLE_ZOOM_CONTROLS:
       return { ...state, showZoomControls: action.showZoomControls };
     case UPDATE_WORKSPACE_MOSAIC_LAYOUT:

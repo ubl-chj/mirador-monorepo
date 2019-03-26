@@ -1,6 +1,7 @@
 import {SET_WORKSPACE_ADD_VISIBILITY, SET_WORKSPACE_FULLSCREEN, SET_WORKSPACE_VIEWPORT_POSITION,
   TOGGLE_WORKSPACE_EXPOSE_MODE, TOGGLE_ZOOM_CONTROLS, UPDATE_WORKSPACE_MOSAIC_LAYOUT} from './action-types'
 import { createAction } from 'typesafe-actions'
+
 /**
  * setWorkspaceFullscreen - action creator
  *
@@ -8,7 +9,7 @@ import { createAction } from 'typesafe-actions'
  * @memberof ActionCreators
  */
 export const setWorkspaceFullscreen = createAction(SET_WORKSPACE_FULLSCREEN, action => {
-  return (isFullscreenEnabled) => action(isFullscreenEnabled)
+  return (isFullscreenEnabled: boolean) => action({isFullscreenEnabled})
 })
 
 
