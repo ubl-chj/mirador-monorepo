@@ -91,7 +91,7 @@
 					<div class="tsd-signature tsd-kind-icon">get<wbr>All<wbr>OrSelected<wbr>Annotations<wbr>OnCanvases<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> =&nbsp;createSelector([getPresentAnnotationsOnSelectedCanvases,getSelectedAnnotationIds,(state, { windowId }) &#x3D;&gt; state.windows[windowId].displayAllAnnotations,],(canvasAnnotations, selectedAnnotationIds, displayAllAnnotations) &#x3D;&gt; {if (displayAllAnnotations) return canvasAnnotations;return canvasAnnotations.map(annotation &#x3D;&gt; ({id: (annotation[&#x27;@id&#x27;] || annotation.id),resources: annotation.resources.filter(r &#x3D;&gt; selectedAnnotationIds &amp;&amp; selectedAnnotationIds.includes(r.id),),}));},)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ubl-chj/mirador-monorepo/blob/52184e3e/packages/mirador-core/src/selectors/annotations.ts#L68">packages/mirador-core/src/selectors/annotations.ts:68</a></li>
+							<li>Defined in <a href="https://github.com/ubl-chj/mirador-monorepo/blob/8ababeab/packages/mirador-core/src/selectors/annotations.ts#L68">packages/mirador-core/src/selectors/annotations.ts:68</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -101,7 +101,7 @@
 					<div class="tsd-signature tsd-kind-icon">get<wbr>Annotation<wbr>Resources<wbr>ByMotivation<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> =&nbsp;createSelector([getPresentAnnotationsOnSelectedCanvases,(state) &#x3D;&gt; state.config.annotations.motivations,],(annotations, motivations) &#x3D;&gt; filter(flatten(annotations.map(annotation &#x3D;&gt; annotation.resources)),(resource: any) &#x3D;&gt; resource.motivations.some(motivation &#x3D;&gt; motivations.includes(motivation),),),)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ubl-chj/mirador-monorepo/blob/52184e3e/packages/mirador-core/src/selectors/annotations.ts#L36">packages/mirador-core/src/selectors/annotations.ts:36</a></li>
+							<li>Defined in <a href="https://github.com/ubl-chj/mirador-monorepo/blob/8ababeab/packages/mirador-core/src/selectors/annotations.ts#L36">packages/mirador-core/src/selectors/annotations.ts:36</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -124,7 +124,7 @@
 					<div class="tsd-signature tsd-kind-icon">get<wbr>Annotations<wbr>OnSelected<wbr>Canvases<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> =&nbsp;createSelector([getSelectedCanvases,(state: any) &#x3D;&gt; state.annotations,],(canvases: any, annotations) &#x3D;&gt; {if (!annotations || !canvases) return [];return flatten(canvases.map(c &#x3D;&gt; c.id).map(targetId &#x3D;&gt; annotations[targetId] &amp;&amp; Object.values(annotations[targetId]),),);},)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ubl-chj/mirador-monorepo/blob/52184e3e/packages/mirador-core/src/selectors/annotations.ts#L7">packages/mirador-core/src/selectors/annotations.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/ubl-chj/mirador-monorepo/blob/8ababeab/packages/mirador-core/src/selectors/annotations.ts#L7">packages/mirador-core/src/selectors/annotations.ts:7</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -134,7 +134,7 @@
 					<div class="tsd-signature tsd-kind-icon">get<wbr>Present<wbr>Annotations<wbr>OnSelected<wbr>Canvases<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> =&nbsp;createSelector(getAnnotationsOnSelectedCanvases,annotations &#x3D;&gt; filter(Object.values(annotations).map((annotation: any) &#x3D;&gt; annotation &amp;&amp; new Annotation(annotation.json)),annotation &#x3D;&gt; annotation &amp;&amp; annotation.present(),),)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ubl-chj/mirador-monorepo/blob/52184e3e/packages/mirador-core/src/selectors/annotations.ts#L22">packages/mirador-core/src/selectors/annotations.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/ubl-chj/mirador-monorepo/blob/8ababeab/packages/mirador-core/src/selectors/annotations.ts#L22">packages/mirador-core/src/selectors/annotations.ts:22</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -144,7 +144,7 @@
 					<div class="tsd-signature tsd-kind-icon">get<wbr>Selected<wbr>Annotation<wbr>Ids<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> =&nbsp;createSelector([(state, { windowId }) &#x3D;&gt; state.windows[windowId].selectedAnnotations,getSelectedCanvases,],(selectedAnnotations, canvases: any) &#x3D;&gt; (flatten(canvases.map(c &#x3D;&gt; c.id).map(targetId &#x3D;&gt; selectedAnnotations &amp;&amp; selectedAnnotations[targetId]),)),)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ubl-chj/mirador-monorepo/blob/52184e3e/packages/mirador-core/src/selectors/annotations.ts#L56">packages/mirador-core/src/selectors/annotations.ts:56</a></li>
+							<li>Defined in <a href="https://github.com/ubl-chj/mirador-monorepo/blob/8ababeab/packages/mirador-core/src/selectors/annotations.ts#L56">packages/mirador-core/src/selectors/annotations.ts:56</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
