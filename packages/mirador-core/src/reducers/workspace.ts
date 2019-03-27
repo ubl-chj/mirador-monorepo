@@ -1,40 +1,39 @@
-import {FOCUS_WINDOW, SET_WORKSPACE_ADD_VISIBILITY, SET_WORKSPACE_FULLSCREEN, SET_WORKSPACE_VIEWPORT_POSITION,
-  TOGGLE_WORKSPACE_EXPOSE_MODE, TOGGLE_ZOOM_CONTROLS, UPDATE_WORKSPACE_MOSAIC_LAYOUT} from '../actions';
+import * as workspaceActions from '../actions/workspace'
+import {ActionType, getType} from 'typesafe-actions';
+import {IWorkspace} from 'mirador-core-model'
 
+export type WorkspaceAction = ActionType<typeof workspaceActions>
+
+const initialState: IWorkspace = {
+  exposeModeOn: false,
+  height: 5000,
+  isFullscreenEnabled: false,
+  isWorkspaceAddVisible: false,
+  layout: {
+    direction: null,
+    first: null,
+    second: null
+  },
+  viewportPosition: {
+    x: 0,
+    y: 0,
+  },
+  width: 5000,
+}
 /**
  * workspaceReducer
  */
-export const workspaceReducer = (
-  state = { // we'll need to abstract this more, methinks.
-    exposeModeOn: false,
-    height: 5000,
-    viewportPosition: {
-      x: 0,
-      y: 0,
-    },
-    width: 5000,
-  },
-  action,
-) => {
+export const workspaceReducer = (state: IWorkspace = initialState, action: WorkspaceAction) => {
   switch (action.type) {
-    case FOCUS_WINDOW:
-      return {
-        ...state,
-        focusedWindowId: action.windowId,
-        viewportPosition: {
-          ...state.viewportPosition,
-          ...action.position,
-        },
-      };
-    case SET_WORKSPACE_FULLSCREEN:
-      return { ...state, isFullscreenEnabled: action.isFullscreenEnabled };
-    case TOGGLE_ZOOM_CONTROLS:
-      return { ...state, showZoomControls: action.showZoomControls };
-    case UPDATE_WORKSPACE_MOSAIC_LAYOUT:
-      return { ...state, layout: action.layout };
-    case SET_WORKSPACE_ADD_VISIBILITY:
-      return { ...state, isWorkspaceAddVisible: action.isWorkspaceAddVisible };
-    case SET_WORKSPACE_VIEWPORT_POSITION:
+    case getType(workspaceActions.setWorkspaceFullscreen):
+      return { ...state, isFullscreenEnabled: action.payload.isFullscreenEnabled };
+    case getType(workspaceActions.toggleZoomControls):
+      return { ...state, showZoomControls: action.payload.showZoomControls };
+    case getType(workspaceActions.updateWorkspaceMosaicLayout):
+      return { ...state, layout: action.payload.layout };
+    case getType(workspaceActions.setWorkspaceAddVisibility):
+      return { ...state, isWorkspaceAddVisible: action.payload.isWorkspaceAddVisible };
+    case getType(workspaceActions.setWorkspaceViewportPosition):
       return {
         ...state,
         viewportPosition: {
@@ -42,7 +41,7 @@ export const workspaceReducer = (
           ...action.payload.position,
         },
       };
-    case TOGGLE_WORKSPACE_EXPOSE_MODE:
+    case getType(workspaceActions.toggleWorkspaceExposeMode):
       return { ...state, exposeModeOn: !state.exposeModeOn };
     default:
       return state;

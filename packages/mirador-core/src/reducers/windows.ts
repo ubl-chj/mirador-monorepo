@@ -1,8 +1,12 @@
-import {ADD_COMPANION_WINDOW, ADD_WINDOW, DESELECT_ANNOTATION, MAXIMIZE_WINDOW, MINIMIZE_WINDOW, REMOVE_COMPANION_WINDOW, REMOVE_WINDOW,
-  SELECT_ANNOTATION, SET_CANVAS, SET_WINDOW_SIDE_BAR_PANEL, SET_WINDOW_SIZE, SET_WINDOW_VIEW_TYPE, TOGGLE_ANNOTATION_DISPLAY,
-  TOGGLE_WINDOW_SIDE_BAR, UPDATE_WINDOW, UPDATE_WINDOW_POSITION} from '../actions';
+import * as annotationActions from '../actions/annotation'
+import * as canvasActions from '../actions/canvas'
+import * as companionWindowsActions from '../actions/companionWindow'
+import * as windowActions from '../actions/window'
+import {ActionType, getType} from 'typesafe-actions';
 import { merge, remove, updateIn } from 'immutable';
-import {IWindow} from 'Models'
+
+
+export type WindowAction = ActionType<typeof companionWindowsActions & typeof canvasActions & typeof windowActions & typeof annotationActions>
 /**
  * Handle removing IDs from selectedAnnotations
  * where empty canvasIDs are removed from state as well
@@ -46,65 +50,55 @@ const setCanvasIndex = (state, windowId, getIndex) => {
 /**
  * windowsReducer
  */
-export const windowsReducer = (state, action) => {
+export const windowsReducer = (state = {}, action: WindowAction) => {
   switch (action.type) {
-    case ADD_WINDOW:
-      return { ...state, [action.window.id]: action.window };
-
-    case MAXIMIZE_WINDOW:
+    case getType(windowActions.maximizeWindow):
       return {
         ...state,
-        [action.windowId]: {
-          ...state[action.windowId],
+        [action.payload.windowId]: {
+          ...state[action.payload.windowId],
           maximized: true,
         },
       };
-    case MINIMIZE_WINDOW:
+    case getType(windowActions.minimizeWindow):
       return {
         ...state,
-        [action.windowId]: {
-          ...state[action.windowId],
+        [action.payload.windowId]: {
+          ...state[action.payload.windowId],
           maximized: false,
         },
       }
 
-    case UPDATE_WINDOW:
-      return updateIn(state, [action.id], orig => merge(orig, action.payload));
+    case getType(windowActions.updateWindow):
+      return updateIn(state, [action.payload.id], orig => merge(orig, action.payload));
 
-    case REMOVE_WINDOW:
-      return Object.keys(state).reduce((object, key) => {
-        if (key !== action.windowId) {
-          object[key] = state[key]; // eslint-disable-line no-param-reassign
-        }
-        return object;
-      }, {});
-    case TOGGLE_WINDOW_SIDE_BAR:
+    case getType(windowActions.toggleWindowSideBar):
       return {
         ...state,
-        [action.windowId]: {
-          ...state[action.windowId],
-          sideBarOpen: !state[action.windowId].sideBarOpen,
+        [action.payload.windowId]: {
+          ...state[action.payload.windowId],
+          sideBarOpen: !state[action.payload.windowId].sideBarOpen,
         },
       }
-    case SET_WINDOW_VIEW_TYPE:
+    case getType(windowActions.setWindowViewType):
       return {
         ...state,
-        [action.windowId]: {
-          ...state[action.windowId],
-          view: action.viewType,
+        [action.payload.windowId]: {
+          ...state[action.payload.windowId],
+          view: action.payload.viewType,
         },
       };
-    case SET_WINDOW_SIDE_BAR_PANEL:
+    case getType(windowActions.setWindowSideBarPanel):
       return {
         ...state,
-        [action.windowId]: {
-          ...state[action.windowId],
+        [action.payload.windowId]: {
+          ...state[action.payload.windowId],
           sideBarPanel: (
-            action.panelType
+            action.payload.panelType
           ),
         },
       }
-    case UPDATE_WINDOW_POSITION:
+    case getType(windowActions.updateWindowPosition):
       return {
         ...state,
         [action.payload.windowId]: {
@@ -113,7 +107,7 @@ export const windowsReducer = (state, action) => {
           y: action.payload.position.y,
         },
       }
-    case SET_WINDOW_SIZE:
+    case getType(windowActions.setWindowSize):
       return {
         ...state,
         [action.payload.windowId]: {
@@ -124,73 +118,49 @@ export const windowsReducer = (state, action) => {
           y: action.payload.size.y,
         },
       }
-    case SET_CANVAS:
-      return setCanvasIndex(state, action.windowId, () => action.canvasIndex)
-    case ADD_COMPANION_WINDOW:
-      if (action.payload.position === 'left') {
-        const { companionWindowIds } = state[action.windowId];
-        const { companionWindows } = action;
-        const newCompanionWindowIds = companionWindowIds
-          .filter(id => companionWindows[id].position !== action.payload.position);
+    case getType(canvasActions.setCanvas):
+      return setCanvasIndex(state, action.payload.windowId, () => action.payload.canvasIndex)
 
-        return {
-          ...state,
-          [action.windowId]: {
-            ...state[action.windowId],
-            companionAreaOpen: true,
-            companionWindowIds: newCompanionWindowIds.concat([action.id]),
-            sideBarPanel: action.payload.content,
-          },
-        };
-      }
-
+    case getType(companionWindowsActions.removeCompanionWindow):
       return {
         ...state,
-        [action.windowId]: {
-          ...state[action.windowId],
-          companionWindowIds: state[action.windowId].companionWindowIds.concat([action.id]),
+        [action.payload.windowId]: {
+          ...state[action.payload.windowId],
+          companionWindowIds: state[action.payload.windowId]
+            .companionWindowIds.filter(id => id !== action.payload.id),
         },
       };
-    case REMOVE_COMPANION_WINDOW:
+    case getType(annotationActions.selectAnnotation):
       return {
         ...state,
-        [action.windowId]: {
-          ...state[action.windowId],
-          companionWindowIds: state[action.windowId]
-            .companionWindowIds.filter(id => id !== action.id),
-        },
-      };
-    case SELECT_ANNOTATION:
-      return {
-        ...state,
-        [action.windowId]: {
-          ...state[action.windowId],
+        [action.payload.windowId]: {
+          ...state[action.payload.windowId],
           selectedAnnotations: {
-            ...state[action.windowId].selectedAnnotations,
-            [action.canvasId]: [
-              ...((state[action.windowId].selectedAnnotations || {})[action.canvasId] || []),
-              action.annotationId,
+            ...state[action.payload.windowId].selectedAnnotations,
+            [action.payload.canvasId]: [
+              ...((state[action.payload.windowId].selectedAnnotations || {})[action.payload.canvasId] || []),
+              action.payload.annotationId,
             ],
           },
         },
       };
-    case DESELECT_ANNOTATION: {
+    case getType(annotationActions.deselectAnnotation): {
       const selectedAnnotations = updatedSelectedAnnotations(state, action);
 
       return {
         ...state,
-        [action.windowId]: {
-          ...state[action.windowId],
+        [action.payload.windowId]: {
+          ...state[action.payload.windowId],
           selectedAnnotations,
         },
       };
     }
-    case TOGGLE_ANNOTATION_DISPLAY:
+    case getType(annotationActions.toggleAnnotationDisplay):
       return {
         ...state,
-        [action.windowId]: {
-          ...state[action.windowId],
-          displayAllAnnotations: !state[action.windowId].displayAllAnnotations,
+        [action.payload.windowId]: {
+          ...state[action.payload.windowId],
+          displayAllAnnotations: !state[action.payload.windowId].displayAllAnnotations,
         },
       };
     default:

@@ -42,28 +42,6 @@ export const receiveManifestFailure = (manifestId, error) => {
 }
 
 /**
- *
- * @param manifestId
- * @param properties
- */
-export const fetchManifest = (manifestId, properties) => {
-  return ((dispatch) => {
-    dispatch(requestManifest(manifestId, { ...properties, isFetching: true }));
-
-    return fetch(manifestId)
-      .then((response) => response.json())
-      .then((json) => dispatch(receiveManifest(manifestId, json)))
-      .catch((error) => {
-        if (typeof error === 'object') { // Returned by JSON parse failure
-          dispatch(receiveManifestFailure(manifestId, String(error)));
-        } else {
-          dispatch(receiveManifestFailure(manifestId, error));
-        }
-      });
-  });
-}
-
-/**
  * removeManifest - action creator
  *
  * @param  {String} manifestId

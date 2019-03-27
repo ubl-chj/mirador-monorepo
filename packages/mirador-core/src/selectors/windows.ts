@@ -1,4 +1,4 @@
-import {ICompanionWindow, IWindow, IWindowsReducer} from 'Models';
+import {ICompanionWindow, IWindow, IWindowsReducer} from 'mirador-core-model';
 import { createSelector } from 'reselect'
 import { getManifestTitle } from './manifests';
 
@@ -7,9 +7,8 @@ import { getManifestTitle } from './manifests';
  * @param {object} state
  * @return {object}
  */
-export function getWindowTitles(state: IWindowsReducer) {
+export const getWindowTitles = (state: IWindowsReducer) => {
   const result = {};
-
   Object.keys(state.windows).forEach((windowId) => {
     result[windowId] = getManifestTitle(state, { windowId });
   });
@@ -17,7 +16,7 @@ export function getWindowTitles(state: IWindowsReducer) {
 }
 
 /** */
-function getWindow(state: any, { windowId }) {
+export const getWindow = (state: any, { windowId }) => {
   return state.windows && state.windows[windowId];
 }
 

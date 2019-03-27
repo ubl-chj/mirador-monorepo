@@ -42,22 +42,6 @@ export const receiveInfoResponseFailure = (infoId, error) => {
 }
 
 /**
- * fetchInfoResponse - action creator
- *
- * @param  {String} infoId
- * @memberof ActionCreators
- */
-export const fetchInfoResponse = (infoId) => {
-  return (dispatch) => {
-    dispatch(requestInfoResponse(infoId))
-    return window.fetch(infoId)
-      .then((response) => response.json())
-      .then((json) => dispatch(receiveInfoResponse(infoId, json)))
-      .catch((error) => dispatch(receiveInfoResponseFailure(infoId, error)))
-  }
-}
-
-/**
  * removeInfoResponse - action creator
  *
  * @param  {String} infoId

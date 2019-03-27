@@ -1,5 +1,5 @@
 import {RECEIVE_MANIFEST, RECEIVE_MANIFEST_FAILURE, REMOVE_MANIFEST, REQUEST_MANIFEST} from '../actions'
-import {IManifest} from 'Models'
+import {IManifest} from 'mirador-core-model'
 import omit from 'lodash/omit';
 
 const initialState: IManifest = {}

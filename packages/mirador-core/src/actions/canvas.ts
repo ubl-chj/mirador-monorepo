@@ -1,4 +1,6 @@
 import {SET_CANVAS, UPDATE_VIEWPORT} from './action-types';
+import {createAction} from 'typesafe-actions';
+
 /**
  * setCanvas - action creator
  *
@@ -6,13 +8,12 @@ import {SET_CANVAS, UPDATE_VIEWPORT} from './action-types';
  * @param  {Number} canvasIndex
  * @memberof ActionCreators
  */
-export const setCanvas = (windowId, canvasIndex) => {
-  return {
+export const setCanvas = createAction(SET_CANVAS, action => {
+  return (windowId, canvasIndex) => action({
     canvasIndex,
-    type: SET_CANVAS,
     windowId,
-  };
-}
+  });
+})
 
 /**
  *
@@ -20,8 +21,8 @@ export const setCanvas = (windowId, canvasIndex) => {
  * @param payload
  * @returns {{payload: *, meta: {debounce: {time: number}}, type: string, windowId: *}}
  */
-export const updateViewport = (windowId, payload) => {
-  return {
+export const updateViewport = createAction(UPDATE_VIEWPORT, action => {
+  return (windowId, payload) => action({
     meta: {
       debounce: {
         // TODO : set this value in a registry
@@ -31,5 +32,5 @@ export const updateViewport = (windowId, payload) => {
     payload,
     type: UPDATE_VIEWPORT,
     windowId,
-  };
-}
+  });
+})
