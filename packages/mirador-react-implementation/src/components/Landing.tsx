@@ -52,9 +52,7 @@ const LandingComponent: React.FC<ILandingComponent> = (props): ReactElement => {
         className={classes.card}
         key={card.index}
       >
-        <CardActionArea
-          component={props => <NavLink title={card.title} to={card.linkPath}{...props} />}
-        >
+        <NavLink title={card.title} to={card.linkPath}{...props}>
           <CardMedia
             className={classes.media}
             image={card.imageSrc}
@@ -63,7 +61,7 @@ const LandingComponent: React.FC<ILandingComponent> = (props): ReactElement => {
           <CardContent>
             <Typography paragraph={true}>{card.text}</Typography>
           </CardContent>
-        </CardActionArea>
+        </NavLink>
       </Card>)
   }
 
