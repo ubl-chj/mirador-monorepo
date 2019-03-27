@@ -107,7 +107,7 @@ export const WorkspaceSettingsMenu: React.FC<IWorkspaceSettingsMenu> = (props): 
   }
 
   return (
-    <ListItem alignItems="flex-start" style={{justifyContent: 'center'}}>
+    <ListItem style={{justifyContent: 'center'}}>
       <IconButton
         aria-haspopup="true"
         aria-owns={anchorEl ? 'settings-menu' : undefined}

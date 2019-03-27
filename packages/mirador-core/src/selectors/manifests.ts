@@ -1,20 +1,9 @@
-import {IManifestResource, ISequence, LanguageMap} from 'manifesto'
-import {IManifest} from "mirador-core-model"
+import {IManifest, IManifesto} from "mirador-core-model"
+import {IManifestResource} from 'manifesto'
+
 import ManifestoCanvas from '../utils/ManifestoCanvas';
 import { createSelector } from 'reselect'
 const manifesto = require('manifesto.js'); //eslint-disable-line
-
-export interface IManifesto {
-  getDescription(): LanguageMap
-  getLabel(): LanguageMap
-  getLogo(): string
-  getProperty(property: string): any
-  options: {
-    locale: {}
-  }
-  getSequences(): ISequence[]
-}
-
 
 /** Get the relevant manifest information */
 export const getManifest = (state, { windowId, manifestId, canvasIndex, motivations }: {

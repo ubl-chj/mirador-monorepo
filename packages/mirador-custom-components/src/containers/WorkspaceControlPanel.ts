@@ -29,8 +29,9 @@ const mapStateToProps = (state): any => (
     isWorkspaceAddVisible: state.workspace.isWorkspaceAddVisible,
     languages: getLanguagesFromConfigWithCurrent(state),
     manifests: state.manifests,
-    titles: getWindowTitles(state),
     theme: state.config.theme,
+    titles: getWindowTitles(state),
+
     windows: state.windows,
     workspaceType: state.config.workspace.type
   }
