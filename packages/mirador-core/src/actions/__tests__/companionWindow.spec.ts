@@ -71,16 +71,24 @@ describe('companionWindow actions', () => {
 
   describe('updateCompanionWindow', () => {
     it('should return correct action object', () => {
+      const expectedAction = {
+        payload: {
+          content: 'info',
+          foo: 'bar',
+          id: 'cw-123',
+          position: 'right',
+          windowId: 'abc123',
+        },
+        type: UPDATE_COMPANION_WINDOW
+      };
       const payload = {
         content: 'info',
         foo: 'bar',
         position: 'right',
-      };
+      }
       const action = updateCompanionWindow('abc123', 'cw-123', payload);
-
       expect(action.type).toBe(UPDATE_COMPANION_WINDOW);
-      expect(action.payload.id).toBe('cw-123');
-      expect(action.payload).toEqual(payload);
+      expect(action).toEqual(expectedAction)
     });
   });
 

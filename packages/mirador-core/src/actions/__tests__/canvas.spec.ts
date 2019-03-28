@@ -35,7 +35,7 @@ describe('canvas actions', () => {
           y: 0,
           zoom: 0.5,
         },
-        type: UPDATE_VIEWPORT
+        type: UPDATE_VIEWPORT,
       };
       expect(updateViewport(id, { x: 1, y: 0, zoom: 0.5 })).toEqual(expectedAction);
     });

@@ -22,7 +22,7 @@ export const minimizeWindow = createAction(MINIMIZE_WINDOW, action => {
 
 /** */
 export const updateWindow = createAction(UPDATE_WINDOW, action => {
-  return (id, payload) => action({id, payload});
+  return (id: string) => action({id});
 })
 
 /** */
@@ -50,7 +50,7 @@ export const toggleWindowSideBar = createAction(TOGGLE_WINDOW_SIDE_BAR, action =
  * @memberof ActionCreators
  */
 export const setWindowSideBarPanel = createAction(SET_WINDOW_SIDE_BAR_PANEL, action => {
-  return (windowId, panelType) => action({panelType, windowId});
+  return (panelType, windowId) => action({panelType, windowId});
 })
 
 
@@ -63,7 +63,7 @@ export const setWindowSideBarPanel = createAction(SET_WINDOW_SIDE_BAR_PANEL, act
  * @memberof ActionCreators
  */
 export const setWindowViewType = createAction(SET_WINDOW_VIEW_TYPE, action => {
-  return (windowId, viewType) => action({viewType, windowId});
+  return (viewType, windowId) => action({viewType, windowId});
 })
 
 /**
@@ -74,7 +74,7 @@ export const setWindowViewType = createAction(SET_WINDOW_VIEW_TYPE, action => {
  * @memberof ActionCreators
  */
 export const updateWindowPosition = createAction(UPDATE_WINDOW_POSITION, action => {
-  return (windowId, position) => action({position, windowId});
+  return (position, windowId) => action({position, windowId});
 })
 
 /**
@@ -85,5 +85,5 @@ export const updateWindowPosition = createAction(UPDATE_WINDOW_POSITION, action 
  * @memberof ActionCreators
  */
 export const setWindowSize = createAction(SET_WINDOW_SIZE, action => {
-  return (windowId, size) => action({size, windowId})
+  return (size, windowId) => action({size, windowId})
 })

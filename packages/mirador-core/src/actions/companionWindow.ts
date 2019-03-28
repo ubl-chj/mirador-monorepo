@@ -10,7 +10,7 @@ import {createAction} from 'typesafe-actions';
 export const updateCompanionWindow = createAction(UPDATE_COMPANION_WINDOW, action => {
   return (windowId, id, payload) => action({
     id,
-    payload,
+    ...payload,
     windowId,
   });
 })

@@ -119,6 +119,7 @@ export interface IWorkspace {
     first: string,
     second: string
   }
+  showZoomControls: boolean
   viewportPosition: {
     x: number
     y: number

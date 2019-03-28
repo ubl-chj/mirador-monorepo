@@ -1,12 +1,14 @@
 import * as annotationActions from '../actions/annotation'
 import * as canvasActions from '../actions/canvas'
 import * as companionWindowsActions from '../actions/companionWindow'
+import * as thunkActions from '../actions/thunks'
 import * as windowActions from '../actions/window'
 import {ActionType, getType} from 'typesafe-actions';
 import { merge, remove, updateIn } from 'immutable';
 
 
-export type WindowAction = ActionType<typeof companionWindowsActions & typeof canvasActions & typeof windowActions & typeof annotationActions>
+export type WindowAction = ActionType<typeof companionWindowsActions & typeof canvasActions
+  & typeof windowActions & typeof annotationActions & typeof thunkActions>
 /**
  * Handle removing IDs from selectedAnnotations
  * where empty canvasIDs are removed from state as well

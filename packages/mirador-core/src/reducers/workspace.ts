@@ -14,6 +14,7 @@ const initialState: IWorkspace = {
     first: null,
     second: null
   },
+  showZoomControls: false,
   viewportPosition: {
     x: 0,
     y: 0,
@@ -24,14 +25,14 @@ const initialState: IWorkspace = {
 /**
  * workspaceReducer
  */
-export const workspaceReducer = (state: IWorkspace = initialState, action: WorkspaceAction) => {
+export const workspaceReducer = (state: IWorkspace = initialState, action: WorkspaceAction): IWorkspace => {
   switch (action.type) {
     case getType(workspaceActions.setWorkspaceFullscreen):
       return { ...state, isFullscreenEnabled: action.payload.isFullscreenEnabled };
     case getType(workspaceActions.toggleZoomControls):
       return { ...state, showZoomControls: action.payload.showZoomControls };
     case getType(workspaceActions.updateWorkspaceMosaicLayout):
-      return { ...state, layout: action.payload.layout };
+      return { ...state, ...action.payload.layout };
     case getType(workspaceActions.setWorkspaceAddVisibility):
       return { ...state, isWorkspaceAddVisible: action.payload.isWorkspaceAddVisible };
     case getType(workspaceActions.setWorkspaceViewportPosition):

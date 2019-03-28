@@ -29,8 +29,7 @@ export const updateViewport = createAction(UPDATE_VIEWPORT, action => {
         time: 100,
       },
     },
-    payload,
-    type: UPDATE_VIEWPORT,
+    ...payload,
     windowId,
   });
 })

@@ -9,9 +9,11 @@ describe('window actions', () => {
   describe('focusWindow', () => {
     it('should return correct action object with pan=true', () => {
       const expectedAction = {
-        position: { x: 25, y: -13 },
+        payload: {
+          position: { x: 25, y: -13 },
+          windowId: 'window',
+        },
         type: FOCUS_WINDOW,
-        windowId: 'window',
       };
 
       const mockState = {
@@ -43,9 +45,11 @@ describe('window actions', () => {
     });
     it('should return correct action object with pan=false', () => {
       const expectedAction = {
-        position: {},
+        payload: {
+          position: {},
+          windowId: 'window',
+        },
         type: FOCUS_WINDOW,
-        windowId: 'window',
       };
 
       const mockState = {
@@ -124,14 +128,17 @@ describe('window actions', () => {
 
   describe('updateWindow', () => {
     it('should return correct action object', () => {
-      const payload = {
-        bar: 2,
-        foo: 1,
-      };
-      const action = updateWindow('window-123', payload);
-      expect(action.type).toBe(UPDATE_WINDOW);
-      expect(action.payload.id).toBe('window-123');
-      expect(action.payload).toEqual(payload);
+      const expectedAction = {
+        error: undefined,
+        meta: undefined,
+        payload: {
+          id: 'window-123'
+        },
+        type: UPDATE_WINDOW,
+      }
+      const id = 'window-123'
+      const action = updateWindow(id);
+      expect(action).toEqual(expectedAction);
     });
   });
 
@@ -268,7 +275,7 @@ describe('window actions', () => {
         },
         type: SET_WINDOW_VIEW_TYPE,
       };
-      expect(setWindowViewType(id, 'book')).toEqual(expectedAction);
+      expect(setWindowViewType('book', id)).toEqual(expectedAction);
     });
   });
 
@@ -293,6 +300,8 @@ describe('window actions', () => {
     it('returns the appropriate action type', () => {
       const id = 'abc123';
       const expectedAction = {
+        error: undefined,
+        meta: undefined,
         payload: {
           size: {
             height: 200,
