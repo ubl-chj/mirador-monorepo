@@ -1,4 +1,4 @@
-import {IWordPressAPIState, withPersistentDrawer} from '../api'
+import {IWordPressAPIState, PersistentDrawer} from '../api'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
@@ -122,4 +122,6 @@ class CmsPageComponent extends React.Component<ICmsPageComponent, IWordPressAPIS
   }
 }
 
-export const CmsPage = withStyles(styles, { withTheme: true })(withPersistentDrawer(CmsPageComponent))
+const drawer = (props) => { return (<PersistentDrawer component={<CmsPageComponent {...props}/>}/>) }
+
+export const CmsPage = withStyles(styles, { withTheme: true })(drawer)

@@ -1,13 +1,12 @@
+import {PersistentDrawer, addWindows, fetchManifests, resolveAndMergeConfig} from '../api'
 import React, {ReactElement, useEffect, useRef, useState} from 'react'
 import {ReactReduxContext, connect} from 'react-redux'
 import {addWindow, fetchManifest, setConfig} from '@mirador/core'
-import {addWindows, fetchManifests, resolveAndMergeConfig, withPersistentDrawer} from '../api'
 import {MetadataList} from '@mirador/custom-components'
 import {MiradorComponent} from '@mirador/react-components'
 import {localConfig} from '@mirador/configuration'
-import {styles} from '../styles'
 import {withRouter} from 'react-router-dom'
-import {withStyles} from '@material-ui/core'
+
 
 interface IMiradorImplementation {
   addWindow: Function,
@@ -27,7 +26,8 @@ const plugins = [{
   target: 'LabelValueMetadata',
 }]
 
-const MiradorWithPanel = withStyles(styles, { withTheme: true })(withPersistentDrawer(MiradorComponent))
+const MiradorWithPanel = (props) => { return (<PersistentDrawer {...props} component={<MiradorComponent {...props}/>}/>) }
+
 
 const MiradorImplementation: React.FC<IMiradorImplementation> = (props): ReactElement => {
   const initialConfiguration = useRef(localConfig)

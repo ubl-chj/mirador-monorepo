@@ -1,13 +1,12 @@
 import React, {ReactElement} from 'react'
 import Card from '@material-ui/core/Card'
-import CardActionArea from '@material-ui/core/CardActionArea'
 import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Grid from '@material-ui/core/Grid'
 import {NavLink} from 'react-router-dom'
+import {PersistentDrawer} from '../api'
 import Typography from '@material-ui/core/Typography'
 import {styles} from '../styles'
-import {withPersistentDrawer} from '../api'
 import {withStyles} from '@material-ui/core/styles'
 
 interface ILandingComponent {
@@ -81,4 +80,5 @@ const LandingComponent: React.FC<ILandingComponent> = (props): ReactElement => {
   )
 }
 
-export const Landing = withStyles(styles, { withTheme: true })(withPersistentDrawer(LandingComponent))
+const drawer = (props) => { return (<PersistentDrawer component={<LandingComponent {...props}/>}/>) }
+export const Landing = withStyles(styles, { withTheme: true })(drawer)
