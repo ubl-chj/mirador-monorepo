@@ -184,9 +184,8 @@ export const removeWindow = (windowId) => {
     const { companionWindowIds } = windows[windowId];
 
     dispatch({
-      companionWindowIds,
+      payload: {companionWindowIds, windowId},
       type: REMOVE_WINDOW,
-      windowId,
     });
   };
 }

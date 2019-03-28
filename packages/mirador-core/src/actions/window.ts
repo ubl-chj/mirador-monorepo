@@ -27,7 +27,7 @@ export const updateWindow = createAction(UPDATE_WINDOW, action => {
 
 /** */
 export const setCompanionAreaOpen = createAction(UPDATE_WINDOW, action => {
-  return (id, companionAreaOpen) => action({id, payload: { companionAreaOpen }});
+  return (id, companionAreaOpen) => action({companionAreaOpen, id});
 })
 
 

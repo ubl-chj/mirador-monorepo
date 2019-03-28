@@ -20,6 +20,7 @@ const initialState: IWorkspace = {
   },
   width: 5000,
 }
+
 /**
  * workspaceReducer
  */

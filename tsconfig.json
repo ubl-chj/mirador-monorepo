@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": { "*": ["types/*"] },
+    "declaration": true,
+    "module": "commonjs",
+    "target": "ES5",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "outDir": "lib",
+    "inlineSources" : true,
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "noEmitOnError": false,
+    "noUnusedParameters":true,
+    "noImplicitUseStrict":true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports":true,
+    "jsx": "react",
+    "lib":[
+      "es5", "es2015", "es2017", "dom"
+    ],
+    "types": [
+      "node", "jest", "jest-fetch-mock"
+    ],
+    "typeRoots": [
+      "node_modules/**/types",
+      "node_modules/@types",
+      "./src/@types",
+      "./src/types"
+    ]
+  },
+  "exclude": [
+    "node_modules",
+    "./src/**/__test__/*",
+    "./src/**/*.unit.tsx?"
+  ],
+  "atom": {
+    "rewriteTsconfig": false
+  }
+}
