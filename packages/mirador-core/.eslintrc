@@ -67,6 +67,7 @@
     "@typescript-eslint/indent": ["error", 2],
     "@typescript-eslint/member-delimiter-style": "off",
     "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-useless-constructor": "off",
     "@typescript-eslint/interface-name-prefix": [2, "always"]
   },
   "plugins": [

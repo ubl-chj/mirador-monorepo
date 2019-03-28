@@ -2,12 +2,12 @@ import React, {ReactElement, useEffect, useRef, useState} from 'react'
 import {ReactReduxContext, connect} from 'react-redux'
 import {addWindow, fetchManifest, setConfig} from '@mirador/core'
 import {addWindows, fetchManifests, resolveAndMergeConfig, withPersistentDrawer} from '../api'
+import {MetadataList} from '@mirador/custom-components'
 import {MiradorComponent} from '@mirador/react-components'
 import {localConfig} from '@mirador/configuration'
 import {styles} from '../styles'
 import {withRouter} from 'react-router-dom'
 import {withStyles} from '@material-ui/core'
-import {MetadataList} from '@mirador/custom-components'
 
 interface IMiradorImplementation {
   addWindow: Function,
@@ -62,7 +62,7 @@ const MiradorImplementation: React.FC<IMiradorImplementation> = (props): ReactEl
   return isInitialized ? (
     <ReactReduxContext.Consumer>
       {({store}) =>
-        <MiradorWithPanel store={store} plugins={plugins}/>
+        <MiradorWithPanel plugins={plugins} store={store}/>
       }
     </ReactReduxContext.Consumer>) : null
 }

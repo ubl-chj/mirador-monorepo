@@ -11,9 +11,7 @@ interface IWorkspaceAddItem {
 }
 export const WorkspaceAddItem: React.FC<IWorkspaceAddItem> = (props): ReactElement => {
   return (
-    <ListItem
-      alignItems="flex-start"
-    >
+    <ListItem>
       <Fab
         color="primary"
         id="addBtn"

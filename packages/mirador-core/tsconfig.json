@@ -5,5 +5,9 @@
   },
   "include": [
     "./src"
-  ]
+  ],
+  "typedocOptions": {
+    "mode": "modules",
+    "out": "docs"
+  }
 }

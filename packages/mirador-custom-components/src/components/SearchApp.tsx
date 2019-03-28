@@ -59,7 +59,7 @@ export class SearchApp extends SearchkitComponent<ISearchApp, any> {
     const {name, queryFields, refinementListFilters, sortingSelectorOptions} = this.routeConfig
     return (
       <Layout>
-        <Typography variant="subheading">{name}</Typography>
+        <Typography variant="subtitle1">{name}</Typography>
         <SearchBox autofocus={true} queryFields={queryFields} searchOnChange={true}/>
         <LayoutBody>
           <SideBar>

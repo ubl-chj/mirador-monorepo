@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+lerna run --scope @types/manifesto build
 lerna run --scope @types/mirador-core-model build
 lerna run --scope @mirador/core build
 lerna run --scope @mirador/custom-components build

@@ -1,14 +1,17 @@
 ## Mirador Monorepo
 [![CircleCI](https://circleci.com/gh/ubl-chj/mirador-monorepo.svg?style=shield)](https://circleci.com/gh/ubl-chj/mirador-monorepo)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/09e9855d-7322-4056-9b26-82b05a3ad656/deploy-status)](https://app.netlify.com/sites/sleepy-curie-a284a7/deploys)
+[![Docs](https://img.shields.io/badge/docs-0.1.0-green.svg)](https://ubl-chj.github.io/mirador-monorepo/)
 
 This contains https://github.com/ProjectMirador/mirador split into distribution packages.
-
-1. `@mirador/configuration`: Mirador configuration
-2. `@mirador/core`: Redux Actions and Reducers for Mirador
-3. `@mirador/custom-components`: Custom Components for Mirador
-4. `@mirador/react-components` : Importable React Components.
-5. `@mirador/react-implementation` : A React implementation of Mirador React components.
+1. `@types/manifesto`: types for manifesto
+2. `@types/mirador-core-model`: types for mirador-core
+3. `@mirador/configuration`: Mirador configuration
+4. `@mirador/i18n`: Mirador translations
+5. `@mirador/core`: Redux Actions and Reducers for Mirador
+6. `@mirador/custom-components`: Custom Components for Mirador
+7. `@mirador/react-components` : Importable React Components.
+8. `@mirador/react-implementation` : A React implementation of Mirador React components.
 
 The upstream (`mirador-viewer`) is symlinked in packages to the react-component
 
@@ -37,3 +40,5 @@ $ lerna run cypress:open
 
 ### Continuous Deployment 
 https://sleepy-curie-a284a7.netlify.com/
+
+.. |docs| image:: https://readthedocs.org/projects/docs/badge/?version=latest
