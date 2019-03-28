@@ -13,8 +13,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.3.4",
-    "@material-ui/core": "^3.9.2",
-    "@material-ui/icons": "^3.0.2",
+    "@material-ui/core": "^4.0.0-alpha.5",
+    "@material-ui/icons": "^4.0.0-alpha.1",
     "@mirador/core": "file:../mirador-core",
     "@mirador/custom-components": "file:../mirador-custom-components",
     "@researchgate/react-intersection-observer": "^0.7.4",

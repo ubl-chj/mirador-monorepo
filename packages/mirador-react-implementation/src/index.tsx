@@ -1,14 +1,16 @@
 import './styles/index.scss'
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import {CmsPage, Landing, Mirador} from './components'
-import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles'
 import { I18nextProvider } from 'react-i18next'
 import {Provider} from 'react-redux'
 import React from 'react'
 import ReactDOM from 'react-dom'
+import {ThemeProvider} from '@material-ui/styles';
+import {createMuiTheme} from '@material-ui/core/styles'
 import i18n from '@mirador/i18n'
 import {localConfig} from '@mirador/configuration'
 import {newStore} from './state'
+
 
 
 const supportsHistory = 'pushState' in window.history
@@ -19,7 +21,7 @@ const theme = createMuiTheme(defaultTheme)
 
 ReactDOM.render(
   <I18nextProvider i18n={i18n}>
-    <MuiThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
       <Provider store={store}>
         <BrowserRouter forceRefresh={!supportsHistory}>
           <Switch>
@@ -29,6 +31,6 @@ ReactDOM.render(
           </Switch>
         </BrowserRouter>
       </Provider>
-    </MuiThemeProvider>
+    </ThemeProvider>
   </I18nextProvider>, document.getElementById('app'),
 )

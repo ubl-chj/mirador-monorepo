@@ -51,9 +51,6 @@ const rootConfig = {
         secondary: 'gray'
       }
     },
-    paper: {
-      width: 300,
-    },
     typography: {
       body1: {
         fontSize: "1rem",

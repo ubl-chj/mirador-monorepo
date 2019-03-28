@@ -1,6 +1,6 @@
 import {setWorkspaceAddVisibility, setWorkspaceFullscreen, setWorkspaceViewportPosition, toggleWorkspaceExposeMode, toggleZoomControls, updateWorkspaceMosaicLayout} from '../../actions'
 import {IWorkspace} from "mirador-core-model"
-import {workspaceReducer} from '@mirador/core';
+import {workspaceReducer} from '../';
 
 
 const initialState: IWorkspace = {

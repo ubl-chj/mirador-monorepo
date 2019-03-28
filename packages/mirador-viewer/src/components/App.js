@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 import Fullscreen from 'react-full-screen';
 import { I18nextProvider } from 'react-i18next';
+import {ThemeProvider} from '@material-ui/styles';
 import WorkspaceArea from '../containers/WorkspaceArea';
 import i18n from '../i18n';
 
@@ -54,9 +55,9 @@ export class App extends Component {
         onChange={setWorkspaceFullscreen}
       >
         <I18nextProvider i18n={this.i18n}>
-          <MuiThemeProvider theme={createMuiTheme(theme)}>
+          <ThemeProvider theme={createMuiTheme(theme)}>
             <WorkspaceArea />
-          </MuiThemeProvider>
+          </ThemeProvider>
         </I18nextProvider>
       </Fullscreen>
     );

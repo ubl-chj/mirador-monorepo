@@ -1,5 +1,5 @@
 import {REMOVE_WINDOW, UPDATE_VIEWPORT} from '../../actions'
-import {viewersReducer} from '@mirador/core';
+import {viewersReducer} from '../';
 
 describe('viewers reducer', () => {
   it('should handle UPDATE_VIEWPORT', () => {

@@ -1,4 +1,5 @@
-import React, {EventHandler} from 'react'
+import React, {EventHandler, ReactElement} from 'react'
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar'
 import BookOutlined from '@material-ui/icons/BookOutlined'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
@@ -17,11 +18,10 @@ import {NavLink} from 'react-router-dom'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import classNames from 'classnames'
-import { withStyles } from '@material-ui/core/styles'
 
 const drawerWidth = 240
 
-const styles = (theme): any => ({
+const useStyles = makeStyles(theme => ({
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
       duration: theme.transitions.duration.leavingScreen,
@@ -58,32 +58,19 @@ const styles = (theme): any => ({
     marginLeft: 12,
     marginRight: 20,
   },
-})
+}));
 
 interface IPersistentDrawerLeftComponent {
-  classes: {
-    appBar: string,
-    appBarShift: string,
-    drawer: string,
-    drawerHeader: string,
-    drawerPaper: string,
-    hide: string,
-    menuButton: string,
-  },
   handleDrawerClose: EventHandler<any>,
   handleDrawerOpen: EventHandler<any>,
   open: boolean,
-  theme: {
-    direction: string,
-  }
 }
 
-class PersistentDrawerLeftComponent extends React.Component<IPersistentDrawerLeftComponent, any> {
-  public state = {
-    open: false,
-  }
+export const PersistentDrawerLeft: React.FC<IPersistentDrawerLeftComponent> = (props): ReactElement => {
+  const classes = useStyles();
+  const theme: any = useTheme();
 
-  private listItems = [
+  const listItems = [
     {
       id: 'home',
       index: 0,
@@ -104,7 +91,7 @@ class PersistentDrawerLeftComponent extends React.Component<IPersistentDrawerLef
     },
   ]
 
-  private buildListItemIcon = (item): JSX.Element => {
+  const buildListItemIcon = (item): JSX.Element => {
     switch (item) {
       case 'home':
         return <Home/>
@@ -115,7 +102,7 @@ class PersistentDrawerLeftComponent extends React.Component<IPersistentDrawerLef
     }
   }
 
-  private buildListItems = (items): JSX.Element => {
+  const buildListItems = (items): JSX.Element => {
     return items.map((item) =>
       <ListItem
         button
@@ -125,7 +112,7 @@ class PersistentDrawerLeftComponent extends React.Component<IPersistentDrawerLef
 
       >
         <ListItemIcon>
-          {this.buildListItemIcon(item.id)}
+          {buildListItemIcon(item.id)}
         </ListItemIcon>
         <ListItemText primary={item.text} />
       </ListItem>
@@ -133,10 +120,9 @@ class PersistentDrawerLeftComponent extends React.Component<IPersistentDrawerLef
     )
   }
 
-  public render(): any {
-    const { classes, theme, handleDrawerOpen, handleDrawerClose, open } = this.props
+  const { handleDrawerOpen, handleDrawerClose, open } = props
 
-    return (
+  return (
       <>
         <AppBar
           className={classNames(classes.appBar, {
@@ -176,12 +162,11 @@ class PersistentDrawerLeftComponent extends React.Component<IPersistentDrawerLef
           <List
             component="nav"
           >
-            {this.buildListItems(this.listItems)}
+            {buildListItems(listItems)}
           </List>
         </Drawer>
       </>
-    )
-  }
+  )
 }
 
-export const PersistentDrawerLeft = withStyles(styles, { withTheme: true })(PersistentDrawerLeftComponent)
+

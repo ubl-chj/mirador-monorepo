@@ -1,8 +1,7 @@
 import {
-  SET_CANVAS, SET_WINDOW_SIZE, UPDATE_WINDOW_POSITION, deselectAnnotation, maximizeWindow,
-  minimizeWindow, selectAnnotation, setWindowViewType, toggleAnnotationDisplay, toggleWindowSideBar, setWindowSideBarPanel
+  SET_CANVAS, UPDATE_WINDOW_POSITION, deselectAnnotation, maximizeWindow,
+  minimizeWindow, selectAnnotation, setWindowSideBarPanel, setWindowSize, setWindowViewType, toggleAnnotationDisplay, toggleWindowSideBar
 } from '../../actions'
-import {createAction} from 'typesafe-actions';
 import {windowsReducer} from '../';
 
 describe('windows reducer', () => {
@@ -107,18 +106,13 @@ describe('windows reducer', () => {
       def456: {
         id: 'def456',
       },
-    }, {
-      payload: {
-        size: {
-          height: 200,
-          width: 200,
-          x: 20,
-          y: 20,
-        },
-        windowId: 'abc123',
-      },
-      type: SET_WINDOW_SIZE,
-    })).toEqual({
+    }, setWindowSize({
+      size: {
+        height: 200,
+        width: 200,
+        x: 20,
+        y: 20,
+      }}, 'abc123'))).toEqual({
       abc123: {
         height: 200,
         id: 'abc123',
