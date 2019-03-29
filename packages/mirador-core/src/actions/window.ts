@@ -1,55 +1,56 @@
 import {
-  ADD_WINDOW, MAXIMIZE_WINDOW, MINIMIZE_WINDOW, REMOVE_WINDOW, SET_WINDOW_SIDE_BAR_PANEL, SET_WINDOW_SIZE, SET_WINDOW_VIEW_TYPE,
-  TOGGLE_WINDOW_SIDE_BAR, UPDATE_WINDOW, UPDATE_WINDOW_POSITION
+  ADD_WINDOW,
+  MAXIMIZE_WINDOW,
+  MINIMIZE_WINDOW,
+  REMOVE_WINDOW,
+  SET_WINDOW_SIDE_BAR_PANEL,
+  SET_WINDOW_SIZE,
+  SET_WINDOW_VIEW_TYPE,
+  TOGGLE_WINDOW_SIDE_BAR,
+  UPDATE_COMPANION_WINDOW,
+  UPDATE_VIEWPORT,
+  UPDATE_WINDOW,
+  UPDATE_WINDOW_POSITION
 } from './action-types';
-import {createAction} from 'typesafe-actions';
+import {ICompanionWindow} from 'mirador-core-model'
+import actionCreatorFactory from 'typescript-fsa';
+
+const actionCreator = actionCreatorFactory();
 
 /**
  * addWindow
  * @param  {String} windowId
  * @memberof ActionCreators
  */
-export const addWindow = createAction(ADD_WINDOW, action => {
-  return (companionWindows, window) => action({companionWindows, window});
-})
+export const addWindow = actionCreator<{companionWindows: ICompanionWindow, window?: any}>(ADD_WINDOW)
 
-/**
- * removeWindow
- * @param  {String} windowId
- * @memberof ActionCreators
- */
-export const removeWindow = createAction(REMOVE_WINDOW, action => {
-  return (companionWindowIds, id: string) => action({companionWindowIds, id});
-})
 /**
  * maximizeWindow
  * @param  {String} windowId
  * @memberof ActionCreators
  */
-export const maximizeWindow = createAction(MAXIMIZE_WINDOW, action => {
-  return (windowId) => action({windowId});
-})
+export const maximizeWindow = actionCreator<{windowId: string}>(MAXIMIZE_WINDOW)
 
 /**
  * minimizeWindow
  * @param  {String} windowId
  * @memberof ActionCreators
  */
-export const minimizeWindow = createAction(MINIMIZE_WINDOW, action => {
-  return (windowId) => action({windowId});
-})
+export const minimizeWindow = actionCreator<{windowId: string}>(MINIMIZE_WINDOW)
 
 /** */
-export const updateWindow = createAction(UPDATE_WINDOW, action => {
-  return (id: string) => action({id});
-})
+export const updateWindow = actionCreator<{id}>(UPDATE_WINDOW)
 
 /** */
-export const setCompanionAreaOpen = createAction(UPDATE_WINDOW, action => {
-  return (id, companionAreaOpen) => action({companionAreaOpen, id});
-})
+export const setCompanionAreaOpen = actionCreator<{companionAreaOpen, id}>(UPDATE_COMPANION_WINDOW)
 
 
+/**
+ * removeWindow
+ * @param  {String} windowId
+ * @memberof ActionCreators
+ */
+export const removeWindow = actionCreator<{companionWindowIds: any, id: string}>(REMOVE_WINDOW)
 
 /**
  * toggleWindowSideBar - action creator
@@ -57,9 +58,7 @@ export const setCompanionAreaOpen = createAction(UPDATE_WINDOW, action => {
  * @param  {String} windowId
  * @memberof ActionCreators
  */
-export const toggleWindowSideBar = createAction(TOGGLE_WINDOW_SIDE_BAR, action => {
-  return (windowId) => action({windowId});
-})
+export const toggleWindowSideBar = actionCreator<{windowId: string}>(TOGGLE_WINDOW_SIDE_BAR)
 
 /**
  * setWindowSideBarPanel - action creator
@@ -68,9 +67,7 @@ export const toggleWindowSideBar = createAction(TOGGLE_WINDOW_SIDE_BAR, action =
  * @param  {String} panelType
  * @memberof ActionCreators
  */
-export const setWindowSideBarPanel = createAction(SET_WINDOW_SIDE_BAR_PANEL, action => {
-  return (panelType, windowId) => action({panelType, windowId});
-})
+export const setWindowSideBarPanel = actionCreator<{panelType, windowId}>(SET_WINDOW_SIDE_BAR_PANEL)
 
 
 
@@ -81,9 +78,7 @@ export const setWindowSideBarPanel = createAction(SET_WINDOW_SIDE_BAR_PANEL, act
  * @param  {String} viewType
  * @memberof ActionCreators
  */
-export const setWindowViewType = createAction(SET_WINDOW_VIEW_TYPE, action => {
-  return (viewType, windowId) => action({viewType, windowId});
-})
+export const setWindowViewType = actionCreator<{viewType, windowId}>(SET_WINDOW_VIEW_TYPE)
 
 /**
  * updateWindowPosition - action creator
@@ -92,9 +87,7 @@ export const setWindowViewType = createAction(SET_WINDOW_VIEW_TYPE, action => {
  * @param  {Array} position
  * @memberof ActionCreators
  */
-export const updateWindowPosition = createAction(UPDATE_WINDOW_POSITION, action => {
-  return (position, windowId) => action({position, windowId});
-})
+export const updateWindowPosition = actionCreator<{position, windowId}>(UPDATE_WINDOW_POSITION)
 
 /**
  * setWindowSize - action creator
@@ -103,6 +96,12 @@ export const updateWindowPosition = createAction(UPDATE_WINDOW_POSITION, action 
  * @param  {Object} size
  * @memberof ActionCreators
  */
-export const setWindowSize = createAction(SET_WINDOW_SIZE, action => {
-  return (size, windowId) => action({size, windowId})
-})
+export const setWindowSize = actionCreator<{size, windowId}>(SET_WINDOW_SIZE)
+
+/**
+ *
+ * @param windowId
+ * @param payload
+ * @returns {{payload: *, meta: {debounce: {time: number}}, type: string, windowId: *}}
+ */
+export const updateViewport = actionCreator<{x, y, windowId, zoom}>(UPDATE_VIEWPORT, {debounce: {time: 100}})

@@ -1,13 +1,18 @@
-import * as annotationActions from '../actions/annotation'
-import * as canvasActions from '../actions/canvas'
-import * as companionWindowsActions from '../actions/companionWindow'
-import * as thunkActions from '../actions/thunks'
-import * as windowActions from '../actions/window'
-import {ActionType, getType} from 'typesafe-actions';
-import { merge, remove, updateIn } from 'immutable';
-
-export type WindowAction = ActionType<typeof companionWindowsActions & typeof canvasActions
-  & typeof windowActions & typeof annotationActions & typeof thunkActions>
+import {
+  addWindow,
+  maximizeWindow,
+  minimizeWindow,
+  removeCompanionWindow,
+  selectAnnotation,
+  setWindowSideBarPanel,
+  setWindowSize,
+  setWindowViewType,
+  toggleAnnotationDisplay,
+  toggleWindowSideBar,
+  updateWindowPosition
+} from "../actions"
+import {reducerWithInitialState} from "typescript-fsa-reducers"
+import {remove} from 'immutable';
 
 /**
  * @param {Object} state
@@ -51,124 +56,113 @@ const updatedSelectedAnnotations = (state, action) => {
 /**
  * windowsReducer
  */
-export const windowsReducer = (state = {}, action: WindowAction) => {
-  switch (action.type) {
-    case getType(windowActions.addWindow):
-      return { ...state, [action.payload.window.id]: action.payload.window };
-    case getType(windowActions.maximizeWindow):
-      return {
+export const windowsReducer = reducerWithInitialState({})
+  .caseWithAction(addWindow, (state, action) => ({
+    ...state,
+    [action.payload.window.id]: action.payload.window
+  }))
+  .caseWithAction(maximizeWindow, (state, action) => ({
+    ...state,
+    [action.payload.windowId]: {
+      ...state[action.payload.windowId],
+      maximized: true,
+    },
+  }))
+  .caseWithAction(minimizeWindow, (state, action) => ({
+    ...state,
+    [action.payload.windowId]: {
+      ...state[action.payload.windowId],
+      maximized: false,
+    },
+  }))
+  /**
+    .caseWithAction(updateWindow, (state, action) => ({
+      updateIn({}, [action.payload.id], orig => merge(orig, action.payload))
+    }))
+   */
+  .caseWithAction(toggleWindowSideBar, (state, action) => ({
+    ...state,
+    [action.payload.windowId]: {
+      ...state[action.payload.windowId],
+      sideBarOpen: !state[action.payload.windowId].sideBarOpen,
+    },
+  }))
+  .caseWithAction(setWindowViewType, (state, action) => ({
+    ...state,
+    [action.payload.windowId]: {
+      ...state[action.payload.windowId],
+      view: action.payload.viewType,
+    },
+  }))
+  .caseWithAction(setWindowSideBarPanel, (state, action) => ({
+    ...state,
+    [action.payload.windowId]: {
+      ...state[action.payload.windowId],
+      sideBarPanel: (
+        action.payload.panelType
+      ),
+    },
+  }))
+  .caseWithAction(updateWindowPosition, (state, action) => ({
+    ...state,
+    [action.payload.windowId]: {
+      ...state[action.payload.windowId],
+      x: action.payload.position.x,
+      y: action.payload.position.y,
+    },
+  }))
+  .caseWithAction(setWindowSize, (state, action) => ({
+    ...state,
+    [action.payload.windowId]: {
+      ...state[action.payload.windowId],
+      height: action.payload.size.height,
+      width: action.payload.size.width,
+      x: action.payload.size.x,
+      y: action.payload.size.y,
+    },
+  }))
+  /**
+  .caseWithAction(setCanvas, (state, action) => ({
+      setCanvasIndex(state, action.payload.windowId, () => action.payload.canvasIndex)
+  }))
+   */
+  .caseWithAction(removeCompanionWindow, (state, action) => ({
+    ...state,
+    [action.payload.id]: {
+      ...state[action.payload.id],
+      companionWindowIds: state[action.payload.id]
+        .companionWindowIds.filter(id => id !== action.payload.id),
+    },
+  }))
+  .caseWithAction(selectAnnotation, (state, action) => ({
+    ...state,
+    [action.payload.windowId]: {
+      ...state[action.payload.windowId],
+      selectedAnnotations: {
+        ...state[action.payload.windowId].selectedAnnotations,
+        [action.payload.canvasId]: [
+          ...((state[action.payload.windowId].selectedAnnotations || {})[action.payload.canvasId] || []),
+          action.payload.annotationId,
+        ],
+      },
+    },
+  }))
+  /**
+  .caseWithAction(deselectAnnotation, (state, action) => ({
         ...state,
         [action.payload.windowId]: {
           ...state[action.payload.windowId],
-          maximized: true,
+        updatedSelectedAnnotations(state, action),
         },
       };
-    case getType(windowActions.minimizeWindow):
-      return {
-        ...state,
-        [action.payload.windowId]: {
-          ...state[action.payload.windowId],
-          maximized: false,
-        },
-      }
-
-    case getType(windowActions.updateWindow):
-      return updateIn(state, [action.payload.id], orig => merge(orig, action.payload));
-
-    case getType(windowActions.toggleWindowSideBar):
-      return {
-        ...state,
-        [action.payload.windowId]: {
-          ...state[action.payload.windowId],
-          sideBarOpen: !state[action.payload.windowId].sideBarOpen,
-        },
-      }
-    case getType(windowActions.setWindowViewType):
-      return {
-        ...state,
-        [action.payload.windowId]: {
-          ...state[action.payload.windowId],
-          view: action.payload.viewType,
-        },
-      };
-    case getType(windowActions.setWindowSideBarPanel):
-      return {
-        ...state,
-        [action.payload.windowId]: {
-          ...state[action.payload.windowId],
-          sideBarPanel: (
-            action.payload.panelType
-          ),
-        },
-      }
-    case getType(windowActions.updateWindowPosition):
-      return {
-        ...state,
-        [action.payload.windowId]: {
-          ...state[action.payload.windowId],
-          x: action.payload.position.x,
-          y: action.payload.position.y,
-        },
-      }
-    case getType(windowActions.setWindowSize):
-      return {
-        ...state,
-        [action.payload.windowId]: {
-          ...state[action.payload.windowId],
-          height: action.payload.size.height,
-          width: action.payload.size.width,
-          x: action.payload.size.x,
-          y: action.payload.size.y,
-        },
-      }
-    case getType(canvasActions.setCanvas):
-      return setCanvasIndex(state, action.payload.windowId, () => action.payload.canvasIndex)
-
-    case getType(companionWindowsActions.removeCompanionWindow):
-      return {
-        ...state,
-        [action.payload.windowId]: {
-          ...state[action.payload.windowId],
-          companionWindowIds: state[action.payload.windowId]
-            .companionWindowIds.filter(id => id !== action.payload.id),
-        },
-      };
-    case getType(annotationActions.selectAnnotation):
-      return {
-        ...state,
-        [action.payload.windowId]: {
-          ...state[action.payload.windowId],
-          selectedAnnotations: {
-            ...state[action.payload.windowId].selectedAnnotations,
-            [action.payload.canvasId]: [
-              ...((state[action.payload.windowId].selectedAnnotations || {})[action.payload.canvasId] || []),
-              action.payload.annotationId,
-            ],
-          },
-        },
-      };
-    case getType(annotationActions.deselectAnnotation): {
-      const selectedAnnotations = updatedSelectedAnnotations(state, action);
-
-      return {
-        ...state,
-        [action.payload.windowId]: {
-          ...state[action.payload.windowId],
-          selectedAnnotations,
-        },
-      };
-    }
-    case getType(annotationActions.toggleAnnotationDisplay):
-      return {
-        ...state,
-        [action.payload.windowId]: {
-          ...state[action.payload.windowId],
-          displayAllAnnotations: !state[action.payload.windowId].displayAllAnnotations,
-        },
-      };
-    default:
-      return state
-  }
-};
+  }))
+   */
+  .caseWithAction(toggleAnnotationDisplay, (state, action) => ({
+    ...state,
+    [action.payload.windowId]: {
+      ...state[action.payload.windowId],
+      displayAllAnnotations: !state[action.payload.windowId].displayAllAnnotations,
+    },
+  }))
 
 

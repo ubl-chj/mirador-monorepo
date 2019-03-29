@@ -1,6 +1,14 @@
-import {DESELECT_ANNOTATION, RECEIVE_ANNOTATION, RECEIVE_ANNOTATION_FAILURE,
-  REQUEST_ANNOTATION, SELECT_ANNOTATION, TOGGLE_ANNOTATION_DISPLAY} from './action-types'
-import {createAction} from 'typesafe-actions';
+import {
+  DESELECT_ANNOTATION,
+  RECEIVE_ANNOTATION,
+  RECEIVE_ANNOTATION_FAILURE,
+  REQUEST_ANNOTATION,
+  SELECT_ANNOTATION,
+  TOGGLE_ANNOTATION_DISPLAY
+} from './action-types'
+import actionCreatorFactory from 'typescript-fsa';
+
+const actionCreator = actionCreatorFactory();
 
 /**
  * requestAnnotation - action creator
@@ -9,9 +17,7 @@ import {createAction} from 'typesafe-actions';
  * @param  {String} annotationId
  * @memberof ActionCreators
  */
-export const requestAnnotation = createAction(REQUEST_ANNOTATION, action => {
-  return (annotationId: string, canvasId: string) => action({annotationId, canvasId});
-})
+export const requestAnnotation = actionCreator<{annotationId, canvasId}>(REQUEST_ANNOTATION)
 
 /**
  * receiveAnnotation - action creator
@@ -21,9 +27,7 @@ export const requestAnnotation = createAction(REQUEST_ANNOTATION, action => {
  * @param  {Object} annotationJson
  * @memberof ActionCreators
  */
-export const receiveAnnotation = createAction(RECEIVE_ANNOTATION, action => {
-  return (annotationId: string, annotationJson: {}, canvasId: string) => action({annotationId, annotationJson, canvasId});
-})
+export const receiveAnnotation = actionCreator<{annotationId, annotationJson, canvasId}>(RECEIVE_ANNOTATION)
 
 /**
  * receiveAnnotationFailure - action creator
@@ -33,9 +37,7 @@ export const receiveAnnotation = createAction(RECEIVE_ANNOTATION, action => {
  * @param  {String} error
  * @memberof ActionCreators
  */
-export const receiveAnnotationFailure = createAction(RECEIVE_ANNOTATION_FAILURE, action => {
-  return (annotationId: string, canvasId: string, error) => action({annotationId, canvasId, error});
-})
+export const receiveAnnotationFailure = actionCreator<{annotationId, canvasId, error}>(RECEIVE_ANNOTATION_FAILURE)
 
 
 
@@ -47,9 +49,7 @@ export const receiveAnnotationFailure = createAction(RECEIVE_ANNOTATION_FAILURE,
  * @param  {String} annotationId
  * @memberof ActionCreators
  */
-export const selectAnnotation = createAction(SELECT_ANNOTATION, action => {
-  return (annotationId: string, canvasId: string, windowId: string) => action({annotationId, canvasId, windowId});
-})
+export const selectAnnotation = actionCreator<{annotationId, canvasId, windowId}>(SELECT_ANNOTATION)
 
 /**
  * deselectAnnotation - action creator
@@ -59,9 +59,7 @@ export const selectAnnotation = createAction(SELECT_ANNOTATION, action => {
  * @param  {String} annotationId
  * @memberof ActionCreators
  */
-export const deselectAnnotation = createAction(DESELECT_ANNOTATION, action => {
-  return (annotationId: string, canvasId: string, windowId: string) => action({annotationId, canvasId, windowId});
-})
+export const deselectAnnotation = actionCreator<{annotationId, canvasId, windowId}>(DESELECT_ANNOTATION)
 
 /**
  * toggleAnnotationDisplay - action creator
@@ -69,6 +67,4 @@ export const deselectAnnotation = createAction(DESELECT_ANNOTATION, action => {
  * @param  {String} windowId
  * @memberof ActionCreators
  */
-export const toggleAnnotationDisplay = createAction(TOGGLE_ANNOTATION_DISPLAY, action => {
-  return (windowId: string) => action({windowId});
-})
+export const toggleAnnotationDisplay = actionCreator<{windowId}>(TOGGLE_ANNOTATION_DISPLAY)

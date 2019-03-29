@@ -1,6 +1,15 @@
-import {SET_WORKSPACE_ADD_VISIBILITY, SET_WORKSPACE_FULLSCREEN, SET_WORKSPACE_VIEWPORT_POSITION,
-  TOGGLE_WORKSPACE_EXPOSE_MODE, TOGGLE_ZOOM_CONTROLS, UPDATE_WORKSPACE_MOSAIC_LAYOUT} from './action-types'
-import { createAction } from 'typesafe-actions'
+import {
+  SET_WORKSPACE_ADD_VISIBILITY,
+  SET_WORKSPACE_FULLSCREEN,
+  SET_WORKSPACE_VIEWPORT_DIMENSIONS,
+  SET_WORKSPACE_VIEWPORT_POSITION,
+  TOGGLE_WORKSPACE_EXPOSE_MODE,
+  TOGGLE_ZOOM_CONTROLS,
+  UPDATE_WORKSPACE_MOSAIC_LAYOUT
+} from './action-types'
+import actionCreatorFactory from 'typescript-fsa';
+
+const actionCreator = actionCreatorFactory();
 
 /**
  * setWorkspaceFullscreen - action creator
@@ -8,18 +17,14 @@ import { createAction } from 'typesafe-actions'
  * @param  {Boolean} isFullscreenEnabled
  * @memberof ActionCreators
  */
-export const setWorkspaceFullscreen = createAction(SET_WORKSPACE_FULLSCREEN, action => {
-  return (isFullscreenEnabled: boolean) => action({isFullscreenEnabled})
-})
+export const setWorkspaceFullscreen = actionCreator<{isFullscreenEnabled: boolean}>(SET_WORKSPACE_FULLSCREEN)
 
 /**
  * toggleZoomControls - action creator
  * @param {Boolean} showZoomControls
  * @memberof ActionCreators
 */
-export const toggleZoomControls = createAction(TOGGLE_ZOOM_CONTROLS, action => {
-  return (showZoomControls: boolean) => action({showZoomControls});
-})
+export const toggleZoomControls = actionCreator<{showZoomControls: boolean}>(TOGGLE_ZOOM_CONTROLS)
 
 /**
  * updateWorkspaceMosaicLayout - action creator
@@ -27,9 +32,7 @@ export const toggleZoomControls = createAction(TOGGLE_ZOOM_CONTROLS, action => {
  * @param  {Object} layout
  * @memberof ActionCreators
  */
-export const updateWorkspaceMosaicLayout = createAction(UPDATE_WORKSPACE_MOSAIC_LAYOUT, action => {
-  return (layout: {}) => action({layout});
-})
+export const updateWorkspaceMosaicLayout = actionCreator<{layout}>(UPDATE_WORKSPACE_MOSAIC_LAYOUT)
 
 /**
  * updateWorkspaceMosaicLayout - action creator
@@ -37,9 +40,7 @@ export const updateWorkspaceMosaicLayout = createAction(UPDATE_WORKSPACE_MOSAIC_
  * @param  {Object} isWorkspaceAddVisible
  * @memberof ActionCreators
  */
-export const setWorkspaceAddVisibility = createAction(SET_WORKSPACE_ADD_VISIBILITY, action => {
-  return (isWorkspaceAddVisible: boolean) => action({isWorkspaceAddVisible})
-})
+export const setWorkspaceAddVisibility = actionCreator<{isWorkspaceAddVisible: boolean}>(SET_WORKSPACE_ADD_VISIBILITY)
 
 /**
  * setWorkspaceViewportPosition - action creator
@@ -47,14 +48,7 @@ export const setWorkspaceAddVisibility = createAction(SET_WORKSPACE_ADD_VISIBILI
  * @param  {Object} position
  * @memberof ActionCreators
  */
-export const setWorkspaceViewportPosition = createAction(SET_WORKSPACE_VIEWPORT_POSITION, action => {
-  return (x, y) => action({
-    position: {
-      x,
-      y,
-    },
-  })
-})
+export const setWorkspaceViewportPosition = actionCreator<{position: {x, y}}>(SET_WORKSPACE_VIEWPORT_POSITION)
 
 /**
  * setWorkspaceViewportDimensions - action creator
@@ -62,20 +56,11 @@ export const setWorkspaceViewportPosition = createAction(SET_WORKSPACE_VIEWPORT_
  * @param  {Object} position
  * @memberof ActionCreators
  */
-export const setWorkspaceViewportDimensions = createAction(SET_WORKSPACE_VIEWPORT_POSITION, action => {
-  return (width, height) => action({
-    position: {
-      height,
-      width,
-    },
-  })
-})
+export const setWorkspaceViewportDimensions = actionCreator<{position: {height, width}}>(SET_WORKSPACE_VIEWPORT_DIMENSIONS)
 /**
  * toggleWorkspaceExposeMode - action creator
  *
  * @memberof ActionCreators
  */
-export const toggleWorkspaceExposeMode = createAction(TOGGLE_WORKSPACE_EXPOSE_MODE, action => {
-  return (exposeModeOn: boolean) => action({exposeModeOn})
-})
+export const toggleWorkspaceExposeMode = actionCreator<{exposeModeOn: boolean}>(TOGGLE_WORKSPACE_EXPOSE_MODE)
 

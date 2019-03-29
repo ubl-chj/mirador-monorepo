@@ -11,11 +11,15 @@ interface IWorkspaceAddItem {
 }
 export const WorkspaceAddItem: React.FC<IWorkspaceAddItem> = (props): ReactElement => {
   return (
-    <ListItem>
+    <ListItem
+      button={false}
+      component='li'
+    >
       <Fab
         color="primary"
+        href=''
         id="addBtn"
-        onClick={() => { props.setWorkspaceAddVisibility(!props.isWorkspaceAddVisible) }}
+        onClick={() => { props.setWorkspaceAddVisibility({isWorkspaceAddVisible: !props.isWorkspaceAddVisible}) }}
         size="small"
       >
         {

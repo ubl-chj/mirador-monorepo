@@ -1,8 +1,8 @@
 import Annotation from '../utils/Annotation';
-import { createSelector } from 'reselect';
+import {createSelector} from 'reselect';
 import filter from 'lodash/filter';
 import flatten from 'lodash/flatten';
-import { getSelectedCanvases } from './canvases';
+import {getSelectedCanvases} from './canvases';
 
 const getAnnotationsOnSelectedCanvases = createSelector(
   [

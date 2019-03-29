@@ -2,12 +2,12 @@ import deepmerge from 'deepmerge'
 import qs from 'query-string'
 
 /**
- * fetchManifests
+ *
+ * @param fetchManifest
  * @param windows
- * @param fetch
  */
-export const fetchManifests = (windows, fetch): any => {
-  windows.forEach((win) => fetch(win.loadedManifest))
+export const fetchManifests = (fetchManifest, windows): any => {
+  windows.forEach((win) => fetchManifest.action({manifestId: win.loadedManifest}))
 }
 
 /**

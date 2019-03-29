@@ -55,10 +55,8 @@ export class WorkspaceMosaic extends React.Component {
     if (!windowKeys.every(e => leaveKeys.includes(e))
     || !leaveKeys.every(e => windowKeys.includes(e))) {
       const newLayout = createBalancedTreeFromLeaves(windowKeys);
-
       return newLayout;
     }
-
     return workspace.layout;
   }
 

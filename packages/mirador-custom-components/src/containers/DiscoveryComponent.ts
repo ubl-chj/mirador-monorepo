@@ -1,4 +1,4 @@
-import {addWindow, fetchManifest, setWorkspaceAddVisibility} from '@mirador/core'
+import {evalAddWindows, fetchManifest, setWorkspaceAddVisibility} from '@mirador/core'
 import {DiscoveryComponent} from '../components'
 import {connect} from 'react-redux'
 
@@ -11,5 +11,5 @@ const mapStateToProps = (state): any => (
   }
 )
 
-const mapDispatchToProps = {addWindow, fetchManifest, setWorkspaceAddVisibility}
+const mapDispatchToProps = {evalAddWindows, fetchManifest, setWorkspaceAddVisibility}
 export const DiscoveryContainer = connect(mapStateToProps, mapDispatchToProps)(DiscoveryComponent)

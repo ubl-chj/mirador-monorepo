@@ -1,13 +1,13 @@
-import {ICompanionWindow, IWindow, IWindowsReducer} from 'mirador-core-model';
-import { createSelector } from 'reselect'
-import { getManifestTitle } from './manifests';
+import {ICompanionWindow, IWindow, IWindows} from 'mirador-core-model';
+import {createSelector} from 'reselect'
+import {getManifestTitle} from './manifests';
 
 /**
  * Return the manifest titles for all open windows
  * @param {object} state
  * @return {object}
  */
-export const getWindowTitles = (state: IWindowsReducer) => {
+export const getWindowTitles = (state: IWindows) => {
   const result = {};
   Object.keys(state.windows).forEach((windowId) => {
     result[windowId] = getManifestTitle(state, { windowId });

@@ -26,7 +26,13 @@ git subtree pull --prefix packages/mirador-viewer https://github.com/ProjectMira
 ```bash
 $ lerna bootstrap --hoist
 ```
-2. Create a bundle of the component.
+2. Build type packages
+```bash
+$ lerna run --scope @types/manifesto
+$ lerna run --scope @types/mirador-core-model
+```
+
+3. Create a bundle of the component.
 ```bash
 $ lerna run --scope @mirador/core build
 $ lerna run --scope @mirador/custom-components build

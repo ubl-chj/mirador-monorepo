@@ -1,5 +1,4 @@
 import {
-  SET_CANVAS,
   deselectAnnotation,
   maximizeWindow,
   minimizeWindow,
@@ -9,7 +8,8 @@ import {
   setWindowSize,
   setWindowViewType,
   toggleAnnotationDisplay,
-  toggleWindowSideBar, updateWindowPosition
+  toggleWindowSideBar,
+  updateWindowPosition
 } from '../../actions'
 import {windowsReducer} from '../';
 
@@ -24,7 +24,7 @@ describe('windows reducer', () => {
       abc321: { maximized: false },
     };
 
-    expect(windowsReducer(before, maximizeWindow('abc123'))).toEqual(after);
+    expect(windowsReducer(before, maximizeWindow({windowId: 'abc123'}))).toEqual(after);
   });
   it('should handle MINIMIZE_WINDOW', () => {
     const before = {
@@ -36,7 +36,7 @@ describe('windows reducer', () => {
       abc321: { maximized: false },
     };
 
-    expect(windowsReducer(before, minimizeWindow('abc123'))).toEqual(after);
+    expect(windowsReducer(before, minimizeWindow({windowId: 'abc123'}))).toEqual(after);
   });
   it('should handle TOGGLE_WINDOW_SIDE_BAR by toggling the sideBarOpen attribute', () => {
     const before = {
@@ -48,7 +48,7 @@ describe('windows reducer', () => {
       abc321: { sideBarOpen: false },
     };
 
-    expect(windowsReducer(before, toggleWindowSideBar('abc123'))).toEqual(after);
+    expect(windowsReducer(before, toggleWindowSideBar({windowId: 'abc123'}))).toEqual(after);
   });
 
   it('should handle SET_WINDOW_VIEW_TYPE by changing the view attribute', () => {
@@ -61,7 +61,7 @@ describe('windows reducer', () => {
       abc321: { view: 'book' },
     };
 
-    expect(windowsReducer(before, setWindowViewType('book', 'abc123'))).toEqual(after);
+    expect(windowsReducer(before, setWindowViewType({viewType: 'book', windowId: 'abc123'}))).toEqual(after);
   });
 
   describe('SET_WINDOW_SIDE_BAR_PANEL', () => {
@@ -75,7 +75,7 @@ describe('windows reducer', () => {
         abc321: { sideBarPanel: 'closed' },
       };
 
-      expect(windowsReducer(before, setWindowSideBarPanel('info', 'abc123'))).toEqual(after);
+      expect(windowsReducer(before, setWindowSideBarPanel({panelType: 'info', windowId: 'abc123'}))).toEqual(after);
     });
   });
 
@@ -89,7 +89,7 @@ describe('windows reducer', () => {
         canvasIndex: 1,
         id: 'def456',
       },
-    }, setCanvas(5, 'abc123'))).toEqual({
+    }, setCanvas({canvasIndex: 5, windowId: 'abc123'}))).toEqual({
       abc123: {
         canvasIndex: 5,
         id: 'abc123',
@@ -109,7 +109,7 @@ describe('windows reducer', () => {
       def456: {
         id: 'def456',
       },
-    }, setWindowSize({height: 200, width: 200, x: 20, y: 20}, 'abc123'))).toEqual({
+    }, setWindowSize({size: {height: 200, width: 200, x: 20, y: 20}, windowId: 'abc123'}))).toEqual({
       abc123: {
         height: 200,
         id: 'abc123',
@@ -131,7 +131,7 @@ describe('windows reducer', () => {
       def456: {
         id: 'def456',
       },
-    }, updateWindowPosition({x: 20, y: 20}, 'abc123'))).toEqual({
+    }, updateWindowPosition({position: {x: 20, y: 20}, windowId: 'abc123'}))).toEqual({
       abc123: {
         id: 'abc123',
         x: 20,
@@ -150,7 +150,7 @@ describe('windows reducer', () => {
         abc123: { selectedAnnotations: { cId: ['aId'] } },
       };
 
-      expect(windowsReducer(beforeState, selectAnnotation('aId', 'cId', 'abc123'))).toEqual(expectedState);
+      expect(windowsReducer(beforeState, selectAnnotation({annotationId: 'aId', canvasId: 'cId', windowId: 'abc123'}))).toEqual(expectedState);
     });
 
     it('adds new annotation IDs to existing canvas IDs', () => {
@@ -159,7 +159,7 @@ describe('windows reducer', () => {
         abc123: { selectedAnnotations: { cId: ['prevId', 'aId'] } },
       };
 
-      expect(windowsReducer(beforeState, selectAnnotation('aId', 'cId', 'abc123'))).toEqual(expectedState);
+      expect(windowsReducer(beforeState, selectAnnotation({annotationId: 'aId', canvasId: 'cId', windowId: 'abc123'}))).toEqual(expectedState);
     });
 
     describe('DESELECT_ANNOTATION', () => {
@@ -169,7 +169,7 @@ describe('windows reducer', () => {
           abc123: { selectedAnnotations: { cId: ['aId2'] } },
         };
 
-        expect(windowsReducer(beforeState, deselectAnnotation('aId1', 'cId', 'abc123'))).toEqual(expectedState);
+        expect(windowsReducer(beforeState, deselectAnnotation({annotationId: 'aId1', canvasId: 'cId', windowId: 'abc123'}))).toEqual(expectedState);
       });
 
       it('removes the given canvas Id from the selected annotations if there are no more IDs', () => {
@@ -178,7 +178,7 @@ describe('windows reducer', () => {
           abc123: { selectedAnnotations: { cId1: ['aId1'] } },
         };
 
-        expect(windowsReducer(beforeState, deselectAnnotation('aId2', 'cId2', 'abc123'))).toEqual(expectedState);
+        expect(windowsReducer(beforeState, deselectAnnotation({annotationId: 'aId2', canvasId: 'cId2', windowId: 'abc123'}))).toEqual(expectedState);
       });
     });
 
@@ -188,7 +188,7 @@ describe('windows reducer', () => {
         abc123: { displayAllAnnotations: true },
       };
 
-      expect(windowsReducer(beforeState, toggleAnnotationDisplay('abc123'))).toEqual(expectedState);
+      expect(windowsReducer(beforeState, toggleAnnotationDisplay({windowId: 'abc123'}))).toEqual(expectedState);
     });
   });
 });

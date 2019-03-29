@@ -1,62 +1,61 @@
-import {receiveAnnotation, receiveAnnotationFailure, requestAnnotation} from '../../actions'
-import {annotationsReducer} from '../'
+import { AnyAction, Middleware } from 'redux';
+import {FETCH_ANNOTATION, fetchAnnotation} from '../../actions'
+import configureStore, { MockStore } from 'redux-mock-store';
+import thunkMiddleware, { ThunkDispatch } from 'redux-thunk';
+import {annotations} from '../';
+import fetchMock from 'fetch-mock'
 
-describe('annotation reducer', () => {
-  it('should handle REQUEST_ANNOTATION', () => {
-    expect(annotationsReducer({}, requestAnnotation('abc123', 'foo'))).toEqual({
-      foo: {
-        abc123: {
-          id: 'abc123',
-          isFetching: true,
+interface IState {
+  foo: string;
+  updating?: boolean;
+  error?: Error;
+}
+
+interface IExt {
+  dispatch: ThunkDispatch<IState, any, AnyAction>;
+}
+
+const initial: IState = { foo: 'test' };
+
+describe('annotations response reducer test', () => {
+  type StoreType = MockStore<IState> & IExt;
+  let middleware: Middleware[] = [];
+  let createMockStore: (initial: IState) => StoreType;
+  let store: StoreType;
+
+  beforeEach(() => {
+    fetchMock.reset()
+    middleware = [thunkMiddleware];
+    createMockStore = configureStore(middleware);
+    store = createMockStore(initial);
+    fetchMock.get('*', { label: "Annotation List" });
+  });
+
+  it('info response reducer test', async () => {
+    await store.dispatch(fetchAnnotation.action({annotationId: 'https://some.iiif.server/annos.json', canvasId: 'https://some.iiif.server/canvas.json'}));
+    expect(fetchMock.called()).toBe(true)
+    const [started, done] = store.getActions().filter(action =>
+      action.type.includes(FETCH_ANNOTATION));
+
+    const beforeState = store.getState();
+    expect(beforeState).toEqual(initial);
+
+    const startedState = annotations(beforeState, started);
+    expect(startedState).toEqual({
+      ...beforeState,
+      updating: true
+    });
+
+    const doneState = annotations(startedState, done);
+    expect(doneState).toEqual({
+      ...startedState,
+      'https://some.iiif.server/canvas.json': {
+        'https://some.iiif.server/annos.json': {
+          id: 'https://some.iiif.server/annos.json',
+          json: {label: "Annotation List"}
         },
       },
+      updating: false,
     });
   });
-  it('should handle RECEIVE_ANNOTATION', () => {
-    expect(annotationsReducer(
-      {
-        foo: {
-          abc123: {
-            id: 'abc123',
-            isFetching: true,
-          },
-        },
-      },
-      receiveAnnotation('abc123', {
-        annotationJson: {
-          '@type': 'sc:AnnotationList',
-          content: 'anno stuff',
-          id: 'abc123',
-        },
-      },
-      'foo'))).toMatchObject({
-      foo: {
-        abc123: {
-          id: 'abc123',
-          isFetching: false,
-          json: {},
-        },
-      },
-    });
-  });
-  it('should handle RECEIVE_ANNOTATION_FAILURE', () => {
-    expect(annotationsReducer(
-      {
-        foo: {
-          abc123: {
-            id: 'abc123',
-            isFetching: true,
-          },
-        },
-      },
-      receiveAnnotationFailure('abc123', 'foo', "This institution didn't enable CORS."))).toEqual({
-      foo: {
-        abc123: {
-          error: "This institution didn't enable CORS.",
-          id: 'abc123',
-          isFetching: false,
-        },
-      },
-    });
-  });
-});
+})

@@ -1,4 +1,11 @@
-import {setWorkspaceAddVisibility, setWorkspaceFullscreen, setWorkspaceViewportPosition, toggleWorkspaceExposeMode, toggleZoomControls, updateWorkspaceMosaicLayout} from '../../actions'
+import {
+  setWorkspaceAddVisibility,
+  setWorkspaceFullscreen,
+  setWorkspaceViewportPosition,
+  toggleWorkspaceExposeMode,
+  toggleZoomControls,
+  updateWorkspaceMosaicLayout
+} from '../../actions'
 import {IWorkspace} from "mirador-core-model"
 import {workspaceReducer} from '../';
 
@@ -23,7 +30,7 @@ const initialState: IWorkspace = {
 
 describe('workspace reducer', () => {
   it('should handle SET_WORKSPACE_FULLSCREEN', () => {
-    expect(workspaceReducer(initialState, setWorkspaceFullscreen(true))).toEqual({
+    expect(workspaceReducer(initialState, setWorkspaceFullscreen({isFullscreenEnabled: true}))).toEqual({
       exposeModeOn: false,
       height: 500,
       isFullscreenEnabled: true,
@@ -42,7 +49,7 @@ describe('workspace reducer', () => {
     });
   });
   it('should handle TOGGLE_ZOOM_CONTROLS', () => {
-    expect(workspaceReducer(initialState, toggleZoomControls(true))).toEqual({
+    expect(workspaceReducer(initialState, toggleZoomControls({showZoomControls: true}))).toEqual({
       exposeModeOn: false,
       height: 500,
       isFullscreenEnabled: false,
@@ -78,7 +85,7 @@ describe('workspace reducer', () => {
     });
   });
   it('should handle SET_WORKSPACE_ADD_VISIBILITY', () => {
-    expect(workspaceReducer(initialState, setWorkspaceAddVisibility(true))).toEqual({
+    expect(workspaceReducer(initialState, setWorkspaceAddVisibility({isWorkspaceAddVisible: true}))).toEqual({
       exposeModeOn: false,
       height: 500,
       isFullscreenEnabled: false,
@@ -97,7 +104,7 @@ describe('workspace reducer', () => {
     });
   });
   it('should handle SET_WORKSPACE_VIEWPORT_POSITION', () => {
-    expect(workspaceReducer(initialState, setWorkspaceViewportPosition(50, 50))).toEqual({
+    expect(workspaceReducer(initialState, setWorkspaceViewportPosition({position: {x: 50, y: 50}}))).toEqual({
       exposeModeOn: false,
       height: 500,
       isFullscreenEnabled: false,
@@ -116,7 +123,7 @@ describe('workspace reducer', () => {
     });
   });
   it('should handle TOGGLE_WORKSPACE_EXPOSE_MODE', () => {
-    expect(workspaceReducer(initialState, toggleWorkspaceExposeMode(true))).toEqual({
+    expect(workspaceReducer(initialState, toggleWorkspaceExposeMode({exposeModeOn: true}))).toEqual({
       exposeModeOn: true,
       height: 500,
       isFullscreenEnabled: false,

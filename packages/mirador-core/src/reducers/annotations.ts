@@ -1,44 +1,26 @@
-import * as annotationActions from "../actions/annotation"
-import {ActionType, getType} from "typesafe-actions"
+import {fetchAnnotation} from "../actions"
+import {reducerWithInitialState} from 'typescript-fsa-reducers'
 
-export type AnnotationAction = ActionType<typeof annotationActions>
 /**
  * annotationReducer
  */
-export const annotationsReducer = (state = {}, action: AnnotationAction) => {
-  switch (action.type) {
-    case getType(annotationActions.requestAnnotation):
-      return {
-        ...state,
-        [action.payload.canvasId]: {
-          [action.payload.annotationId]: {
-            id: action.payload.annotationId,
-            isFetching: true,
-          },
-        },
-      };
-    case getType(annotationActions.receiveAnnotation):
-      return {
-        ...state,
-        [action.payload.canvasId]: {
-          [action.payload.annotationId]: {
-            id: action.payload.annotationId,
-            isFetching: false,
-            json: action.payload.annotationJson,
-          },
-        },
-      };
-    case getType(annotationActions.receiveAnnotationFailure):
-      return {
-        ...state,
-        [action.payload.canvasId]: {
-          [action.payload.annotationId]: {
-            error: action.payload.error,
-            id: action.payload.annotationId,
-            isFetching: false,
-          },
-        },
-      };
-    default: return state;
-  }
-};
+export const annotations = reducerWithInitialState({})
+  .case(fetchAnnotation.async.started, state => ({
+    ...state,
+    updating: true
+  }))
+  .caseWithAction(fetchAnnotation.async.done, (state, action) => ({
+    ...state,
+    [action.payload.params.canvasId]: {
+      [action.payload.params.annotationId]: {
+        id: action.payload.params.annotationId,
+        json: action.payload.result,
+      },
+    },
+    updating: false
+  }))
+  .case(fetchAnnotation.async.failed, (state, { error }) => ({
+    ...state,
+    error,
+    updating: false
+  }))

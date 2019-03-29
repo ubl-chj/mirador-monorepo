@@ -53,5 +53,5 @@ export const buildThumbnailReference = (thumbnail): string => {
 
 export const setManifest = (actions, manifestId): any => {
   actions.fetchManifest(manifestId)
-  actions.addWindow({manifestId, thumbnailNavigationPosition: 'off'})
+  actions.evaluateWindows({manifestId, thumbnailNavigationPosition: 'off'})
 }

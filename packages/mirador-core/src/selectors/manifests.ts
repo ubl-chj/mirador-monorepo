@@ -1,7 +1,8 @@
 import {IManifest, IManifesto} from "mirador-core-model"
 import {IManifestResource} from 'manifesto'
 import ManifestoCanvas from '../utils/ManifestoCanvas';
-import { createSelector } from 'reselect'
+import {createSelector} from 'reselect'
+
 const manifesto = require('manifesto.js'); //eslint-disable-line
 
 /** Get the relevant manifest information */

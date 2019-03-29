@@ -1,10 +1,29 @@
 import {
-  ADD_WINDOW, FOCUS_WINDOW, MAXIMIZE_WINDOW, MINIMIZE_WINDOW,
-  REMOVE_WINDOW, SET_WINDOW_SIDE_BAR_PANEL, SET_WINDOW_SIZE, SET_WINDOW_VIEW_TYPE, TOGGLE_WINDOW_SIDE_BAR,
-  UPDATE_COMPANION_WINDOW, UPDATE_WINDOW, UPDATE_WINDOW_POSITION,
-  evalRemoveWindow, evaluateWindows, focusWindow, maximizeWindow, minimizeWindow,
-  setCompanionAreaOpen, setWindowSideBarPanel, setWindowSize, setWindowThumbnailPosition,
-  setWindowViewType, toggleWindowSideBar, updateWindow, updateWindowPosition
+  ADD_WINDOW,
+  FOCUS_WINDOW,
+  MAXIMIZE_WINDOW,
+  MINIMIZE_WINDOW,
+  REMOVE_WINDOW,
+  SET_WINDOW_SIDE_BAR_PANEL,
+  SET_WINDOW_SIZE,
+  SET_WINDOW_VIEW_TYPE,
+  TOGGLE_WINDOW_SIDE_BAR,
+  UPDATE_COMPANION_WINDOW,
+  UPDATE_WINDOW,
+  UPDATE_WINDOW_POSITION,
+  evalAddWindows,
+  focusWindow,
+  maximizeWindow,
+  minimizeWindow,
+  setCompanionAreaOpen,
+  setWindowSideBarPanel,
+  setWindowSize,
+  setWindowThumbnailPosition,
+  setWindowViewType,
+  thunkRemoveWindow,
+  toggleWindowSideBar,
+  updateWindow,
+  updateWindowPosition
 } from '../../actions';
 
 describe('window actions', () => {
@@ -80,32 +99,34 @@ describe('window actions', () => {
       };
 
       const expectedAction = {
-        companionWindows: [
-          {
-            content: 'info',
-            position: 'left',
+        payload: {
+          companionWindows: [
+            {
+              content: 'info',
+              position: 'left',
+            },
+            {
+              content: 'thumbnail_navigation',
+              position: 'far-bottom',
+            },
+          ],
+          window: {
+            canvasIndex: 1,
+            collectionIndex: 0,
+            height: 400,
+            id: 'helloworld',
+            manifestId: null,
+            maximized: false,
+            rangeId: null,
+            rotation: null,
+            sideBarPanel: 'info',
+            view: 'single',
+            width: 400,
+            x: 260,
+            y: 300,
           },
-          {
-            content: 'thumbnail_navigation',
-            position: 'far-bottom',
-          },
-        ],
-        type: ADD_WINDOW,
-        window: {
-          canvasIndex: 1,
-          collectionIndex: 0,
-          height: 400,
-          id: 'helloworld',
-          manifestId: null,
-          maximized: false,
-          rangeId: null,
-          rotation: null,
-          sideBarPanel: 'info',
-          view: 'single',
-          width: 400,
-          x: 260,
-          y: 300,
         },
+        type: ADD_WINDOW
       };
 
       const mockState = {
@@ -114,42 +135,38 @@ describe('window actions', () => {
 
       const mockDispatch = jest.fn(() => ({}));
       const mockGetState = jest.fn(() => mockState);
-      const thunk = evaluateWindows(options);
+      const thunk = evalAddWindows(options);
 
       thunk(mockDispatch, mockGetState);
 
       const action: any = mockDispatch.mock.calls[0].shift();
 
       expect(action).toMatchObject(expectedAction);
-      expect(action.window.companionWindowIds.length).toEqual(2);
-      expect(action.window.companionWindowIds[0]).toEqual(action.companionWindows[0].id);
-      expect(action.window.companionWindowIds[1]).toEqual(action.window.thumbnailNavigationId);
-      expect(action.window.companionWindowIds[1]).toEqual(action.companionWindows[1].id);
+      expect(action.payload.window.companionWindowIds.length).toEqual(2);
+      expect(action.payload.window.companionWindowIds[0]).toEqual(action.payload.companionWindows[0].id);
+      expect(action.payload.window.companionWindowIds[1]).toEqual(action.payload.window.thumbnailNavigationId);
+      expect(action.payload.window.companionWindowIds[1]).toEqual(action.payload.companionWindows[1].id);
     });
   });
 
   describe('updateWindow', () => {
     it('should return correct action object', () => {
       const expectedAction = {
-        error: undefined,
-        meta: undefined,
         payload: {
           id: 'window-123'
         },
         type: UPDATE_WINDOW,
       }
       const id = 'window-123'
-      const action = updateWindow(id);
+      const action = updateWindow({id});
       expect(action).toEqual(expectedAction);
     });
   });
 
   describe('removeWindow', () => {
-    it('removes the window and returns windowId', () => {
+    it('removes the window and returns windowId', async () => {
       const id = 'abc123';
       const expectedAction = {
-        error: undefined,
-        meta: undefined,
         payload: {
           companionWindowIds: ['a', 'b', 'c'],
           windowId: id,
@@ -157,17 +174,54 @@ describe('window actions', () => {
         type: REMOVE_WINDOW,
       };
       const mockState = {
+        annotations: {},
         companionWindows: {},
+        config: {},
+        infoResponses: {},
+        manifests: {},
+        viewers: {},
         windows: {
-          abc123: { companionWindowIds: ['a', 'b', 'c'] },
+          'abc123': {
+            canvasIndex: 0,
+            collectionIndex: null,
+            companionWindowIds: ['a', 'b', 'c'],
+            displayAllAnnotations: false,
+            height: 100,
+            id: 'abc123',
+            manifestId: null,
+            maximized: false,
+            rangeId: null,
+            rotation: null,
+            selectedAnnotations: {},
+            sideBarOpen: false,
+            thumbnailNavigationId: '123',
+            thumbnailNavigationPosition: 'off',
+            view: null,
+            width: 300,
+            x: 100,
+            y: 200
+          },
         },
+        workspace: {
+          exposeModeOn: false,
+          height: 200,
+          isFullscreenEnabled: false,
+          isWorkspaceAddVisible: false,
+          layout: {},
+          showZoomControls: false,
+          viewportPosition: {
+            x: 300,
+            y: 300,
+          },
+          width: 400,
+        }
       };
 
       const mockDispatch = jest.fn(() => ({}));
       const mockGetState = jest.fn(() => mockState);
-      const thunk = evalRemoveWindow(id);
+      const thunk = thunkRemoveWindow.action({windowId: id});
 
-      thunk(mockDispatch, mockGetState);
+      thunk(mockDispatch, mockGetState, null);
 
       const action = mockDispatch.mock.calls[0].shift();
       expect(action).toEqual(expectedAction);
@@ -185,7 +239,7 @@ describe('window actions', () => {
         },
         type: MAXIMIZE_WINDOW,
       };
-      expect(maximizeWindow(maxWindowId)).toEqual(maximizeWindowAction);
+      expect(maximizeWindow({windowId: maxWindowId})).toEqual(maximizeWindowAction);
     });
   });
 
@@ -200,7 +254,7 @@ describe('window actions', () => {
         },
         type: MINIMIZE_WINDOW,
       };
-      expect(minimizeWindow(minWindowId)).toEqual(minimizeWindowAction);
+      expect(minimizeWindow({windowId: minWindowId})).toEqual(minimizeWindowAction);
     });
   });
 
@@ -215,7 +269,7 @@ describe('window actions', () => {
         },
         type: TOGGLE_WINDOW_SIDE_BAR,
       };
-      expect(toggleWindowSideBar(id)).toEqual(expectedAction);
+      expect(toggleWindowSideBar({windowId: id})).toEqual(expectedAction);
     });
   });
 
@@ -231,7 +285,7 @@ describe('window actions', () => {
         },
         type: UPDATE_WINDOW,
       };
-      expect(setCompanionAreaOpen(id, true)).toEqual(expectedAction);
+      expect(setCompanionAreaOpen({companionAreaOpen: true, id})).toEqual(expectedAction);
     });
   });
 
@@ -277,7 +331,7 @@ describe('window actions', () => {
         },
         type: SET_WINDOW_VIEW_TYPE,
       };
-      expect(setWindowViewType('book', id)).toEqual(expectedAction);
+      expect(setWindowViewType({viewType: 'book', windowId: id})).toEqual(expectedAction);
     });
   });
 
@@ -294,7 +348,7 @@ describe('window actions', () => {
         },
         type: SET_WINDOW_SIDE_BAR_PANEL,
       };
-      expect(setWindowSideBarPanel('panelType', windowId)).toEqual(expectedAction);
+      expect(setWindowSideBarPanel({panelType: 'panelType', windowId})).toEqual(expectedAction);
     });
   });
 
@@ -317,11 +371,7 @@ describe('window actions', () => {
       };
 
       expect(setWindowSize({
-        height: 200,
-        width: 200,
-        x: 20,
-        y: 20,
-      }, id)).toEqual(expectedAction);
+        size: {height: 200, width: 200, x: 20, y: 20}, windowId: id})).toEqual(expectedAction);
     });
   });
 
@@ -338,10 +388,7 @@ describe('window actions', () => {
         },
         type: UPDATE_WINDOW_POSITION,
       };
-      expect(updateWindowPosition({
-        x: 20,
-        y: 20,
-      }, id)).toEqual(expectedAction);
+      expect(updateWindowPosition({position: {x: 20, y: 20}, windowId: id})).toEqual(expectedAction);
     });
   });
 });

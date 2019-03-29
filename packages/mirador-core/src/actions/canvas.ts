@@ -1,5 +1,7 @@
-import {SET_CANVAS, UPDATE_VIEWPORT} from './action-types';
-import {createAction} from 'typesafe-actions';
+import {SET_CANVAS} from './action-types';
+import actionCreatorFactory from 'typescript-fsa';
+
+const actionCreator = actionCreatorFactory();
 
 /**
  * setCanvas - action creator
@@ -8,25 +10,6 @@ import {createAction} from 'typesafe-actions';
  * @param  {Number} canvasIndex
  * @memberof ActionCreators
  */
-export const setCanvas = createAction(SET_CANVAS, action => {
-  return (canvasIndex, windowId) => action({canvasIndex, windowId});
-})
+export const setCanvas = actionCreator<{canvasIndex: number, windowId: string}>(SET_CANVAS)
 
-/**
- *
- * @param windowId
- * @param payload
- * @returns {{payload: *, meta: {debounce: {time: number}}, type: string, windowId: *}}
- */
-export const updateViewport = createAction(UPDATE_VIEWPORT, action => {
-  return (windowId, payload) => action({
-    meta: {
-      debounce: {
-        // TODO : set this value in a registry
-        time: 100,
-      },
-    },
-    ...payload,
-    windowId,
-  });
-})
+

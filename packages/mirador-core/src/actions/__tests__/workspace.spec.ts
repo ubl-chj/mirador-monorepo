@@ -1,12 +1,24 @@
-import {SET_WORKSPACE_ADD_VISIBILITY, SET_WORKSPACE_FULLSCREEN, SET_WORKSPACE_VIEWPORT_POSITION, TOGGLE_WORKSPACE_EXPOSE_MODE,
-  TOGGLE_ZOOM_CONTROLS, UPDATE_WORKSPACE_MOSAIC_LAYOUT,
-  setWorkspaceAddVisibility, setWorkspaceFullscreen, setWorkspaceViewportDimensions, setWorkspaceViewportPosition,
-  toggleWorkspaceExposeMode, toggleZoomControls, updateWorkspaceMosaicLayout} from '../../actions';
+import {
+  SET_WORKSPACE_ADD_VISIBILITY,
+  SET_WORKSPACE_FULLSCREEN,
+  SET_WORKSPACE_VIEWPORT_DIMENSIONS,
+  SET_WORKSPACE_VIEWPORT_POSITION,
+  TOGGLE_WORKSPACE_EXPOSE_MODE,
+  TOGGLE_ZOOM_CONTROLS,
+  UPDATE_WORKSPACE_MOSAIC_LAYOUT,
+  setWorkspaceAddVisibility,
+  setWorkspaceFullscreen,
+  setWorkspaceViewportDimensions,
+  setWorkspaceViewportPosition,
+  toggleWorkspaceExposeMode,
+  toggleZoomControls,
+  updateWorkspaceMosaicLayout
+} from '../../actions';
 
 describe('workspace actions', () => {
   describe('setWorkspaceFullscreen', () => {
     it('should return correct action type if set to true', () => {
-      const receivedAction = setWorkspaceFullscreen(true);
+      const receivedAction = setWorkspaceFullscreen({isFullscreenEnabled: true});
       const expectedAction = {
         error: undefined,
         meta: undefined,
@@ -18,7 +30,7 @@ describe('workspace actions', () => {
       expect(receivedAction).toEqual(expectedAction);
     });
     it('should return correct action type if set to false', () => {
-      const receivedAction = setWorkspaceFullscreen(false);
+      const receivedAction = setWorkspaceFullscreen({isFullscreenEnabled: false});
       const expectedAction = {
         error: undefined,
         meta: undefined,
@@ -42,7 +54,7 @@ describe('workspace actions', () => {
         },
         type: UPDATE_WORKSPACE_MOSAIC_LAYOUT,
       };
-      expect(updateWorkspaceMosaicLayout(options)).toEqual(expectedAction);
+      expect(updateWorkspaceMosaicLayout({layout: options})).toEqual(expectedAction);
     });
   });
   describe('toggleZoomControls', () => {
@@ -55,7 +67,7 @@ describe('workspace actions', () => {
         },
         type: TOGGLE_ZOOM_CONTROLS,
       };
-      expect(toggleZoomControls(true)).toEqual(expectedAction);
+      expect(toggleZoomControls({showZoomControls: true})).toEqual(expectedAction);
     });
   });
   describe('setWorkspaceAddVisibility', () => {
@@ -68,7 +80,7 @@ describe('workspace actions', () => {
         },
         type: SET_WORKSPACE_ADD_VISIBILITY,
       };
-      expect(setWorkspaceAddVisibility(true)).toEqual(expectedAction);
+      expect(setWorkspaceAddVisibility({isWorkspaceAddVisible: true})).toEqual(expectedAction);
     });
   });
   describe('setWorkspaceViewportDimensions', () => {
@@ -82,9 +94,9 @@ describe('workspace actions', () => {
             width: 20,
           },
         },
-        type: SET_WORKSPACE_VIEWPORT_POSITION,
+        type: SET_WORKSPACE_VIEWPORT_DIMENSIONS,
       };
-      expect(setWorkspaceViewportDimensions(20, 25)).toEqual(expectedAction);
+      expect(setWorkspaceViewportDimensions({position: {height: 25, width: 20}})).toEqual(expectedAction);
     });
   });
   describe('setWorkspaceViewportPosition', () => {
@@ -98,7 +110,7 @@ describe('workspace actions', () => {
         },
         type: SET_WORKSPACE_VIEWPORT_POSITION,
       };
-      expect(setWorkspaceViewportPosition(20, 20)).toEqual(expectedAction);
+      expect(setWorkspaceViewportPosition({position: {x: 20, y: 20}})).toEqual(expectedAction);
     });
   });
   describe('toggleWorkspaceExposeMode', () => {
@@ -111,7 +123,7 @@ describe('workspace actions', () => {
         },
         type: TOGGLE_WORKSPACE_EXPOSE_MODE,
       };
-      expect(toggleWorkspaceExposeMode(false)).toEqual(expectedAction);
+      expect(toggleWorkspaceExposeMode({exposeModeOn: false})).toEqual(expectedAction);
     });
   });
 });

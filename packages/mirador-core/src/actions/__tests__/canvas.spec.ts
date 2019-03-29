@@ -15,7 +15,7 @@ describe('canvas actions', () => {
         },
         type: SET_CANVAS,
       };
-      expect(setCanvas(100, id)).toEqual(expectedAction);
+      expect(setCanvas({canvasIndex: 100, windowId: id})).toEqual(expectedAction);
     });
   });
   describe('updateViewport', () => {
@@ -23,13 +23,8 @@ describe('canvas actions', () => {
       const id = 'abc123';
       const expectedAction = {
         error: undefined,
-        meta: undefined,
+        meta: {debounce: {time: 100}},
         payload: {
-          meta: {
-            debounce: {
-              time: debounceTime,
-            },
-          },
           windowId: id,
           x: 1,
           y: 0,
@@ -37,7 +32,7 @@ describe('canvas actions', () => {
         },
         type: UPDATE_VIEWPORT,
       };
-      expect(updateViewport(id, { x: 1, y: 0, zoom: 0.5 })).toEqual(expectedAction);
+      expect(updateViewport({windowId: id, x: 1, y: 0, zoom: 0.5})).toEqual(expectedAction);
     });
   });
 });

@@ -1,19 +1,20 @@
-import * as workspaceActions from '../actions/workspace'
-import {ActionType, getType} from 'typesafe-actions';
+import {
+  setWorkspaceAddVisibility,
+  setWorkspaceFullscreen,
+  setWorkspaceViewportPosition,
+  toggleWorkspaceExposeMode,
+  toggleZoomControls,
+  updateWorkspaceMosaicLayout
+} from '../actions'
 import {IWorkspace} from 'mirador-core-model'
-
-export type WorkspaceAction = ActionType<typeof workspaceActions>
+import {isType} from 'typescript-fsa'
 
 const initialState: IWorkspace = {
   exposeModeOn: false,
   height: 5000,
   isFullscreenEnabled: false,
   isWorkspaceAddVisible: false,
-  layout: {
-    direction: null,
-    first: null,
-    second: null
-  },
+  layout: {},
   showZoomControls: false,
   viewportPosition: {
     x: 0,
@@ -25,17 +26,17 @@ const initialState: IWorkspace = {
 /**
  * workspaceReducer
  */
-export const workspaceReducer = (state: IWorkspace = initialState, action: WorkspaceAction): IWorkspace => {
+export const workspaceReducer = (state: IWorkspace = initialState, action): IWorkspace => {
   switch (action.type) {
-    case getType(workspaceActions.setWorkspaceFullscreen):
+    case isType(action, setWorkspaceFullscreen):
       return { ...state, isFullscreenEnabled: action.payload.isFullscreenEnabled };
-    case getType(workspaceActions.toggleZoomControls):
+    case isType(action, toggleZoomControls):
       return { ...state, showZoomControls: action.payload.showZoomControls };
-    case getType(workspaceActions.updateWorkspaceMosaicLayout):
-      return { ...state, ...action.payload.layout };
-    case getType(workspaceActions.setWorkspaceAddVisibility):
+    case isType(action, updateWorkspaceMosaicLayout):
+      return { ...state, layout: action.payload.layout };
+    case isType(action, setWorkspaceAddVisibility):
       return { ...state, isWorkspaceAddVisible: action.payload.isWorkspaceAddVisible };
-    case getType(workspaceActions.setWorkspaceViewportPosition):
+    case isType(action, setWorkspaceViewportPosition):
       return {
         ...state,
         viewportPosition: {
@@ -43,7 +44,7 @@ export const workspaceReducer = (state: IWorkspace = initialState, action: Works
           ...action.payload.position,
         },
       };
-    case getType(workspaceActions.toggleWorkspaceExposeMode):
+    case isType(action, toggleWorkspaceExposeMode):
       return { ...state, exposeModeOn: !state.exposeModeOn };
     default:
       return state;

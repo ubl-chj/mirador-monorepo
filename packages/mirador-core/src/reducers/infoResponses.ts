@@ -1,43 +1,24 @@
-import {RECEIVE_INFO_RESPONSE, RECEIVE_INFO_RESPONSE_FAILURE, REMOVE_INFO_RESPONSE, REQUEST_INFO_RESPONSE} from '../actions'
+import {fetchInfoResponse} from "../actions"
+import {reducerWithInitialState} from 'typescript-fsa-reducers'
 
 /**
- * infoResponsesReducer
+ * infoResponseReducer
  */
-export const infoResponsesReducer = (state = {}, action) => {
-  switch (action.type) {
-    case REQUEST_INFO_RESPONSE:
-      return {
-        ...state,
-        [action.infoId]: {
-          id: action.infoId,
-          isFetching: true,
-        },
-      };
-    case RECEIVE_INFO_RESPONSE:
-      return {
-        ...state,
-        [action.infoId]: {
-          id: action.infoId,
-          isFetching: false,
-          json: action.infoJson,
-        },
-      };
-    case RECEIVE_INFO_RESPONSE_FAILURE:
-      return {
-        ...state,
-        [action.infoId]: {
-          error: action.error,
-          id: action.infoId,
-          isFetching: false,
-        },
-      };
-    case REMOVE_INFO_RESPONSE:
-      return Object.keys(state).reduce((object, key) => {
-        if (key !== action.infoId) {
-          object[key] = state[key]; // eslint-disable-line no-param-reassign
-        }
-        return object;
-      }, {});
-    default: return state;
-  }
-};
+export const infoResponses = reducerWithInitialState({})
+  .case(fetchInfoResponse.async.started, state => ({
+    ...state,
+    updating: true
+  }))
+  .caseWithAction(fetchInfoResponse.async.done, (state, action) => ({
+    ...state,
+    [action.payload.params.infoId]: {
+      id: action.payload.params.infoId,
+      json: action.payload.result,
+    },
+    updating: false,
+  }))
+  .case(fetchInfoResponse.async.failed, (state, { error }) => ({
+    ...state,
+    error,
+    updating: false,
+  }))

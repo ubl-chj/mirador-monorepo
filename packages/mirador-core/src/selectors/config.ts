@@ -1,4 +1,5 @@
-import { createSelector } from 'reselect';
+import {createSelector} from 'reselect';
+
 /**
 * Return languages from config (in state) and indicate which is currently set
 * @param {object} state

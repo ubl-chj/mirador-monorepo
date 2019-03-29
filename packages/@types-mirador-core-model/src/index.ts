@@ -1,5 +1,14 @@
 import {ISequence, LanguageMap} from "manifesto"
 
+export interface IState {
+  annotations: any
+  companionWindows: ICompanionWindow
+  manifests: IManifest
+  windows: IWindow
+  config: IConfig
+  viewers: IViewer
+  workspace: IWorkspace
+}
 export interface IConfig {
   availableLanguages?: {
   }
@@ -40,7 +49,7 @@ export interface IConfig {
     enabled: boolean
   }
 }
-export interface IInfoRespone {
+export interface IInfoResponse {
   [infoId: string]: {
     error: {}
     id: string,
@@ -73,7 +82,7 @@ export interface IWindow {
   [windowId: string]: {
     canvasIndex: number
     collectionIndex: number
-    companionWindowIds: []
+    companionWindowIds: any
     displayAllAnnotations: boolean
     height: number
     id: string
@@ -114,11 +123,7 @@ export interface IWorkspace {
   height: number
   isWorkspaceAddVisible: boolean
   isFullscreenEnabled: boolean
-  layout: {
-    direction: string,
-    first: string,
-    second: string
-  }
+  layout: {}
   showZoomControls: boolean
   viewportPosition: {
     x: number
@@ -127,13 +132,22 @@ export interface IWorkspace {
   width: number
 }
 
-export interface IWindowsReducer {
+export interface IWindows{
   windows: IWindow
+}
+
+export interface ICompanionWindows {
   companionWindows: ICompanionWindow
 }
 
-export interface ICompanionWindowsReducer {
-  windows: IWindow
-  companionWindows: ICompanionWindow
+export interface IManifests {
+  manifests: IManifest
 }
 
+export interface IViewers {
+  viewers: IViewer
+}
+
+export interface IInfoResponses {
+  infoResponses: IInfoResponse
+}

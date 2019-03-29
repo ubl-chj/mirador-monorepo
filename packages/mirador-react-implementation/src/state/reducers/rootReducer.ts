@@ -1,8 +1,8 @@
 import {
-  annotationsReducer,
+  annotations,
   companionWindowsReducer,
   configReducer,
-  infoResponsesReducer,
+  infoResponses,
   manifests,
   thunksReducer,
   viewersReducer,
@@ -15,10 +15,10 @@ import { combineReducers } from 'redux'
  *
  */
 export const rootReducer = (): any => combineReducers({
-  annotations: annotationsReducer,
+  annotations,
   companionWindows: companionWindowsReducer,
   config: configReducer,
-  infoResponses: infoResponsesReducer,
+  infoResponses,
   manifests,
   thunksReducer,
   viewers: viewersReducer,

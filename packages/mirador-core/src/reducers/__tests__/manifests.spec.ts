@@ -1,107 +1,60 @@
-import {RECEIVE_MANIFEST, RECEIVE_MANIFEST_FAILURE, REMOVE_MANIFEST, REQUEST_MANIFEST} from '../../actions'
+import { AnyAction, Middleware } from 'redux';
+import {FETCH_MANIFEST, fetchManifest} from '../../actions'
+import configureStore, { MockStore } from 'redux-mock-store';
+import thunkMiddleware, { ThunkDispatch } from 'redux-thunk';
+import fetchMock from 'fetch-mock'
 import {manifests} from '../';
 
-describe('manifests reducer', () => {
-  it('should handle REQUEST_MANIFEST', () => {
-    expect(manifests({}, {
-      manifestId: 'abc123',
-      type: REQUEST_MANIFEST,
-    })).toEqual({
-      abc123: {
-        id: 'abc123',
-      },
-    });
-  });
-  it('should handle RECEIVE_MANIFEST', () => {
-    expect(manifests(
-      {
-        abc123: {
-          error: 'Error fetching manifest',
-          id: 'abc123',
-          isFetching: true,
-          json: {}
-        },
-      },
-      {
-        manifestId: 'abc123',
-        manifestJson: {
-          '@type': 'sc:Manifest',
-          content: 'lots of canvases and metadata and such',
-          id: 'abc123',
-        },
-        type: RECEIVE_MANIFEST,
-      },
-    )).toMatchObject({
-      abc123: {
-        error: null,
-        id: 'abc123',
-        isFetching: false,
-        json: {
-          '@type': 'sc:Manifest',
-          content: 'lots of canvases and metadata and such',
-          id: 'abc123',
-        },
-      },
-    });
+interface IState {
+  foo: string;
+  updating?: boolean;
+  error?: Error;
+}
+
+interface IExt {
+  dispatch: ThunkDispatch<IState, any, AnyAction>;
+}
+
+const initial: IState = { foo: 'test' };
+
+describe('manifest reducer test', () => {
+  type StoreType = MockStore<IState> & IExt;
+  let middleware: Middleware[] = [];
+  let createMockStore: (initial: IState) => StoreType;
+  let store: StoreType;
+
+  beforeEach(() => {
+    middleware = [thunkMiddleware];
+    createMockStore = configureStore(middleware);
+    store = createMockStore(initial);
+    fetchMock.get('*', { label: 'Some Manifest' });
   });
 
-  it('should handle RECEIVE_MANIFEST_FAILURE', () => {
-    expect(manifests(
-      {
-        abc123: {
-          error: null,
-          id: 'abc123',
-          isFetching: true,
-          json: {}
-        },
-      },
-      {
-        error: "This institution didn't enable CORS.",
-        manifestId: 'abc123',
-        type: RECEIVE_MANIFEST_FAILURE,
-      },
-    )).toEqual({
-      abc123: {
-        error: "This institution didn't enable CORS.",
-        id: 'abc123',
-        isFetching: false,
-        json: {}
-      },
+  it('manifests reducer test', async () => {
+    await store.dispatch(fetchManifest.action({manifestId: 'https://www.nga.gov/content/ngaweb/api/v1/iiif/presentation/manifest.json?cultObj:id=25518'}));
+    expect(fetchMock.called()).toBe(true)
+    const [started, done] = store.getActions().filter(action =>
+      action.type.includes(FETCH_MANIFEST));
+
+    const beforeState = store.getState();
+    expect(beforeState).toEqual(initial);
+
+    const startedState = manifests(beforeState, started);
+    expect(startedState).toEqual({
+      ...beforeState,
+      updating: true
     });
-  });
-  it('should handle REMOVE_MANIFEST', () => {
-    expect(manifests(
-      {
-        abc123: {
-          error: null,
-          id: 'abc123',
-          isFetching: false,
-          json: {
-            foo: 'foo'
-          },
-        },
-        def456: {
-          error: null,
-          id: 'def456',
-          isFetching: false,
-          json: {
-            foo: 'foo'
-          },
-        },
-      },
-      {
-        manifestId: 'abc123',
-        type: REMOVE_MANIFEST,
-      },
-    )).toEqual({
-      def456: {
-        error: null,
-        id: 'def456',
-        isFetching: false,
+
+    const doneState = manifests(startedState, done);
+    expect(doneState).toEqual({
+      ...startedState,
+      'https://www.nga.gov/content/ngaweb/api/v1/iiif/presentation/manifest.json?cultObj:id=25518': {
+        id: 'https://www.nga.gov/content/ngaweb/api/v1/iiif/presentation/manifest.json?cultObj:id=25518',
         json: {
-          foo: 'foo'
-        },
+          label: 'Some Manifest'
+        }
       },
+      updating: false,
     });
   });
-});
+})

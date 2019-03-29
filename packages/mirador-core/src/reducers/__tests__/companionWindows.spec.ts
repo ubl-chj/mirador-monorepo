@@ -1,18 +1,15 @@
-import {
-  addCompanionWindow, addWindow,
-  removeCompanionWindow, removeWindow,
-  updateCompanionWindow
-} from '../../actions'
-import { companionWindowsReducer } from '../';
+import {addCompanionWindow, addWindow, removeCompanionWindow, removeWindow} from '../../actions'
+import {companionWindowsReducer} from '../';
 
 describe('companionWindowsReducer', () => {
   describe('ADD_COMPANION_WINDOW', () => {
     it('adds a new companion window', () => {
-      const action = addCompanionWindow('info', 'right', 'abc123');
+      const action = addCompanionWindow({content: 'info', id: 'abc123', position: 'right'});
       const beforeState = {};
       const expectedState = {
         abc123: {
           content: 'info',
+          id: 'abc123',
           position: 'right',
         },
       };
@@ -23,15 +20,23 @@ describe('companionWindowsReducer', () => {
   describe('ADD_WINDOW', () => {
     it('adds default companion window(s)', () => {
       const action = addWindow(
-        [{
-          content: 'info',
-          id: 'banana',
-          position: 'left',
-        }, {
-          content: 'canvas_navigation',
-          id: 'Banane',
-          position: 'right',
-        }], 'abc123');
+        {
+          companionWindows: {
+            'cw-123':
+              {
+                content: 'info',
+                id: 'banana',
+                position: 'left',
+                thumbnailNavigationId: 'zyx321'
+              },
+            'cw-456':
+              {
+                content: 'canvas_navigation',
+                id: 'Banane',
+                position: 'right',
+                thumbnailNavigationId: 'zyx321'
+              },
+          }});
       const beforeState = {};
       const expectedState = {
         Banane: {
@@ -49,7 +54,7 @@ describe('companionWindowsReducer', () => {
     });
   });
 
-
+  /**
   describe('UPDATE_COMPANION_WINDOW', () => {
     it('updates an existing companion window', () => {
       const action = updateCompanionWindow('abc123', 'cw123', 'canvases', 'right')
@@ -69,10 +74,11 @@ describe('companionWindowsReducer', () => {
       expect(companionWindowsReducer(beforeState, action)).toEqual(expectedState);
     });
   });
+*/
 
   describe('REMOVE_COMPANION_WINDOW', () => {
     it('should remove a companion window', () => {
-      const action = removeCompanionWindow('abc123', 'cw123');
+      const action = removeCompanionWindow({companionWindowIds: 'cw123', id: 'abc123'})
       const beforeState = {
         abc123: {
           content: 'info',
@@ -86,7 +92,7 @@ describe('companionWindowsReducer', () => {
 
   describe('REMOVE_WINDOW', () => {
     it('should remove a companion window', () => {
-      const action = removeWindow(['a', 'b'], 'abc123');
+      const action = removeWindow({companionWindowIds: ['a', 'b'], id: 'abc123'});
       const beforeState = {
         a: {},
         b: {},

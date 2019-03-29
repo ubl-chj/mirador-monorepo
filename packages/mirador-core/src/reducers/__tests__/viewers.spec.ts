@@ -1,4 +1,4 @@
-import {REMOVE_WINDOW, UPDATE_VIEWPORT} from '../../actions'
+import {UPDATE_VIEWPORT, thunkRemoveWindow} from '../../actions'
 import {viewersReducer} from '../';
 
 describe('viewers reducer', () => {
@@ -33,10 +33,7 @@ describe('viewers reducer', () => {
       def456: {
         foo: 'bar',
       },
-    }, {
-      type: REMOVE_WINDOW,
-      windowId: 'abc123',
-    })).toEqual({
+    }, thunkRemoveWindow.action({windowId: 'abc123'}))).toEqual({
       def456: {
         foo: 'bar',
       },

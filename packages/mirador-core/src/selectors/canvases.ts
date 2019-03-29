@@ -1,6 +1,6 @@
 import CanvasGroupings from '../utils/CanvasGroupings';
-import { createSelector } from 'reselect';
-import { getManifestoInstance } from './manifests';
+import {createSelector} from 'reselect';
+import {getManifestoInstance} from './manifests';
 
 export const getCanvases = createSelector(
   [getManifestoInstance],

@@ -1,5 +1,5 @@
 import {SET_CONFIG, UPDATE_CONFIG} from '../../actions'
-import { configReducer } from '../';
+import {configReducer} from '../';
 
 describe('config reducer', () => {
   describe('SET_CONFIG', () => {

@@ -46,12 +46,15 @@ export const WindowListMenu: React.FC<IWindowListMenu> = (props): ReactElement =
   const buildMenuItems = (): any => {
     return Object.values(windows).map((window) => (
       <MenuItem
+        button={true}
+        component='div'
         key={window.id}
         onClick={() => handleClick(null)}
         selected={focusedWindowId === window.id}
       >
         <ListItem
           button={true}
+          component='div'
           divider={true}
           onClick={() => focusWindow(window.id)}
         >

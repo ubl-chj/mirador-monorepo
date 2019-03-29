@@ -88,13 +88,16 @@ export const WorkspaceSettingsMenu: React.FC<IWorkspaceSettingsMenu> = (props): 
       <MenuItem
         aria-haspopup="true"
         aria-owns={anchorEl ? item.id : undefined}
+        button={true}
+        component='div'
         divider={true}
         key={item.id}
         onClick={() => handleClick(null)}
         selected={listItemState.selectedIndex === item.index}
       >
         <ListItem
-          button
+          button={true}
+          component='div'
           onClick={() => handleListItemClick(item.index)}
         >
           <ListItemIcon>
@@ -107,11 +110,15 @@ export const WorkspaceSettingsMenu: React.FC<IWorkspaceSettingsMenu> = (props): 
   }
 
   return (
-    <ListItem style={{justifyContent: 'center'}}>
+    <ListItem
+      button={true}
+      component='div'
+      style={{justifyContent: 'center'}}>
       <IconButton
         aria-haspopup="true"
         aria-owns={anchorEl ? 'settings-menu' : undefined}
         color='default'
+        href=''
         id='menuBtn'
         onClick={(e) => handleClick(e)}
       >

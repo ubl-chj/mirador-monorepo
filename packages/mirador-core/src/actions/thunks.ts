@@ -1,19 +1,20 @@
 import {
+  FETCH_ANNOTATION,
+  FETCH_INFO_RESPONSE,
+  FETCH_MANIFEST,
   FOCUS_WINDOW,
   REMOVE_WINDOW,
   UPDATE_COMPANION_WINDOW,
   addWindow,
-  receiveAnnotation,
-  receiveAnnotationFailure,
-  receiveInfoResponse,
-  receiveInfoResponseFailure,
-  receiveManifest,
-  receiveManifestFailure,
-  requestAnnotation,
-  requestInfoResponse, requestManifest, removeWindow
+  removeWindow
 } from '../actions';
+import {IState} from 'mirador-core-model'
+import actionCreatorFactory from 'typescript-fsa';
+import {asyncFactory, bindThunkAction} from 'typescript-fsa-redux-thunk';
 import uuid from 'uuid/v4'
 
+const actionCreator = actionCreatorFactory();
+const createAsync = asyncFactory<IState>(actionCreator)
 
 /**
  * addWindow - action creator
@@ -21,7 +22,7 @@ import uuid from 'uuid/v4'
  * @param  {Object} options
  * @memberof ActionCreators
  */
-export const evaluateWindows = (options) => {
+export const evalAddWindows = (options) => {
   return (dispatch, getState) => {
     const { windows } = getState();
     const numWindows = Object.keys(windows).length;
@@ -47,19 +48,22 @@ export const evaluateWindows = (options) => {
       y: 200 + ((numWindows * 50) % 300),
     };
 
-    dispatch(addWindow([
-      {
+    const companionWindows = {
+      'cw-123': {
         content: 'info',
         id: cwDefault,
         position: 'left',
+        thumbnailNavigationId: 'xyz'
       },
-      {
+      'cw-456': {
         content: 'thumbnail_navigation',
         id: cwThumbs,
         position: options.thumbnailNavigationPosition || 'far-bottom',
+        thumbnailNavigationId: 'xyz'
       },
-    ],
-    { ...defaultOptions, ...options }));
+    }
+
+    dispatch(addWindow({companionWindows, window: { ...defaultOptions, ...options }}));
   };
 }
 
@@ -68,54 +72,51 @@ export const evaluateWindows = (options) => {
  * @param annotationId
  * @param canvasId
  */
-export const fetchAnnotation = (annotationId, canvasId) => {
-  return ((dispatch) => {
-    dispatch(requestAnnotation(annotationId, canvasId));
-    return window.fetch(annotationId)
-      .then((response) => response.json())
-      .then((json) => dispatch(receiveAnnotation(annotationId, json, canvasId)))
-      .catch((error) => dispatch(receiveAnnotationFailure(annotationId, canvasId, error)));
-  });
-}
-
-
-/**
- * fetchInfoResponse - action creator
- *
- * @param  {String} infoId
- * @memberof ActionCreators
- */
-export const fetchInfoResponse = (infoId) => {
-  return (dispatch) => {
-    dispatch(requestInfoResponse(infoId))
-    return window.fetch(infoId)
-      .then((response) => response.json())
-      .then((json) => dispatch(receiveInfoResponse(infoId, json)))
-      .catch((error) => dispatch(receiveInfoResponseFailure(infoId, error)))
+export const fetchAnnotation = createAsync<{annotationId, canvasId}, {}, {}>(FETCH_ANNOTATION,
+  async (params) => {
+    const res = await window.fetch(params.annotationId);
+    if (!res.ok) {
+      throw new Error(
+        `Error ${res.status}: ${res.statusText} ${await res.text()}`);
+    }
+    return res.json();
   }
-}
+);
 
 /**
  *
- * @param manifestId
- * @param properties
+ * @param annotationId
+ * @param canvasId
  */
-export const fetchManifest = (manifestId, properties) => {
-  return ((dispatch) => {
-    dispatch(requestManifest(manifestId, { ...properties, isFetching: true }));
+export const fetchInfoResponse = createAsync<{infoId}, {}, {}>(FETCH_INFO_RESPONSE,
+  async (params) => {
+    const res = await fetch(params.infoId);
+    if (!res.ok) {
+      throw new Error(
+        `Error ${res.status}: ${res.statusText} ${await res.text()}`);
+    }
+    return res.json();
+  }
+);
 
-    return fetch(manifestId)
-      .then((response) => response.json())
-      .then((json) => dispatch(receiveManifest(manifestId, json)))
-      .catch((error) => {
-        if (typeof error === 'object') { // Returned by JSON parse failure
-          dispatch(receiveManifestFailure(manifestId, String(error)));
-        } else {
-          dispatch(receiveManifestFailure(manifestId, error));
-        }
-      });
-  });
-}
+interface IFetchManifestParams { manifestId: string; }
+type Succ = any;
+
+/**
+ *
+ * @param annotationId
+ * @param canvasId
+ */
+export const fetchManifest = createAsync<IFetchManifestParams, Succ>(FETCH_MANIFEST,
+  async (params) => {
+    const res = await fetch(params.manifestId);
+    if (!res.ok) {
+      throw new Error(
+        `Error ${res.status}: ${res.statusText} ${await res.text()}`);
+    }
+    return res.json()
+  }
+);
 
 /**
  *
@@ -151,13 +152,12 @@ export const focusWindow = (windowId, pan = false) => {
  * @param  {String} windowId
  * @memberof ActionCreators
  */
-export const evalRemoveWindow = (windowId) => {
-  return (dispatch, getState) => {
+export const thunkRemoveWindow = createAsync<{windowId}, {}, {}>(REMOVE_WINDOW,
+  async ({windowId}, dispatch, getState) => {
     const { windows } = getState();
     const { companionWindowIds } = windows[windowId];
-    dispatch(removeWindow(companionWindowIds, windowId));
-  };
-}
+    await dispatch(removeWindow(companionWindowIds, windowId));
+  })
 
 /**
  * setWindowThumbnailPosition - action creator
