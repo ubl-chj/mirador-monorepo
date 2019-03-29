@@ -1,14 +1,14 @@
-import {ADD_COMPANION_WINDOW, ADD_WINDOW, REMOVE_COMPANION_WINDOW, REMOVE_WINDOW, UPDATE_COMPANION_WINDOW} from '../../actions'
+import {
+  addCompanionWindow, addWindow,
+  removeCompanionWindow, removeWindow,
+  updateCompanionWindow
+} from '../../actions'
 import { companionWindowsReducer } from '../';
 
 describe('companionWindowsReducer', () => {
   describe('ADD_COMPANION_WINDOW', () => {
     it('adds a new companion window', () => {
-      const action = {
-        id: 'abc123',
-        payload: { content: 'info', position: 'right' },
-        type: ADD_COMPANION_WINDOW,
-      };
+      const action = addCompanionWindow('info', 'right', 'abc123');
       const beforeState = {};
       const expectedState = {
         abc123: {
@@ -22,8 +22,8 @@ describe('companionWindowsReducer', () => {
 
   describe('ADD_WINDOW', () => {
     it('adds default companion window(s)', () => {
-      const action = {
-        companionWindows: [{
+      const action = addWindow(
+        [{
           content: 'info',
           id: 'banana',
           position: 'left',
@@ -31,9 +31,7 @@ describe('companionWindowsReducer', () => {
           content: 'canvas_navigation',
           id: 'Banane',
           position: 'right',
-        }],
-        type: ADD_WINDOW,
-      };
+        }], 'abc123');
       const beforeState = {};
       const expectedState = {
         Banane: {
@@ -54,11 +52,7 @@ describe('companionWindowsReducer', () => {
 
   describe('UPDATE_COMPANION_WINDOW', () => {
     it('updates an existing companion window', () => {
-      const action = {
-        id: 'abc123',
-        payload: { content: 'canvases', foo: 'bar' },
-        type: UPDATE_COMPANION_WINDOW,
-      };
+      const action = updateCompanionWindow('abc123', 'cw123', 'canvases', 'right')
       const beforeState = {
         abc123: {
           content: 'info',
@@ -78,10 +72,7 @@ describe('companionWindowsReducer', () => {
 
   describe('REMOVE_COMPANION_WINDOW', () => {
     it('should remove a companion window', () => {
-      const action = {
-        id: 'abc123',
-        type: REMOVE_COMPANION_WINDOW,
-      };
+      const action = removeCompanionWindow('abc123', 'cw123');
       const beforeState = {
         abc123: {
           content: 'info',
@@ -95,11 +86,7 @@ describe('companionWindowsReducer', () => {
 
   describe('REMOVE_WINDOW', () => {
     it('should remove a companion window', () => {
-      const action = {
-        companionWindowIds: ['a', 'b'],
-        id: 'abc123',
-        type: REMOVE_WINDOW,
-      };
+      const action = removeWindow(['a', 'b'], 'abc123');
       const beforeState = {
         a: {},
         b: {},

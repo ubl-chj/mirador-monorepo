@@ -1,9 +1,11 @@
-import {ADD_WINDOW, FOCUS_WINDOW, MAXIMIZE_WINDOW, MINIMIZE_WINDOW,
+import {
+  ADD_WINDOW, FOCUS_WINDOW, MAXIMIZE_WINDOW, MINIMIZE_WINDOW,
   REMOVE_WINDOW, SET_WINDOW_SIDE_BAR_PANEL, SET_WINDOW_SIZE, SET_WINDOW_VIEW_TYPE, TOGGLE_WINDOW_SIDE_BAR,
   UPDATE_COMPANION_WINDOW, UPDATE_WINDOW, UPDATE_WINDOW_POSITION,
-  addWindow, focusWindow, maximizeWindow, minimizeWindow, removeWindow, setCompanionAreaOpen,
-  setWindowSideBarPanel, setWindowSize, setWindowThumbnailPosition, setWindowViewType, toggleWindowSideBar,
-  updateWindow, updateWindowPosition} from '../../actions';
+  evalRemoveWindow, evaluateWindows, focusWindow, maximizeWindow, minimizeWindow,
+  setCompanionAreaOpen, setWindowSideBarPanel, setWindowSize, setWindowThumbnailPosition,
+  setWindowViewType, toggleWindowSideBar, updateWindow, updateWindowPosition
+} from '../../actions';
 
 describe('window actions', () => {
   describe('focusWindow', () => {
@@ -112,7 +114,7 @@ describe('window actions', () => {
 
       const mockDispatch = jest.fn(() => ({}));
       const mockGetState = jest.fn(() => mockState);
-      const thunk = addWindow(options);
+      const thunk = evaluateWindows(options);
 
       thunk(mockDispatch, mockGetState);
 
@@ -163,7 +165,7 @@ describe('window actions', () => {
 
       const mockDispatch = jest.fn(() => ({}));
       const mockGetState = jest.fn(() => mockState);
-      const thunk = removeWindow(id);
+      const thunk = evalRemoveWindow(id);
 
       thunk(mockDispatch, mockGetState);
 
@@ -292,7 +294,7 @@ describe('window actions', () => {
         },
         type: SET_WINDOW_SIDE_BAR_PANEL,
       };
-      expect(setWindowSideBarPanel(windowId, 'panelType')).toEqual(expectedAction);
+      expect(setWindowSideBarPanel('panelType', windowId)).toEqual(expectedAction);
     });
   });
 
@@ -314,12 +316,12 @@ describe('window actions', () => {
         type: SET_WINDOW_SIZE,
       };
 
-      expect(setWindowSize(id, {
+      expect(setWindowSize({
         height: 200,
         width: 200,
         x: 20,
         y: 20,
-      })).toEqual(expectedAction);
+      }, id)).toEqual(expectedAction);
     });
   });
 
@@ -336,10 +338,10 @@ describe('window actions', () => {
         },
         type: UPDATE_WINDOW_POSITION,
       };
-      expect(updateWindowPosition(id, {
+      expect(updateWindowPosition({
         x: 20,
         y: 20,
-      })).toEqual(expectedAction);
+      }, id)).toEqual(expectedAction);
     });
   });
 });

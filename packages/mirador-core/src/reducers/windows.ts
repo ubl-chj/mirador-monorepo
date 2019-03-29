@@ -6,27 +6,8 @@ import * as windowActions from '../actions/window'
 import {ActionType, getType} from 'typesafe-actions';
 import { merge, remove, updateIn } from 'immutable';
 
-
 export type WindowAction = ActionType<typeof companionWindowsActions & typeof canvasActions
   & typeof windowActions & typeof annotationActions & typeof thunkActions>
-/**
- * Handle removing IDs from selectedAnnotations
- * where empty canvasIDs are removed from state as well
- */
-const updatedSelectedAnnotations = (state, action) => {
-  const filteredIds = state[action.windowId]
-    .selectedAnnotations[action.canvasId]
-    .filter(id => id !== action.annotationId);
-
-  if (filteredIds.length > 0) {
-    return {
-      ...state[action.windowId].selectedAnnotations,
-      [action.canvasId]: filteredIds,
-    };
-  }
-
-  return remove(state[action.windowId].selectedAnnotations, action.canvasId);
-}
 
 /**
  * @param {Object} state
@@ -48,12 +29,32 @@ const setCanvasIndex = (state, windowId, getIndex) => {
   }, {})
 }
 
+/**
+ * Handle removing IDs from selectedAnnotations
+ * where empty canvasIDs are removed from state as well
+ */
+const updatedSelectedAnnotations = (state, action) => {
+  const filteredIds = state[action.payload.windowId]
+    .selectedAnnotations[action.payload.canvasId]
+    .filter(id => id !== action.payload.annotationId);
+
+  if (filteredIds && filteredIds.length > 0) {
+    return {
+      ...state[action.payload.windowId].selectedAnnotations,
+      [action.payload.canvasId]: filteredIds,
+    };
+  }
+
+  return remove(state[action.payload.windowId].selectedAnnotations, action.payload.canvasId);
+}
 
 /**
  * windowsReducer
  */
 export const windowsReducer = (state = {}, action: WindowAction) => {
   switch (action.type) {
+    case getType(windowActions.addWindow):
+      return { ...state, [action.payload.window.id]: action.payload.window };
     case getType(windowActions.maximizeWindow):
       return {
         ...state,

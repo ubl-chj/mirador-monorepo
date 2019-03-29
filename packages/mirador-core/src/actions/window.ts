@@ -1,7 +1,26 @@
-import {MAXIMIZE_WINDOW, MINIMIZE_WINDOW, SET_WINDOW_SIDE_BAR_PANEL, SET_WINDOW_SIZE, SET_WINDOW_VIEW_TYPE,
-  TOGGLE_WINDOW_SIDE_BAR, UPDATE_WINDOW, UPDATE_WINDOW_POSITION} from './action-types';
+import {
+  ADD_WINDOW, MAXIMIZE_WINDOW, MINIMIZE_WINDOW, REMOVE_WINDOW, SET_WINDOW_SIDE_BAR_PANEL, SET_WINDOW_SIZE, SET_WINDOW_VIEW_TYPE,
+  TOGGLE_WINDOW_SIDE_BAR, UPDATE_WINDOW, UPDATE_WINDOW_POSITION
+} from './action-types';
 import {createAction} from 'typesafe-actions';
 
+/**
+ * addWindow
+ * @param  {String} windowId
+ * @memberof ActionCreators
+ */
+export const addWindow = createAction(ADD_WINDOW, action => {
+  return (companionWindows, window) => action({companionWindows, window});
+})
+
+/**
+ * removeWindow
+ * @param  {String} windowId
+ * @memberof ActionCreators
+ */
+export const removeWindow = createAction(REMOVE_WINDOW, action => {
+  return (companionWindowIds, id: string) => action({companionWindowIds, id});
+})
 /**
  * maximizeWindow
  * @param  {String} windowId

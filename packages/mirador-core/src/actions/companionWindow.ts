@@ -1,5 +1,12 @@
-import {REMOVE_COMPANION_WINDOW, UPDATE_COMPANION_WINDOW} from './action-types';
+import {ADD_COMPANION_WINDOW, REMOVE_COMPANION_WINDOW, UPDATE_COMPANION_WINDOW} from './action-types';
 import {createAction} from 'typesafe-actions';
+
+/**
+ *
+ */
+export const addCompanionWindow = createAction(ADD_COMPANION_WINDOW, action => {
+  return (content, position, id) => action({content, position, id});
+})
 
 /**
  *
@@ -8,9 +15,10 @@ import {createAction} from 'typesafe-actions';
  * @param payload
  */
 export const updateCompanionWindow = createAction(UPDATE_COMPANION_WINDOW, action => {
-  return (windowId, id, payload) => action({
+  return (windowId, id, content, position,) => action({
+    content,
     id,
-    ...payload,
+    position,
     windowId,
   });
 })

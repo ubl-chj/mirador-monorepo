@@ -1,13 +1,9 @@
-import {RECEIVE_ANNOTATION, RECEIVE_ANNOTATION_FAILURE, REQUEST_ANNOTATION} from '../../actions'
+import {receiveAnnotation, receiveAnnotationFailure, requestAnnotation} from '../../actions'
 import {annotationsReducer} from '../'
 
 describe('annotation reducer', () => {
   it('should handle REQUEST_ANNOTATION', () => {
-    expect(annotationsReducer({}, {
-      annotationId: 'abc123',
-      canvasId: 'foo',
-      type: REQUEST_ANNOTATION,
-    })).toEqual({
+    expect(annotationsReducer({}, requestAnnotation('abc123', 'foo'))).toEqual({
       foo: {
         abc123: {
           id: 'abc123',
@@ -26,17 +22,14 @@ describe('annotation reducer', () => {
           },
         },
       },
-      {
-        annotationId: 'abc123',
+      receiveAnnotation('abc123', {
         annotationJson: {
           '@type': 'sc:AnnotationList',
           content: 'anno stuff',
           id: 'abc123',
         },
-        canvasId: 'foo',
-        type: RECEIVE_ANNOTATION,
       },
-    )).toMatchObject({
+      'foo'))).toMatchObject({
       foo: {
         abc123: {
           id: 'abc123',
@@ -56,13 +49,7 @@ describe('annotation reducer', () => {
           },
         },
       },
-      {
-        annotationId: 'abc123',
-        canvasId: 'foo',
-        error: "This institution didn't enable CORS.",
-        type: RECEIVE_ANNOTATION_FAILURE,
-      },
-    )).toEqual({
+      receiveAnnotationFailure('abc123', 'foo', "This institution didn't enable CORS."))).toEqual({
       foo: {
         abc123: {
           error: "This institution didn't enable CORS.",

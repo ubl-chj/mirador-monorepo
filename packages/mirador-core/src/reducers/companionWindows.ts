@@ -1,19 +1,26 @@
-import {ADD_COMPANION_WINDOW, ADD_WINDOW, REMOVE_COMPANION_WINDOW, REMOVE_WINDOW, UPDATE_COMPANION_WINDOW} from '../actions'
+import {REMOVE_COMPANION_WINDOW, UPDATE_COMPANION_WINDOW} from '../actions'
 import {merge, removeIn, setIn, updateIn} from 'immutable'
+import {ActionType, getType} from "typesafe-actions"
+import * as companionWindowsActions from "../actions/companionWindow"
+import * as canvasActions from "../actions/canvas"
+import * as windowActions from "../actions/window"
+
+export type CompanionWindowAction = ActionType<typeof companionWindowsActions & typeof canvasActions
+  & typeof windowActions>
 
 /** */
-export const companionWindowsReducer = (state = {}, action) => {
+export const companionWindowsReducer = (state = {}, action: CompanionWindowAction) => {
   switch (action.type) {
-    case ADD_COMPANION_WINDOW:
-      return setIn(state, [action.id], action.payload)
+    case getType(companionWindowsActions.addCompanionWindow):
+      return setIn(state, [action.payload.id], action.payload)
 
-    case ADD_WINDOW:
-      return action.companionWindows.reduce((newState, cw) => {
+    case getType(windowActions.addWindow):
+      return action.payload.companionWindows.reduce((newState, cw) => {
         newState[cw.id] = cw; // eslint-disable-line no-param-reassign
         return newState;
       }, state);
 
-    case REMOVE_WINDOW:
+    case getType(windowActions.removeWindow):
       return action.companionWindowIds.reduce((newState, id) => removeIn(newState, [id]), state);
 
     case UPDATE_COMPANION_WINDOW:

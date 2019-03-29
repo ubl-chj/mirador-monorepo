@@ -22,7 +22,7 @@ describe('annotation actions', () => {
         },
         type: REQUEST_ANNOTATION,
       };
-      expect(requestAnnotation(canvasId, annotationId)).toEqual(expectedAction);
+      expect(requestAnnotation(annotationId, canvasId)).toEqual(expectedAction);
     });
   });
   describe('receiveAnnotation', () => {
@@ -43,7 +43,7 @@ describe('annotation actions', () => {
         },
         type: RECEIVE_ANNOTATION,
       };
-      expect(receiveAnnotation(canvasId, annotationId, json)).toEqual(expectedAction);
+      expect(receiveAnnotation(annotationId, json, canvasId)).toEqual(expectedAction);
     });
   });
   describe('fetchAnnotation', () => {
@@ -57,8 +57,8 @@ describe('annotation actions', () => {
       });
       it('dispatches the REQUEST_ANNOTATION action', () => {
         store.dispatch(fetchAnnotation(
-          'https://iiif.harvardartmuseums.org/manifests/object/299843/canvas/canvas-47174896',
           'https://iiif.harvardartmuseums.org/manifests/object/299843/list/47174896',
+          'https://iiif.harvardartmuseums.org/manifests/object/299843/canvas/canvas-47174896',
         ));
         expect(store.getActions()).toEqual([
           { error: undefined,
@@ -73,8 +73,8 @@ describe('annotation actions', () => {
       });
       it('dispatches the REQUEST_ANNOTATION and then RECEIVE_ANNOTATION', () => {
         store.dispatch(fetchAnnotation(
-          'https://iiif.harvardartmuseums.org/manifests/object/299843/canvas/canvas-47174896',
           'https://iiif.harvardartmuseums.org/manifests/object/299843/list/47174896',
+          'https://iiif.harvardartmuseums.org/manifests/object/299843/canvas/canvas-47174896',
         ))
           .then(() => {
             const expectedActions = store.getActions();
@@ -104,8 +104,8 @@ describe('annotation actions', () => {
     describe('error response', () => {
       it('dispatches the REQUEST_ANNOTATION and then RECEIVE_ANNOTATION', () => {
         store.dispatch(fetchAnnotation(
-          'https://iiif.harvardartmuseums.org/manifests/object/299843/canvas/canvas-47174896',
           'https://iiif.harvardartmuseums.org/manifests/object/299843/list/47174896',
+          'https://iiif.harvardartmuseums.org/manifests/object/299843/canvas/canvas-47174896',
         ))
           .then(() => {
             const expectedActions = store.getActions();
@@ -149,7 +149,7 @@ describe('annotation actions', () => {
       },
       type: SELECT_ANNOTATION,
     };
-    expect(selectAnnotation(windowId, canvasId, annotationId)).toEqual(expectedAction);
+    expect(selectAnnotation(annotationId, canvasId, windowId)).toEqual(expectedAction);
   });
 
   it('handles the deselectAnnotation action', () => {
@@ -166,7 +166,7 @@ describe('annotation actions', () => {
       },
       type: DESELECT_ANNOTATION,
     };
-    expect(deselectAnnotation(windowId, canvasId, annotationId)).toEqual(expectedAction);
+    expect(deselectAnnotation(annotationId, canvasId, windowId)).toEqual(expectedAction);
   });
 
   it('handles the toggleAnnotationDisplay action', () => {

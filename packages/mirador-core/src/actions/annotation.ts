@@ -10,10 +10,7 @@ import {createAction} from 'typesafe-actions';
  * @memberof ActionCreators
  */
 export const requestAnnotation = createAction(REQUEST_ANNOTATION, action => {
-  return (canvasId, annotationId) => action({
-    annotationId,
-    canvasId,
-  });
+  return (annotationId: string, canvasId: string) => action({annotationId, canvasId});
 })
 
 /**
@@ -25,11 +22,7 @@ export const requestAnnotation = createAction(REQUEST_ANNOTATION, action => {
  * @memberof ActionCreators
  */
 export const receiveAnnotation = createAction(RECEIVE_ANNOTATION, action => {
-  return (canvasId, annotationId, annotationJson) => action({
-    annotationId,
-    annotationJson,
-    canvasId,
-  });
+  return (annotationId: string, annotationJson: {}, canvasId: string) => action({annotationId, annotationJson, canvasId});
 })
 
 /**
@@ -41,11 +34,7 @@ export const receiveAnnotation = createAction(RECEIVE_ANNOTATION, action => {
  * @memberof ActionCreators
  */
 export const receiveAnnotationFailure = createAction(RECEIVE_ANNOTATION_FAILURE, action => {
-  return (canvasId, annotationId, error) => action({
-    annotationId,
-    canvasId,
-    error
-  });
+  return (annotationId: string, canvasId: string, error) => action({annotationId, canvasId, error});
 })
 
 
@@ -59,11 +48,7 @@ export const receiveAnnotationFailure = createAction(RECEIVE_ANNOTATION_FAILURE,
  * @memberof ActionCreators
  */
 export const selectAnnotation = createAction(SELECT_ANNOTATION, action => {
-  return (windowId, canvasId, annotationId) => action({
-    annotationId,
-    canvasId,
-    windowId,
-  });
+  return (annotationId: string, canvasId: string, windowId: string) => action({annotationId, canvasId, windowId});
 })
 
 /**
@@ -75,11 +60,7 @@ export const selectAnnotation = createAction(SELECT_ANNOTATION, action => {
  * @memberof ActionCreators
  */
 export const deselectAnnotation = createAction(DESELECT_ANNOTATION, action => {
-  return (windowId, canvasId, annotationId) => action({
-    annotationId,
-    canvasId,
-    windowId,
-  });
+  return (annotationId: string, canvasId: string, windowId: string) => action({annotationId, canvasId, windowId});
 })
 
 /**
@@ -89,5 +70,5 @@ export const deselectAnnotation = createAction(DESELECT_ANNOTATION, action => {
  * @memberof ActionCreators
  */
 export const toggleAnnotationDisplay = createAction(TOGGLE_ANNOTATION_DISPLAY, action => {
-  return (windowId) => action({windowId});
+  return (windowId: string) => action({windowId});
 })

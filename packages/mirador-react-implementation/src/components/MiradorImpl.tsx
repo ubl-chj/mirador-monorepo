@@ -1,7 +1,7 @@
 import {PersistentDrawer, addWindows, fetchManifests, resolveAndMergeConfig} from '../api'
 import React, {ReactElement, useEffect, useRef, useState} from 'react'
 import {ReactReduxContext, connect} from 'react-redux'
-import {addWindow, fetchManifest, setConfig} from '@mirador/core'
+import {evaluateWindows, fetchManifest, setConfig} from '@mirador/core'
 import {MetadataList} from '@mirador/custom-components'
 import {MiradorComponent} from '@mirador/react-components'
 import {localConfig} from '@mirador/configuration'
@@ -9,7 +9,7 @@ import {withRouter} from 'react-router-dom'
 
 
 interface IMiradorImplementation {
-  addWindow: Function,
+  evaluateWindows: Function,
   config: {}
   fetchManifest: Function,
   location: {
@@ -41,7 +41,7 @@ const MiradorImplementation: React.FC<IMiradorImplementation> = (props): ReactEl
   const initializeWorkspace = (mergedConfig): boolean => {
     if (Object.keys(props.windows).length === 0) {
       fetchManifests(mergedConfig.windows, props.fetchManifest)
-      addWindows(mergedConfig, props.addWindow)
+      addWindows(mergedConfig, props.evaluateWindows)
     }
     return true
   }
@@ -79,6 +79,6 @@ const mapStateToProps = (state): any => ({
 /**
  *
  */
-const mapDispatchToProps = {addWindow, fetchManifest, setConfig}
+const mapDispatchToProps = {evaluateWindows, fetchManifest, setConfig}
 
 export const Mirador = connect(mapStateToProps, mapDispatchToProps)(withRouter(MiradorImplementation))

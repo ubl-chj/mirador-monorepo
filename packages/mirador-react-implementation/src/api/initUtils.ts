@@ -38,14 +38,14 @@ export const removeWindows = (windows, removeWindow): any => {
 }
 
 /**
- * addWindows
+ *
  * @param config
- * @param addWindow
+ * @param evaluateWindows
  */
-export const addWindows = (config, addWindow): any => {
+export const addWindows = (config, evaluateWindows): any => {
   const thumbnailPositions = getThumbnailNavigationPositions(config)
   thumbnailPositions.forEach((thumbnailNavigationPosition, index) => {
-    addWindow({
+    evaluateWindows({
       canvasIndex: (config.windows[index].canvasIndex || 0),
       manifestId: config.windows[index].loadedManifest,
       thumbnailNavigationPosition,

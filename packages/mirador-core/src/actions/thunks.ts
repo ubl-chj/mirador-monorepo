@@ -1,9 +1,8 @@
 import {
-  ADD_COMPANION_WINDOW,
-  ADD_WINDOW,
   FOCUS_WINDOW,
   REMOVE_WINDOW,
   UPDATE_COMPANION_WINDOW,
+  addWindow,
   receiveAnnotation,
   receiveAnnotationFailure,
   receiveInfoResponse,
@@ -11,32 +10,10 @@ import {
   receiveManifest,
   receiveManifestFailure,
   requestAnnotation,
-  requestInfoResponse,
-  requestManifest
+  requestInfoResponse, requestManifest, removeWindow
 } from '../actions';
 import uuid from 'uuid/v4'
 
-
-/**
- *
- * @param windowId
- * @param payload
- * @param defaults
- */
-export const addCompanionWindow = (windowId, payload, defaults = {content: null, position: null}) => {
-  return (dispatch, getState) => {
-    const { companionWindows } = getState();
-    const id = `cw-${uuid()}`;
-
-    dispatch({
-      companionWindows,
-      id,
-      payload: { ...defaults, ...payload, id },
-      type: ADD_COMPANION_WINDOW,
-      windowId,
-    });
-  };
-}
 
 /**
  * addWindow - action creator
@@ -44,7 +21,7 @@ export const addCompanionWindow = (windowId, payload, defaults = {content: null,
  * @param  {Object} options
  * @memberof ActionCreators
  */
-export const addWindow = (options) => {
+export const evaluateWindows = (options) => {
   return (dispatch, getState) => {
     const { windows } = getState();
     const numWindows = Object.keys(windows).length;
@@ -70,38 +47,34 @@ export const addWindow = (options) => {
       y: 200 + ((numWindows * 50) % 300),
     };
 
-    dispatch({
-      companionWindows: [
-        {
-          content: 'info',
-          id: cwDefault,
-          position: 'left',
-        },
-        {
-          content: 'thumbnail_navigation',
-          id: cwThumbs,
-          position: options.thumbnailNavigationPosition || 'far-bottom',
-        },
-      ],
-      type: ADD_WINDOW,
-      window: { ...defaultOptions, ...options },
-    });
+    dispatch(addWindow([
+      {
+        content: 'info',
+        id: cwDefault,
+        position: 'left',
+      },
+      {
+        content: 'thumbnail_navigation',
+        id: cwThumbs,
+        position: options.thumbnailNavigationPosition || 'far-bottom',
+      },
+    ],
+    { ...defaultOptions, ...options }));
   };
 }
 
 /**
- * fetchAnnotation - action creator
  *
- * @param  {String} annotationId
- * @memberof ActionCreators
+ * @param annotationId
+ * @param canvasId
  */
-export const fetchAnnotation = (canvasId, annotationId) => {
+export const fetchAnnotation = (annotationId, canvasId) => {
   return ((dispatch) => {
-    dispatch(requestAnnotation(canvasId, annotationId));
+    dispatch(requestAnnotation(annotationId, canvasId));
     return window.fetch(annotationId)
       .then((response) => response.json())
-      .then((json) => dispatch(receiveAnnotation(canvasId, annotationId, json)))
-      .catch((error) => dispatch(receiveAnnotationFailure(canvasId, annotationId, error)));
+      .then((json) => dispatch(receiveAnnotation(annotationId, json, canvasId)))
+      .catch((error) => dispatch(receiveAnnotationFailure(annotationId, canvasId, error)));
   });
 }
 
@@ -178,15 +151,11 @@ export const focusWindow = (windowId, pan = false) => {
  * @param  {String} windowId
  * @memberof ActionCreators
  */
-export const removeWindow = (windowId) => {
+export const evalRemoveWindow = (windowId) => {
   return (dispatch, getState) => {
     const { windows } = getState();
     const { companionWindowIds } = windows[windowId];
-
-    dispatch({
-      payload: {companionWindowIds, windowId},
-      type: REMOVE_WINDOW,
-    });
+    dispatch(removeWindow(companionWindowIds, windowId));
   };
 }
 

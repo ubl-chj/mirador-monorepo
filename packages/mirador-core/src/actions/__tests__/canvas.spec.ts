@@ -15,7 +15,7 @@ describe('canvas actions', () => {
         },
         type: SET_CANVAS,
       };
-      expect(setCanvas(id, 100)).toEqual(expectedAction);
+      expect(setCanvas(100, id)).toEqual(expectedAction);
     });
   });
   describe('updateViewport', () => {

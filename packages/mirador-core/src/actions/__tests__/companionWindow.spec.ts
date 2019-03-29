@@ -4,27 +4,18 @@ import {ADD_COMPANION_WINDOW, REMOVE_COMPANION_WINDOW, UPDATE_COMPANION_WINDOW,
 describe('companionWindow actions', () => {
   describe('addCompanionWindow', () => {
     it('should return correct action object', () => {
-      const payload = {
-        content: 'info',
-        foo: 'bar',
-        position: 'right',
-      };
-      const mockState = {
-        companionWindows: {},
-        windows: {
-          abc123: { companionWindowIds: [] },
+      const expectedAction = {
+        payload: {
+          content: 'info',
+          id: 'cw-123',
+          position: 'right',
         },
+        type: ADD_COMPANION_WINDOW
       };
+      const action = addCompanionWindow('info', 'right', 'cw-123');
 
-      const mockDispatch = jest.fn(() => ({}));
-      const mockGetState = jest.fn(() => mockState);
-      const thunk = addCompanionWindow('abc123', payload);
-      thunk(mockDispatch, mockGetState);
-
-      const action: any = mockDispatch.mock.calls[0].shift()
       expect(action.type).toBe(ADD_COMPANION_WINDOW);
-      expect(action.payload).toMatchObject(payload);
-      expect(action.payload.id).toMatch(/cw-.*/);
+      expect(action).toEqual(expectedAction)
     });
 
     it('should set the correct default values', () => {
@@ -59,7 +50,7 @@ describe('companionWindow actions', () => {
       const mockDispatch = jest.fn(() => ({}));
       const mockGetState = jest.fn(() => mockState);
 
-      const thunk = addCompanionWindow('abc123', payload);
+      const thunk = addCompanionWindow('info', 'right', 'cw123');
       thunk(mockDispatch, mockGetState);
       const action: any = mockDispatch.mock.calls[0].shift();
 
@@ -81,12 +72,7 @@ describe('companionWindow actions', () => {
         },
         type: UPDATE_COMPANION_WINDOW
       };
-      const payload = {
-        content: 'info',
-        foo: 'bar',
-        position: 'right',
-      }
-      const action = updateCompanionWindow('abc123', 'cw-123', payload);
+      const action = updateCompanionWindow('abc123', 'cw-123', 'info', 'right',);
       expect(action.type).toBe(UPDATE_COMPANION_WINDOW);
       expect(action).toEqual(expectedAction)
     });

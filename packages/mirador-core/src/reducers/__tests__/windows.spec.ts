@@ -1,6 +1,15 @@
 import {
-  SET_CANVAS, UPDATE_WINDOW_POSITION, deselectAnnotation, maximizeWindow,
-  minimizeWindow, selectAnnotation, setWindowSideBarPanel, setWindowSize, setWindowViewType, toggleAnnotationDisplay, toggleWindowSideBar
+  SET_CANVAS,
+  deselectAnnotation,
+  maximizeWindow,
+  minimizeWindow,
+  selectAnnotation,
+  setCanvas,
+  setWindowSideBarPanel,
+  setWindowSize,
+  setWindowViewType,
+  toggleAnnotationDisplay,
+  toggleWindowSideBar, updateWindowPosition
 } from '../../actions'
 import {windowsReducer} from '../';
 
@@ -80,13 +89,7 @@ describe('windows reducer', () => {
         canvasIndex: 1,
         id: 'def456',
       },
-    }, {
-      payload: {
-        canvasIndex: 5,
-        windowId: 'abc123',
-      },
-      type: SET_CANVAS,
-    })).toEqual({
+    }, setCanvas(5, 'abc123'))).toEqual({
       abc123: {
         canvasIndex: 5,
         id: 'abc123',
@@ -106,13 +109,7 @@ describe('windows reducer', () => {
       def456: {
         id: 'def456',
       },
-    }, setWindowSize({
-      size: {
-        height: 200,
-        width: 200,
-        x: 20,
-        y: 20,
-      }}, 'abc123'))).toEqual({
+    }, setWindowSize({height: 200, width: 200, x: 20, y: 20}, 'abc123'))).toEqual({
       abc123: {
         height: 200,
         id: 'abc123',
@@ -134,16 +131,7 @@ describe('windows reducer', () => {
       def456: {
         id: 'def456',
       },
-    }, {
-      payload: {
-        position: {
-          x: 20,
-          y: 20,
-        },
-        windowId: 'abc123',
-      },
-      type: UPDATE_WINDOW_POSITION,
-    })).toEqual({
+    }, updateWindowPosition({x: 20, y: 20}, 'abc123'))).toEqual({
       abc123: {
         id: 'abc123',
         x: 20,
@@ -175,7 +163,7 @@ describe('windows reducer', () => {
     });
 
     describe('DESELECT_ANNOTATION', () => {
-      it('remvoves the given annotation Id', () => {
+      it('removes the given annotation Id', () => {
         const beforeState = { abc123: { selectedAnnotations: { cId: ['aId1', 'aId2'] } } };
         const expectedState = {
           abc123: { selectedAnnotations: { cId: ['aId2'] } },
@@ -184,7 +172,7 @@ describe('windows reducer', () => {
         expect(windowsReducer(beforeState, deselectAnnotation('aId1', 'cId', 'abc123'))).toEqual(expectedState);
       });
 
-      it('remvoves the given canvas Id from the selected annotations if there are no more IDs', () => {
+      it('removes the given canvas Id from the selected annotations if there are no more IDs', () => {
         const beforeState = { abc123: { selectedAnnotations: { cId1: ['aId1'], cId2: ['aId2'] } } };
         const expectedState = {
           abc123: { selectedAnnotations: { cId1: ['aId1'] } },

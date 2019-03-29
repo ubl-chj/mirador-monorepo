@@ -61,12 +61,14 @@ describe('workspace reducer', () => {
     });
   });
   it('should handle UPDATE_WORKSPACE_MOSAIC_LAYOUT', () => {
-    expect(workspaceReducer(initialState, updateWorkspaceMosaicLayout({foo: 'bar'}))).toEqual({
+    expect(workspaceReducer(initialState, updateWorkspaceMosaicLayout({layout: {foo: 'bar'}}))).toEqual({
       exposeModeOn: false,
       height: 500,
       isFullscreenEnabled: false,
       isWorkspaceAddVisible: true,
-      layout: { foo: 'bar' },
+      layout: {
+        foo: 'bar',
+      },
       showZoomControls: false,
       viewportPosition: {
         x: 0,

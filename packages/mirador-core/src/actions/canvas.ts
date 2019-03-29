@@ -9,10 +9,7 @@ import {createAction} from 'typesafe-actions';
  * @memberof ActionCreators
  */
 export const setCanvas = createAction(SET_CANVAS, action => {
-  return (windowId, canvasIndex) => action({
-    canvasIndex,
-    windowId,
-  });
+  return (canvasIndex, windowId) => action({canvasIndex, windowId});
 })
 
 /**

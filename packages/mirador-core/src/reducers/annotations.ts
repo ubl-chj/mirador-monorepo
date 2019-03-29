@@ -1,38 +1,40 @@
-import {RECEIVE_ANNOTATION, RECEIVE_ANNOTATION_FAILURE, REQUEST_ANNOTATION} from '../actions'
+import * as annotationActions from "../actions/annotation"
+import {ActionType, getType} from "typesafe-actions"
 
+export type AnnotationAction = ActionType<typeof annotationActions>
 /**
  * annotationReducer
  */
-export const annotationsReducer = (state = {}, action) => {
+export const annotationsReducer = (state = {}, action: AnnotationAction) => {
   switch (action.type) {
-    case REQUEST_ANNOTATION:
+    case getType(annotationActions.requestAnnotation):
       return {
         ...state,
-        [action.canvasId]: {
-          [action.annotationId]: {
-            id: action.annotationId,
+        [action.payload.canvasId]: {
+          [action.payload.annotationId]: {
+            id: action.payload.annotationId,
             isFetching: true,
           },
         },
       };
-    case RECEIVE_ANNOTATION:
+    case getType(annotationActions.receiveAnnotation):
       return {
         ...state,
-        [action.canvasId]: {
-          [action.annotationId]: {
-            id: action.annotationId,
+        [action.payload.canvasId]: {
+          [action.payload.annotationId]: {
+            id: action.payload.annotationId,
             isFetching: false,
-            json: action.annotationJson,
+            json: action.payload.annotationJson,
           },
         },
       };
-    case RECEIVE_ANNOTATION_FAILURE:
+    case getType(annotationActions.receiveAnnotationFailure):
       return {
         ...state,
-        [action.canvasId]: {
-          [action.annotationId]: {
-            error: action.error,
-            id: action.annotationId,
+        [action.payload.canvasId]: {
+          [action.payload.annotationId]: {
+            error: action.payload.error,
+            id: action.payload.annotationId,
             isFetching: false,
           },
         },
