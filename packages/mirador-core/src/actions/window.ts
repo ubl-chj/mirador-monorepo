@@ -22,7 +22,7 @@ const actionCreator = actionCreatorFactory();
  * @param  {String} windowId
  * @memberof ActionCreators
  */
-export const addWindow = actionCreator<{companionWindows: ICompanionWindow, window?: any}>(ADD_WINDOW)
+export const addWindow = actionCreator<{companionWindows: any, window?: any}>(ADD_WINDOW)
 
 /**
  * maximizeWindow

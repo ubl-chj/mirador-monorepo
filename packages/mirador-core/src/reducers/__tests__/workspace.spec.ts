@@ -14,7 +14,7 @@ const initialState: IWorkspace = {
   exposeModeOn: false,
   height: 500,
   isFullscreenEnabled: false,
-  isWorkspaceAddVisible: true,
+  isWorkspaceAddVisible: false,
   layout: {
     direction: null,
     first: null,
@@ -34,7 +34,7 @@ describe('workspace reducer', () => {
       exposeModeOn: false,
       height: 500,
       isFullscreenEnabled: true,
-      isWorkspaceAddVisible: true,
+      isWorkspaceAddVisible: false,
       layout: {
         direction: null,
         first: null,
@@ -53,7 +53,7 @@ describe('workspace reducer', () => {
       exposeModeOn: false,
       height: 500,
       isFullscreenEnabled: false,
-      isWorkspaceAddVisible: true,
+      isWorkspaceAddVisible: false,
       layout: {
         direction: null,
         first: null,
@@ -72,7 +72,7 @@ describe('workspace reducer', () => {
       exposeModeOn: false,
       height: 500,
       isFullscreenEnabled: false,
-      isWorkspaceAddVisible: true,
+      isWorkspaceAddVisible: false,
       layout: {
         foo: 'bar',
       },
@@ -108,7 +108,7 @@ describe('workspace reducer', () => {
       exposeModeOn: false,
       height: 500,
       isFullscreenEnabled: false,
-      isWorkspaceAddVisible: true,
+      isWorkspaceAddVisible: false,
       layout: {
         direction: null,
         first: null,
@@ -127,7 +127,7 @@ describe('workspace reducer', () => {
       exposeModeOn: true,
       height: 500,
       isFullscreenEnabled: false,
-      isWorkspaceAddVisible: true,
+      isWorkspaceAddVisible: false,
       layout: {
         direction: null,
         first: null,

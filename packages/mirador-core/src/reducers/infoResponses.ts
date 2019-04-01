@@ -5,11 +5,11 @@ import {reducerWithInitialState} from 'typescript-fsa-reducers'
  * infoResponseReducer
  */
 export const infoResponses = reducerWithInitialState({})
-  .case(fetchInfoResponse.async.started, state => ({
+  .case(fetchInfoResponse.started, state => ({
     ...state,
     updating: true
   }))
-  .caseWithAction(fetchInfoResponse.async.done, (state, action) => ({
+  .caseWithAction(fetchInfoResponse.done, (state, action: any) => ({
     ...state,
     [action.payload.params.infoId]: {
       id: action.payload.params.infoId,
@@ -17,7 +17,7 @@ export const infoResponses = reducerWithInitialState({})
     },
     updating: false,
   }))
-  .case(fetchInfoResponse.async.failed, (state, { error }) => ({
+  .case(fetchInfoResponse.failed, (state, { error }) => ({
     ...state,
     error,
     updating: false,

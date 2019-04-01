@@ -5,11 +5,11 @@ import {reducerWithInitialState} from 'typescript-fsa-reducers'
  * annotationReducer
  */
 export const annotations = reducerWithInitialState({})
-  .case(fetchAnnotation.async.started, state => ({
+  .case(fetchAnnotation.started, state => ({
     ...state,
     updating: true
   }))
-  .caseWithAction(fetchAnnotation.async.done, (state, action) => ({
+  .caseWithAction(fetchAnnotation.done, (state, action) => ({
     ...state,
     [action.payload.params.canvasId]: {
       [action.payload.params.annotationId]: {
@@ -19,7 +19,7 @@ export const annotations = reducerWithInitialState({})
     },
     updating: false
   }))
-  .case(fetchAnnotation.async.failed, (state, { error }) => ({
+  .case(fetchAnnotation.failed, (state, { error }) => ({
     ...state,
     error,
     updating: false

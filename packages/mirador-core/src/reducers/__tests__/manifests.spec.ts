@@ -1,5 +1,5 @@
 import { AnyAction, Middleware } from 'redux';
-import {FETCH_MANIFEST, fetchManifest} from '../../actions'
+import {FETCH_MANIFEST, fetchManifestWorker} from '../../actions'
 import configureStore, { MockStore } from 'redux-mock-store';
 import thunkMiddleware, { ThunkDispatch } from 'redux-thunk';
 import fetchMock from 'fetch-mock'
@@ -31,7 +31,7 @@ describe('manifest reducer test', () => {
   });
 
   it('manifests reducer test', async () => {
-    await store.dispatch(fetchManifest.action({manifestId: 'https://www.nga.gov/content/ngaweb/api/v1/iiif/presentation/manifest.json?cultObj:id=25518'}));
+    await store.dispatch(fetchManifestWorker({manifestId: 'https://www.nga.gov/content/ngaweb/api/v1/iiif/presentation/manifest.json?cultObj:id=25518'}));
     expect(fetchMock.called()).toBe(true)
     const [started, done] = store.getActions().filter(action =>
       action.type.includes(FETCH_MANIFEST));

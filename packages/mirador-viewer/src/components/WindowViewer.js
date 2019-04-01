@@ -14,17 +14,17 @@ export class WindowViewer extends Component {
    * Request the initial canvas on mount
    */
   componentDidMount() {
-    const { currentCanvases, fetchInfoResponse, fetchAnnotation } = this.props;
+    const { currentCanvases, fetchInfoResponseWorker, fetchAnnotationWorker } = this.props;
 
     if (!this.infoResponseIsInStore()) {
       currentCanvases.forEach((canvas) => {
         const manifestoCanvas = new ManifestoCanvas(canvas);
         const { imageInformationUri } = manifestoCanvas;
         if (imageInformationUri) {
-          fetchInfoResponse(imageInformationUri);
+          fetchInfoResponseWorker({infoId: imageInformationUri});
         }
         manifestoCanvas.annotationListUris.forEach((uri) => {
-          fetchAnnotation(manifestoCanvas.canvas.id, uri);
+          fetchAnnotationWorker({canvasId: manifestoCanvas.canvas.id, annotationId: uri});
         });
       });
     }
@@ -36,7 +36,7 @@ export class WindowViewer extends Component {
    */
   componentDidUpdate(prevProps) {
     const {
-      currentCanvases, window, fetchInfoResponse, fetchAnnotation,
+      currentCanvases, window, fetchInfoResponseWorker, fetchAnnotationWorker,
     } = this.props;
 
     if (prevProps.window.view !== window.view
@@ -46,10 +46,10 @@ export class WindowViewer extends Component {
         const manifestoCanvas = new ManifestoCanvas(canvas);
         const { imageInformationUri } = manifestoCanvas;
         if (imageInformationUri) {
-          fetchInfoResponse(imageInformationUri);
+          fetchInfoResponseWorker({infoId: imageInformationUri});
         }
         manifestoCanvas.annotationListUris.forEach((uri) => {
-          fetchAnnotation(manifestoCanvas.canvas.id, uri);
+          fetchAnnotationWorker({canvasId: manifestoCanvas.canvas.id, annotationId: uri});
         });
       });
     }
@@ -62,12 +62,8 @@ export class WindowViewer extends Component {
    */
   infoResponseIsInStore() {
     const { currentCanvases } = this.props;
-
     const responses = this.currentInfoResponses();
-    if (responses.length === currentCanvases.length) {
-      return true;
-    }
-    return false;
+    return responses.length === currentCanvases.length;
   }
 
   /**
@@ -119,8 +115,8 @@ export class WindowViewer extends Component {
 
 WindowViewer.propTypes = {
   currentCanvases: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
-  fetchAnnotation: PropTypes.func.isRequired,
-  fetchInfoResponse: PropTypes.func.isRequired,
+  fetchAnnotationWorker: PropTypes.func.isRequired,
+  fetchInfoResponseWorker: PropTypes.func.isRequired,
   infoResponses: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   window: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
 };

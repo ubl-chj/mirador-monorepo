@@ -3,11 +3,10 @@ import AddIcon from '@material-ui/icons/Add'
 import ClearIcon from '@material-ui/icons/Clear'
 import Fab from '@material-ui/core/Fab'
 import ListItem from '@material-ui/core/ListItem'
-import {setWorkspaceAddVisibility} from "@mirador/core"
 
 interface IWorkspaceAddItem {
   isWorkspaceAddVisible: boolean,
-  setWorkspaceAddVisibility: typeof setWorkspaceAddVisibility
+  setWorkspaceAddVisibility: any
 }
 export const WorkspaceAddItem: React.FC<IWorkspaceAddItem> = (props): ReactElement => {
   return (
@@ -19,7 +18,7 @@ export const WorkspaceAddItem: React.FC<IWorkspaceAddItem> = (props): ReactEleme
         color="primary"
         href=''
         id="addBtn"
-        onClick={() => { props.setWorkspaceAddVisibility({isWorkspaceAddVisible: !props.isWorkspaceAddVisible}) }}
+        onClick={() => props.setWorkspaceAddVisibility({isWorkspaceAddVisible: !props.isWorkspaceAddVisible}) }
         size="small"
       >
         {

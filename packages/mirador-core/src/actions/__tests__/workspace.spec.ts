@@ -73,8 +73,6 @@ describe('workspace actions', () => {
   describe('setWorkspaceAddVisibility', () => {
     it('should set the workspace add visibility', () => {
       const expectedAction = {
-        error: undefined,
-        meta: undefined,
         payload: {
           isWorkspaceAddVisible: true,
         },

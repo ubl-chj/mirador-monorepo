@@ -8,9 +8,9 @@ import {
   addWindow,
   removeWindow
 } from '../actions';
+import {asyncFactory, bindThunkAction} from 'typescript-fsa-redux-thunk';
 import {IState} from 'mirador-core-model'
 import actionCreatorFactory from 'typescript-fsa';
-import {asyncFactory, bindThunkAction} from 'typescript-fsa-redux-thunk';
 import uuid from 'uuid/v4'
 
 const actionCreator = actionCreatorFactory();
@@ -48,32 +48,34 @@ export const evalAddWindows = (options) => {
       y: 200 + ((numWindows * 50) % 300),
     };
 
-    const companionWindows = {
-      'cw-123': {
+    const companionWindows = [
+      {
         content: 'info',
         id: cwDefault,
         position: 'left',
         thumbnailNavigationId: 'xyz'
       },
-      'cw-456': {
+      {
         content: 'thumbnail_navigation',
         id: cwThumbs,
         position: options.thumbnailNavigationPosition || 'far-bottom',
         thumbnailNavigationId: 'xyz'
       },
-    }
+    ]
 
     dispatch(addWindow({companionWindows, window: { ...defaultOptions, ...options }}));
   };
 }
 
-/**
- *
- * @param annotationId
- * @param canvasId
- */
-export const fetchAnnotation = createAsync<{annotationId, canvasId}, {}, {}>(FETCH_ANNOTATION,
-  async (params) => {
+interface IFetchAnnotationParams {
+  annotationId: string,
+  canvasId: string
+}
+
+export const fetchAnnotation = actionCreator.async<IFetchAnnotationParams, {}, {}>(FETCH_ANNOTATION)
+
+export const fetchAnnotationWorker = bindThunkAction(fetchAnnotation,
+  async (params: IFetchAnnotationParams) => {
     const res = await window.fetch(params.annotationId);
     if (!res.ok) {
       throw new Error(
@@ -83,13 +85,12 @@ export const fetchAnnotation = createAsync<{annotationId, canvasId}, {}, {}>(FET
   }
 );
 
-/**
- *
- * @param annotationId
- * @param canvasId
- */
-export const fetchInfoResponse = createAsync<{infoId}, {}, {}>(FETCH_INFO_RESPONSE,
-  async (params) => {
+interface IFetchInfoResponseParams { infoId: string; }
+
+export const fetchInfoResponse = actionCreator.async<IFetchInfoResponseParams, {}, {}>(FETCH_INFO_RESPONSE)
+
+export const fetchInfoResponseWorker = bindThunkAction(fetchInfoResponse,
+  async (params: IFetchInfoResponseParams) => {
     const res = await fetch(params.infoId);
     if (!res.ok) {
       throw new Error(
@@ -102,13 +103,10 @@ export const fetchInfoResponse = createAsync<{infoId}, {}, {}>(FETCH_INFO_RESPON
 interface IFetchManifestParams { manifestId: string; }
 type Succ = any;
 
-/**
- *
- * @param annotationId
- * @param canvasId
- */
-export const fetchManifest = createAsync<IFetchManifestParams, Succ>(FETCH_MANIFEST,
-  async (params) => {
+export const fetchManifest = actionCreator.async<IFetchManifestParams, Succ>(FETCH_MANIFEST);
+
+export const fetchManifestWorker = bindThunkAction(fetchManifest,
+  async (params: IFetchManifestParams) => {
     const res = await fetch(params.manifestId);
     if (!res.ok) {
       throw new Error(

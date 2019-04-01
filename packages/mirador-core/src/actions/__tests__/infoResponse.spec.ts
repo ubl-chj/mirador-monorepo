@@ -1,4 +1,4 @@
-import {REMOVE_INFO_RESPONSE, fetchInfoResponse, removeInfoResponse} from '../../actions';
+import {REMOVE_INFO_RESPONSE, fetchInfoResponseWorker, removeInfoResponse} from '../../actions';
 import configureMockStore from 'redux-mock-store';
 import fetchMock from 'fetch-mock'
 import thunk from 'redux-thunk';
@@ -18,12 +18,12 @@ describe('infoResponse actions', () => {
         fetchMock.get('https://stacks.stanford.edu/image/iiif/sn904cj3429%2F12027000/info.json', {protocol: "http://iiif.io/api/image"});
       });
       it('dispatches the REQUEST_INFO_RESPONSE action', () => {
-        store.dispatch(fetchInfoResponse.action({infoId: 'https://stacks.stanford.edu/image/iiif/sn904cj3429%2F12027000/info.json'}));
+        store.dispatch(fetchInfoResponseWorker({infoId: 'https://stacks.stanford.edu/image/iiif/sn904cj3429%2F12027000/info.json'}));
         expect(store.getActions()).toEqual([
           {payload: {infoId: 'https://stacks.stanford.edu/image/iiif/sn904cj3429%2F12027000/info.json'}, type: 'FETCH_INFO_RESPONSE_STARTED'}]);
       });
       it('dispatches the REQUEST_INFO_RESPONSE and then RECEIVE_INFO_RESPONSE', () => {
-        store.dispatch(fetchInfoResponse.action({infoId: 'https://stacks.stanford.edu/image/iiif/sn904cj3429%2F12027000/info.json'}))
+        store.dispatch(fetchInfoResponseWorker({infoId: 'https://stacks.stanford.edu/image/iiif/sn904cj3429%2F12027000/info.json'}))
           .then(() => {
             const expectedActions = store.getActions();
             expect(expectedActions).toEqual([
@@ -43,7 +43,7 @@ describe('infoResponse actions', () => {
         });
       });
       it('dispatches the REQUEST_INFO_RESPONSE and then RECEIVE_INFO_RESPONSE error', () => {
-        store.dispatch(fetchInfoResponse.action({infoId: 'https://stacks.stanford.edu/image/iiif/sn904cj3429%2F12027000/info.json'}))
+        store.dispatch(fetchInfoResponseWorker({infoId: 'https://stacks.stanford.edu/image/iiif/sn904cj3429%2F12027000/info.json'}))
           .then(() => {
             const expectedActions = store.getActions();
             expect(expectedActions).toEqual([

@@ -27,15 +27,14 @@ export class WorkspaceMosaic extends React.Component {
   /** */
   componentDidMount() {
     const { updateWorkspaceMosaicLayout } = this.props;
-
     const newLayout = this.determineWorkspaceLayout();
     if (newLayout) updateWorkspaceMosaicLayout(newLayout);
   }
 
   /** */
   componentDidUpdate(prevProps) {
-    const { windows, workspace, updateWorkspaceMosaicLayout } = this.props;
-    if (prevProps.windows !== windows || prevProps.workspace !== workspace) {
+    const { workspace, updateWorkspaceMosaicLayout } = this.props;
+    if (prevProps.workspace.layout !== workspace.layout) {
       const newLayout = this.determineWorkspaceLayout();
       if (newLayout !== workspace.layout) updateWorkspaceMosaicLayout(newLayout);
     }

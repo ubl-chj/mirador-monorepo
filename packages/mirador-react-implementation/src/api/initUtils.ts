@@ -7,7 +7,7 @@ import qs from 'query-string'
  * @param windows
  */
 export const fetchManifests = (fetchManifest, windows): any => {
-  windows.forEach((win) => fetchManifest.action({manifestId: win.loadedManifest}))
+  windows.forEach((win) => fetchManifest({manifestId: win.loadedManifest}))
 }
 
 /**

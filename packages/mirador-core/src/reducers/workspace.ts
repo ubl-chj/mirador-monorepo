@@ -7,7 +7,7 @@ import {
   updateWorkspaceMosaicLayout
 } from '../actions'
 import {IWorkspace} from 'mirador-core-model'
-import {isType} from 'typescript-fsa'
+import {reducerWithInitialState} from 'typescript-fsa-reducers'
 
 const initialState: IWorkspace = {
   exposeModeOn: false,
@@ -26,27 +26,21 @@ const initialState: IWorkspace = {
 /**
  * workspaceReducer
  */
-export const workspaceReducer = (state: IWorkspace = initialState, action): IWorkspace => {
-  switch (action.type) {
-    case isType(action, setWorkspaceFullscreen):
-      return { ...state, isFullscreenEnabled: action.payload.isFullscreenEnabled };
-    case isType(action, toggleZoomControls):
-      return { ...state, showZoomControls: action.payload.showZoomControls };
-    case isType(action, updateWorkspaceMosaicLayout):
-      return { ...state, layout: action.payload.layout };
-    case isType(action, setWorkspaceAddVisibility):
-      return { ...state, isWorkspaceAddVisible: action.payload.isWorkspaceAddVisible };
-    case isType(action, setWorkspaceViewportPosition):
-      return {
-        ...state,
-        viewportPosition: {
-          ...state.viewportPosition,
-          ...action.payload.position,
-        },
-      };
-    case isType(action, toggleWorkspaceExposeMode):
-      return { ...state, exposeModeOn: !state.exposeModeOn };
-    default:
-      return state;
-  }
-};
+export const workspaceReducer = reducerWithInitialState(initialState)
+  .caseWithAction(setWorkspaceFullscreen, (state, action: any) => ({
+    ...state, isFullscreenEnabled: action.payload.isFullscreenEnabled }))
+  .caseWithAction(toggleZoomControls, (state, action: any) => ({
+    ...state, showZoomControls: action.payload.showZoomControls }))
+  .caseWithAction(updateWorkspaceMosaicLayout, (state: IWorkspace, action: any) => ({
+    ...state, layout: action.payload.layout }))
+  .caseWithAction(setWorkspaceAddVisibility, (state: IWorkspace, action: any) => ({
+    ...state, isWorkspaceAddVisible: action.payload.isWorkspaceAddVisible }))
+  .caseWithAction(setWorkspaceViewportPosition, (state: IWorkspace, action: any) => ({
+    ...state,
+    viewportPosition: {
+      ...state.viewportPosition,
+      ...action.payload.position,
+    },
+  }))
+  .case(toggleWorkspaceExposeMode, (state: IWorkspace) => ({
+    ...state, exposeModeOn: !state.exposeModeOn }))

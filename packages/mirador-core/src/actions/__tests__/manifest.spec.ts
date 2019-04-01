@@ -1,4 +1,4 @@
-import {REMOVE_MANIFEST, fetchManifest, removeManifest} from '../../actions';
+import {REMOVE_MANIFEST, fetchManifestWorker, removeManifest} from '../../actions';
 import configureMockStore from 'redux-mock-store';
 import fetchMock from 'fetch-mock'
 import thunk from 'redux-thunk';
@@ -18,13 +18,13 @@ describe('manifest actions', () => {
         fetchMock.get('*', { label: 'Some Manifest' });
       });
       it('dispatches the REQUEST_MANIFEST action', () => {
-        store.dispatch(fetchManifest.action({manifestId: 'https://purl.stanford.edu/sn904cj3429/iiif/manifest'}));
+        store.dispatch(fetchManifestWorker({manifestId: 'https://purl.stanford.edu/sn904cj3429/iiif/manifest'}));
         expect(store.getActions()).toEqual([
           {payload: {manifestId: 'https://purl.stanford.edu/sn904cj3429/iiif/manifest'},
             type: 'FETCH_MANIFEST_STARTED'}]);
       });
       it('dispatches the REQUEST_MANIFEST and then RECEIVE_MANIFEST', () => {
-        store.dispatch(fetchManifest.action({manifestId: 'https://purl.stanford.edu/sn904cj3429/iiif/manifest'}))
+        store.dispatch(fetchManifestWorker({manifestId: 'https://purl.stanford.edu/sn904cj3429/iiif/manifest'}))
           .then(() => {
             const expectedActions = store.getActions();
             expect(expectedActions).toEqual([
@@ -48,7 +48,7 @@ describe('manifest actions', () => {
         });
       });
       it('dispatches the REQUEST_MANIFEST and then RECEIVE_MANIFEST error', () => {
-        store.dispatch(fetchManifest.action({manifestId: 'https://purl.stanford.edu/sn904cj3429/iiif/manifest'}))
+        store.dispatch(fetchManifestWorker({manifestId: 'https://purl.stanford.edu/sn904cj3429/iiif/manifest'}))
           .then(() => {
             const expectedActions = store.getActions();
             expect(expectedActions).toEqual([

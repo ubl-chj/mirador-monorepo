@@ -1,5 +1,5 @@
 import { AnyAction, Middleware } from 'redux';
-import {FETCH_INFO_RESPONSE, fetchInfoResponse} from '../../actions'
+import {FETCH_INFO_RESPONSE, fetchInfoResponseWorker} from '../../actions'
 import configureStore, { MockStore } from 'redux-mock-store';
 import thunkMiddleware, { ThunkDispatch } from 'redux-thunk';
 import fetchMock from 'fetch-mock'
@@ -32,7 +32,7 @@ describe('info response reducer test', () => {
   });
 
   it('info response reducer test', async () => {
-    await store.dispatch(fetchInfoResponse.action({infoId: 'https://some.iiif.server/info.json'}));
+    await store.dispatch(fetchInfoResponseWorker({infoId: 'https://some.iiif.server/info.json'}));
     expect(fetchMock.called()).toBe(true)
     const [started, done] = store.getActions().filter(action =>
       action.type.includes(FETCH_INFO_RESPONSE));

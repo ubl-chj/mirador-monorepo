@@ -2,7 +2,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { WindowViewer } from '../components/WindowViewer';
 import { withPlugins } from '../extend';
-import { fetchAnnotation, fetchInfoResponse, getManifestCanvases, getSelectedCanvases } from '@mirador/core';
+import { fetchAnnotationWorker, fetchInfoResponseWorker, getManifestCanvases, getSelectedCanvases } from '@mirador/core';
 
 /**
  * mapStateToProps - to hook up connect
@@ -22,8 +22,8 @@ const mapStateToProps = (state, { window }) => (
  * @private
  */
 const mapDispatchToProps = {
-  fetchAnnotation,
-  fetchInfoResponse,
+  fetchAnnotationWorker,
+  fetchInfoResponseWorker,
 };
 
 

@@ -18,7 +18,7 @@ export class PrimaryWindow extends Component {
    */
   renderViewer() {
     const { manifest, window } = this.props;
-    if (manifest && manifest.isFetching === false) {
+    if (manifest) {
       if (window.view === 'gallery') {
         return (
           <GalleryView

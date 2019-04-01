@@ -1,5 +1,5 @@
 import { AnyAction, Middleware } from 'redux';
-import {FETCH_ANNOTATION, fetchAnnotation} from '../../actions'
+import {FETCH_ANNOTATION, fetchAnnotation, fetchAnnotationWorker} from '../../actions'
 import configureStore, { MockStore } from 'redux-mock-store';
 import thunkMiddleware, { ThunkDispatch } from 'redux-thunk';
 import {annotations} from '../';
@@ -32,7 +32,7 @@ describe('annotations response reducer test', () => {
   });
 
   it('info response reducer test', async () => {
-    await store.dispatch(fetchAnnotation.action({annotationId: 'https://some.iiif.server/annos.json', canvasId: 'https://some.iiif.server/canvas.json'}));
+    await store.dispatch(fetchAnnotationWorker({annotationId: 'https://some.iiif.server/annos.json', canvasId: 'https://some.iiif.server/canvas.json'}));
     expect(fetchMock.called()).toBe(true)
     const [started, done] = store.getActions().filter(action =>
       action.type.includes(FETCH_ANNOTATION));
