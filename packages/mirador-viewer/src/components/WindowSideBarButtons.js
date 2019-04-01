@@ -33,7 +33,6 @@ export class WindowSideBarButtons extends Component {
     const {
       classes, hasAnnotations, sideBarPanel, t,
     } = this.props;
-    console.log(sideBarPanel)
     return (
       <Tabs
         classes={{ flexContainer: classes.tabsFlexContainer, indicator: classes.tabsIndicator }}

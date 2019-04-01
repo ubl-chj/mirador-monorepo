@@ -15,12 +15,12 @@ import {
   focusWindow,
   maximizeWindow,
   minimizeWindow,
+  removeWindowWorker,
   setCompanionAreaOpen,
   setWindowSideBarPanel,
   setWindowSize,
   setWindowThumbnailPosition,
   setWindowViewType,
-  thunkRemoveWindow,
   toggleWindowSideBar,
   updateWindow,
   updateWindowPosition
@@ -165,13 +165,12 @@ describe('window actions', () => {
 
   describe('removeWindow', () => {
     it('removes the window and returns windowId', async () => {
-      const id = 'abc123';
+      const windowId = 'abc123';
       const expectedAction = {
         payload: {
-          companionWindowIds: ['a', 'b', 'c'],
-          windowId: id,
+          id: windowId,
         },
-        type: REMOVE_WINDOW,
+        type: 'THUNK_REMOVE_WINDOW_STARTED',
       };
       const mockState = {
         annotations: {},
@@ -219,7 +218,7 @@ describe('window actions', () => {
 
       const mockDispatch = jest.fn(() => ({}));
       const mockGetState = jest.fn(() => mockState);
-      const thunk = thunkRemoveWindow.action({windowId: id});
+      const thunk = removeWindowWorker({id: windowId});
 
       thunk(mockDispatch, mockGetState, null);
 
@@ -239,7 +238,7 @@ describe('window actions', () => {
         },
         type: MAXIMIZE_WINDOW,
       };
-      expect(maximizeWindow({windowId: maxWindowId})).toEqual(maximizeWindowAction);
+      expect(maximizeWindow({id: maxWindowId})).toEqual(maximizeWindowAction);
     });
   });
 
@@ -254,22 +253,22 @@ describe('window actions', () => {
         },
         type: MINIMIZE_WINDOW,
       };
-      expect(minimizeWindow({windowId: minWindowId})).toEqual(minimizeWindowAction);
+      expect(minimizeWindow({id: minWindowId})).toEqual(minimizeWindowAction);
     });
   });
 
   describe('toggleWindowSideBar', () => {
     it('returns the appropriate action type', () => {
-      const id = 'abc123';
+      const windowId = 'abc123';
       const expectedAction = {
         error: undefined,
         meta: undefined,
         payload: {
-          windowId: id,
+          id: windowId,
         },
         type: TOGGLE_WINDOW_SIDE_BAR,
       };
-      expect(toggleWindowSideBar({windowId: id})).toEqual(expectedAction);
+      expect(toggleWindowSideBar({id: windowId})).toEqual(expectedAction);
     });
   });
 

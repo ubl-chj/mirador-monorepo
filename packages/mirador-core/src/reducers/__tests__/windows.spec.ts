@@ -1,7 +1,7 @@
 import {
   deselectAnnotation,
   maximizeWindow,
-  minimizeWindow,
+  minimizeWindow, removeWindow,
   selectAnnotation,
   setCanvas,
   setWindowSideBarPanel,
@@ -14,6 +14,20 @@ import {
 import {windowsReducer} from '../';
 
 describe('windows reducer', () => {
+  it('should handle REMOVE_WINDOW', () => {
+    expect(windowsReducer({
+      abc123: {
+        foo: 'bar',
+      },
+      def456: {
+        foo: 'bar',
+      },
+    }, removeWindow({id: 'abc123'}))).toEqual({
+      def456: {
+        foo: 'bar',
+      },
+    });
+  });
   it('should handle MAXIMIZE_WINDOW', () => {
     const before = {
       abc123: { maximized: false },
@@ -24,7 +38,7 @@ describe('windows reducer', () => {
       abc321: { maximized: false },
     };
 
-    expect(windowsReducer(before, maximizeWindow({windowId: 'abc123'}))).toEqual(after);
+    expect(windowsReducer(before, maximizeWindow({id: 'abc123'}))).toEqual(after);
   });
   it('should handle MINIMIZE_WINDOW', () => {
     const before = {
@@ -36,7 +50,7 @@ describe('windows reducer', () => {
       abc321: { maximized: false },
     };
 
-    expect(windowsReducer(before, minimizeWindow({windowId: 'abc123'}))).toEqual(after);
+    expect(windowsReducer(before, minimizeWindow({id: 'abc123'}))).toEqual(after);
   });
   it('should handle TOGGLE_WINDOW_SIDE_BAR by toggling the sideBarOpen attribute', () => {
     const before = {
@@ -48,7 +62,7 @@ describe('windows reducer', () => {
       abc321: { sideBarOpen: false },
     };
 
-    expect(windowsReducer(before, toggleWindowSideBar({windowId: 'abc123'}))).toEqual(after);
+    expect(windowsReducer(before, toggleWindowSideBar({id: 'abc123'}))).toEqual(after);
   });
 
   it('should handle SET_WINDOW_VIEW_TYPE by changing the view attribute', () => {

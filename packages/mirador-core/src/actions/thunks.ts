@@ -3,25 +3,16 @@ import {
   FETCH_INFO_RESPONSE,
   FETCH_MANIFEST,
   FOCUS_WINDOW,
-  REMOVE_WINDOW,
   UPDATE_COMPANION_WINDOW,
   addWindow,
   removeWindow
 } from '../actions';
-import {asyncFactory, bindThunkAction} from 'typescript-fsa-redux-thunk';
-import {IState} from 'mirador-core-model'
 import actionCreatorFactory from 'typescript-fsa';
+import {bindThunkAction} from 'typescript-fsa-redux-thunk';
 import uuid from 'uuid/v4'
 
 const actionCreator = actionCreatorFactory();
-const createAsync = asyncFactory<IState>(actionCreator)
 
-/**
- * addWindow - action creator
- *
- * @param  {Object} options
- * @memberof ActionCreators
- */
 export const evalAddWindows = (options) => {
   return (dispatch, getState) => {
     const { windows } = getState();
@@ -40,6 +31,7 @@ export const evalAddWindows = (options) => {
       rangeId: null,
       rotation: null,
       selectedAnnotations: {},
+      sideBarOpen: false,
       sideBarPanel: 'info',
       thumbnailNavigationId: cwThumbs,
       view: 'single',
@@ -116,11 +108,6 @@ export const fetchManifestWorker = bindThunkAction(fetchManifest,
   }
 );
 
-/**
- *
- * @param windowId
- * @param pan
- */
 export const focusWindow = (windowId, pan = false) => {
   return (dispatch, getState) => {
     const { windows, workspace } = getState();
@@ -144,26 +131,13 @@ export const focusWindow = (windowId, pan = false) => {
   };
 }
 
-/**
- * removeWindow - action creator
- *
- * @param  {String} windowId
- * @memberof ActionCreators
- */
-export const thunkRemoveWindow = createAsync<{windowId}, {}, {}>(REMOVE_WINDOW,
-  async ({windowId}, dispatch, getState) => {
-    const { windows } = getState();
-    const { companionWindowIds } = windows[windowId];
-    await dispatch(removeWindow(companionWindowIds, windowId));
+export const thunkRemoveWindow = actionCreator.async<{id: string}, {}, {}>('THUNK_REMOVE_WINDOW')
+
+export const removeWindowWorker = bindThunkAction(thunkRemoveWindow,
+  async ({id}, dispatch) => {
+    return dispatch(removeWindow({id}));
   })
 
-/**
- * setWindowThumbnailPosition - action creator
- *
- * @param  {String} windowId
- * @param  {String} position
- * @memberof ActionCreators
- */
 export const setWindowThumbnailPosition = (windowId, position) => {
   return (dispatch, getState) => {
     const { windows } = getState();

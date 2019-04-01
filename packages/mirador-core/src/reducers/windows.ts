@@ -3,6 +3,7 @@ import {
   maximizeWindow,
   minimizeWindow,
   removeCompanionWindow,
+  removeWindow,
   selectAnnotation,
   setWindowSideBarPanel,
   setWindowSize,
@@ -63,15 +64,15 @@ export const windowsReducer = reducerWithInitialState({})
   }))
   .caseWithAction(maximizeWindow, (state, action) => ({
     ...state,
-    [action.payload.windowId]: {
-      ...state[action.payload.windowId],
+    [action.payload.id]: {
+      ...state[action.payload.id],
       maximized: true,
     },
   }))
   .caseWithAction(minimizeWindow, (state, action) => ({
     ...state,
-    [action.payload.windowId]: {
-      ...state[action.payload.windowId],
+    [action.payload.id]: {
+      ...state[action.payload.id],
       maximized: false,
     },
   }))
@@ -82,9 +83,9 @@ export const windowsReducer = reducerWithInitialState({})
    */
   .caseWithAction(toggleWindowSideBar, (state, action) => ({
     ...state,
-    [action.payload.windowId]: {
-      ...state[action.payload.windowId],
-      sideBarOpen: !state[action.payload.windowId].sideBarOpen,
+    [action.payload.id]: {
+      ...state[action.payload.id],
+      sideBarOpen: !state[action.payload.id].sideBarOpen,
     },
   }))
   .caseWithAction(setWindowViewType, (state, action) => ({
@@ -164,5 +165,11 @@ export const windowsReducer = reducerWithInitialState({})
       displayAllAnnotations: !state[action.payload.windowId].displayAllAnnotations,
     },
   }))
-
+  .caseWithAction(removeWindow, (state, action) => {
+    return Object.keys(state).filter(key => key !== action.payload.id)
+      .reduce((result, current) => {
+        result[current] = state[current];
+        return result;
+      }, {})
+  })
 

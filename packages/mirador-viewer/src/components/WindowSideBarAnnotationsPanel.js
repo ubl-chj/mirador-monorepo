@@ -24,7 +24,6 @@ export class WindowSideBarAnnotationsPanel extends Component {
       selectAnnotation,
       selectedAnnotationIds,
     } = this.props;
-    console.log(annotations)
     return (
       <List>
         {

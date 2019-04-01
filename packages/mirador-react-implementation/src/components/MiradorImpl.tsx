@@ -1,4 +1,3 @@
-import {AnyAction, Dispatch, bindActionCreators} from 'redux'
 import {PersistentDrawer, addWindows, fetchManifests, resolveAndMergeConfig} from '../api'
 import React, {ReactElement, useEffect, useRef, useState} from 'react'
 import {ReactReduxContext, connect} from 'react-redux'
@@ -41,20 +40,22 @@ const MiradorImplementation: React.FC<IMiradorImplementation> = (props): ReactEl
    * @returns boolean
    */
   const initializeWorkspace = (mergedConfig): boolean => {
-    if (Object.keys(props.windows).length === 0) {
-      fetchManifests(props.fetchManifestWorker, mergedConfig.windows)
-      addWindows(mergedConfig, props.evalAddWindows)
+    const {evalAddWindows, windows, fetchManifestWorker} = props
+    if (Object.keys(windows).length === 0) {
+      fetchManifests(fetchManifestWorker, mergedConfig.windows)
+      addWindows(mergedConfig, evalAddWindows)
     }
     return true
   }
 
   useEffect(() => {
-    let mergedConfig = resolveAndMergeConfig(props.location.search, localConfig, props.config)
+    const {config, location, setConfig} = props
+    let mergedConfig = resolveAndMergeConfig(location.search, localConfig, config)
     if (mergedConfig && !isInitialized) {
-      props.setConfig(mergedConfig)
+      setConfig(mergedConfig)
     } else if (!isInitialized) {
       mergedConfig = initialConfiguration.current
-      props.setConfig(mergedConfig)
+      setConfig(mergedConfig)
     }
     if (mergedConfig && !isInitialized) {
       setIsInitialized(initializeWorkspace(mergedConfig))

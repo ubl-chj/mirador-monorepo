@@ -3,18 +3,8 @@ import actionCreatorFactory from 'typescript-fsa';
 
 const actionCreator = actionCreatorFactory();
 
-/**
- *
- */
-export const addCompanionWindow = actionCreator<{content, position, id}>(ADD_COMPANION_WINDOW)
+export const addCompanionWindow = actionCreator<{content: string, position: string, id: string}>(ADD_COMPANION_WINDOW)
 
-/**
- *
- * @param windowId
- * @param id
- * @param payload
- */
-export const updateCompanionWindow = actionCreator<{windowId, id, content, position}>(UPDATE_COMPANION_WINDOW)
+export const updateCompanionWindow = actionCreator<{windowId: string, id: string, content: string, position: string}>(UPDATE_COMPANION_WINDOW)
 
-/** */
-export const removeCompanionWindow = actionCreator<{companionWindowIds, id}>(REMOVE_COMPANION_WINDOW)
+export const removeCompanionWindow = actionCreator<{companionWindowIds: string[], id: string}>(REMOVE_COMPANION_WINDOW)

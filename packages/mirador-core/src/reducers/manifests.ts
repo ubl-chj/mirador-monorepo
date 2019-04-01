@@ -14,6 +14,7 @@ export const manifests = reducerWithInitialState({})
     [action.payload.params.manifestId]: {
       id: action.payload.params.manifestId,
       json: action.payload.result,
+      updating: false,
     },
     updating: false,
   }))

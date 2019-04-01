@@ -52,8 +52,6 @@ describe('companionWindow actions', () => {
   describe('updateCompanionWindow', () => {
     it('should return correct action object', () => {
       const expectedAction = {
-        error: undefined,
-        meta: undefined,
         payload: {
           content: 'info',
           id: 'cw-123',
@@ -70,7 +68,7 @@ describe('companionWindow actions', () => {
 
   describe('removeCompanionWindow', () => {
     it('should return correct action object', () => {
-      const action = removeCompanionWindow({companionWindowIds: 'cw-123', id: 'window'});
+      const action = removeCompanionWindow({companionWindowIds: ['cw-123'], id: 'window'});
       expect(action.type).toBe(REMOVE_COMPANION_WINDOW);
     });
   });
