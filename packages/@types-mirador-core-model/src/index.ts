@@ -119,10 +119,10 @@ export interface IViewer {
 }
 
 export interface IWorkspace {
+  enabled: boolean
   exposeModeOn: boolean
   height: number
   isWorkspaceAddVisible: boolean
-  isFullscreenEnabled: boolean
   layout: {}
   showZoomControls: boolean
   viewportPosition: {

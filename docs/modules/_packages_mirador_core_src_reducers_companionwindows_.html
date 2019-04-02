@@ -71,43 +71,53 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Functions</h3>
+							<h3>Variables</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_packages_mirador_core_src_reducers_companionwindows_.html#companionwindowsreducer" class="tsd-kind-icon">companion<wbr>Windows<wbr>Reducer</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-external-module"><a href="_packages_mirador_core_src_reducers_companionwindows_.html#companionwindowsreducer" class="tsd-kind-icon">companion<wbr>Windows<wbr>Reducer</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Functions</h2>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+				<h2>Variables</h2>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module">
 					<a name="companionwindowsreducer" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> companion<wbr>Windows<wbr>Reducer</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">companion<wbr>Windows<wbr>Reducer<span class="tsd-signature-symbol">(</span>state<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span>, action<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/ubl-chj/mirador-monorepo/blob/7dec8d0e/packages/mirador-core/src/reducers/companionWindows.ts#L5">packages/mirador-core/src/reducers/companionWindows.ts:5</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> state: <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> =&nbsp;{}</span></h5>
-									<ul class="tsd-parameters">
-									</ul>
-								</li>
-								<li>
-									<h5>action: <span class="tsd-signature-type">any</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
-						</li>
-					</ul>
+					<div class="tsd-signature tsd-kind-icon">companion<wbr>Windows<wbr>Reducer<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_node_modules_typescript_fsa_reducers_dist_index_d_.reducerbuilder.html" class="tsd-signature-type">ReducerBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;reducerWithInitialState({}).caseWithAction(addCompanionWindow, (state, action: any) &#x3D;&gt; {const cwDefault &#x3D; &#x60;cw-${uuid()}&#x60;;return setIn(state, [cwDefault], action.payload)}).caseWithAction(addWindow, (state, action: any) &#x3D;&gt; {return action.payload.companionWindows.reduce((newState, cw) &#x3D;&gt; {newState[cw.id] &#x3D; cw; // eslint-disable-line no-param-reassignreturn newState;}, state);}).caseWithAction(updateCompanionWindow, (state, action: any) &#x3D;&gt; {return updateIn(state, [action.payload.id], (orig) &#x3D;&gt; merge(orig, action.payload))}).caseWithAction(removeCompanionWindow, (state, action: any) &#x3D;&gt; {return removeIn(state, [action.payload.id])})</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ubl-chj/mirador-monorepo/blob/44b9fa5d/packages/mirador-core/src/reducers/companionWindows.ts#L35">packages/mirador-core/src/reducers/companionWindows.ts:35</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>case ADD_COMPANION_WINDOW:
+								if (action.payload.position === &#39;left&#39;) {
+								const { companionWindowIds } = state[action.payload.windowId];
+								const { companionWindows } = action;
+								const newCompanionWindowIds = companionWindowIds
+							.filter(id =&gt; companionWindows[id].position !== action.payload.position);</p>
+						</div>
+						<p>return {
+							...state,
+							[action.payload.windowId]: {
+							...state[action.payload.windowId],
+							companionAreaOpen: true,
+							companionWindowIds: newCompanionWindowIds.concat([action.payload.id]),
+							sideBarPanel: action.payload.content,
+							},
+							};
+							}
+							return {
+							...state,
+							[action.payload.windowId]: {
+							...state[action.payload.windowId],
+							companionWindowIds: state[action.payload.windowId].companionWindowIds.concat([action.payload.id]),
+							},
+						};</p>
+						<p>}</p>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -124,7 +134,7 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
 						<a href="_packages_mirador_core_src_reducers_companionwindows_.html#companionwindowsreducer" class="tsd-kind-icon">companion<wbr>Windows<wbr>Reducer</a>
 					</li>
 				</ul>

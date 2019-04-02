@@ -18,24 +18,20 @@ import {
 describe('workspace actions', () => {
   describe('setWorkspaceFullscreen', () => {
     it('should return correct action type if set to true', () => {
-      const receivedAction = setWorkspaceFullscreen({isFullscreenEnabled: true});
+      const receivedAction = setWorkspaceFullscreen({enabled: true});
       const expectedAction = {
-        error: undefined,
-        meta: undefined,
         payload: {
-          isFullscreenEnabled: true
+          enabled: true
         },
         type: SET_WORKSPACE_FULLSCREEN,
       };
       expect(receivedAction).toEqual(expectedAction);
     });
     it('should return correct action type if set to false', () => {
-      const receivedAction = setWorkspaceFullscreen({isFullscreenEnabled: false});
+      const receivedAction = setWorkspaceFullscreen({enabled: false});
       const expectedAction = {
-        error: undefined,
-        meta: undefined,
         payload: {
-          isFullscreenEnabled: false
+          enabled: false
         },
         type: SET_WORKSPACE_FULLSCREEN,
       };
@@ -47,8 +43,6 @@ describe('workspace actions', () => {
       const options = { foo: 'bar' };
 
       const expectedAction = {
-        error: undefined,
-        meta: undefined,
         payload: {
           layout: {foo: 'bar'},
         },
@@ -60,8 +54,6 @@ describe('workspace actions', () => {
   describe('toggleZoomControls', () => {
     it('should set the zoom control visibility', () => {
       const expectedAction = {
-        error: undefined,
-        meta: undefined,
         payload: {
           showZoomControls: true,
         },
@@ -84,8 +76,6 @@ describe('workspace actions', () => {
   describe('setWorkspaceViewportDimensions', () => {
     it('should set the workspace add visibility', () => {
       const expectedAction = {
-        error: undefined,
-        meta: undefined,
         payload: {
           position: {
             height: 25,
@@ -114,8 +104,6 @@ describe('workspace actions', () => {
   describe('toggleWorkspaceExposeMode', () => {
     it('should set the exposeMode to true', () => {
       const expectedAction = {
-        error: undefined,
-        meta: undefined,
         payload: {
           exposeModeOn: false
         },

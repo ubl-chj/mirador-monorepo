@@ -83,7 +83,7 @@
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_packages_mirador_core_src_selectors_windows_.html#getwindow" class="tsd-kind-icon">get<wbr>Window</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_packages_mirador_core_src_selectors_windows_.html#getwindow" class="tsd-kind-icon">get<wbr>Window</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_packages_mirador_core_src_selectors_windows_.html#getwindowtitles" class="tsd-kind-icon">get<wbr>Window<wbr>Titles</a></li>
 							</ul>
 						</section>
@@ -98,7 +98,7 @@
 					<div class="tsd-signature tsd-kind-icon">get<wbr>Companion<wbr>Window<wbr>For<wbr>Position<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> =&nbsp;createSelector([getCompanionWindowsOfWindow, (state) &#x3D;&gt; state.config.companionWindows.defaultPosition],(companionWindows: any, position) &#x3D;&gt; companionWindows.find(cw &#x3D;&gt; cw.position &#x3D;&#x3D;&#x3D; position),)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ubl-chj/mirador-monorepo/blob/7dec8d0e/packages/mirador-core/src/selectors/windows.ts#L76">packages/mirador-core/src/selectors/windows.ts:76</a></li>
+							<li>Defined in <a href="https://github.com/ubl-chj/mirador-monorepo/blob/44b9fa5d/packages/mirador-core/src/selectors/windows.ts#L75">packages/mirador-core/src/selectors/windows.ts:75</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -123,7 +123,7 @@
 					<div class="tsd-signature tsd-kind-icon">get<wbr>Companion<wbr>Window<wbr>Ids<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> =&nbsp;createSelector(getWindow,(window: IWindow) &#x3D;&gt; (window &amp;&amp; window.companionWindowIds) || [],)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ubl-chj/mirador-monorepo/blob/7dec8d0e/packages/mirador-core/src/selectors/windows.ts#L53">packages/mirador-core/src/selectors/windows.ts:53</a></li>
+							<li>Defined in <a href="https://github.com/ubl-chj/mirador-monorepo/blob/44b9fa5d/packages/mirador-core/src/selectors/windows.ts#L52">packages/mirador-core/src/selectors/windows.ts:52</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -144,7 +144,7 @@
 					<div class="tsd-signature tsd-kind-icon">get<wbr>Companion<wbr>Windows<wbr>OfWindow<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> =&nbsp;createSelector([getCompanionWindowIds, (state: any) &#x3D;&gt; state.companionWindows],(companionWindowIds: [], companionWindows: ICompanionWindow) &#x3D;&gt; companionWindowIds.map(id &#x3D;&gt; companionWindows[id]),)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ubl-chj/mirador-monorepo/blob/7dec8d0e/packages/mirador-core/src/selectors/windows.ts#L64">packages/mirador-core/src/selectors/windows.ts:64</a></li>
+							<li>Defined in <a href="https://github.com/ubl-chj/mirador-monorepo/blob/44b9fa5d/packages/mirador-core/src/selectors/windows.ts#L63">packages/mirador-core/src/selectors/windows.ts:63</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -165,7 +165,7 @@
 					<div class="tsd-signature tsd-kind-icon">get<wbr>Thumbnail<wbr>Navigation<wbr>Position<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> =&nbsp;createSelector([getWindow, (state: any) &#x3D;&gt; state.companionWindows],(window: any, companionWindows: ICompanionWindow) &#x3D;&gt; window&amp;&amp; companionWindows[window.thumbnailNavigationId]&amp;&amp; companionWindows[window.thumbnailNavigationId].position,)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ubl-chj/mirador-monorepo/blob/7dec8d0e/packages/mirador-core/src/selectors/windows.ts#L29">packages/mirador-core/src/selectors/windows.ts:29</a></li>
+							<li>Defined in <a href="https://github.com/ubl-chj/mirador-monorepo/blob/44b9fa5d/packages/mirador-core/src/selectors/windows.ts#L28">packages/mirador-core/src/selectors/windows.ts:28</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -188,7 +188,7 @@
 					<div class="tsd-signature tsd-kind-icon">get<wbr>Window<wbr>View<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> =&nbsp;createSelector(getWindow,(window: IWindow) &#x3D;&gt; window &amp;&amp; window.view,)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ubl-chj/mirador-monorepo/blob/7dec8d0e/packages/mirador-core/src/selectors/windows.ts#L43">packages/mirador-core/src/selectors/windows.ts:43</a></li>
+							<li>Defined in <a href="https://github.com/ubl-chj/mirador-monorepo/blob/44b9fa5d/packages/mirador-core/src/selectors/windows.ts#L42">packages/mirador-core/src/selectors/windows.ts:42</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -212,17 +212,17 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
 					<a name="getwindow" class="tsd-anchor"></a>
-					<h3>get<wbr>Window</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+					<h3><span class="tsd-flag ts-flagConst">Const</span> get<wbr>Window</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
 						<li class="tsd-signature tsd-kind-icon">get<wbr>Window<span class="tsd-signature-symbol">(</span>state<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, __namedParameters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ubl-chj/mirador-monorepo/blob/7dec8d0e/packages/mirador-core/src/selectors/windows.ts#L20">packages/mirador-core/src/selectors/windows.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/ubl-chj/mirador-monorepo/blob/44b9fa5d/packages/mirador-core/src/selectors/windows.ts#L19">packages/mirador-core/src/selectors/windows.ts:19</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -234,7 +234,7 @@
 									<h5>__namedParameters: <span class="tsd-signature-type">object</span></h5>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter">
-											<h5>window<wbr>Id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></h5>
+											<h5>window<wbr>Id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
 										</li>
 									</ul>
 								</li>
@@ -245,15 +245,15 @@
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
 					<a name="getwindowtitles" class="tsd-anchor"></a>
-					<h3>get<wbr>Window<wbr>Titles</h3>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> get<wbr>Window<wbr>Titles</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Window<wbr>Titles<span class="tsd-signature-symbol">(</span>state<span class="tsd-signature-symbol">: </span><a href="../interfaces/_node_modules__types_mirador_core_model_lib_index_d_.iwindowsreducer.html" class="tsd-signature-type">IWindowsReducer</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Window<wbr>Titles<span class="tsd-signature-symbol">(</span>state<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ubl-chj/mirador-monorepo/blob/7dec8d0e/packages/mirador-core/src/selectors/windows.ts#L10">packages/mirador-core/src/selectors/windows.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/ubl-chj/mirador-monorepo/blob/44b9fa5d/packages/mirador-core/src/selectors/windows.ts#L10">packages/mirador-core/src/selectors/windows.ts:10</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -264,7 +264,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>state: <a href="../interfaces/_node_modules__types_mirador_core_model_lib_index_d_.iwindowsreducer.html" class="tsd-signature-type">IWindowsReducer</a></h5>
+									<h5>state: <span class="tsd-signature-type">any</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">object</span></h4>
@@ -303,7 +303,7 @@
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
 						<a href="_packages_mirador_core_src_selectors_windows_.html#getwindowviewtype" class="tsd-kind-icon">get<wbr>Window<wbr>View<wbr>Type</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_packages_mirador_core_src_selectors_windows_.html#getwindow" class="tsd-kind-icon">get<wbr>Window</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">

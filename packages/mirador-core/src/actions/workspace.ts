@@ -11,7 +11,7 @@ import actionCreatorFactory from 'typescript-fsa';
 
 const actionCreator = actionCreatorFactory();
 
-export const setWorkspaceFullscreen = actionCreator<{isFullscreenEnabled: boolean}>(SET_WORKSPACE_FULLSCREEN)
+export const setWorkspaceFullscreen = actionCreator<{enabled: boolean}>(SET_WORKSPACE_FULLSCREEN)
 
 export const toggleZoomControls = actionCreator<{showZoomControls: boolean}>(TOGGLE_ZOOM_CONTROLS)
 

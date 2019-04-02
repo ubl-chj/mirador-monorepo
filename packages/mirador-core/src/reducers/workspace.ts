@@ -10,9 +10,9 @@ import {IWorkspace} from 'mirador-core-model'
 import {reducerWithInitialState} from 'typescript-fsa-reducers'
 
 const initialState: IWorkspace = {
+  enabled: false,
   exposeModeOn: false,
   height: 5000,
-  isFullscreenEnabled: false,
   isWorkspaceAddVisible: false,
   layout: {},
   showZoomControls: false,
@@ -28,7 +28,7 @@ const initialState: IWorkspace = {
  */
 export const workspaceReducer = reducerWithInitialState(initialState)
   .caseWithAction(setWorkspaceFullscreen, (state, action: any) => ({
-    ...state, isFullscreenEnabled: action.payload.isFullscreenEnabled }))
+    ...state, enabled: action.payload.enabled }))
   .caseWithAction(toggleZoomControls, (state, action: any) => ({
     ...state, showZoomControls: action.payload.showZoomControls }))
   .caseWithAction(updateWorkspaceMosaicLayout, (state: IWorkspace, action: any) => ({

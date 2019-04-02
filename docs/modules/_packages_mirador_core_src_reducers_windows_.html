@@ -71,17 +71,40 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
+							<h3>Variables</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-variable tsd-parent-kind-external-module"><a href="_packages_mirador_core_src_reducers_windows_.html#windowsreducer" class="tsd-kind-icon">windows<wbr>Reducer</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_packages_mirador_core_src_reducers_windows_.html#setcanvasindex" class="tsd-kind-icon">set<wbr>Canvas<wbr>Index</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_packages_mirador_core_src_reducers_windows_.html#updatedselectedannotations" class="tsd-kind-icon">updated<wbr>Selected<wbr>Annotations</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_packages_mirador_core_src_reducers_windows_.html#windowsreducer" class="tsd-kind-icon">windows<wbr>Reducer</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Variables</h2>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module">
+					<a name="windowsreducer" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> windows<wbr>Reducer</h3>
+					<div class="tsd-signature tsd-kind-icon">windows<wbr>Reducer<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_node_modules_typescript_fsa_reducers_dist_index_d_.reducerbuilder.html" class="tsd-signature-type">ReducerBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;reducerWithInitialState({}).caseWithAction(addWindow, (state, action) &#x3D;&gt; ({...state,[action.payload.window.id]: action.payload.window})).caseWithAction(maximizeWindow, (state, action) &#x3D;&gt; ({...state,[action.payload.id]: {...state[action.payload.id],maximized: true,},})).caseWithAction(minimizeWindow, (state, action) &#x3D;&gt; ({...state,[action.payload.id]: {...state[action.payload.id],maximized: false,},})).caseWithAction(updateWindow, ({}, action) &#x3D;&gt; { // eslint-disable-linereturn updateIn({}, [action.payload.id], orig &#x3D;&gt; merge(orig, action.payload))}).caseWithAction(toggleWindowSideBar, (state, action) &#x3D;&gt; ({...state,[action.payload.id]: {...state[action.payload.id],sideBarOpen: !state[action.payload.id].sideBarOpen,},})).caseWithAction(setWindowViewType, (state, action) &#x3D;&gt; ({...state,[action.payload.windowId]: {...state[action.payload.windowId],view: action.payload.viewType,},})).caseWithAction(setWindowSideBarPanel, (state, action) &#x3D;&gt; ({...state,[action.payload.windowId]: {...state[action.payload.windowId],sideBarPanel: (action.payload.panelType),},})).caseWithAction(updateWindowPosition, (state, action) &#x3D;&gt; ({...state,[action.payload.windowId]: {...state[action.payload.windowId],x: action.payload.position.x,y: action.payload.position.y,},})).caseWithAction(setWindowSize, (state, action) &#x3D;&gt; ({...state,[action.payload.windowId]: {...state[action.payload.windowId],height: action.payload.size.height,width: action.payload.size.width,x: action.payload.size.x,y: action.payload.size.y,},})).caseWithAction(setCanvas, (state, action) &#x3D;&gt; {return setCanvasIndex(state, action.payload.windowId, () &#x3D;&gt; action.payload.canvasIndex)}).caseWithAction(removeCompanionWindow, (state, action) &#x3D;&gt; ({...state,[action.payload.windowId]: {...state[action.payload.windowId],companionWindowIds: state[action.payload.windowId].companionWindowIds.filter(id &#x3D;&gt; id !&#x3D;&#x3D; action.payload.id),},})).caseWithAction(selectAnnotation, (state, action) &#x3D;&gt; ({...state,[action.payload.windowId]: {...state[action.payload.windowId],selectedAnnotations: {...state[action.payload.windowId].selectedAnnotations,[action.payload.canvasId]: [...((state[action.payload.windowId].selectedAnnotations || {})[action.payload.canvasId] || []),action.payload.annotationId,],},},})).caseWithAction(deselectAnnotation, (state, action) &#x3D;&gt; ({...state,[action.payload.windowId]: {...state[action.payload.windowId],},})).caseWithAction(toggleAnnotationDisplay, (state, action) &#x3D;&gt; ({...state,[action.payload.windowId]: {...state[action.payload.windowId],displayAllAnnotations: !state[action.payload.windowId].displayAllAnnotations,},})).caseWithAction(removeWindow, (state, action) &#x3D;&gt; {return Object.keys(state).filter(key &#x3D;&gt; key !&#x3D;&#x3D; action.payload.id).reduce((result, current) &#x3D;&gt; {result[current] &#x3D; state[current];return result;}, {})})</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ubl-chj/mirador-monorepo/blob/44b9fa5d/packages/mirador-core/src/reducers/windows.ts#L63">packages/mirador-core/src/reducers/windows.ts:63</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>windowsReducer</p>
+						</div>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
 				<h2>Functions</h2>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
 					<a name="setcanvasindex" class="tsd-anchor"></a>
@@ -93,7 +116,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ubl-chj/mirador-monorepo/blob/7dec8d0e/packages/mirador-core/src/reducers/windows.ts#L30">packages/mirador-core/src/reducers/windows.ts:30</a></li>
+									<li>Defined in <a href="https://github.com/ubl-chj/mirador-monorepo/blob/44b9fa5d/packages/mirador-core/src/reducers/windows.ts#L26">packages/mirador-core/src/reducers/windows.ts:26</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -127,7 +150,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ubl-chj/mirador-monorepo/blob/7dec8d0e/packages/mirador-core/src/reducers/windows.ts#L10">packages/mirador-core/src/reducers/windows.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/ubl-chj/mirador-monorepo/blob/44b9fa5d/packages/mirador-core/src/reducers/windows.ts#L45">packages/mirador-core/src/reducers/windows.ts:45</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -149,39 +172,6 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
-					<a name="windowsreducer" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> windows<wbr>Reducer</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">windows<wbr>Reducer<span class="tsd-signature-symbol">(</span>state<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span>, action<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Object</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/ubl-chj/mirador-monorepo/blob/7dec8d0e/packages/mirador-core/src/reducers/windows.ts#L49">packages/mirador-core/src/reducers/windows.ts:49</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>windowsReducer</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> state: <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> =&nbsp;{}</span></h5>
-									<ul class="tsd-parameters">
-									</ul>
-								</li>
-								<li>
-									<h5>action: <span class="tsd-signature-type">any</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Object</span></h4>
-						</li>
-					</ul>
-				</section>
 			</section>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -197,14 +187,14 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
+						<a href="_packages_mirador_core_src_reducers_windows_.html#windowsreducer" class="tsd-kind-icon">windows<wbr>Reducer</a>
+					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="_packages_mirador_core_src_reducers_windows_.html#setcanvasindex" class="tsd-kind-icon">set<wbr>Canvas<wbr>Index</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="_packages_mirador_core_src_reducers_windows_.html#updatedselectedannotations" class="tsd-kind-icon">updated<wbr>Selected<wbr>Annotations</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="_packages_mirador_core_src_reducers_windows_.html#windowsreducer" class="tsd-kind-icon">windows<wbr>Reducer</a>
 					</li>
 				</ul>
 			</nav>
