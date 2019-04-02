@@ -1,6 +1,8 @@
 import {addCompanionWindow, addWindow, removeCompanionWindow, updateCompanionWindow} from "../actions"
 import {merge, removeIn, setIn, updateIn} from 'immutable'
 import {isType} from 'typescript-fsa'
+import {reducerWithInitialState} from 'typescript-fsa-reducers'
+import uuid from 'uuid/v4'
 
 /**
  case ADD_COMPANION_WINDOW:
@@ -30,22 +32,20 @@ import {isType} from 'typescript-fsa'
 
  }
  * */
-export const companionWindowsReducer = (state = {}, action: any) => {
-  if (isType(action, addCompanionWindow)) {
-    return setIn(state, [action.payload.id], action.payload)
-  }
-  if (isType(action, addWindow)) {
+export const companionWindowsReducer = reducerWithInitialState({})
+  .caseWithAction(addCompanionWindow, (state, action: any) => {
+    const cwDefault = `cw-${uuid()}`;
+    return setIn(state, [cwDefault], action.payload)
+  })
+  .caseWithAction(addWindow, (state, action: any) => {
     return action.payload.companionWindows.reduce((newState, cw) => {
       newState[cw.id] = cw; // eslint-disable-line no-param-reassign
       return newState;
     }, state);
-  }
-  if (isType(action, updateCompanionWindow)) {
+  })
+  .caseWithAction(updateCompanionWindow, (state, action: any) => {
     return updateIn(state, [action.payload.id], (orig) => merge(orig, action.payload))
-  }
-
-  if (isType(action, removeCompanionWindow)) {
+  })
+  .caseWithAction(removeCompanionWindow, (state, action: any) => {
     return removeIn(state, [action.payload.id])
-  }
-  return state
-}
+  })

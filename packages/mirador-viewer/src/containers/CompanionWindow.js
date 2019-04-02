@@ -1,6 +1,6 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from '@mirador/core';
+import {removeCompanionWindow, updateCompanionWindow} from '@mirador/core';
 import { withTranslation } from 'react-i18next';
 import { withStyles } from '@material-ui/core';
 import { CompanionWindow } from '../components/CompanionWindow';
@@ -11,7 +11,7 @@ import { withPlugins } from '../extend';
  * @memberof CompanionWindow
  * @private
  */
-const mapStateToProps = (state, { id, windowId }) => {
+const mapStateToProps = (state, { id }) => {
   const companionWindow = state.companionWindows[id];
 
   return {
@@ -27,12 +27,7 @@ const mapStateToProps = (state, { id, windowId }) => {
  * @memberof CompanionWindow
  * @private
  */
-const mapDispatchToProps = (dispatch, { windowId, id }) => ({
-  onCloseClick: () => dispatch(
-    actions.removeCompanionWindow(windowId, id),
-  ),
-  updateCompanionWindow: (...args) => dispatch(actions.updateCompanionWindow(...args)),
-});
+const mapDispatchToProps = {removeCompanionWindow, updateCompanionWindow}
 
 /**
  *

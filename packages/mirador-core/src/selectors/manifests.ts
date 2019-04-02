@@ -6,9 +6,9 @@ import {createSelector} from 'reselect'
 const manifesto = require('manifesto.js'); //eslint-disable-line
 
 /** Get the relevant manifest information */
-export const getManifest = (state, { windowId, manifestId, canvasIndex, motivations }: {
-  windowId: string, manifestId?: string, canvasIndex?: string, motivations?: any}) => {
-  return state.manifests[manifestId || canvasIndex || motivations || (windowId && state.windows && state.windows[windowId] && state.windows[windowId].manifestId)];
+export const getManifest = (state, { windowId, manifestId }: {
+  windowId?: string, manifestId?: string, canvasIndex?: any, motivations?: any}) => {
+  return state.manifests[manifestId || (windowId && state.windows && state.windows[windowId] && state.windows[windowId].manifestId)];
 }
 
 /** Instantiate a manifesto instance */

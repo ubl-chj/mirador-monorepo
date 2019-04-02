@@ -31,9 +31,7 @@ const mapStateToProps = (state, { windowId }) => ({
  * @memberof ManifestListItem
  * @private
  */
-const mapDispatchToProps = {
-  updateViewport,
-};
+const mapDispatchToProps = { updateViewport };
 
 /**
  *

@@ -3,7 +3,6 @@ import {
   FOCUS_WINDOW,
   MAXIMIZE_WINDOW,
   MINIMIZE_WINDOW,
-  REMOVE_WINDOW,
   SET_WINDOW_SIDE_BAR_PANEL,
   SET_WINDOW_SIZE,
   SET_WINDOW_VIEW_TYPE,
@@ -15,7 +14,7 @@ import {
   focusWindow,
   maximizeWindow,
   minimizeWindow,
-  removeWindowWorker,
+  removeWindow,
   setCompanionAreaOpen,
   setWindowSideBarPanel,
   setWindowSize,
@@ -170,60 +169,9 @@ describe('window actions', () => {
         payload: {
           id: windowId,
         },
-        type: 'THUNK_REMOVE_WINDOW_STARTED',
+        type: 'REMOVE_WINDOW',
       };
-      const mockState = {
-        annotations: {},
-        companionWindows: {},
-        config: {},
-        infoResponses: {},
-        manifests: {},
-        viewers: {},
-        windows: {
-          'abc123': {
-            canvasIndex: 0,
-            collectionIndex: null,
-            companionWindowIds: ['a', 'b', 'c'],
-            displayAllAnnotations: false,
-            height: 100,
-            id: 'abc123',
-            manifestId: null,
-            maximized: false,
-            rangeId: null,
-            rotation: null,
-            selectedAnnotations: {},
-            sideBarOpen: false,
-            thumbnailNavigationId: '123',
-            thumbnailNavigationPosition: 'off',
-            view: null,
-            width: 300,
-            x: 100,
-            y: 200
-          },
-        },
-        workspace: {
-          exposeModeOn: false,
-          height: 200,
-          isFullscreenEnabled: false,
-          isWorkspaceAddVisible: false,
-          layout: {},
-          showZoomControls: false,
-          viewportPosition: {
-            x: 300,
-            y: 300,
-          },
-          width: 400,
-        }
-      };
-
-      const mockDispatch = jest.fn(() => ({}));
-      const mockGetState = jest.fn(() => mockState);
-      const thunk = removeWindowWorker({id: windowId});
-
-      thunk(mockDispatch, mockGetState, null);
-
-      const action = mockDispatch.mock.calls[0].shift();
-      expect(action).toEqual(expectedAction);
+      expect(removeWindow({id: windowId})).toEqual(expectedAction);
     });
   });
 
@@ -231,10 +179,8 @@ describe('window actions', () => {
     it('maximizes the window', () => {
       const maxWindowId = 'abc123';
       const maximizeWindowAction = {
-        error: undefined,
-        meta: undefined,
         payload: {
-          windowId: maxWindowId,
+          id: maxWindowId,
         },
         type: MAXIMIZE_WINDOW,
       };
@@ -246,10 +192,8 @@ describe('window actions', () => {
     it('minimizes the window and renders current layout', () => {
       const minWindowId = 'abc123';
       const minimizeWindowAction = {
-        error: undefined,
-        meta: undefined,
         payload: {
-          windowId: minWindowId,
+          id: minWindowId,
         },
         type: MINIMIZE_WINDOW,
       };
@@ -261,8 +205,6 @@ describe('window actions', () => {
     it('returns the appropriate action type', () => {
       const windowId = 'abc123';
       const expectedAction = {
-        error: undefined,
-        meta: undefined,
         payload: {
           id: windowId,
         },
@@ -276,13 +218,11 @@ describe('window actions', () => {
     it('returns the appropriate action type', () => {
       const id = 'abc123';
       const expectedAction = {
-        error: undefined,
-        meta: undefined,
         payload: {
           companionAreaOpen: true,
           id,
         },
-        type: UPDATE_WINDOW,
+        type: 'SET_COMPANION_AREA_OPEN',
       };
       expect(setCompanionAreaOpen({companionAreaOpen: true, id})).toEqual(expectedAction);
     });
@@ -293,9 +233,7 @@ describe('window actions', () => {
     it('returns the appropriate action type', () => {
       const id = 'abc123';
       const expectedAction = {
-        error: undefined,
         id,
-        meta: undefined,
         payload: {
           position: 'right' },
         type: UPDATE_COMPANION_WINDOW,

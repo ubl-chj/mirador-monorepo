@@ -19,9 +19,7 @@ export const getCanvas = createSelector(
   [
     getManifestoInstance,
     (state, { windowId, canvasIndex }) => (
-      canvasIndex === 'selected'
-        ? state.windows[windowId].canvasIndex
-        : canvasIndex
+      canvasIndex === 'selected' ? state.windows[windowId].canvasIndex : canvasIndex
     ),
   ],
   (manifest, canvasIndex) => manifest
@@ -37,7 +35,7 @@ export const getCanvas = createSelector(
 * @param {string} props.windowId
 * @return {Object}
 */
-export function getSelectedCanvas(state, {windowId}) {
+export const getSelectedCanvas = (state, {windowId}) => {
   return getCanvas(state, {canvasIndex: 'selected', windowId});
 }
 

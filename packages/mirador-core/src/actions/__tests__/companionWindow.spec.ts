@@ -68,7 +68,7 @@ describe('companionWindow actions', () => {
 
   describe('removeCompanionWindow', () => {
     it('should return correct action object', () => {
-      const action = removeCompanionWindow({companionWindowIds: ['cw-123'], id: 'window'});
+      const action = removeCompanionWindow({id: 'cw123', windowId: 'abc123'});
       expect(action.type).toBe(REMOVE_COMPANION_WINDOW);
     });
   });

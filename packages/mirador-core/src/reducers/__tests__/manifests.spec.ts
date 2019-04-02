@@ -52,7 +52,8 @@ describe('manifest reducer test', () => {
         id: 'https://www.nga.gov/content/ngaweb/api/v1/iiif/presentation/manifest.json?cultObj:id=25518',
         json: {
           label: 'Some Manifest'
-        }
+        },
+        updating: false,
       },
       updating: false,
     });

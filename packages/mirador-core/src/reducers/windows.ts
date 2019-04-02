@@ -1,19 +1,22 @@
 import {
   addWindow,
+  deselectAnnotation,
   maximizeWindow,
   minimizeWindow,
   removeCompanionWindow,
   removeWindow,
   selectAnnotation,
+  setCanvas,
   setWindowSideBarPanel,
   setWindowSize,
   setWindowViewType,
   toggleAnnotationDisplay,
   toggleWindowSideBar,
+  updateWindow,
   updateWindowPosition
 } from "../actions"
+import {merge, remove, updateIn} from 'immutable';
 import {reducerWithInitialState} from "typescript-fsa-reducers"
-import {remove} from 'immutable';
 
 /**
  * @param {Object} state
@@ -76,11 +79,9 @@ export const windowsReducer = reducerWithInitialState({})
       maximized: false,
     },
   }))
-  /**
-    .caseWithAction(updateWindow, (state, action) => ({
-      updateIn({}, [action.payload.id], orig => merge(orig, action.payload))
-    }))
-   */
+  .caseWithAction(updateWindow, ({}, action) => { // eslint-disable-line
+    return updateIn({}, [action.payload.id], orig => merge(orig, action.payload))
+  })
   .caseWithAction(toggleWindowSideBar, (state, action) => ({
     ...state,
     [action.payload.id]: {
@@ -122,17 +123,14 @@ export const windowsReducer = reducerWithInitialState({})
       y: action.payload.size.y,
     },
   }))
-  /**
-  .caseWithAction(setCanvas, (state, action) => ({
-      setCanvasIndex(state, action.payload.windowId, () => action.payload.canvasIndex)
-  }))
-   */
+  .caseWithAction(setCanvas, (state, action) => {
+    return setCanvasIndex(state, action.payload.windowId, () => action.payload.canvasIndex)
+  })
   .caseWithAction(removeCompanionWindow, (state, action) => ({
     ...state,
-    [action.payload.id]: {
-      ...state[action.payload.id],
-      companionWindowIds: state[action.payload.id]
-        .companionWindowIds.filter(id => id !== action.payload.id),
+    [action.payload.windowId]: {
+      ...state[action.payload.windowId],
+      companionWindowIds: state[action.payload.windowId].companionWindowIds.filter(id => id !== action.payload.id),
     },
   }))
   .caseWithAction(selectAnnotation, (state, action) => ({
@@ -148,16 +146,12 @@ export const windowsReducer = reducerWithInitialState({})
       },
     },
   }))
-  /**
   .caseWithAction(deselectAnnotation, (state, action) => ({
-        ...state,
-        [action.payload.windowId]: {
-          ...state[action.payload.windowId],
-        updatedSelectedAnnotations(state, action),
-        },
-      };
+    ...state,
+    [action.payload.windowId]: {
+      ...state[action.payload.windowId],
+    },
   }))
-   */
   .caseWithAction(toggleAnnotationDisplay, (state, action) => ({
     ...state,
     [action.payload.windowId]: {

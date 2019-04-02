@@ -1,4 +1,4 @@
-import {UPDATE_VIEWPORT, removeWindow} from '../../actions'
+import {updateViewport} from '../../actions'
 import {viewersReducer} from '../';
 
 describe('viewers reducer', () => {
@@ -6,22 +6,24 @@ describe('viewers reducer', () => {
     expect(viewersReducer({
       abc123: {
         x: 1,
+        y: 0,
+        zoom: 1.0,
       },
       def456: {
-        y: 1,
+        x: 1,
+        y: 0,
+        zoom: 1.0,
       },
-    }, {
-      payload: { x: 0, y: 1, zoom: 0.5 },
-      type: UPDATE_VIEWPORT,
-      windowId: 'abc123',
-    })).toEqual({
+    }, updateViewport({ windowId: 'abc123', x: 0, y: 1, zoom: 0.5, }))).toEqual({
       abc123: {
         x: 0,
         y: 1,
         zoom: 0.5,
       },
       def456: {
-        y: 1,
+        x: 1,
+        y: 0,
+        zoom: 1.0,
       },
     });
   });
