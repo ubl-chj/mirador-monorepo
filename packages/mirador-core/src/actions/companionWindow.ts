@@ -7,4 +7,4 @@ export const addCompanionWindow = actionCreator<{content: string, position: stri
 
 export const updateCompanionWindow = actionCreator<{windowId: string, id: string, content: string, position: string}>(UPDATE_COMPANION_WINDOW)
 
-export const removeCompanionWindow = actionCreator<{companionWindowIds: string[], id: string}>(REMOVE_COMPANION_WINDOW)
+export const removeCompanionWindow = actionCreator<{id: string, windowId: string}>(REMOVE_COMPANION_WINDOW)

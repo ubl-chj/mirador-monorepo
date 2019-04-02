@@ -20,8 +20,8 @@ export class WindowSideBarButtons extends Component {
 
   /** */
   handleChange(event, value) {
-    const { addCompanionWindow } = this.props;
-    addCompanionWindow(value);
+    const { addCompanionWindow, id } = this.props;
+    addCompanionWindow({id, content: value, position: 'left'});
   }
 
   /**
@@ -30,9 +30,7 @@ export class WindowSideBarButtons extends Component {
    * @return {type}  description
    */
   render() {
-    const {
-      classes, hasAnnotations, sideBarPanel, t,
-    } = this.props;
+    const { classes, hasAnnotations, sideBarPanel, t } = this.props;
     return (
       <Tabs
         classes={{ flexContainer: classes.tabsFlexContainer, indicator: classes.tabsIndicator }}

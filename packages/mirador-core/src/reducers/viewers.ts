@@ -1,19 +1,15 @@
-import {removeWindow, updateViewport} from '../actions'
-import {isType} from 'typescript-fsa'
+import {reducerWithInitialState} from 'typescript-fsa-reducers'
+import {updateViewport} from '../actions'
 
 /**
  * viewersReducer
  */
-export const viewersReducer = (state = {}, action) => {
-  switch (action.type) {
-    case isType(action, updateViewport):
-      return {
-        ...state,
-        [action.payload.windowId]: {
-          ...action.payload,
-        },
-      }
-    default:
-      return state
-  }
-}
+export const viewersReducer = reducerWithInitialState({})
+  .caseWithAction(updateViewport, (state, action) => ({
+    ...state,
+    [action.payload.windowId]: {
+      x: action.payload.x,
+      y: action.payload.y,
+      zoom: action.payload.zoom,
+    },
+  }))

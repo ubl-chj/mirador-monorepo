@@ -20,7 +20,7 @@ export class CompanionWindow extends Component {
    */
   render() {
     const {
-      classes, paperClassName, id, onCloseClick, updateCompanionWindow, isDisplayed,
+      classes, paperClassName, id, removeCompanionWindow, updateCompanionWindow, isDisplayed,
       position, t, windowId, title, children, titleControls,
     } = this.props;
 
@@ -50,7 +50,7 @@ export class CompanionWindow extends Component {
                 && (
                   <MiradorMenuButton
                     aria-label={t('openInCompanionWindow')}
-                    onClick={() => { updateCompanionWindow(windowId, id, { position: 'right' }); }}
+                    onClick={() => { updateCompanionWindow({ windowId, id, position: 'right' }); }}
                   >
                     <OpenInNewIcon />
                   </MiradorMenuButton>
@@ -62,7 +62,7 @@ export class CompanionWindow extends Component {
                       <MiradorMenuButton
                         aria-label={position === 'bottom' ? t('moveCompanionWindowToRight') : t('moveCompanionWindowToBottom')}
                         wrapperClassName={classes.positionButton}
-                        onClick={() => { updateCompanionWindow(windowId, id, { position: position === 'bottom' ? 'right' : 'bottom' }); }}
+                        onClick={() => { updateCompanionWindow({ windowId, id, position: position === 'bottom' ? 'right' : 'bottom' }) }}
                       >
                         {position === 'bottom' ? <ThumbnailNavigationRightIcon /> : <ThumbnailNavigationBottomIcon />}
                       </MiradorMenuButton>
@@ -70,7 +70,7 @@ export class CompanionWindow extends Component {
                   }
                   <MiradorMenuButton
                     aria-label={t('closeCompanionWindow')}
-                    onClick={onCloseClick}
+                    onClick={() => { removeCompanionWindow({id, windowId}) }}
                   >
                     <CloseIcon />
                   </MiradorMenuButton>

@@ -134,6 +134,7 @@ export interface IWorkspace {
 
 export interface IWindows{
   windows: IWindow
+  manifests: IManifest
 }
 
 export interface ICompanionWindows {

@@ -121,7 +121,7 @@ export class OpenSeadragonViewer extends Component {
 
     const { viewport } = event.eventSource;
 
-    updateViewport(windowId, {
+    updateViewport({windowId,
       x: viewport.centerSpringX.target.value,
       y: viewport.centerSpringY.target.value,
       zoom: viewport.zoomSpring.target.value,

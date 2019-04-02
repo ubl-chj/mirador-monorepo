@@ -15,11 +15,7 @@ import { withPlugins } from '../extend';
  * @memberof WindowSideButtons
  * @private
  */
-const mapDispatchToProps = (dispatch, { windowId }) => ({
-  addCompanionWindow: content => dispatch(
-    addCompanionWindow(windowId, { content, position: 'left' }),
-  ),
-});
+const mapDispatchToProps = { addCompanionWindow }
 
 
 /**

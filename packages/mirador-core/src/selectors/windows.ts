@@ -7,7 +7,7 @@ import {getManifestTitle} from './manifests';
  * @param {object} state
  * @return {object}
  */
-export const getWindowTitles = (state: IWindows) => {
+export const getWindowTitles = (state: any) => {
   const result = {};
   Object.keys(state.windows).forEach((windowId) => {
     result[windowId] = getManifestTitle(state, { windowId });
@@ -16,7 +16,7 @@ export const getWindowTitles = (state: IWindows) => {
 }
 
 /** */
-export const getWindow = (state: any, { windowId }) => {
+export const getWindow = (state: any, { windowId}: {windowId: string, position?: string}) => {
   return state.windows && state.windows[windowId];
 }
 

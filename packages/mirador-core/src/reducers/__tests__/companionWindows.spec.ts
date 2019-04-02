@@ -1,4 +1,4 @@
-import {addCompanionWindow, addWindow, removeCompanionWindow, removeWindow, updateCompanionWindow} from '../../actions'
+import {addCompanionWindow, addWindow, removeCompanionWindow, updateCompanionWindow} from '../../actions'
 import {companionWindowsReducer} from '../';
 
 describe('companionWindowsReducer', () => {
@@ -77,9 +77,9 @@ describe('companionWindowsReducer', () => {
 
   describe('REMOVE_COMPANION_WINDOW', () => {
     it('should remove a companion window', () => {
-      const action = removeCompanionWindow({companionWindowIds: ['cw123'], id: 'abc123'})
+      const action = removeCompanionWindow({id: 'cw-abc123', windowId: 'abc123'})
       const beforeState = {
-        abc123: {
+        'cw-abc123': {
           content: 'info',
           position: 'right',
         },
