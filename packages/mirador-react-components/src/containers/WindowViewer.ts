@@ -2,8 +2,6 @@ import { fetchAnnotationWorker, fetchInfoResponseWorker, getSelectedCanvases } f
 import { WindowViewer } from '../components/WindowViewer';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { withPlugins } from '../extend';
-
 
 /**
  * mapStateToProps - to hook up connect

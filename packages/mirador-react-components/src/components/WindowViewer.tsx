@@ -73,7 +73,7 @@ export class WindowViewer extends Component<IWindowViewer> {
   }
 
   /**
-   * currentInfoResponses - Selects infoResponses that are relevent to existing
+   * currentInfoResponses - Selects infoResponses that are relevant to existing
    * canvases to be displayed.
    */
   private currentInfoResponses() {
@@ -81,9 +81,7 @@ export class WindowViewer extends Component<IWindowViewer> {
 
     return currentCanvases.map(canvas => (
       infoResponses[new ManifestoCanvas(canvas).imageInformationUri]
-    )).filter(infoResponse => (infoResponse !== undefined
-      && infoResponse.isFetching === false
-      && infoResponse.error === undefined));
+    )).filter(infoResponse => (infoResponse !== undefined));
   }
 
   /**
