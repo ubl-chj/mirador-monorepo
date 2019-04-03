@@ -6,7 +6,8 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "docs": "typedoc --name \"mirador-core documentation\" --readme 'none' --exclude \"**/*+(e2e|spec|index).ts\" --includeDeclarations --out ../../docs ./src && touch ../../docs/.nojekyll"
+    "docs": "typedoc --name \"mirador-core documentation\" --readme 'none' --exclude \"**/*+(e2e|spec|index).ts\" --includeDeclarations --out ../../docs ./src && touch ../../docs/.nojekyll",
+    "test": "jest"
   },
   "license": "Apache-2.0",
   "repository": {
@@ -19,6 +20,7 @@
     "@material-ui/icons": "^4.0.0-alpha.1",
     "@mirador/core": "file:../mirador-core",
     "@mirador/custom-components": "file:../mirador-custom-components",
+    "@mirador/i18n": "file:../mirador-i18n",
     "@researchgate/react-intersection-observer": "^0.7.4",
     "classnames": "^2.2.6",
     "css-ns": "^1.2.2",
