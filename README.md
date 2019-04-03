@@ -31,14 +31,24 @@ $ lerna bootstrap --hoist
 $ lerna run --scope @types/manifesto
 $ lerna run --scope @types/mirador-core-model
 ```
+3. Build configuration packages
+```bash
+$ lerna run --scope @mirador/configuration
+$ lerna run --scope @mirador/i18n
+```
 
-3. Create a bundle of the component.
+4. Create a bundle of the component.
 ```bash
 $ lerna run --scope @mirador/core build
 $ lerna run --scope @mirador/custom-components build
 $ lerna run --scope @mirador/react-components build
 ```
-3. Start Development Server
+Note: all of the steps above can be executed with 
+```
+$ ./build.sh
+``` 
+
+5. Start Development Server
 ```bash
 $ lerna run --scope @mirador/react-implementation start
 $ lerna run cypress:open
@@ -47,4 +57,4 @@ $ lerna run cypress:open
 ### Continuous Deployment 
 https://sleepy-curie-a284a7.netlify.com/
 
-.. |docs| image:: https://readthedocs.org/projects/docs/badge/?version=latest
+
