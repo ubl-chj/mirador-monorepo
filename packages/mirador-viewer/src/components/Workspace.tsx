@@ -7,6 +7,9 @@ import classNames from 'classnames';
 import ns from '../config/css-ns';
 
 interface IWorkspace {
+  isFullscreenEnabled: boolean
+  isWorkspaceControlPanelVisible: boolean
+  t: Function
   windows: any
   workspaceType: string
 }
@@ -16,11 +19,11 @@ interface IWorkspace {
  * @private
  */
 export const Workspace: React.FC<IWorkspace> = (props): ReactElement => {
+  const { isFullscreenEnabled, isWorkspaceControlPanelVisible, t, windows, workspaceType } = props;
   /**
    * Determine whether or not there are maximized windows
    */
   const maximizedWindows = () => {
-    const { windows } = props;
     const windowKeys = Object.keys(windows).sort();
     const maximizedWindows = windowKeys
       .map(id => windows[id])
@@ -41,7 +44,6 @@ export const Workspace: React.FC<IWorkspace> = (props): ReactElement => {
    * Determine which workspace to render by configured type
    */
   const workspaceByType = () => {
-    const { workspaceType, windows } = props;
     if (maximizedWindows()) {
       return maximizedWindows();
     }
@@ -60,7 +62,6 @@ export const Workspace: React.FC<IWorkspace> = (props): ReactElement => {
     }
   }
 
-  const { isFullscreenEnabled, isWorkspaceControlPanelVisible, t } = this.props;
   const style = isFullscreenEnabled ? {paddingTop: 0} : {paddingTop: 64}
   return (
     <div

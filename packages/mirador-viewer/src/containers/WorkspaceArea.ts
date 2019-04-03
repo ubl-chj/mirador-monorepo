@@ -32,7 +32,6 @@ const enhance: any = compose(
   withTranslation(),
   withStyles(styles),
   connect(mapStateToProps),
-  withPlugins('WorkspaceArea'),
 );
 
 export default enhance(WorkspaceArea);

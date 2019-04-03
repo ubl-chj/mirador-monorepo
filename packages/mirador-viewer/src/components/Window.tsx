@@ -1,5 +1,6 @@
-import React, {ReactElement} from 'react';
+import React, {ReactElement, useContext} from 'react';
 import CompanionArea from '../containers/CompanionArea';
+import {ModernMosaicWindowContext} from 'react-mosaic-component';
 import Paper from '@material-ui/core/Paper';
 import PrimaryWindow from '../containers/PrimaryWindow';
 import WindowTopBar from '../containers/WindowTopBar';
@@ -17,13 +18,14 @@ interface IWindow {
 }
 
 export const Window: React.FC<IWindow> = (props): ReactElement => {
+  const { manifest, window, workspaceType, focusWindow, label, classes, t } = props;
+  const context = useContext(ModernMosaicWindowContext);
+
   /**
    * wrappedTopBar - will conditionally wrap a WindowTopBar for needed
    * additional functionality based on workspace type
    */
   const wrappedTopBar = () => {
-    const { manifest, window, workspaceType } = props;
-    const { mosaicWindowActions } = this.context;
     const topBar = (
       <div>
         <WindowTopBar
@@ -33,14 +35,10 @@ export const Window: React.FC<IWindow> = (props): ReactElement => {
       </div>
     );
     if (workspaceType === 'mosaic' && window.maximized === false) {
-      return mosaicWindowActions.connectDragSource(
-        topBar,
-      );
+      return context.mosaicWindowActions.connectDragSource(topBar);
     }
     return topBar;
   }
-
-  const {focusWindow, label, manifest, window, classes, t} = props;
 
   if (!window) {
     return <></>;

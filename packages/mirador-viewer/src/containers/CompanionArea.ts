@@ -45,7 +45,6 @@ const enhance: any = compose(
   withTranslation(),
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps),
-  withPlugins('CompanionArea'),
 );
 
 export default enhance(CompanionArea);

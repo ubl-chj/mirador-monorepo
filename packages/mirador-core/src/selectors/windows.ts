@@ -1,4 +1,4 @@
-import {ICompanionWindow, IWindow, IWindows} from 'mirador-core-model';
+import {ICompanionWindow, IWindow} from 'mirador-core-model';
 import {createSelector} from 'reselect'
 import {getManifestTitle} from './manifests';
 

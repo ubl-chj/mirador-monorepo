@@ -48,9 +48,4 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-const enhance: any = compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  withPlugins('WorkspaceElastic')
-);
-
-export default enhance(WorkspaceElastic);
+export default connect(mapStateToProps, mapDispatchToProps)(WorkspaceElastic);

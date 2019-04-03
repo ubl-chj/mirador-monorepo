@@ -5,7 +5,7 @@ import { I18nextProvider } from 'react-i18next';
 import {ThemeProvider} from '@material-ui/styles';
 import WorkspaceArea from '../containers/WorkspaceArea';
 import { createMuiTheme } from '@material-ui/core/styles';
-import i18n from '../i18n';
+import i18n from '@mirador/i18n';
 import {setWorkspaceFullscreen} from '@mirador/core';
 
 interface IApp {

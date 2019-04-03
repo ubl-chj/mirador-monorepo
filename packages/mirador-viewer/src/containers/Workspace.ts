@@ -1,14 +1,8 @@
-import { Workspace } from '../components';
+import { Workspace } from '../components/Workspace';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { withPlugins } from '../extend';
 import { withTranslation } from 'react-i18next';
 
-/**
- * mapStateToProps - to hook up connect
- * @memberof Workspace
- * @private
- */
 const mapStateToProps = state => (
   {
     isFullscreenEnabled: state.workspace.isFullscreenEnabled,
@@ -21,7 +15,5 @@ const mapStateToProps = state => (
 const enhance: any = compose(
   withTranslation(),
   connect(mapStateToProps),
-  withPlugins('Workspace'),
 );
-
 export default enhance(Workspace);

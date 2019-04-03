@@ -65,7 +65,6 @@ const mapDispatchToProps = {
 const enhance: any = compose(
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps),
-  withPlugins('GalleryView'),
 );
 
 export default enhance(GalleryView);

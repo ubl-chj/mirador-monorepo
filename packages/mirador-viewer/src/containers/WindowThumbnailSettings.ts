@@ -41,7 +41,6 @@ const enhance: any = compose(
   withStyles(styles),
   withTranslation(),
   connect(mapStateToProps, mapDispatchToProps),
-  withPlugins('WindowThumbnailSettings'),
 );
 
 export default enhance(WindowThumbnailSettings);

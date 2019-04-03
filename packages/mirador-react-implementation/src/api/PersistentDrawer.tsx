@@ -7,17 +7,10 @@ import classNames from 'classnames'
 import {localConfig} from '@mirador/configuration'
 import {styles} from '../styles'
 
-
-
 interface IPersistentDrawer extends React.FC{
   component: any
 }
 
-/**
- *
- * @param Component
- * @constructor
- */
 export const PersistentDrawer: React.FC<any> = ({component}): any => {
   const useStyles = makeStyles(styles)
   const classes = useStyles();

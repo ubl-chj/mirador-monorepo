@@ -16,7 +16,6 @@ const mapStateToProps = (state, { windowId }) => ({
 
 const enhance: any = compose(
   connect(mapStateToProps),
-  withPlugins('WindowCanvasNavigationControls'),
 );
 
 export default enhance(WindowCanvasNavigationControls);

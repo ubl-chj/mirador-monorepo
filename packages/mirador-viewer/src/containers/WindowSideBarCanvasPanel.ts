@@ -57,7 +57,6 @@ const enhance: any = compose(
   withTranslation(),
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps),
-  withPlugins('WindowSideBarCanvasPanel'),
 );
 
 export default enhance(WindowSideBarCanvasPanel);

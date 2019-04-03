@@ -2,7 +2,6 @@ export * from './App';
 export * from './CanvasThumbnail';
 export * from './CompanionWindow';
 export * from './LabelValueMetadata';
-export * from './NestedMenu';
 export * from './OpenSeadragonViewer';
 export * from './SanitizedHtml';
 export * from './ThumbnailNavigation';

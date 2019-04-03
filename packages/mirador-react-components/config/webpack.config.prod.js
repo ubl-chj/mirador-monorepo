@@ -9,7 +9,7 @@ module.exports = {
   mode: 'production',
   devtool: 'inline-source-map',
   entry: {
-    index: './src/index-component.js',
+    index: './src/index.tsx',
   },
   output: {
     filename: '[name].js',
@@ -23,7 +23,7 @@ module.exports = {
       'react': path.resolve(__dirname, './node_modules/react'),
       'react-dom': path.resolve(__dirname, './node_modules/react-dom'),
     },
-    extensions: ['.js'],
+    extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx', '.tsx', '.ts'],
     symlinks: false
   },
   externals: {
@@ -44,48 +44,42 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|mjs|jsx)$/,
-        enforce: 'pre',
-        use: [
+        oneOf: [
           {
+            exclude: /node_modules/,
+            loader: require.resolve('ts-loader'),
+            test: /\.tsx?$/,
+          },
+          {
+            loader: require.resolve('url-loader'),
             options: {
-              formatter: require.resolve('react-dev-utils/eslintFormatter'),
-              eslintPath: require.resolve('eslint'),
-
+              limit: 10000, name: 'static/media/[name].[hash:8].[ext]',
             },
-            loader: require.resolve('eslint-loader'),
+            test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+          },
+          {
+            include: paths.appSrc,
+            loader: require.resolve('babel-loader'),
+            options: {
+              compact: true,
+            },
+            test: /\.(js|jsx|mjs)$/,
+          },
+          {
+            test: /\.(sa|sc|c)ss$/,
+            use: [ MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader', ],
+          },
+          {
+            exclude: [/\.(js|jsx|mjs)$/, /\.html$/, /\.json$/],
+            loader: require.resolve('file-loader'),
+            options: {
+              name: 'static/media/[name].[hash:8].[ext]',
+            },
           },
         ],
-        include: paths.appSrc,
-      },
-      {
-        test: /\.(js|mjs|jsx)$/,
-        include: paths.appSrc,
-        loader: require.resolve('babel-loader'),
-        options: {
-          plugins: [
-            [
-              require.resolve('babel-plugin-named-asset-import'),
-              {
-                loaderMap: {
-                  svg: {
-                    ReactComponent: '@svgr/webpack?-prettier,-svgo![path]',
-                  },
-                },
-              },
-            ],
-          ],
-          cacheDirectory: true,
-          // Save disk space when time isn't as important
-          cacheCompression: true,
-          compact: true,
-        },
-      },
-      {
-        test: /\.(sa|sc|c)ss$/,
-        use: [ MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader', ],
       },
     ],
+    strictExportPresence: true,
   },
   optimization: {
     minimizer: [

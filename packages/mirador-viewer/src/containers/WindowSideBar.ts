@@ -43,7 +43,6 @@ const styles: any = theme => ({
 const enhance: any = compose(
   withStyles(styles),
   connect(mapStateToProps, null),
-  withPlugins('WindowSideBar'),
 );
 
 export default enhance(WindowSideBar);

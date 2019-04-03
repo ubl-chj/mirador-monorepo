@@ -64,7 +64,6 @@ const enhance: any = compose(
   withStyles(styles),
   withTranslation(),
   connect(mapStateToProps, mapDispatchToProps),
-  withPlugins('ThumnailNavigation'),
 );
 
 export default enhance(ThumbnailNavigation);

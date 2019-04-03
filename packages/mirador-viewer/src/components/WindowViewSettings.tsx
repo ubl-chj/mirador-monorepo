@@ -1,7 +1,6 @@
+import {BookViewIcon, GalleryViewIcon} from './icons';
 import React, { Component } from 'react';
-import BookViewIcon from './icons/BookViewIcon';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import GalleryViewIcon from './icons/GalleryViewIcon';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import MenuItem from '@material-ui/core/MenuItem';
 import ReactDOM from 'react-dom';

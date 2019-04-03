@@ -67,8 +67,6 @@ const enhance: any = compose(
   withTranslation(),
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps),
-  withPlugins('WindowSideBarAnnotationPanel'),
-  // further HOC
 );
 
 export default enhance(WindowSideBarAnnotationsPanel);

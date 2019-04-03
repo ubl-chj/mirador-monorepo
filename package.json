@@ -44,6 +44,8 @@
     "concurrently": "^4.0.1",
     "css-loader": "^1.0.0",
     "dotenv-webpack": "^1.7.0",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.11.2",
     "eslint": "^5.6.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-dev": "^2.0.0",

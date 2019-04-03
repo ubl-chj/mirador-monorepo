@@ -1,5 +1,5 @@
 import { getManifestTitle, maximizeWindow, minimizeWindow, removeWindow, toggleWindowSideBar } from '@mirador/core';
-import { WindowTopBar } from '../components';
+import { WindowTopBar } from '../components/WindowTopBar';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withPlugins } from '../extend';
@@ -56,7 +56,6 @@ const enhance: any = compose(
   withTranslation(),
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps),
-  withPlugins('WindowTopBar'),
 );
 
 export default enhance(WindowTopBar);

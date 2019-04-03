@@ -28,7 +28,6 @@ const enhance: any = compose(
   withStyles(styles),
   withTranslation(),
   connect(mapStateToProps, null),
-  withPlugins('MosaicRenderPreview'),
 );
 
 export default enhance(MosaicRenderPreview);

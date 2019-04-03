@@ -10,7 +10,6 @@ const mapStateToProps = state => ({
 
 const enhance: any = compose(
   connect(mapStateToProps, null),
-  withPlugins('MiradorMenuButton'),
 );
 
 export default enhance(MiradorMenuButton);

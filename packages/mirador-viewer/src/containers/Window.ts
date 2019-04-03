@@ -1,5 +1,5 @@
 import { focusWindow, getManifestTitle, getThumbnailNavigationPosition } from '@mirador/core';
-import { Window } from '../components';
+import { Window } from '../components/Window';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withPlugins } from '../extend';
@@ -85,7 +85,6 @@ const enhance: any = compose(
   withTranslation(),
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps),
-  withPlugins('Window'),
 );
 
 export default enhance(Window);

@@ -26,7 +26,7 @@ export const CompanionArea: React.FC<ICompanionArea> = (props): ReactElement => 
 
   return (
     <div className={[classes.root, areaLayoutClass(), ns(`companion-area-${position}`)].join(' ')}>
-      <div className={[ns('companion-windows'), this.areaLayoutClass()].join(' ')}
+      <div className={[ns('companion-windows'), areaLayoutClass()].join(' ')}
         style={{ display: companionAreaOpen && (position !== 'left' || sideBarOpen) ? 'flex' : 'none' }}
       >
         {

@@ -29,7 +29,6 @@ const mapDispatchToProps = {
 
 const enhance: any = compose(
   connect(mapStateToProps, mapDispatchToProps),
-  withPlugins('App')
 );
 
 export default enhance(App);

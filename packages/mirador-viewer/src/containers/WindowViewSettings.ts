@@ -1,5 +1,5 @@
 import { getWindowViewType, setWindowViewType } from '@mirador/core';
-import { WindowViewSettings } from '../components';
+import { WindowViewSettings } from '../components/WindowViewSettings';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withPlugins } from '../extend';
@@ -42,7 +42,6 @@ const enhance: any = compose(
   withStyles(styles),
   withTranslation(),
   connect(mapStateToProps, mapDispatchToProps),
-  withPlugins('WindowViewSettings'),
 );
 
 export default enhance(WindowViewSettings);

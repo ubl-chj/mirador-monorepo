@@ -2,7 +2,6 @@ import {getAnnotationResourcesByMotivation, toggleAnnotationDisplay} from '@mira
 import { AnnotationSettings } from '../components/AnnotationSettings';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { withPlugins } from '../extend';
 import { withTranslation } from 'react-i18next';
 
 /**
@@ -25,7 +24,6 @@ const mapDispatchToProps = (dispatch, { windowId }) => ({
 const enhance: any = compose(
   withTranslation(),
   connect(mapStateToProps, mapDispatchToProps),
-  withPlugins('AnnotationSettings'),
 );
 
 export default enhance(AnnotationSettings);

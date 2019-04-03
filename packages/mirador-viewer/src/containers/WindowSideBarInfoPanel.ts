@@ -10,7 +10,6 @@ import {
 import { WindowSideBarInfoPanel } from '../components/WindowSideBarInfoPanel';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { withPlugins } from '../extend';
 import { withStyles } from '@material-ui/core/styles';
 import { withTranslation } from 'react-i18next';
 
@@ -47,7 +46,6 @@ const enhance: any = compose(
   withTranslation(),
   withStyles(styles),
   connect(mapStateToProps, null),
-  withPlugins('WindowSideBarInfoPanel'),
 );
 
 export default enhance(WindowSideBarInfoPanel);

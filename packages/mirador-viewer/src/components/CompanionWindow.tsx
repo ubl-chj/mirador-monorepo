@@ -1,10 +1,9 @@
 import React, {ReactElement} from 'react';
+import {ThumbnailNavigationBottomIcon, ThumbnailNavigationRightIcon} from './icons';
 import CloseIcon from '@material-ui/icons/CloseSharp';
 import MiradorMenuButton from '../containers/MiradorMenuButton';
 import OpenInNewIcon from '@material-ui/icons/OpenInNewSharp';
 import Paper from '@material-ui/core/Paper';
-import ThumbnailNavigationBottomIcon from './icons/ThumbnailNavigationBottomIcon';
-import ThumbnailNavigationRightIcon from './icons/ThumbnailNavigationRightIcon';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import ns from '../config/css-ns';

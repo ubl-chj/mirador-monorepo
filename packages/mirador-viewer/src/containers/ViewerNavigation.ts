@@ -22,7 +22,6 @@ const mapDispatchToProps = {
 const enhance: any = compose(
   withTranslation(),
   connect(mapStateToProps, mapDispatchToProps),
-  withPlugins('ViewerNavigation'),
 );
 
 export default enhance(ViewerNavigation);

@@ -8,6 +8,7 @@ import ns from '../config/css-ns';
 
 interface IPrimaryWindow {
   manifest: any
+  sideBarOpen: boolean
   window: any
 }
 /**

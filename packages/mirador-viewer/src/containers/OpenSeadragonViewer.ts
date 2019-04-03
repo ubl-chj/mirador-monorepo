@@ -5,7 +5,7 @@ import {
   updateViewport
 } from '@mirador/core';
 import CanvasWorld from '../lib/CanvasWorld';
-import { OpenSeadragonViewer } from '../components';
+import { OpenSeadragonViewer } from '../components/OpenSeadragonViewer';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { fade } from '@material-ui/core/styles/colorManipulator';
@@ -51,7 +51,6 @@ const enhance: any = compose(
   withStyles(styles),
   withTranslation(),
   connect(mapStateToProps, mapDispatchToProps),
-  withPlugins('OpenSeadragonViewer'),
 );
 
 

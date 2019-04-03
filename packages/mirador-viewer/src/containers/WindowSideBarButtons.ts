@@ -67,7 +67,6 @@ const enhance: any = compose(
   withTranslation(),
   withStyles(style),
   connect(mapStateToProps, mapDispatchToProps),
-  withPlugins('WindowSideBarButtons'),
 );
 
 export default enhance(WindowSideBarButtons);

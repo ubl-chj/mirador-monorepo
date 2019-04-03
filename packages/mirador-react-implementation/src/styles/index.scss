@@ -1,6 +1,8 @@
 @import 'variables';
 @import url('~searchkit/release/theme.css');
-@import url('~@mirador/react-components/lib/vendors.css');
+@import url('~react-mosaic-component/react-mosaic-component.css');
+@import url('~react-virtualized/styles.css');
+
 #app {
   width: 100%;
 }

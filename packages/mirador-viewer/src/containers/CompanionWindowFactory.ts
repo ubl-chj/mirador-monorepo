@@ -21,7 +21,6 @@ const mapStateToProps = (state, { id }) => {
 
 const enhance: any = compose(
   connect(mapStateToProps),
-  withPlugins('CompanionWindowFactory'),
 );
 
 export default enhance(CompanionWindowFactory);

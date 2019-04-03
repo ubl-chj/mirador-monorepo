@@ -1,5 +1,5 @@
 import {removeCompanionWindow, updateCompanionWindow} from '@mirador/core';
-import { CompanionWindow } from '../components';
+import { CompanionWindow } from '../components/CompanionWindow';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withPlugins } from '../extend';
@@ -82,7 +82,6 @@ const enhance: any = compose(
   withTranslation(),
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps),
-  withPlugins('CompanionWindow'),
 );
 
 export default enhance(CompanionWindow);

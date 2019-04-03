@@ -1,4 +1,3 @@
-import 'react-mosaic-component/react-mosaic-component.css';
 import {
   Mosaic, MosaicWindow, createBalancedTreeFromLeaves, getLeaves,
 } from 'react-mosaic-component';

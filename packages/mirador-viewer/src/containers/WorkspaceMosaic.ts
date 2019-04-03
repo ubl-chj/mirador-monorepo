@@ -1,4 +1,4 @@
-import { WorkspaceMosaic } from '../components';
+import { WorkspaceMosaic } from '../components/WorkspaceMosaic';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import {updateWorkspaceMosaicLayout} from '@mirador/core';
@@ -23,9 +23,4 @@ const mapStateToProps = state => (
  */
 const mapDispatchToProps = { updateWorkspaceMosaicLayout };
 
-const enhance: any = compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  withPlugins('WorkspaceMosaic')
-);
-
-export default enhance(WorkspaceMosaic);
+export default connect(mapStateToProps, mapDispatchToProps)(WorkspaceMosaic);

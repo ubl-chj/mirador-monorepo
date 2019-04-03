@@ -1,1 +1,0 @@
-../../mirador-viewer/src/i18n.js
