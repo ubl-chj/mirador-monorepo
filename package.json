@@ -28,6 +28,7 @@
     "uuidv5": "^1.0.0"
   },
   "devDependencies": {
+    "acorn": "^6.1.1",
     "@babel/core": "^7.2.0",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/plugin-transform-runtime": "^7.3.4",
@@ -49,7 +50,6 @@
     "eslint": "^5.6.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-dev": "^2.0.0",
-    "eslint-config-react-app": "^3.0.6",
     "eslint-config-standard": "^12.0.0",
     "eslint-config-typescript": "^2.0.0",
     "eslint-loader": "^2.1.1",
@@ -73,6 +73,7 @@
     "interpolate-html-plugin": "^3.0.0",
     "jest": "^24.5.0",
     "jest-fetch-mock": "^2.1.1",
+    "jss": "^9.8.7",
     "jss-plugin-template": "^10.0.0-alpha.3",
     "jss-rtl": "^0.2.1",
     "lerna": "^3.13.0",

@@ -5,8 +5,8 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "webpack --config config/webpack.config.prod",
-    "build-ts": "tsc"
+    "build": "tsc",
+    "docs": "typedoc --name \"mirador-core documentation\" --readme 'none' --exclude \"**/*+(e2e|spec|index).ts\" --includeDeclarations --out ../../docs ./src && touch ../../docs/.nojekyll"
   },
   "license": "Apache-2.0",
   "repository": {
