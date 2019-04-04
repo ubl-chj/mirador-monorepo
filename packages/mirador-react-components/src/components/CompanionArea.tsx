@@ -1,5 +1,6 @@
 import React, {ReactElement} from 'react';
 import CompanionWindowFactory from '../containers/CompanionWindowFactory';
+import {makeStyles} from '@material-ui/styles'
 import ns from '../config/css-ns';
 
 interface ICompanionArea {
@@ -12,22 +13,45 @@ interface ICompanionArea {
   t: any
   windowId: string
 }
-/** */
+
+const useStyles = makeStyles(theme => ({
+  horizontal: {
+    flexDirection: 'column',
+    width: '100%',
+  },
+  root: {
+    display: 'flex',
+    minHeight: 0,
+    position: 'relative',
+  },
+  toggle: {
+    backgroundColor: theme.palette.background.paper,
+    border: `1px solid ${theme.palette.primary.dark}`,
+    borderRadius: 0,
+    left: '100%',
+    marginTop: '1rem',
+    padding: 2,
+    position: 'absolute',
+    width: '1rem',
+    zIndex: theme.zIndex.drawer,
+  },
+}));
+
 export const CompanionArea: React.FC<ICompanionArea> = (props): ReactElement => {
-  /** */
+  const classes = useStyles()
+
   const areaLayoutClass = () => {
-    const {classes, position} = props;
+    const {position} = props;
 
     return (position === 'bottom' || position === 'far-bottom') ? classes.horizontal : null;
   }
 
-  const {classes, companionWindows, companionAreaOpen,
-    position, sideBarOpen, windowId} = props;
+  const {companionWindows, position, sideBarOpen, windowId} = props;
 
   return (
     <div className={[classes.root, areaLayoutClass(), ns(`companion-area-${position}`)].join(' ')}>
       <div className={[ns('companion-windows'), areaLayoutClass()].join(' ')}
-        style={{ display: companionAreaOpen && (position !== 'left' || sideBarOpen) ? 'flex' : 'none' }}
+        style={{ display: (position !== 'left' || sideBarOpen) ? 'flex' : 'none' }}
       >
         {
           companionWindows.map(cw => (

@@ -1,11 +1,11 @@
 import React, {ReactElement} from 'react';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
+import {useTranslation} from "react-i18next"
 
 interface IAnnotationSettings {
   displayAll: boolean
   displayAllDisabled: boolean
-  t: any
   toggleAnnotationDisplay: any
 }
 /**
@@ -13,7 +13,8 @@ interface IAnnotationSettings {
  * display settings in the Annotation companion window
 */
 export const AnnotationSettings: React.FC<IAnnotationSettings> = (props): ReactElement => {
-  const {displayAll, displayAllDisabled, t, toggleAnnotationDisplay} = props;
+  const {t} = useTranslation()
+  const {displayAll, displayAllDisabled, toggleAnnotationDisplay} = props;
 
   return (
     <FormControlLabel

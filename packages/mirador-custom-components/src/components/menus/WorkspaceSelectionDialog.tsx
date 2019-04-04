@@ -28,6 +28,7 @@ export const WorkspaceSelectionDialog: React.FC<IWorkspaceSelectionDialog> = (pr
     return workspaceOptions.map((opt) =>
       <MenuItem
         button={true}
+        component='li'
         key={opt}
         value={opt}>
         <ListItemText classes={{primary: classes.primary}}>{t(opt)}</ListItemText>

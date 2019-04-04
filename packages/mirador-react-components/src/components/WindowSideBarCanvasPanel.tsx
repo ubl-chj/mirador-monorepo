@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {ReactElement, useState} from 'react';
 import { CanvasThumbnail } from './CanvasThumbnail';
 import CompanionWindow from '../containers/CompanionWindow';
 import FormControl from '@material-ui/core/FormControl';
@@ -9,6 +9,8 @@ import ManifestoCanvas from '../utils/ManifestoCanvas';
 import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
 import classNames from 'classnames';
+import {makeStyles} from "@material-ui/styles"
+import {useTranslation} from "react-i18next"
 
 interface IWindowSideBarCanvasPanel {
   canvases: any
@@ -20,44 +22,52 @@ interface IWindowSideBarCanvasPanel {
   windowId: string
 }
 
+const useStyles = makeStyles(theme => ({
+  label: {
+    paddingLeft: theme.spacing(1),
+  },
+  listItem: {
+    borderBottom: '0.5px solid rgba(0,0,0,0.12)',
+    paddingRight: theme.spacing(1),
+  },
+  primary: {
+    fontFamily: 'Google Sans,Roboto,Arial,sans-serif',
+    fontSize: '.875rem',
+    fontWeight: 500,
+    letterSpacing: '.01785714em',
+    lineHeight: '1.25rem',
+  },
+  select: {
+    '&:focus': {
+      backgroundColor: theme.palette.background.paper,
+    },
+  },
+  selectEmpty: {
+    backgroundColor: theme.palette.background.paper,
+  },
+}));
+
 /**
  * a panel showing the canvases for a given manifest
  */
-export class WindowSideBarCanvasPanel extends Component<IWindowSideBarCanvasPanel> {
-  public state: {
-    variant: any
-  }
-  /** */
-  public constructor(props) {
-    super(props);
+export const WindowSideBarCanvasPanel: React.FC<IWindowSideBarCanvasPanel> = (props): ReactElement => {
+  const [variant, setVariant] = useState()
+  const classes = useStyles()
+  const {t} = useTranslation()
+  const { canvases, config, id, setCanvas, windowId } = props;
 
-    this.state = { variant: false };
-    this.handleChange = this.handleChange.bind(this);
+  const handleChange = (event) => {
+    setVariant({variant: event.target.checked});
   }
 
-  private handleChange(event) {
-    this.setState({variant: event.target.checked});
-  }
-
-  /** @private */
-  private getIdAndLabelOfCanvases() {
-    const { canvases } = this.props;
-
+  const getIdAndLabelOfCanvases = () => {
     return canvases.map((canvas) => ({
       id: canvas.id,
       label: new ManifestoCanvas(canvas).getLabel(),
     }));
   }
 
-  /** */
-  private handleVariantChange(event) {
-    this.setState({ variant: event.target.value });
-  }
-
-  /** */
-  private renderCompact(canvas) {
-    const {classes} = this.props;
-
+  const renderCompact = (canvas) => {
     return (
       <>
         <Typography
@@ -70,11 +80,7 @@ export class WindowSideBarCanvasPanel extends Component<IWindowSideBarCanvasPane
     );
   }
 
-  /** */
-  private renderThumbnail(canvas, otherCanvas) {
-    const {
-      classes, config,
-    } = this.props;
+  const renderThumbnail = (canvas, otherCanvas) => {
     const { width, height } = config.canvasNavigation;
     const manifestoCanvas = new ManifestoCanvas(otherCanvas);
 
@@ -83,7 +89,6 @@ export class WindowSideBarCanvasPanel extends Component<IWindowSideBarCanvasPane
         <div style={{ minWidth: 50 }}>
           <CanvasThumbnail
             aspectRatio={manifestoCanvas.aspectRatio}
-            className={classNames(classes.clickable)}
             imageUrl={manifestoCanvas.thumbnail(width, height)}
             isValid={manifestoCanvas.hasValidDimensions}
             maxHeight={config.canvasNavigation.height}
@@ -100,58 +105,48 @@ export class WindowSideBarCanvasPanel extends Component<IWindowSideBarCanvasPane
     );
   }
 
-  /**
-   * render
-   */
-  public render() {
-    const {canvases, setCanvas, classes, t, windowId, id} = this.props;
+  const canvasesIdAndLabel = getIdAndLabelOfCanvases();
+  return (
+    <CompanionWindow
+      id={id}
+      title={t('canvasIndex')}
+      titleControls={(
+        <FormControl>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={variant}
+                onChange={handleChange}
+                value="variant"
+              />
+            }
+            label="Compact"
+          />
+        </FormControl>
+      )}
+      windowId={windowId}
+    >
+      <List>
+        {
+          canvasesIdAndLabel.map((canvas, canvasIndex) => {
+            const onClick = () => { setCanvas({canvasIndex, windowId}); }; // eslint-disable-line require-jsdoc, max-len
 
-    const { variant } = this.state;
-
-
-    const canvasesIdAndLabel = this.getIdAndLabelOfCanvases();
-    return (
-      <CompanionWindow
-        id={id}
-        title={t('canvasIndex')}
-        titleControls={(
-          <FormControl>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={variant}
-                  onChange={this.handleChange}
-                  value="variant"
-                />
-              }
-              label="Compact"
-            />
-          </FormControl>
-        )}
-        windowId={windowId}
-      >
-        <List>
-          {
-            canvasesIdAndLabel.map((canvas, canvasIndex) => {
-              const onClick = () => { setCanvas(windowId, canvasIndex); }; // eslint-disable-line require-jsdoc, max-len
-
-              return (
-                <ListItem
-                  alignItems="flex-start"
-                  button
-                  className={classes.listItem}
-                  component="li"
-                  key={canvas.id}
-                  onClick={onClick}
-                >
-                  {variant && this.renderCompact(canvas)}
-                  {!variant && this.renderThumbnail(canvas, canvases[canvasIndex])}
-                </ListItem>
-              );
-            })
-          }
-        </List>
-      </CompanionWindow>
-    );
-  }
+            return (
+              <ListItem
+                alignItems="flex-start"
+                button
+                className={classes.listItem}
+                component="li"
+                key={canvas.id}
+                onClick={onClick}
+              >
+                {variant && renderCompact(canvas)}
+                {!variant && renderThumbnail(canvas, canvases[canvasIndex])}
+              </ListItem>
+            );
+          })
+        }
+      </List>
+    </CompanionWindow>
+  );
 }

@@ -3,6 +3,7 @@ import { CanvasThumbnail } from './CanvasThumbnail';
 import ManifestoCanvas from '../utils/ManifestoCanvas';
 import Typography from '@material-ui/core/Typography';
 import classNames from 'classnames';
+import {makeStyles} from "@material-ui/styles"
 
 interface IGalleryView {
   canvases: {}[]
@@ -10,12 +11,48 @@ interface IGalleryView {
   setCanvas: any
   window: any
 }
+
+const useStyles = makeStyles(theme => ({
+  currentCanvas: {
+    border: `2px solid ${theme.palette.secondary.main}`,
+    padding: theme.spacing(0.5),
+  },
+  galleryContainer: {
+    flex: '1',
+    overflowX: 'hidden',
+    overflowY: 'scroll',
+    padding: '50px 0 50px 20px',
+  },
+  galleryViewItem: {
+    '&:focus': {
+      outline: 'none',
+    },
+    '&:hover': {
+      border: `2px solid ${theme.palette.secondary.main}`,
+      padding: theme.spacing(0.5),
+      transform: 'scale(1.05)',
+      transition: '.1s transform ease-out',
+    },
+    boxSizing: 'border-box',
+    cursor: 'pointer',
+    display: 'inline-block',
+    height: '160px',
+    margin: `${theme.spacing(1)}px ${theme.spacing(0.5)}px`,
+    maxWidth: '100px',
+    overflow: 'hidden',
+    padding: theme.spacing(0.5),
+    textOverflow: 'elipsis',
+    transition: '.1s transform ease-out',
+  },
+}));
+
 /**
  * Represents a WindowViewer in the mirador workspace. Responsible for mounting
  * OSD and Navigation
  */
 export const GalleryView: React.FC<IGalleryView> = (props): ReactElement => {
-  const {canvases, classes, setCanvas, window} = props;
+  const classes = useStyles()
+  const {canvases, setCanvas, window} = props;
   return (
     <>
       <section
@@ -34,8 +71,8 @@ export const GalleryView: React.FC<IGalleryView> = (props): ReactElement => {
                   )
                 }
                 key={canvas.index}
-                onClick={() => setCanvas(window.id, canvas.index)}
-                onKeyUp={() => setCanvas(window.id, canvas.index)}
+                onClick={() => setCanvas({canvasIndex: canvas.index, windowId: window.id})}
+                onKeyUp={() => setCanvas({canvasIndex: canvas.index, windowId: window.id, })}
                 role="button"
                 tabIndex={0}
               >

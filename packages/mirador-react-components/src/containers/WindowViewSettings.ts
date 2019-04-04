@@ -2,7 +2,6 @@ import { getWindowViewType, setWindowViewType } from '@mirador/core';
 import { WindowViewSettings } from '../components/WindowViewSettings';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { withPlugins } from '../extend';
 import { withStyles } from '@material-ui/core/styles';
 import { withTranslation } from 'react-i18next';
 

@@ -10,9 +10,8 @@ const context = useContext(ModernMosaicWindowContext);
 function createWrapper(props, context?: any) {
   return shallow(
     <Window
-      window={window}
       classes={{}}
-      t={k => k}
+      window={window}
       {...props}
     />,
     { context },
@@ -30,7 +29,7 @@ describe('Window', () => {
     y: 2700,
   };
   it('should render nothing, if provided with no window data', () => {
-    wrapper = shallow(<Window classes={null} focusWindow={null} label={null} manifest={null} t={k => k} window={null} workspaceType={null} />);
+    wrapper = shallow(<Window classes={null} focusWindow={null} label={null} manifest={null} window={null} workspaceType={null} />);
     expect(wrapper.find('.mirador-window')).toHaveLength(0);
   });
   it('should render outer element', () => {

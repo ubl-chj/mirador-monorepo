@@ -3,7 +3,6 @@ import CanvasGroupings from '../utils/CanvasGroupings';
 import { ThumbnailNavigation } from '../components/ThumbnailNavigation';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { withPlugins } from '../extend';
 import { withStyles } from '@material-ui/core/styles';
 import { withTranslation } from 'react-i18next';
 

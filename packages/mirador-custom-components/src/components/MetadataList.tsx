@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography'
 
 interface IMetadataList {
   labelValuePairs: []
-  labelValuePair:
+  labelValuePair?:
   {
     label: string,
     value: string
@@ -23,6 +23,7 @@ export const MetadataList: React.FC<IMetadataList> = (props): ReactElement => {
     <List>
       {labelValuePairs.reduce((acc, labelValuePair: IMetadataList["labelValuePair"], i) => acc.concat([
         <ListItem
+          component='li'
           dense
           disableGutters
           divider

@@ -6,19 +6,72 @@ import PrimaryWindow from '../containers/PrimaryWindow';
 import WindowTopBar from '../containers/WindowTopBar';
 import cn from 'classnames';
 import ns from '../config/css-ns';
+import {useTranslation} from "react-i18next"
+import {makeStyles} from "@material-ui/styles"
 
 interface IWindow {
   classes: any
   focusWindow: any
   label: any
   manifest: any
-  t: any
   window: any
   workspaceType: string
 }
 
+const useStyles = makeStyles(theme => ({
+  companionAreaBottom: {
+    display: 'flex',
+    flex: '0',
+    flexBasis: 'auto',
+    minHeight: 0,
+  },
+  companionAreaRight: {
+    display: 'flex',
+    flex: '0',
+    minHeight: 0,
+  },
+  middle: {
+    display: 'flex',
+    flex: '1',
+    flexDirection: 'row',
+    minHeight: 0,
+  },
+  middleLeft: {
+    display: 'flex',
+    flex: '1',
+    flexDirection: 'column',
+    minHeight: 0,
+  },
+  primaryWindow: {
+    display: 'flex',
+    flex: '1',
+    height: '300px',
+    minHeight: 0,
+    position: 'relative',
+  },
+  thumbnailArea: {
+    backgroundColor: theme.palette.primary.dark,
+  },
+  thumbnailAreaBottom: {
+  },
+  thumbnailAreaRight: {
+    minWidth: 100,
+  },
+  window: {
+    backgroundColor: theme.palette.primary.dark,
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
+    minHeight: 0,
+    overflow: 'hidden',
+    width: '100%',
+  },
+}));
+
 export const Window: React.FC<IWindow> = (props): ReactElement => {
-  const { manifest, window, workspaceType, focusWindow, label, classes, t } = props;
+  const {t} = useTranslation()
+  const classes = useStyles()
+  const {manifest, window, workspaceType, focusWindow, label} = props;
   const context = useContext(ModernMosaicWindowContext);
 
   /**

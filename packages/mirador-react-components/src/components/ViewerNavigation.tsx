@@ -2,15 +2,16 @@ import React, {ReactElement} from 'react';
 import MiradorMenuButton from '../containers/MiradorMenuButton';
 import NavigationIcon from '@material-ui/icons/PlayCircleOutlineSharp';
 import ns from '../config/css-ns';
+import {useTranslation} from "react-i18next"
 
 interface IViewerNavigation {
   canvases: any
   setCanvas: Function
-  t: Function
   window: any
 }
 
 export const ViewerNavigation: React.FC<IViewerNavigation> = (props): ReactElement => {
+  const {t} = useTranslation()
   const { canvases, window, setCanvas } = props;
   const hasPreviousCanvas = () => {
     return window.canvasIndex > 0;
@@ -35,7 +36,6 @@ export const ViewerNavigation: React.FC<IViewerNavigation> = (props): ReactEleme
       setCanvas(window.id, Math.max(0, window.canvasIndex - canvasIncrementor()));
     }
   }
-  const { t } = this.props;
 
   return (
     <div className={ns('osd-navigation')}>

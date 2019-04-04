@@ -16,6 +16,7 @@ export const FullScreenButton: React.FC<IFullScreenButton> = (props): ReactEleme
   return (
     <ListItem
       button={true}
+      component='li'
       style={{justifyContent: 'center'}}
     >
       <IconButton

@@ -5,21 +5,21 @@ import WorkspaceElastic from '../containers/WorkspaceElastic';
 import WorkspaceMosaic from '../containers/WorkspaceMosaic';
 import classNames from 'classnames';
 import ns from '../config/css-ns';
+import {useTranslation} from "react-i18next"
 
 interface IWorkspace {
   isFullscreenEnabled: boolean
   isWorkspaceControlPanelVisible: boolean
-  t: Function
   windows: any
   workspaceType: string
 }
+
 /**
  * Represents a work area that contains any number of windows
- * @memberof Workspace
- * @private
  */
 export const Workspace: React.FC<IWorkspace> = (props): ReactElement => {
-  const { isFullscreenEnabled, isWorkspaceControlPanelVisible, t, windows, workspaceType } = props;
+  const {t} = useTranslation()
+  const { isFullscreenEnabled, isWorkspaceControlPanelVisible, windows, workspaceType } = props;
   /**
    * Determine whether or not there are maximized windows
    */

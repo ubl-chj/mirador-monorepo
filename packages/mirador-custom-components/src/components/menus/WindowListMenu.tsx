@@ -67,8 +67,12 @@ export const WindowListMenu: React.FC<IWindowListMenu> = (props): ReactElement =
   }
 
   return (
-    <ListItem alignItems="flex-start">
+    <ListItem
+      alignItems="flex-start"
+      component='li'
+    >
       <IconButton
+        href=''
         onClick={(e) => handleClick(e)}
         style={{padding: '10px'}}
       >

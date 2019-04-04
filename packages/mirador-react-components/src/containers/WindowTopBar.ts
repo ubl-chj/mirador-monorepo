@@ -1,10 +1,6 @@
 import { getManifestTitle, maximizeWindow, minimizeWindow, removeWindow, toggleWindowSideBar } from '@mirador/core';
 import { WindowTopBar } from '../components/WindowTopBar';
-import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { withPlugins } from '../extend';
-import { withStyles } from '@material-ui/core';
-import { withTranslation } from 'react-i18next';
 
 /** mapStateToProps */
 const mapStateToProps = (state, { windowId }) => ({
@@ -27,35 +23,4 @@ const mapDispatchToProps = (dispatch, { windowId }) => ({
   toggleWindowSideBar: () => dispatch(toggleWindowSideBar({id: windowId})),
 });
 
-/**
- * @param theme
- * @returns {{typographyBody: {flexGrow: number, fontSize: number|string},
- * windowTopBarStyle: {minHeight: number, paddingLeft: number, backgroundColor: string}}}
- */
-const styles = theme => ({
-  focused: {
-    borderTop: `4px solid ${theme.palette.focused.main}`,
-  },
-  title: {
-    ...theme.typography.h6,
-    flexGrow: 1,
-    paddingLeft: theme.spacing.unit / 2,
-  },
-  windowTopBarStyle: {
-    '&$focused': {
-      borderTop: `4px solid ${theme.palette.secondary.main}`,
-    },
-    backgroundColor: theme.palette.primary.light,
-    minHeight: 32,
-    paddingLeft: theme.spacing.unit / 2,
-    paddingRight: theme.spacing.unit / 2,
-  },
-});
-
-const enhance: any = compose(
-  withTranslation(),
-  withStyles(styles),
-  connect(mapStateToProps, mapDispatchToProps),
-);
-
-export default enhance(WindowTopBar);
+export default connect(mapStateToProps, mapDispatchToProps)(WindowTopBar);

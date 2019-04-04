@@ -3,11 +3,11 @@ import AddCircleIcon from '@material-ui/icons/AddCircleOutlineSharp';
 import MiradorMenuButton from '../containers/MiradorMenuButton';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircleOutlineSharp';
 import {RestoreZoomIcon} from './icons';
+import {useTranslation} from "react-i18next"
+import {makeStyles} from "@material-ui/styles"
 
 interface IZoomControls {
-  classes: any
   showZoomControls: boolean
-  t: any
   updateViewport: any
   viewer: {
     x: number
@@ -17,10 +17,24 @@ interface IZoomControls {
   windowId: string
   zoomToWorld: any
 }
+
+const useStyles = makeStyles({
+  ListItem: {
+    paddingBottom: 0,
+    paddingTop: 0,
+  },
+  zoom_controls: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+});
+
 /**
  */
 export const ZoomControls: React.FC<IZoomControls> = (props): ReactElement => {
-  const {showZoomControls, classes, t, windowId, updateViewport, viewer, zoomToWorld} = props;
+  const classes = useStyles()
+  const {t} = useTranslation()
+  const {showZoomControls, windowId, updateViewport, viewer, zoomToWorld} = props;
 
   const handleZoomInClick = () => {
     updateViewport(windowId, {

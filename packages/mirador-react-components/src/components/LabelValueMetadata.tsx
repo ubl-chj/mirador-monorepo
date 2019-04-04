@@ -1,5 +1,4 @@
 import React, {ReactElement} from 'react';
-import PropTypes from 'prop-types';
 import { SanitizedHtml } from './SanitizedHtml';
 import Typography from '@material-ui/core/Typography';
 import ns from '../config/css-ns';

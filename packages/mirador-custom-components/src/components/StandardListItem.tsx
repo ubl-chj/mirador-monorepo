@@ -36,6 +36,7 @@ export const StandardListItem: React.FC<IStandardListItem> = (props): ReactEleme
         </div>
         <div className={bemBlocks.item('details')}>
           <Button
+            href=''
             onClick={
               () => setManifest(actions, manifestId) // tslint:disable-line
             }

@@ -1,7 +1,5 @@
 import { Workspace } from '../components/Workspace';
-import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { withTranslation } from 'react-i18next';
 
 const mapStateToProps = state => (
   {
@@ -12,8 +10,4 @@ const mapStateToProps = state => (
   }
 );
 
-const enhance: any = compose(
-  withTranslation(),
-  connect(mapStateToProps),
-);
-export default enhance(Workspace);
+export default connect(mapStateToProps)(Workspace);

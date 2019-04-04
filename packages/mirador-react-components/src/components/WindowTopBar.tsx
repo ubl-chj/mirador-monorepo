@@ -9,14 +9,14 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import WindowTopMenuButton from '../containers/WindowTopMenuButton';
 import classNames from 'classnames';
+import {makeStyles, useTheme} from "@material-ui/styles"
 import ns from '../config/css-ns';
+import {useTranslation} from "react-i18next"
 
 interface IWindowTopBar {
   removeWindow: any
   windowId: string
-  classes: any
   toggleWindowSideBar: any
-  t: any
   manifestTitle: string
   maximizeWindow: any
   maximized: boolean
@@ -25,12 +25,34 @@ interface IWindowTopBar {
   allowClose: boolean
   allowMaximize: boolean
 }
+
+const useStyles = makeStyles(theme => ({
+  focused: {
+    borderTop: `4px solid ${theme.palette.focused.main}`,
+  },
+  title: {
+    ...theme.typography.h6,
+    flexGrow: 1,
+    paddingLeft: theme.spacing(0.5),
+  },
+  windowTopBarStyle: {
+    '&$focused': {
+      borderTop: `4px solid ${theme.palette.secondary.main}`,
+    },
+    backgroundColor: theme.palette.primary.light,
+    minHeight: 32,
+    paddingLeft: theme.spacing(0.5),
+    paddingRight: theme.spacing(0.5),
+  },
+}));
+
 /**
  * WindowTopBar
  */
 export const WindowTopBar: React.FC<IWindowTopBar> = (props): ReactElement => {
-  const {
-    removeWindow, windowId, classes, toggleWindowSideBar, t, manifestTitle,
+  const classes = useStyles()
+  const {t} = useTranslation()
+  const {removeWindow, windowId, toggleWindowSideBar, manifestTitle,
     maximizeWindow, maximized, minimizeWindow, focused, allowClose, allowMaximize,
   } = props;
   return (
@@ -51,7 +73,10 @@ export const WindowTopBar: React.FC<IWindowTopBar> = (props): ReactElement => {
         <Typography className={classes.title} noWrap variant="h2">
           {manifestTitle}
         </Typography>
-        <WindowTopMenuButton className={ns('window-menu-btn')} windowId={windowId} />
+        <WindowTopMenuButton
+          className={ns('window-menu-btn')}
+          windowId={windowId}
+        />
         {allowMaximize && (
           <MiradorMenuButton
             aria-label={(maximized ? t('minimizeWindow') : t('maximizeWindow'))}

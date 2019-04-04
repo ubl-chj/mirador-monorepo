@@ -9,7 +9,7 @@ export const styles = (theme) => ({
   content: {
     flexGrow: 1,
     marginLeft: -drawerWidth,
-    padding: theme.spacing.unit * 3,
+    padding: theme.spacing(3),
     transition: theme.transitions.create('margin', {
       duration: theme.transitions.duration.leavingScreen,
       easing: theme.transitions.easing.sharp,

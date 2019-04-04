@@ -35,11 +35,11 @@ const rootConfig = {
         main: '#102027',
       },
       primary: {
-        contrastText: 'white',
+        contrastText: '#FFF',
         main: '#071e29',
       },
       secondary: {
-        contrastText: 'white',
+        contrastText: '#FFF',
         light: '#e6e4e4',
         main: '#37474f',
       },
@@ -47,7 +47,7 @@ const rootConfig = {
         main: '#2b691c59'
       },
       text: {
-        primary: 'black',
+        primary: '#000',
         secondary: 'gray'
       }
     },

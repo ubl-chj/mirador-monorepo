@@ -30,6 +30,7 @@ export const LanguageSelectionDialog: React.FC<ILanguageSelectionDialog> = (prop
     return languages.map((language) =>
       <MenuItem
         button={true}
+        component='li'
         key={language.locale} value={language.locale}
       >
         <ListItemText classes={{primary: classes.primary}}>{language.label}</ListItemText>

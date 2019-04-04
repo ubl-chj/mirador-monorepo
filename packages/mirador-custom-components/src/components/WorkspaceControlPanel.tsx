@@ -33,7 +33,7 @@ interface IWorkspaceControlPanel {
 export const WorkspaceControlPanelComponent: React.FC<IWorkspaceControlPanel> = (props): ReactElement => {
   return (
     <Drawer
-      PaperProps={{ style: { top: '64px', width: '76px' } }}
+      PaperProps={{ style: { top: '64px', width: '76px', zIndex: 500 } }}
       anchor="left"
       open={true}
       variant="permanent"

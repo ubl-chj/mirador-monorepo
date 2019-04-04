@@ -1,9 +1,7 @@
 import {setWindowSize, setWorkspaceViewportDimensions, setWorkspaceViewportPosition,
   toggleWorkspaceExposeMode, updateWindowPosition} from '@mirador/core';
 import {WorkspaceElastic} from '../components/WorkspaceElastic';
-import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { withPlugins } from '../extend';
 
 /**
  * mapStateToProps - to hook up connect

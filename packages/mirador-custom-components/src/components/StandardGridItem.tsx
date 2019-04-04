@@ -33,6 +33,7 @@ export const StandardGridItem: React.FC<IStandardGridItem> = (props): ReactEleme
       <>
         <div className={bemBlocks.item('poster')}>
           <Button
+            href=''
             onClick={() => setManifest(xProps, manifestId)}
           >
             <Image

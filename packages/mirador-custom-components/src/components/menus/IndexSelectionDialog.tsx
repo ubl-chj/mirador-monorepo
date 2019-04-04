@@ -37,7 +37,12 @@ export const IndexSelectionDialog: React.FC<IIndexSelectionDialog> = (props): Re
 
   const buildSelectOptions = (): any => {
     return Array.from(indexMap, ([key, value]) =>
-      <MenuItem key={key} value={key}>
+      <MenuItem
+        button={false}
+        component='li'
+        key={key}
+        value={key}
+      >
         <ListItemText classes={{primary: classes.primary}}>{value}</ListItemText>
       </MenuItem>)
   }

@@ -1,6 +1,5 @@
 import { fetchAnnotationWorker, fetchInfoResponseWorker, getSelectedCanvases } from '@mirador/core';
 import { WindowViewer } from '../components/WindowViewer';
-import { compose } from 'redux';
 import { connect } from 'react-redux';
 
 /**
@@ -25,9 +24,4 @@ const mapDispatchToProps = {
   fetchInfoResponseWorker,
 };
 
-
-const enhance: any = compose(
-  connect(mapStateToProps, mapDispatchToProps),
-);
-
-export default enhance(WindowViewer);
+export default connect(mapStateToProps, mapDispatchToProps)(WindowViewer);

@@ -106,7 +106,7 @@ export const PersistentDrawerLeft: React.FC<IPersistentDrawerLeftComponent> = (p
     return items.map((item) =>
       <ListItem
         button
-        component={props => <NavLink to={item.path} {...props} />}
+        component={React.forwardRef((props, ref) => <NavLink to={item.path} {...props} ref={ref} />) as any}
         key={item.index}
         style={{color: '#2f2c2c', textDecoration: 'none'}}
 
@@ -135,6 +135,7 @@ export const PersistentDrawerLeft: React.FC<IPersistentDrawerLeftComponent> = (p
               aria-label="Open drawer"
               className={classNames(classes.menuButton, open && classes.hide)}
               color="inherit"
+              href=''
               onClick={handleDrawerOpen}
             >
               <MenuIcon />
@@ -154,7 +155,9 @@ export const PersistentDrawerLeft: React.FC<IPersistentDrawerLeftComponent> = (p
           variant="persistent"
         >
           <div className={classes.drawerHeader}>
-            <IconButton onClick={handleDrawerClose}>
+            <IconButton
+              href=''
+              onClick={handleDrawerClose}>
               {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
             </IconButton>
           </div>

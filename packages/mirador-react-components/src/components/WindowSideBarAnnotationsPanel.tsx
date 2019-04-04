@@ -5,23 +5,39 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import { SanitizedHtml } from './SanitizedHtml';
 import Typography from '@material-ui/core/Typography';
+import {makeStyles, useTheme} from "@material-ui/styles"
 import ns from '../config/css-ns';
+import {useTranslation} from "react-i18next"
 
 interface IWindowSideBarAnnotationsPanel {
   annotations: any,
-  classes: any
   deselectAnnotation: Function
   id: string
   selectAnnotation: Function
   selectedAnnotationIds: string[]
-  t: Function
   windowId: string
 }
+
+const useStyles = makeStyles(theme => ({
+  section: {
+    borderBottom: '.5px solid rgba(0,0,0,0.25)',
+    paddingBottom: theme.spacing(1),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(1),
+    paddingTop: theme.spacing(2),
+  },
+  selectedAnnotation: {
+    backgroundColor: theme.palette.background.default,
+  },
+}));
+
 /**
  * WindowSideBarAnnotationsPanel ~
 */
 export const WindowSideBarAnnotationsPanel: React.FC<IWindowSideBarAnnotationsPanel> = (props): ReactElement => {
-  const {annotations, classes, deselectAnnotation, id, windowId, selectAnnotation, selectedAnnotationIds, t} = props;
+  const classes = useStyles()
+  const {t} = useTranslation()
+  const {annotations, deselectAnnotation, id, windowId, selectAnnotation, selectedAnnotationIds} = props;
   /**
    * Rreturn an array of sanitized annotation data
    */
@@ -36,6 +52,7 @@ export const WindowSideBarAnnotationsPanel: React.FC<IWindowSideBarAnnotationsPa
                   ? classes.selectedAnnotation
                   : null
               }
+              component='li'
               key={annotation.id}
               onClick={() => {
                 if (selectedAnnotationIds.includes(annotation.id)) {

@@ -1,18 +1,19 @@
 import React, {ReactElement} from 'react';
 import Typography from '@material-ui/core/Typography';
 import ns from '../config/css-ns';
+import {useTranslation} from "react-i18next"
 
 interface IViewerInfo {
   canvasCount: number
   canvasIndex: number
   canvasLabel: string
-  t: Function
 }
 /**
  *
  */
 export const ViewerInfo: React.FC<IViewerInfo> = (props): ReactElement => {
-  const {canvasCount, canvasIndex, canvasLabel, t} = props;
+  const {t} = useTranslation()
+  const {canvasCount, canvasIndex, canvasLabel} = props;
 
   return (
     <div className={ns('osd-info')}>

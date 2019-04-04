@@ -6,8 +6,8 @@ import Grid from '@material-ui/core/Grid'
 import {NavLink} from 'react-router-dom'
 import {PersistentDrawer} from '../api'
 import Typography from '@material-ui/core/Typography'
+import { makeStyles } from '@material-ui/styles'
 import {styles} from '../styles'
-import {withStyles} from '@material-ui/core/styles'
 
 interface ILandingComponent {
   classes: {
@@ -17,9 +17,10 @@ interface ILandingComponent {
   }
 }
 
+const useStyles = makeStyles(styles)
 
-const LandingComponent: React.FC<ILandingComponent> = (props): ReactElement => {
-  const {classes} = props
+const LandingComponent: React.FC<ILandingComponent> = (): ReactElement => {
+  const classes = useStyles()
 
   const cards = [
     {
@@ -81,4 +82,4 @@ const LandingComponent: React.FC<ILandingComponent> = (props): ReactElement => {
 }
 
 const drawer = (props) => { return (<PersistentDrawer component={<LandingComponent {...props}/>}/>) }
-export const Landing = withStyles(styles, { withTheme: true })(drawer)
+export const Landing = drawer

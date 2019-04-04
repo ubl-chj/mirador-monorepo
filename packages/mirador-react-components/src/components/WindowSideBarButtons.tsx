@@ -6,25 +6,59 @@ import InfoIcon from '@material-ui/icons/InfoSharp';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import Tooltip from '@material-ui/core/Tooltip';
+import {makeStyles} from "@material-ui/styles"
+import {useTranslation} from "react-i18next"
 
 interface IWindowSideBarButtons {
-  addCompanionWindow: any
-  classes: any
+  addCompanionWindow: Function
   hasAnnotations: boolean
+  id: string
   sideBarPanel: string
-  t: any
 }
-/**
- *
- */
+
+const useStyles = makeStyles(theme => ({
+  tab: {
+    '&:active': {
+      backgroundColor: theme.palette.action.active,
+    },
+    '&:hover': {
+      '@media (hover: none)': {
+        backgroundColor: 'transparent',
+      },
+      backgroundColor: theme.palette.action.hover,
+      textDecoration: 'none',
+      // Reset on touch devices, it doesn't add specificity
+    },
+    borderRight: '2px solid transparent',
+    minWidth: 'auto',
+  },
+  tabRipple: {
+    backgroundColor: theme.palette.action.active,
+  },
+  tabSelected: {
+    '&:hover': {
+      backgroundColor: theme.palette.tabSelected.main,
+    },
+    backgroundColor: theme.palette.tabSelected.main,
+    borderRight: `2px solid ${theme.palette.focused.main}`,
+  },
+  tabsFlexContainer: {
+    flexDirection: 'column',
+  },
+  tabsIndicator: {
+    display: 'none',
+  },
+}));
+
 export const WindowSideBarButtons: React.FC<IWindowSideBarButtons> = (props): ReactElement => {
-  /** */
-  const handleChange = (value) => {
-    const { addCompanionWindow, id } = this.props;
-    addCompanionWindow({content: value, id, position: 'left'});
+  const classes = useStyles()
+  const {t} = useTranslation()
+  const { addCompanionWindow, hasAnnotations, sideBarPanel } = props;
+
+  const handleChange = ({}, value) => { //eslint-disable-line
+    addCompanionWindow({content: value, position: 'left'});
   }
 
-  const { classes, hasAnnotations, sideBarPanel, t } = props;
   return (
     <Tabs
       aria-orientation="vertical"

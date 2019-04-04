@@ -1,18 +1,39 @@
 import React, {ReactElement} from 'react';
+import {makeStyles} from "@material-ui/styles"
 import Drawer from '@material-ui/core/Drawer';
 import WindowSideBarButtons from '../containers/WindowSideBarButtons';
 import classNames from 'classnames';
 
 interface IWindowsSideBar {
-  classes: any
   sideBarOpen: boolean
   windowId: string
 }
+
+const useStyles = makeStyles(theme => ({
+  drawer: {
+    flexShrink: 0,
+    height: '100%',
+    left: 0,
+    order: -1000,
+    zIndex: theme.zIndex.appBar - 1,
+  },
+  grow: {
+    flexGrow: 1,
+  },
+  paper: {
+    overflowX: 'hidden',
+    width: 48,
+  },
+  toolbar: theme.mixins.toolbar,
+}));
+
+
 /**
  * WindowSideBar
  */
 export const WindowSideBar: React.FC<IWindowsSideBar> = (props): ReactElement => {
-  const {classes, windowId, sideBarOpen} = props;
+  const classes = useStyles()
+  const {windowId, sideBarOpen} = props;
 
   return (
     <>
