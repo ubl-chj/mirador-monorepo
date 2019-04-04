@@ -12,7 +12,7 @@ interface IWorkspaceControlPanel {
   },
   focusWindow: typeof focusWindow
   focusedWindowId: string
-  isFullscreenEnabled: boolean,
+  enabled: boolean,
   isWorkspaceAddVisible: boolean,
   languages: {
     current: string,

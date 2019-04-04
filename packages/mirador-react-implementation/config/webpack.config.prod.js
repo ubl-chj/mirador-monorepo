@@ -143,6 +143,9 @@ module.exports = {
       },
       template: paths.appHtml,
     }),
+    new webpack.IgnorePlugin({
+      resourceRegExp: /@blueprintjs\/(core|icons)/, // ignore optional UI framework dependencies
+    }),
     new MiniCssExtractPlugin({
       chunkFilename: '[chunkhash:8].css',
       filename: '[name].[contenthash].css',

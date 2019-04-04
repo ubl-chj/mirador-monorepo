@@ -6,12 +6,12 @@ import ListItem from '@material-ui/core/ListItem'
 import {useTranslation} from 'react-i18next'
 
 interface IFullScreenButton {
-  isFullscreenEnabled: boolean,
+  enabled: boolean,
   setWorkspaceFullscreen: Function,
 }
 
 export const FullScreenButton: React.FC<IFullScreenButton> = (props): ReactElement => {
-  const {isFullscreenEnabled, setWorkspaceFullscreen} = props
+  const {enabled, setWorkspaceFullscreen} = props
   const {t} = useTranslation()
   return (
     <ListItem
@@ -20,11 +20,11 @@ export const FullScreenButton: React.FC<IFullScreenButton> = (props): ReactEleme
       style={{justifyContent: 'center'}}
     >
       <IconButton
-        aria-label={isFullscreenEnabled ? t('exitFullScreen') : t('workspaceFullScreen')}
+        aria-label={enabled ? t('exitFullScreen') : t('workspaceFullScreen')}
         href=''
-        onClick={() => setWorkspaceFullscreen(!isFullscreenEnabled)}
+        onClick={() => setWorkspaceFullscreen({enabled: !enabled})}
       >
-        {isFullscreenEnabled ? <FullscreenExitIcon /> : <FullscreenIcon />}
+        {enabled ? <FullscreenExitIcon /> : <FullscreenIcon />}
       </IconButton>
     </ListItem>
   )

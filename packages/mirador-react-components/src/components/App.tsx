@@ -1,9 +1,8 @@
 import React, {ReactElement, useEffect, useRef} from 'react';
-
 import Fullscreen from 'react-full-screen';
 import { I18nextProvider } from 'react-i18next';
 import {ThemeProvider} from '@material-ui/styles';
-import WorkspaceArea from '../containers/WorkspaceArea';
+import WorkspaceArea from '../containers/workspace/WorkspaceArea';
 import { createMuiTheme } from '@material-ui/core/styles';
 import i18n from '@mirador/i18n';
 import {setWorkspaceFullscreen} from '@mirador/core';
@@ -38,9 +37,9 @@ export const App: React.FC<IApp> = (props): ReactElement => {
   return (
     <Fullscreen
       enabled={enabled}
-      onChange={() => setWorkspaceFullscreen({enabled})}
+      onChange={() => setWorkspaceFullscreen({enabled: !enabled})}
     >
-      <I18nextProvider i18n={i18n}>
+      <I18nextProvider i18n={this.i18n}>
         <ThemeProvider theme={createMuiTheme(theme)}>
           <WorkspaceArea />
         </ThemeProvider>

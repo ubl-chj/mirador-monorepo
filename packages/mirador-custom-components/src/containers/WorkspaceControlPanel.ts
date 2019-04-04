@@ -24,8 +24,8 @@ const mapStateToProps = (state): any => (
   {
     currentLanguage: state.config.language,
     discovery: state.config.discovery,
+    enabled: state.workspace.enabled,
     focusedWindowId: state.workspace.focusedWindowId,
-    isFullscreenEnabled: state.workspace.isFullscreenEnabled,
     isWorkspaceAddVisible: state.workspace.isWorkspaceAddVisible,
     languages: getLanguagesFromConfigWithCurrent(state),
     manifests: state.manifests,

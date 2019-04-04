@@ -4,7 +4,7 @@ import en from './locales/en/translation.json';
 const i18n = require('i18next');
 
 // Load translations for each language
-const resources = {
+export const resources = {
   de,
   en,
 };

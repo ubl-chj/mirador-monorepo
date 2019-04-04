@@ -2,7 +2,6 @@ import {evalAddWindows, fetchManifestWorker, setWorkspaceAddVisibility} from '@m
 import {DiscoveryComponent} from '../components'
 import {connect} from 'react-redux'
 
-
 const mapStateToProps = (state): any => (
   {
     discovery: state.config.discovery,

@@ -1,9 +1,9 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import Window from '../../containers/Window';
-import { Workspace } from '../Workspace';
-import WorkspaceElastic from '../../containers/WorkspaceElastic';
-import WorkspaceMosaic from '../../containers/WorkspaceMosaic';
+import Window from '../../containers/workspace/window/Window';
+import { Workspace } from '../workspace/Workspace';
+import WorkspaceElastic from '../../containers/workspace/WorkspaceElastic';
+import WorkspaceMosaic from '../../containers/workspace/WorkspaceMosaic';
 import { shallow } from 'enzyme';
 
 const windows = { 1: { id: 1 }, 2: { id: 2 } };
