@@ -1,5 +1,5 @@
 import {getAnnotationResourcesByMotivation, toggleAnnotationDisplay} from '@mirador/core';
-import { AnnotationSettings } from '../components/AnnotationSettings';
+import { AnnotationSettings } from '../../components/window-side-bar/AnnotationSettings';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state, { windowId }) => ({

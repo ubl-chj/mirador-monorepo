@@ -1,11 +1,6 @@
-import { WindowTopMenu } from '../components/WindowTopMenu';
+import { WindowTopMenu } from '../../components/window-top-menu/WindowTopMenu';
 import { connect } from 'react-redux';
 
-/**
- * mapStateToProps - to hook up connect
- * @memberof WindowTopMenu
- * @private
- */
 const mapStateToProps = state => ({
   containerId: state.config.id,
 });

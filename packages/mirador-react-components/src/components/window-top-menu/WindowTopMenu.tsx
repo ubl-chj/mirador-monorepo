@@ -1,8 +1,8 @@
 import React, {ReactElement} from 'react';
 import Menu from '@material-ui/core/Menu';
-import WindowThumbnailSettings from '../containers/WindowThumbnailSettings';
-import WindowViewSettings from '../containers/WindowViewSettings';
-import ns from '../config/css-ns';
+import WindowThumbnailSettings from '../../containers/window-top-menu/WindowThumbnailSettings';
+import WindowViewSettings from '../../containers/window-top-menu/WindowViewSettings';
+import ns from '../../config/css-ns';
 
 interface IWindowTopMenu {
   containerId: string

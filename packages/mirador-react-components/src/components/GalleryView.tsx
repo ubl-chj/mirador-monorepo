@@ -1,5 +1,5 @@
 import React, {ReactElement} from 'react';
-import { CanvasThumbnail } from './CanvasThumbnail';
+import { CanvasThumbnail } from './window-side-bar/CanvasThumbnail';
 import ManifestoCanvas from '../utils/ManifestoCanvas';
 import Typography from '@material-ui/core/Typography';
 import classNames from 'classnames';

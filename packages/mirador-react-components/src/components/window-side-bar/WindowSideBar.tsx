@@ -1,8 +1,8 @@
 import React, {ReactElement} from 'react';
-import {makeStyles} from "@material-ui/styles"
 import Drawer from '@material-ui/core/Drawer';
-import WindowSideBarButtons from '../containers/WindowSideBarButtons';
+import WindowSideBarButtons from '../../containers/window-side-bar/WindowSideBarButtons';
 import classNames from 'classnames';
+import {makeStyles} from "@material-ui/styles"
 
 interface IWindowsSideBar {
   sideBarOpen: boolean

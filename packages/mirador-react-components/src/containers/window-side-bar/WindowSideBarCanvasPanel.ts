@@ -2,7 +2,7 @@ import {
   getManifestCanvases,
   setCanvas
 } from '@mirador/core';
-import { WindowSideBarCanvasPanel } from '../components/WindowSideBarCanvasPanel';
+import { WindowSideBarCanvasPanel } from '../../components/window-side-bar/WindowSideBarCanvasPanel';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state, { windowId }) => {

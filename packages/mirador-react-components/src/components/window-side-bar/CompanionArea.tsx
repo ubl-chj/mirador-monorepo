@@ -1,7 +1,7 @@
 import React, {ReactElement} from 'react';
-import CompanionWindowFactory from '../containers/CompanionWindowFactory';
+import CompanionWindowFactory from '../../containers/window-side-bar/CompanionWindowFactory';
 import {makeStyles} from '@material-ui/styles'
-import ns from '../config/css-ns';
+import ns from '../../config/css-ns';
 
 interface ICompanionArea {
   classes: any

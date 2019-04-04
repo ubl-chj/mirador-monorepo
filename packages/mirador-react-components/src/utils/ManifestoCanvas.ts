@@ -10,19 +10,14 @@ export default class ManifestoCanvas {
     this.canvas = canvas;
   }
 
-  /**
-   */
   public get canonicalImageUri() {
     return this.canvas.getCanonicalImageUri();
   }
 
-  /**
-   */
   public get aspectRatio() {
     return this.canvas.getWidth() / this.canvas.getHeight();
   }
 
-  /** */
   public get annotationListUris() {
     return flatten(
       new Array(this.canvas.__jsonld.otherContent), // eslint-disable-line no-underscore-dangle
@@ -31,8 +26,6 @@ export default class ManifestoCanvas {
       .map(otherContent => otherContent['@id']);
   }
 
-  /**
-   */
   public get imageInformationUri() {
     if (!(
       this.canvas.getImages()[0]

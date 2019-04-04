@@ -25,9 +25,6 @@ export class OpenSeadragonViewer extends Component<IOpenSeadragonViewer> {
   private updateCanvas: any
   private viewer: any
 
-  /**
-   * @param {Object} props
-   */
   public constructor(props) {
     super(props);
 
@@ -41,9 +38,6 @@ export class OpenSeadragonViewer extends Component<IOpenSeadragonViewer> {
     this.zoomToWorld = this.zoomToWorld.bind(this);
   }
 
-  /**
-   * React lifecycle event
-   */
   public componentDidMount() {
     const { tileSources, viewer } = this.props;
     if (!this.ref.current) {
@@ -160,8 +154,6 @@ export class OpenSeadragonViewer extends Component<IOpenSeadragonViewer> {
     });
   }
 
-  /**
-   */
   private addTileSource(tileSource, i = 0) {
     const { canvasWorld } = this.props;
     return new Promise((resolve, reject) => {
@@ -179,8 +171,6 @@ export class OpenSeadragonViewer extends Component<IOpenSeadragonViewer> {
     });
   }
 
-  /**
-   */
   private fitBounds(x?, y?, w?, h?, immediately: boolean = true) {
     this.viewer.viewport.fitBounds(
       new OpenSeadragon.Rect(x, y, w, h),
@@ -238,9 +228,6 @@ export class OpenSeadragonViewer extends Component<IOpenSeadragonViewer> {
     });
   }
 
-  /**
-   * Renders things
-   */
   public render() {
     const {
       windowId, children, classes, label, t,

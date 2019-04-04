@@ -1,10 +1,10 @@
 import React, {ReactElement} from 'react';
-import CompanionWindow from '../containers/CompanionWindow';
+import CompanionWindow from '../../containers/window-side-bar/CompanionWindow';
 import {MetadataList} from '@mirador/custom-components'
-import { SanitizedHtml } from './SanitizedHtml';
+import { SanitizedHtml } from '../SanitizedHtml';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from "@material-ui/styles"
-import ns from '../config/css-ns';
+import ns from '../../config/css-ns';
 import {useTranslation} from "react-i18next"
 
 interface IWindowSideBarInfoPanel {

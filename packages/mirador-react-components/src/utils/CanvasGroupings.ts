@@ -10,8 +10,6 @@ export default class CanvasGroupings {
     this._groupings = null; // eslint-disable-line no-underscore-dangle
   }
 
-  /**
-   */
   public getCanvases(index) {
     if (this.viewType === 'book') {
       return this.groupings()[Math.ceil(index / 2)];

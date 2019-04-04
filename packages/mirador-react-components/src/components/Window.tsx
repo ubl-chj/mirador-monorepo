@@ -1,13 +1,13 @@
 import React, {ReactElement, useContext} from 'react';
-import CompanionArea from '../containers/CompanionArea';
+import CompanionArea from '../containers/window-side-bar/CompanionArea';
 import {ModernMosaicWindowContext} from 'react-mosaic-component';
 import Paper from '@material-ui/core/Paper';
 import PrimaryWindow from '../containers/PrimaryWindow';
 import WindowTopBar from '../containers/WindowTopBar';
 import cn from 'classnames';
+import {makeStyles} from "@material-ui/styles"
 import ns from '../config/css-ns';
 import {useTranslation} from "react-i18next"
-import {makeStyles} from "@material-ui/styles"
 
 interface IWindow {
   classes: any

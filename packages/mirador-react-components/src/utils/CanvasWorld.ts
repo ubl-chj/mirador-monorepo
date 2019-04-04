@@ -29,7 +29,6 @@ export default class CanvasWorld {
     ];
   }
 
-  /** */
   public indexOfTarget(canvasTarget) {
     return this.canvases.map(canvas => canvas.id).indexOf(canvasTarget);
   }

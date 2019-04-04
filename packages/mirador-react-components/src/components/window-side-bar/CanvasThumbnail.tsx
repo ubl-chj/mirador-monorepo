@@ -58,7 +58,6 @@ export class CanvasThumbnail extends Component<ICanvasThumbnail> {
     return this.defaultImgPlaceholder;
   }
 
-  /** */
   private imageConstraints() {
     const {
       maxHeight, maxWidth, aspectRatio,
@@ -72,9 +71,6 @@ export class CanvasThumbnail extends Component<ICanvasThumbnail> {
     return undefined;
   }
 
-  /**
-   *
-  */
   private imageStyles() {
     const {
       maxHeight, maxWidth, aspectRatio, style,
@@ -118,8 +114,6 @@ export class CanvasThumbnail extends Component<ICanvasThumbnail> {
     };
   }
 
-  /**
-   */
   public render() {
     return (
       <>

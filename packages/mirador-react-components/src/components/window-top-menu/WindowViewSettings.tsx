@@ -1,4 +1,4 @@
-import {BookViewIcon, GalleryViewIcon} from './icons';
+import {BookViewIcon, GalleryViewIcon} from '../icons';
 import React, { Component } from 'react';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ListSubheader from '@material-ui/core/ListSubheader';
@@ -19,9 +19,7 @@ interface IWindowViewSettings {
  */
 export class WindowViewSettings extends Component<IWindowViewSettings> {
   private selectedRef: any
-  /**
-   * constructor -
-   */
+
   public constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
@@ -37,29 +35,18 @@ export class WindowViewSettings extends Component<IWindowViewSettings> {
     }
   }
 
-  /**
-   * @private
-   */
   private handleSelectedRef(ref) {
     if (this.selectedRef) return;
 
     this.selectedRef = ref;
   }
 
-  /**
-   * @private
-   */
   private handleChange(value) {
     const { windowId, setWindowViewType } = this.props;
 
     setWindowViewType(windowId, value);
   }
 
-  /**
-   * render
-   *
-   * @return {type}  description
-   */
   public render() {
     const {
       classes, handleClose, t, windowViewType,

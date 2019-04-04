@@ -1,11 +1,11 @@
 import React, {ReactElement, useState} from 'react';
 import { CanvasThumbnail } from './CanvasThumbnail';
-import CompanionWindow from '../containers/CompanionWindow';
+import CompanionWindow from '../../containers/window-side-bar/CompanionWindow';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ManifestoCanvas from '../utils/ManifestoCanvas';
+import ManifestoCanvas from '../../utils/ManifestoCanvas';
 import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
 import classNames from 'classnames';

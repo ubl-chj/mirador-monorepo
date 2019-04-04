@@ -1,12 +1,12 @@
 import React, {ReactElement} from 'react';
-import AnnotationSettings from '../containers/AnnotationSettings';
-import CompanionWindow from '../containers/CompanionWindow';
+import AnnotationSettings from '../../containers/window-side-bar/AnnotationSettings';
+import CompanionWindow from '../../containers/window-side-bar/CompanionWindow';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import { SanitizedHtml } from './SanitizedHtml';
+import { SanitizedHtml } from '../SanitizedHtml';
 import Typography from '@material-ui/core/Typography';
-import {makeStyles, useTheme} from "@material-ui/styles"
-import ns from '../config/css-ns';
+import {makeStyles} from "@material-ui/styles"
+import ns from '../../config/css-ns';
 import {useTranslation} from "react-i18next"
 
 interface IWindowSideBarAnnotationsPanel {

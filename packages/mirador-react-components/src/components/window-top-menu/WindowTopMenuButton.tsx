@@ -1,7 +1,7 @@
 import React, {ReactElement, useState} from 'react';
-import MiradorMenuButton from '../containers/MiradorMenuButton';
+import MiradorMenuButton from '../../containers/MiradorMenuButton';
 import MoreVertIcon from '@material-ui/icons/MoreVertSharp';
-import WindowTopMenu from '../containers/WindowTopMenu';
+import WindowTopMenu from '../../containers/window-top-menu/WindowTopMenu';
 import {makeStyles} from "@material-ui/styles"
 import {useTranslation} from "react-i18next"
 

@@ -7,9 +7,9 @@ import MenuIcon from '@material-ui/icons/MenuSharp';
 import MiradorMenuButton from '../containers/MiradorMenuButton';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import WindowTopMenuButton from '../containers/WindowTopMenuButton';
+import WindowTopMenuButton from '../containers/window-top-menu/WindowTopMenuButton';
 import classNames from 'classnames';
-import {makeStyles, useTheme} from "@material-ui/styles"
+import {makeStyles} from "@material-ui/styles"
 import ns from '../config/css-ns';
 import {useTranslation} from "react-i18next"
 

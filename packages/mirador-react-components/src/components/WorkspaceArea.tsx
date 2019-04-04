@@ -1,10 +1,9 @@
 import { DiscoveryContainer, WorkspaceControlPanel } from '@mirador/custom-components';
 import React, {ReactElement} from 'react';
-import { makeStyles } from '@material-ui/styles'
 import Workspace from '../containers/Workspace';
 import classNames from 'classnames';
+import { makeStyles } from '@material-ui/styles'
 import ns from '../config/css-ns';
-
 import {useTranslation} from "react-i18next"
 
 interface IWorkspaceArea {
@@ -18,10 +17,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-/**
- * This is the top level Mirador component.
- * @prop {Object} manifests
- */
 export const WorkspaceArea: React.FC<IWorkspaceArea> = (props): ReactElement => {
   const classes = useStyles()
   const {t} = useTranslation()

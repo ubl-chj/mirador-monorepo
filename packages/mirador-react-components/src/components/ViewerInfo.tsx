@@ -8,9 +8,7 @@ interface IViewerInfo {
   canvasIndex: number
   canvasLabel: string
 }
-/**
- *
- */
+
 export const ViewerInfo: React.FC<IViewerInfo> = (props): ReactElement => {
   const {t} = useTranslation()
   const {canvasCount, canvasIndex, canvasLabel} = props;

@@ -1,6 +1,6 @@
 import React, {ReactElement} from 'react';
-import {makeStyles} from "@material-ui/styles"
 import classNames from 'classnames';
+import {makeStyles} from "@material-ui/styles"
 import {useTranslation} from "react-i18next"
 
 interface IMosaicRenderPreview {

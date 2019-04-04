@@ -1,5 +1,5 @@
 import {removeCompanionWindow, updateCompanionWindow} from '@mirador/core';
-import { CompanionWindow } from '../components/CompanionWindow';
+import { CompanionWindow } from '../../components/window-side-bar/CompanionWindow';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state, { id }) => {

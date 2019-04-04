@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import { CanvasThumbnail } from './CanvasThumbnail';
-import CanvasWorld from '../utils/CanvasWorld';
+import CanvasWorld from '../../utils/CanvasWorld';
 import Grid from 'react-virtualized/dist/commonjs/Grid';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import ManifestoCanvas from '../utils/ManifestoCanvas';
+import ManifestoCanvas from '../../utils/ManifestoCanvas';
 import Typography from '@material-ui/core/Typography';
 import classNames from 'classnames';
-import ns from '../config/css-ns';
+import ns from '../../config/css-ns';
 
 interface IThumbnailNavigation {
   canvasGroupings: any
@@ -19,8 +19,7 @@ interface IThumbnailNavigation {
   t: Function
   window: any
 }
-/**
- */
+
 export class ThumbnailNavigation extends Component<IThumbnailNavigation> {
   private scrollbarSize: number
   private spacing: number
@@ -207,7 +206,6 @@ export class ThumbnailNavigation extends Component<IThumbnailNavigation> {
     }
   }
 
-  /** */
   private rightWidth() {
     const { window, config } = this.props;
     if (window.view === 'book') {
@@ -217,7 +215,6 @@ export class ThumbnailNavigation extends Component<IThumbnailNavigation> {
     }
   }
 
-  /** */
   private columnCount() {
     const { position, canvasGroupings } = this.props;
     if (position === 'far-right') {
@@ -227,7 +224,6 @@ export class ThumbnailNavigation extends Component<IThumbnailNavigation> {
     }
   }
 
-  /** */
   private rowCount() {
     const { position, canvasGroupings } = this.props;
     if (position === 'far-right') {
@@ -237,7 +233,6 @@ export class ThumbnailNavigation extends Component<IThumbnailNavigation> {
     }
   }
 
-  /** */
   private areaHeight(height) {
     const { config, position } = this.props;
     if (position === 'far-right') {
@@ -247,9 +242,6 @@ export class ThumbnailNavigation extends Component<IThumbnailNavigation> {
     }
   }
 
-  /**
-   * Renders things
-   */
   public render() {
     const { t, position } = this.props;
     if (position === 'off') {

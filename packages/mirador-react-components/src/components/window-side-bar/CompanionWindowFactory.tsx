@@ -1,8 +1,8 @@
 import React, {ReactElement} from 'react';
-import ThumbnailNavigation from '../containers/ThumbnailNavigation';
-import WindowSideBarAnnotationsPanel from '../containers/WindowSideBarAnnotationsPanel';
-import WindowSideBarCanvasPanel from '../containers/WindowSideBarCanvasPanel';
-import WindowSideBarInfoPanel from '../containers/WindowSideBarInfoPanel';
+import ThumbnailNavigation from '../../containers/window-side-bar/ThumbnailNavigation';
+import WindowSideBarAnnotationsPanel from '../../containers/window-side-bar/WindowSideBarAnnotationsPanel';
+import WindowSideBarCanvasPanel from '../../containers/window-side-bar/WindowSideBarCanvasPanel';
+import WindowSideBarInfoPanel from '../../containers/window-side-bar/WindowSideBarInfoPanel';
 
 interface ICompanionWindowFactory {
   content: string

@@ -1,13 +1,13 @@
 import React, {ReactElement} from 'react';
-import {ThumbnailNavigationBottomIcon, ThumbnailNavigationRightIcon} from './icons';
+import {ThumbnailNavigationBottomIcon, ThumbnailNavigationRightIcon} from '../icons';
 import CloseIcon from '@material-ui/icons/CloseSharp';
-import MiradorMenuButton from '../containers/MiradorMenuButton';
+import MiradorMenuButton from '../../containers/MiradorMenuButton';
 import OpenInNewIcon from '@material-ui/icons/OpenInNewSharp';
 import Paper from '@material-ui/core/Paper';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/styles'
-import ns from '../config/css-ns';
+import ns from '../../config/css-ns';
 import {useTranslation} from "react-i18next"
 
 interface ICompanionWindow {

@@ -1,5 +1,5 @@
 import React, {ReactElement} from 'react';
-import {ThumbnailNavigationBottomIcon, ThumbnailNavigationRightIcon} from './icons';
+import {ThumbnailNavigationBottomIcon, ThumbnailNavigationRightIcon} from '../icons';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -28,9 +28,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-/**
- *
- */
 export const WindowThumbnailSettings: React.FC<IWindowThumbnailSettings> = (props): ReactElement => {
   const classes = useStyles()
   const {t} = useTranslation()

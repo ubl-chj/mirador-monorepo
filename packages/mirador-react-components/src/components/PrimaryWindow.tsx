@@ -1,7 +1,7 @@
 import React, {ReactElement} from 'react';
-import CompanionArea from '../containers/CompanionArea';
+import CompanionArea from '../containers/window-side-bar/CompanionArea';
 import GalleryView from '../containers/GalleryView';
-import WindowSideBar from '../containers/WindowSideBar';
+import WindowSideBar from '../containers/window-side-bar/WindowSideBar';
 import WindowViewer from '../containers/WindowViewer';
 
 import ns from '../config/css-ns';

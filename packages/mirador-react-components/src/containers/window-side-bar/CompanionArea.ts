@@ -1,5 +1,5 @@
 import { getCompanionWindowsOfWindow, setCompanionAreaOpen } from '@mirador/core';
-import { CompanionArea } from '../components/CompanionArea';
+import { CompanionArea } from '../../components/window-side-bar/CompanionArea';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state, { windowId, position }) => ({

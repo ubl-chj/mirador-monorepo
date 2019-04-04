@@ -1,7 +1,7 @@
-import { compose } from 'redux';
-import { connect } from 'react-redux';
 import { getLanguagesFromConfigWithCurrent, updateConfig } from '@mirador/core';
 import { LanguageSettings } from '../../components/control-panel/LanguageSettings';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import { withPlugins } from '../../extend';
 
 /**

@@ -1,7 +1,7 @@
 import React, {ReactElement} from 'react';
 import AnnotationIcon from '@material-ui/icons/CommentSharp';
 import Badge from '@material-ui/core/Badge';
-import {CanvasIndexIcon} from './icons';
+import {CanvasIndexIcon} from '../icons';
 import InfoIcon from '@material-ui/icons/InfoSharp';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';

@@ -1,4 +1,4 @@
-import { WindowSideBar } from '../components/WindowSideBar';
+import { WindowSideBar } from '../../components/window-side-bar/WindowSideBar';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state, props) => (

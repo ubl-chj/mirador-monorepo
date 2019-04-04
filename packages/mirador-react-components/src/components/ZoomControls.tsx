@@ -3,8 +3,8 @@ import AddCircleIcon from '@material-ui/icons/AddCircleOutlineSharp';
 import MiradorMenuButton from '../containers/MiradorMenuButton';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircleOutlineSharp';
 import {RestoreZoomIcon} from './icons';
-import {useTranslation} from "react-i18next"
 import {makeStyles} from "@material-ui/styles"
+import {useTranslation} from "react-i18next"
 
 interface IZoomControls {
   showZoomControls: boolean

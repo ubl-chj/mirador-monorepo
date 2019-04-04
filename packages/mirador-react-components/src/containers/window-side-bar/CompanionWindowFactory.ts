@@ -1,4 +1,4 @@
-import { CompanionWindowFactory } from '../components/CompanionWindowFactory';
+import { CompanionWindowFactory } from '../../components/window-side-bar/CompanionWindowFactory';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state, { id }) => {

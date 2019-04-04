@@ -3,11 +3,6 @@ import {setWindowSize, setWorkspaceViewportDimensions, setWorkspaceViewportPosit
 import {WorkspaceElastic} from '../components/WorkspaceElastic';
 import { connect } from 'react-redux';
 
-/**
- * mapStateToProps - to hook up connect
- * @memberof Workspace
- * @private
- */
 const mapStateToProps = state => (
   {
     windows: state.windows,
@@ -15,11 +10,6 @@ const mapStateToProps = state => (
   }
 );
 
-/**
- * mapDispatchToProps - used to hook up connect to action creators
- * @memberof Workspace
- * @private
- */
 const mapDispatchToProps = (dispatch) => ({
   setWindowSize: (windowId, size) => {
     dispatch(

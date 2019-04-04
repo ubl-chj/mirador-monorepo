@@ -7,8 +7,7 @@ interface ISanitizedHtml {
   htmlString: string
   ruleSet: string
 }
-/**
-*/
+
 export const SanitizedHtml: React.FC<ISanitizedHtml> = (props): ReactElement => {
   const { htmlString, ruleSet } = props;
   return (

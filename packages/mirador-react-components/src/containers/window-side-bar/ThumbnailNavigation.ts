@@ -1,16 +1,11 @@
 import { getManifestCanvases, setCanvas } from '@mirador/core';
-import CanvasGroupings from '../utils/CanvasGroupings';
-import { ThumbnailNavigation } from '../components/ThumbnailNavigation';
+import CanvasGroupings from '../../utils/CanvasGroupings';
+import { ThumbnailNavigation } from '../../components/window-side-bar/ThumbnailNavigation';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import { withTranslation } from 'react-i18next';
 
-/**
- * mapStateToProps - used to hook up state to props
- * @memberof ThumbnailNavigation
- * @private
- */
 const mapStateToProps = ({
   companionWindows, config, manifests, windows,
 }, { windowId }) => ({
@@ -26,18 +21,10 @@ const mapStateToProps = ({
   window: windows[windowId],
 });
 
-/**
- * mapDispatchToProps - used to hook up connect to action creators
- * @memberof ThumbnailNavigation
- * @private
- */
 const mapDispatchToProps = {
   setCanvas,
 };
 
-/**
- * Styles for withStyles HOC
- */
 const styles = theme => ({
   canvas: {
     '&$currentCanvas': {

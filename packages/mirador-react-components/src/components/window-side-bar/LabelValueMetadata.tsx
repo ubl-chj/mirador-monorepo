@@ -1,7 +1,7 @@
 import React, {ReactElement} from 'react';
-import { SanitizedHtml } from './SanitizedHtml';
+import { SanitizedHtml } from '../SanitizedHtml';
 import Typography from '@material-ui/core/Typography';
-import ns from '../config/css-ns';
+import ns from '../../config/css-ns';
 
 interface ILabelValueMetadata {
   labelValuePairs: any

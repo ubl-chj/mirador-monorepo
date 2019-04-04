@@ -99,9 +99,6 @@ export class WindowViewer extends Component<IWindowViewer> {
     return [];
   }
 
-  /**
-   * Renders things
-   */
   public render() {
     const { window } = this.props;
     return (

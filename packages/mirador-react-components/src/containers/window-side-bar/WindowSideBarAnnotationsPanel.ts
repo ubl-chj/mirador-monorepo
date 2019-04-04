@@ -4,7 +4,7 @@ import {
   getSelectedAnnotationIds,
   selectAnnotation
 } from '@mirador/core';
-import { WindowSideBarAnnotationsPanel } from '../components/WindowSideBarAnnotationsPanel';
+import { WindowSideBarAnnotationsPanel } from '../../components/window-side-bar/WindowSideBarAnnotationsPanel';
 import { connect } from 'react-redux';
 
 /**

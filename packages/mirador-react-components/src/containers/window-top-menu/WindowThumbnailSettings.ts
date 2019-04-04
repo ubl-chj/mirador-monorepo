@@ -1,5 +1,5 @@
 import { getThumbnailNavigationPosition, setWindowThumbnailPosition } from '@mirador/core';
-import { WindowThumbnailSettings } from '../components/WindowThumbnailSettings';
+import { WindowThumbnailSettings } from '../../components/window-top-menu/WindowThumbnailSettings';
 import { connect } from 'react-redux';
 
 const mapDispatchToProps = { setWindowThumbnailPosition };
