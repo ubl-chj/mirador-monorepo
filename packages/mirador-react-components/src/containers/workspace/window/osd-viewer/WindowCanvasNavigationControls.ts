@@ -8,7 +8,7 @@ const mapStateToProps = (state, { windowId }) => ({
     windowId,
   }),
   visible: state.workspace.focusedWindowId && state.workspace.focusedWindowId.windowId === windowId,
-  window: state.windows[windowId],
+  windowId,
 });
 
 export default connect(mapStateToProps)(WindowCanvasNavigationControls);

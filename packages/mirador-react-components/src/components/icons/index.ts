@@ -1,3 +1,5 @@
+export * from './ArrowLeftIcon'
+export * from './ArrowRightIcon'
 export * from './BookViewIcon'
 export * from './CanvasIndexIcon'
 export * from './GalleryViewIcon'

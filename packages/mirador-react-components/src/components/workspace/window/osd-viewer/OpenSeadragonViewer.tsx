@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import OpenSeadragon from 'openseadragon';
 import OpenSeadragonCanvasOverlay from '../../../../utils/OpenSeadragonCanvasOverlay';
 import Paper from '@material-ui/core/Paper';
+import ViewerNavigation from "../../../../containers/workspace/window/osd-viewer/ViewerNavigation"
 import ns from '../../../../config/css-ns';
 
 interface IOpenSeadragonViewer {
@@ -250,6 +251,7 @@ export class OpenSeadragonViewer extends Component<IOpenSeadragonViewer> {
           id={`${windowId}-osd`}
           ref={this.ref}
         >
+          <ViewerNavigation windowId={windowId}/>
           <Paper className={classes.controls} elevation={0} square>
             { enhancedChildren }
           </Paper>

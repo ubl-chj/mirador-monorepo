@@ -1,6 +1,6 @@
-import React, {ReactElement} from 'react';
+import {ArrowLeftIcon, ArrowRightIcon} from '../../../icons';
+import React, {ReactElement, useEffect, useState} from 'react';
 import MiradorMenuButton from '../../../../containers/MiradorMenuButton';
-import NavigationIcon from '@material-ui/icons/PlayCircleOutlineSharp';
 import ns from '../../../../config/css-ns';
 import {useTranslation} from "react-i18next"
 
@@ -10,9 +10,25 @@ interface IViewerNavigation {
   window: any
 }
 
+const arrowStyle = () => {
+  return {
+    background: 'rgba(66,66,66,0.54)',
+    borderRadius: '28px',
+    cursor: 'pointer',
+    height: '56px',
+    marginTop: '-28px',
+    right: '28px',
+    top: '50%',
+    width: '56px',
+    zIndex: 1000,
+  }
+}
+
 export const ViewerNavigation: React.FC<IViewerNavigation> = (props): ReactElement => {
   const {t} = useTranslation()
   const { canvases, window, setCanvas } = props;
+  const [keyPressed, setKeyPressed] = useState(false);
+
   const hasPreviousCanvas = () => {
     return window.canvasIndex > 0;
   }
@@ -44,16 +60,18 @@ export const ViewerNavigation: React.FC<IViewerNavigation> = (props): ReactEleme
         className={ns('previous-canvas-button')}
         disabled={!hasPreviousCanvas()}
         onClick={previousCanvas}
+        style={arrowStyle()}
       >
-        <NavigationIcon style={{ transform: 'rotate(180deg)' }} />
+        <ArrowLeftIcon />
       </MiradorMenuButton>
       <MiradorMenuButton
         aria-label={t('nextCanvas')}
         className={ns('next-canvas-button')}
         disabled={!hasNextCanvas()}
         onClick={nextCanvas}
+        style={arrowStyle()}
       >
-        <NavigationIcon />
+        <ArrowRightIcon />
       </MiradorMenuButton>
     </div>
   );

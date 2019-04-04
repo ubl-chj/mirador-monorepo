@@ -125,6 +125,13 @@
 
   &-osd-navigation {
     order: 1;
+    padding-left: 28px;
+    bottom: 50%;
+    z-index: 50;
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
   }
 
   &-osd-info {

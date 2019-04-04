@@ -2,8 +2,9 @@ import { getManifestCanvases, setCanvas } from '@mirador/core';
 import { ViewerNavigation } from '../../../../components/workspace/window/osd-viewer/ViewerNavigation';
 import { connect } from 'react-redux';
 
-const mapStateToProps = (state, { window }) => ({
-  canvases: getManifestCanvases(state, { windowId: window.id }),
+const mapStateToProps = (state, { windowId }) => ({
+  canvases: getManifestCanvases(state, { windowId }),
+  window: state.windows[windowId],
 });
 
 const mapDispatchToProps = {
