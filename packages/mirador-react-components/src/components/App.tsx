@@ -40,7 +40,7 @@ export const App: React.FC<IApp> = (props): ReactElement => {
       enabled={enabled}
       onChange={() => setWorkspaceFullscreen({enabled})}
     >
-      <I18nextProvider i18n={this.i18n}>
+      <I18nextProvider i18n={i18n}>
         <ThemeProvider theme={createMuiTheme(theme)}>
           <WorkspaceArea />
         </ThemeProvider>
