@@ -60,57 +60,51 @@ export const WindowSideBarButtons: React.FC<IWindowSideBarButtons> = (props): Re
   }
 
   return (
-    <Tabs
-      aria-orientation="vertical"
-      classes={{ flexContainer: classes.tabsFlexContainer, indicator: classes.tabsIndicator }}
-      indicatorColor="secondary"
-      onChange={handleChange}
-      textColor="secondary"
-      value={sideBarPanel === 'closed' ? false : sideBarPanel}
-      variant="fullWidth"
-    >
-      <Tab
-        TouchRippleProps={{ classes: { child: classes.tabRipple } }}
-        aria-label={
-          t('openInfoCompanionWindow')
-        }
-        classes={{ root: classes.tab, selected: classes.tabSelected }}
-        icon={(
-          <Tooltip title={t('openInfoCompanionWindow')}>
-            <InfoIcon />
-          </Tooltip>
-        )}
-        value="info"
-      />
-      <Tab
-        TouchRippleProps={{ classes: { child: classes.tabRipple } }}
-        aria-label={
-          t('openCanvasNavigationCompanionWindow')
-        }
-        classes={{ root: classes.tab, selected: classes.tabSelected }}
-        icon={(
-          <Tooltip title={t('openCanvasNavigationCompanionWindow')}>
-            <CanvasIndexIcon />
-          </Tooltip>
-        )}
-        value="canvas_navigation"
-      />
-      <Tab
-        TouchRippleProps={{ classes: { child: classes.tabRipple } }}
-        aria-label={
-          t('openAnnotationCompanionWindow')
-        }
-        classes={{ root: classes.tab, selected: classes.tabSelected }}
-        icon={(
-          <Tooltip title={t('openAnnotationCompanionWindow')}>
-            <Badge color="error" invisible={!hasAnnotations} variant="dot">
-              <AnnotationIcon />
-            </Badge>
-          </Tooltip>
-        )}
-        value="annotations"
-      />
-    </Tabs>
+    <>
+      {sideBarPanel && (
+        <Tabs aria-orientation="vertical"
+          classes={{flexContainer: classes.tabsFlexContainer, indicator: classes.tabsIndicator}}
+          indicatorColor="secondary"
+          onChange={handleChange}
+          textColor="secondary"
+          value={sideBarPanel === 'closed' ? false : sideBarPanel}
+          variant="fullWidth">
+          <Tab
+            TouchRippleProps={{classes: {child: classes.tabRipple}}}
+            aria-label={t('openInfoCompanionWindow')}
+            classes={{root: classes.tab, selected: classes.tabSelected}}
+            icon={(
+              <Tooltip title={t('openInfoCompanionWindow')}>
+                <InfoIcon/>
+              </Tooltip>
+            )}
+            value="info"/>
+          <Tab
+            TouchRippleProps={{classes: {child: classes.tabRipple}}}
+            aria-label={t('openCanvasNavigationCompanionWindow')}
+            classes={{root: classes.tab, selected: classes.tabSelected}}
+            icon={(
+              <Tooltip title={t('openCanvasNavigationCompanionWindow')}>
+                <CanvasIndexIcon/>
+              </Tooltip>
+            )}
+            value="canvas_navigation"/>
+          <Tab
+            TouchRippleProps={{classes: {child: classes.tabRipple}}}
+            aria-label={t('openAnnotationCompanionWindow')}
+            classes={{root: classes.tab, selected: classes.tabSelected}}
+            icon={(
+              <Tooltip title={t('openAnnotationCompanionWindow')}>
+                <Badge color="error" invisible={!hasAnnotations} variant="dot">
+                  <AnnotationIcon/>
+                </Badge>
+              </Tooltip>
+            )}
+            value="annotations"/>
+        </Tabs>
+      )
+      }
+      </>
   );
 }
 

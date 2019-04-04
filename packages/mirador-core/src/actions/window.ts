@@ -1,5 +1,5 @@
 import {
-  ADD_WINDOW,
+  ADD_WINDOW, FOCUS_WINDOW,
   MAXIMIZE_WINDOW,
   MINIMIZE_WINDOW,
   REMOVE_WINDOW,
@@ -16,6 +16,8 @@ import actionCreatorFactory from 'typescript-fsa';
 const actionCreator = actionCreatorFactory();
 
 export const addWindow = actionCreator<{companionWindows: any, window?: any}>(ADD_WINDOW)
+
+export const focusWindow = actionCreator<{position, windowId: string}>(FOCUS_WINDOW)
 
 export const maximizeWindow = actionCreator<{id: string}>(MAXIMIZE_WINDOW)
 

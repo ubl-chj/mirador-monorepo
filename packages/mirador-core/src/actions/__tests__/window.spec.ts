@@ -11,7 +11,7 @@ import {
   UPDATE_WINDOW,
   UPDATE_WINDOW_POSITION,
   evalAddWindows,
-  focusWindow,
+  focusWindowWorker,
   maximizeWindow,
   minimizeWindow,
   removeWindow,
@@ -56,7 +56,7 @@ describe('window actions', () => {
 
       const mockDispatch = jest.fn(() => ({}));
       const mockGetState = jest.fn(() => mockState);
-      const thunk = focusWindow('window', true);
+      const thunk = focusWindowWorker({position: null, windowId: 'window'});
 
       thunk(mockDispatch, mockGetState);
 
@@ -81,7 +81,7 @@ describe('window actions', () => {
 
       const mockDispatch = jest.fn(() => ({}));
       const mockGetState = jest.fn(() => mockState);
-      const thunk = focusWindow('window');
+      const thunk = focusWindowWorker({position: null, windowId: 'window'});
 
       thunk(mockDispatch, mockGetState);
 

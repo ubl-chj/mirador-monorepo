@@ -5,6 +5,7 @@ import {
   FOCUS_WINDOW,
   UPDATE_COMPANION_WINDOW,
   addWindow,
+  focusWindow,
   removeWindow
 } from '../actions';
 import actionCreatorFactory from 'typescript-fsa';
@@ -108,7 +109,7 @@ export const fetchManifestWorker = bindThunkAction(fetchManifest,
   }
 );
 
-export const focusWindow = (windowId, pan = false) => {
+export const focusWindowWorker = (windowId, pan = false) => {
   return (dispatch, getState) => {
     const { windows, workspace } = getState();
 
@@ -124,10 +125,7 @@ export const focusWindow = (windowId, pan = false) => {
     } else {
       position = {};
     }
-    dispatch({
-      payload: {position, windowId},
-      type: FOCUS_WINDOW,
-    });
+    dispatch(focusWindow({position, windowId}))
   };
 }
 

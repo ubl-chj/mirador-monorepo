@@ -1,16 +1,15 @@
-import PrimaryWindow from '../../containers/workspace/window/PrimaryWindow';
 import React, {useContext} from 'react';
+import {ModernMosaicWindowContext} from 'react-mosaic-component';
+import PrimaryWindow from '../../containers/workspace/window/PrimaryWindow';
 import { Window } from '../../../src/components/workspace/window/Window';
 import WindowTopBar from '../../containers/workspace/window/WindowTopBar';
 import { shallow } from 'enzyme';
-import {ModernMosaicWindowContext} from 'react-mosaic-component';
 const context = useContext(ModernMosaicWindowContext);
 
 /** create wrapper */
 function createWrapper(props, context?: any) {
   return shallow(
     <Window
-      classes={{}}
       window={window}
       {...props}
     />,
@@ -29,7 +28,7 @@ describe('Window', () => {
     y: 2700,
   };
   it('should render nothing, if provided with no window data', () => {
-    wrapper = shallow(<Window classes={null} focusWindow={null} label={null} manifest={null} window={null} workspaceType={null} />);
+    wrapper = shallow(<Window focusWindow={null} label={null} manifest={null} window={null} workspaceType={null} />);
     expect(wrapper.find('.mirador-window')).toHaveLength(0);
   });
   it('should render outer element', () => {

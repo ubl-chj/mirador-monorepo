@@ -10,7 +10,6 @@ import ns from '../../../config/css-ns';
 import {useTranslation} from "react-i18next"
 
 interface IWindow {
-  classes: any
   focusWindow: any
   label: any
   manifest: any

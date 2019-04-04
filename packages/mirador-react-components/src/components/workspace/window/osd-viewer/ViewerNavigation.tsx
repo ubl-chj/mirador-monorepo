@@ -16,14 +16,6 @@ export const ViewerNavigation: React.FC<IViewerNavigation> = (props): ReactEleme
   const hasPreviousCanvas = () => {
     return window.canvasIndex > 0;
   }
-  const hasNextCanvas = () => {
-    return window.canvasIndex < canvases.length - this.canvasIncrementor();
-  }
-  const nextCanvas = () => {
-    if (hasNextCanvas()) {
-      setCanvas(window.id, window.canvasIndex + this.canvasIncrementor());
-    }
-  }
   const canvasIncrementor = () => {
     if (window.view === 'book') {
       return 2;
@@ -31,9 +23,17 @@ export const ViewerNavigation: React.FC<IViewerNavigation> = (props): ReactEleme
       return 1;
     }
   }
+  const hasNextCanvas = () => {
+    return window.canvasIndex < canvases.length - canvasIncrementor();
+  }
+  const nextCanvas = () => {
+    if (hasNextCanvas()) {
+      setCanvas({canvasIndex: window.canvasIndex + canvasIncrementor(), windowId: window.id});
+    }
+  }
   const previousCanvas = () => {
     if (hasPreviousCanvas()) {
-      setCanvas(window.id, Math.max(0, window.canvasIndex - canvasIncrementor()));
+      setCanvas({canvasIndex: Math.max(0, window.canvasIndex - canvasIncrementor()), windowId: window.id});
     }
   }
 

@@ -1,4 +1,5 @@
 import {
+  focusWindow,
   setWorkspaceAddVisibility,
   setWorkspaceFullscreen,
   setWorkspaceViewportPosition,
@@ -27,6 +28,13 @@ const initialState: IWorkspace = {
  * workspaceReducer
  */
 export const workspaceReducer = reducerWithInitialState(initialState)
+  .caseWithAction(focusWindow, (state, action: any) => ({
+    ...state,
+    focusedWindowId: action.payload.windowId,
+    viewportPosition: {
+      ...state.viewportPosition,
+      ...action.payload.position,
+    }}))
   .caseWithAction(setWorkspaceFullscreen, (state, action: any) => ({
     ...state, enabled: action.payload.enabled }))
   .caseWithAction(toggleZoomControls, (state, action: any) => ({

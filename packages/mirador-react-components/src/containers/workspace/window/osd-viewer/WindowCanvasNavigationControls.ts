@@ -7,7 +7,7 @@ const mapStateToProps = (state, { windowId }) => ({
     canvasIndex: 'selected',
     windowId,
   }),
-  visible: state.workspace.focusedWindowId === windowId,
+  visible: state.workspace.focusedWindowId && state.workspace.focusedWindowId.windowId === windowId,
   window: state.windows[windowId],
 });
 

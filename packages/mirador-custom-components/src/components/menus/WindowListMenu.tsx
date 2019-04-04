@@ -1,18 +1,18 @@
 import React, {ReactElement, useState} from 'react'
 import Badge from '@material-ui/core/Badge'
-import Bookmark from '@material-ui/icons/Bookmark'
 import IconButton from '@material-ui/core/IconButton'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
-import {focusWindow} from "@mirador/core"
+import Star from '@material-ui/icons/Star'
+import {focusWindowWorker} from "@mirador/core"
 import {useListItemTextStyles} from '../../hooks'
 import {useTranslation} from 'react-i18next'
 
 interface IWindowListMenu {
-  focusWindow: typeof focusWindow
-  focusedWindowId: string
+  focusWindowWorker: typeof focusWindowWorker
+  focusedWindowId: any
   manifests: {}
   titles: {}
   windows: {
@@ -22,12 +22,11 @@ interface IWindowListMenu {
   }
 }
 
-
 export const WindowListMenu: React.FC<IWindowListMenu> = (props): ReactElement => {
   const [anchorEl, setAnchorEl] = useState()
   const classes: any = useListItemTextStyles
   const {t} = useTranslation()
-  const {focusWindow, focusedWindowId, windows} = props
+  const {focusWindowWorker, focusedWindowId, windows} = props
   const windowCount = windows && Object.keys(windows).length
 
   const handleClick: any = (e): void => {
@@ -56,7 +55,7 @@ export const WindowListMenu: React.FC<IWindowListMenu> = (props): ReactElement =
           button={true}
           component='div'
           divider={true}
-          onClick={() => focusWindow(window.id)}
+          onClick={() => focusWindowWorker({windowId: window.id})}
         >
           <ListItemText className={classes.primary}>
             {titleContent(window)}
@@ -69,7 +68,8 @@ export const WindowListMenu: React.FC<IWindowListMenu> = (props): ReactElement =
   return (
     <ListItem
       alignItems="flex-start"
-      component='li'
+      button={true}
+      component='div'
     >
       <IconButton
         href=''
@@ -77,7 +77,7 @@ export const WindowListMenu: React.FC<IWindowListMenu> = (props): ReactElement =
         style={{padding: '10px'}}
       >
         <Badge badgeContent={windowCount}>
-          <Bookmark />
+          <Star />
         </Badge>
       </IconButton>
       <Menu
