@@ -18,9 +18,9 @@ import {
   setCompanionAreaOpen,
   setWindowSideBarPanel,
   setWindowSize,
-  setWindowThumbnailPosition,
   setWindowViewType,
   toggleWindowSideBar,
+  updateCompanionWindowWorker,
   updateWindow,
   updateWindowPosition
 } from '../../actions';
@@ -247,7 +247,7 @@ describe('window actions', () => {
 
       const mockDispatch = jest.fn(() => ({}));
       const mockGetState = jest.fn(() => mockState);
-      const thunk = setWindowThumbnailPosition('somewindow', 'right');
+      const thunk = updateCompanionWindowWorker({position: 'right', windowId: 'somewindow'});
 
       thunk(mockDispatch, mockGetState);
 

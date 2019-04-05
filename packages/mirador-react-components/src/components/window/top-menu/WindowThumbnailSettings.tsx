@@ -8,10 +8,8 @@ import {makeStyles} from "@material-ui/styles"
 import {useTranslation} from "react-i18next"
 
 interface IWindowThumbnailSettings {
-  classes: any
   handleClose: any
-  setWindowThumbnailPosition
-  t: any
+  updateCompanionWindowWorker
   thumbnailNavigationPosition: string
   windowId: string
 }
@@ -31,10 +29,10 @@ const useStyles = makeStyles(theme => ({
 export const WindowThumbnailSettings: React.FC<IWindowThumbnailSettings> = (props): ReactElement => {
   const classes = useStyles()
   const {t} = useTranslation()
-  const { handleClose, thumbnailNavigationPosition, windowId, setWindowThumbnailPosition } = props;
+  const { handleClose, thumbnailNavigationPosition, windowId, updateCompanionWindowWorker } = props;
 
   const handleChange = (e) => {
-    setWindowThumbnailPosition(windowId, e);
+    updateCompanionWindowWorker({position: e, windowId});
   }
 
   return (
@@ -48,29 +46,39 @@ export const WindowThumbnailSettings: React.FC<IWindowThumbnailSettings> = (prop
         <FormControlLabel
           classes={{ label: thumbnailNavigationPosition === 'off' ? classes.selectedLabel : classes.optionLabel }}
           control={
-            <ThumbnailsOffIcon color={thumbnailNavigationPosition === 'off' ? 'primary' : 'inherit'} />
+            <ThumbnailsOffIcon
+              color={thumbnailNavigationPosition === 'off' ? 'primary' : 'inherit'}
+              htmlColor='gray'/>
           }
           label={t('off')}
           labelPlacement="bottom"
           value="off"
         />
       </MenuItem>
-      <MenuItem className={classes.MenuItem} onClick={() => { handleChange('far-bottom'); handleClose(); }}>
+      <MenuItem
+        className={classes.MenuItem}
+        onClick={() => { handleChange('far-bottom'); handleClose(); }}>
         <FormControlLabel
           classes={{ label: thumbnailNavigationPosition === 'far-bottom' ? classes.selectedLabel : classes.optionLabel }}
           control={
-            <ThumbnailNavigationBottomIcon color={thumbnailNavigationPosition === 'far-bottom' ? 'primary' : 'inherit'} nativecolor='gray'/>
+            <ThumbnailNavigationBottomIcon
+              color={thumbnailNavigationPosition === 'far-bottom' ? 'primary' : 'inherit'}
+              htmlColor='gray'/>
           }
           label={t('bottom')}
           labelPlacement="bottom"
           value="far-bottom"
         />
       </MenuItem>
-      <MenuItem className={classes.MenuItem} onClick={() => { handleChange('far-right'); handleClose(); }}>
+      <MenuItem
+        className={classes.MenuItem}
+        onClick={() => { handleChange('far-right'); handleClose(); }}>
         <FormControlLabel
           classes={{ label: thumbnailNavigationPosition === 'far-right' ? classes.selectedLabel : classes.optionLabel }}
           control={
-            <ThumbnailNavigationRightIcon color={thumbnailNavigationPosition === 'far-right' ? 'primary' : 'inherit'} nativecolor='gray' />
+            <ThumbnailNavigationRightIcon
+              color={thumbnailNavigationPosition === 'far-right' ? 'primary' : 'inherit'}
+              htmlColor='gray' />
           }
           label={t('right')}
           labelPlacement="bottom"

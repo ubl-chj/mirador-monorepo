@@ -1,8 +1,8 @@
-import { getThumbnailNavigationPosition, setWindowThumbnailPosition } from '@mirador/core';
+import { getThumbnailNavigationPosition, updateCompanionWindowWorker } from '@mirador/core';
 import { WindowThumbnailSettings } from '../../../components/window/top-menu/WindowThumbnailSettings';
 import { connect } from 'react-redux';
 
-const mapDispatchToProps = { setWindowThumbnailPosition };
+const mapDispatchToProps = { updateCompanionWindowWorker };
 
 const mapStateToProps = (state, { windowId }) => (
   {

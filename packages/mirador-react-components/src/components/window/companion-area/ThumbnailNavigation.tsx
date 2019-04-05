@@ -101,7 +101,7 @@ export class ThumbnailNavigation extends Component<IThumbnailNavigation> {
             return (
               <GridListTile
                 key={canvas.index}
-                onClick={() => setCanvas(window.id, currentGroupings[0].index)}
+                onClick={() => setCanvas({canvasIndex: currentGroupings[0].index, windowId: window.id})}
                 style={{
                   height: '100%',
                   width: 'auto',

@@ -2,11 +2,10 @@ import {
   FETCH_ANNOTATION,
   FETCH_INFO_RESPONSE,
   FETCH_MANIFEST,
-  FOCUS_WINDOW,
-  UPDATE_COMPANION_WINDOW,
   addWindow,
   focusWindow,
-  removeWindow
+  removeWindow,
+  updateCompanionWindow
 } from '../actions';
 import actionCreatorFactory from 'typescript-fsa';
 import {bindThunkAction} from 'typescript-fsa-redux-thunk';
@@ -135,15 +134,10 @@ export const removeWindowWorker = bindThunkAction(thunkRemoveWindow,
     return dispatch(removeWindow({id}));
   })
 
-export const setWindowThumbnailPosition = (windowId, position) => {
+export const updateCompanionWindowWorker = ({windowId, position}) => {
   return (dispatch, getState) => {
     const { windows } = getState();
     const { thumbnailNavigationId } = windows[windowId];
-
-    dispatch({
-      id: thumbnailNavigationId,
-      payload: { position },
-      type: UPDATE_COMPANION_WINDOW,
-    });
+    dispatch(updateCompanionWindow({id: thumbnailNavigationId, position}));
   };
 }

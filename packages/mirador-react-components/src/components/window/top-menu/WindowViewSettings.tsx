@@ -14,9 +14,7 @@ interface IWindowViewSettings {
   windowId: string
   windowViewType: string
 }
-/**
- *
- */
+
 export class WindowViewSettings extends Component<IWindowViewSettings> {
   private selectedRef: any
 
@@ -25,9 +23,6 @@ export class WindowViewSettings extends Component<IWindowViewSettings> {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  /**
-   * Take action when the component mounts for the first time
-   */
   public componentDidMount() {
     if (this.selectedRef) {
       // MUI uses ReactDOM.findDOMNode and refs for handling focus
@@ -37,25 +32,22 @@ export class WindowViewSettings extends Component<IWindowViewSettings> {
 
   private handleSelectedRef(ref) {
     if (this.selectedRef) return;
-
     this.selectedRef = ref;
   }
 
   private handleChange(value) {
     const { windowId, setWindowViewType } = this.props;
-
-    setWindowViewType(windowId, value);
+    setWindowViewType({viewType: value, windowId});
   }
 
   public render() {
-    const {
-      classes, handleClose, t, windowViewType,
-    } = this.props;
-
+    const {classes, handleClose, t, windowViewType} = this.props;
     return (
       <>
-        <ListSubheader role="presentation" tabIndex={-1}>{t('view')}</ListSubheader>
-
+        <ListSubheader
+          role="presentation"
+          tabIndex={-1}>{t('view')}
+        </ListSubheader>
         <MenuItem
           className={classes.MenuItem}
           onClick={() => { this.handleChange('single'); handleClose(); }}
@@ -63,25 +55,29 @@ export class WindowViewSettings extends Component<IWindowViewSettings> {
         >
           <FormControlLabel
             classes={{ label: windowViewType === 'single' ? classes.selectedLabel : classes.optionLabel }}
-            control={<SingleIcon color={windowViewType === 'single' ? 'primary' : 'inherit'} />}
+            control={<SingleIcon color={windowViewType === 'single' ? 'primary' : 'inherit'} htmlColor='gray'/>}
             label={t('single')}
             labelPlacement="bottom"
             value="single"
           />
         </MenuItem>
-        <MenuItem className={classes.MenuItem} onClick={() => { this.handleChange('book'); handleClose(); }}>
+        <MenuItem
+          className={classes.MenuItem}
+          onClick={() => { this.handleChange('book'); handleClose(); }}>
           <FormControlLabel
             classes={{ label: windowViewType === 'book' ? classes.selectedLabel : classes.optionLabel }}
-            control={<BookViewIcon color={windowViewType === 'book' ? 'primary' : 'inherit'} />}
+            control={<BookViewIcon color={windowViewType === 'book' ? 'primary' : 'inherit'} htmlColor='gray'/>}
             label={t('book')}
             labelPlacement="bottom"
             value="book"
           />
         </MenuItem>
-        <MenuItem className={classes.MenuItem} onClick={() => { this.handleChange('gallery'); handleClose(); }}>
+        <MenuItem
+          className={classes.MenuItem}
+          onClick={() => { this.handleChange('gallery'); handleClose(); }}>
           <FormControlLabel
             classes={{ label: windowViewType === 'gallery' ? classes.selectedLabel : classes.optionLabel }}
-            control={<GalleryViewIcon color={windowViewType === 'gallery' ? 'primary' : 'inherit'} />}
+            control={<GalleryViewIcon color={windowViewType === 'gallery' ? 'primary' : 'inherit'} htmlColor='gray'/>}
             label={t('gallery')}
             labelPlacement="bottom"
             value="gallery"
