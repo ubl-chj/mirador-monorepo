@@ -3,7 +3,7 @@ import AppBar from '@material-ui/core/AppBar';
 import CloseIcon from '@material-ui/icons/CloseSharp';
 import FullscreenExitIcon from '@material-ui/icons/FullscreenExitSharp';
 import FullscreenIcon from '@material-ui/icons/FullscreenSharp';
-import MenuIcon from '@material-ui/icons/MenuSharp';
+import Info from '@material-ui/icons/Info';
 import MiradorMenuButton from '../../containers/MiradorMenuButton';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -68,7 +68,7 @@ export const WindowTopBar: React.FC<IWindowTopBar> = (props): ReactElement => {
           onClick={toggleWindowSideBar}
           style={{marginRight: 20, padding: 8}}
         >
-          <MenuIcon />
+          <Info />
         </MiradorMenuButton>
         <Typography className={classes.title} noWrap variant="h2">
           {manifestTitle}

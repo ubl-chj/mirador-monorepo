@@ -44,7 +44,6 @@ export const PrimaryWindow: React.FC<IPrimaryWindow> = (props): ReactElement => 
   return (
     <div className={ns('primary-window')}>
       <WindowSideBar windowId={window.id} />
-      <CompanionArea position="left" windowId={window.id}/>
       {renderViewer()}
     </div>
   );

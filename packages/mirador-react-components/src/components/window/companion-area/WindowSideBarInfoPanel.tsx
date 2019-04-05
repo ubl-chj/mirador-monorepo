@@ -36,12 +36,7 @@ export const WindowSideBarInfoPanel: React.FC<IWindowSideBarInfoPanel> = (props)
   const {canvasDescription, canvasLabel, canvasMetadata, manifestDescription, manifestMetadata, windowId, id} = props;
 
   return (
-    <CompanionWindow
-      id={id}
-      paperClassName={ns('window-sidebar-info-panel')}
-      title={t('aboutThisItem')}
-      windowId={windowId}
-    >
+    <>
       <div className={classes.section}>
         {canvasLabel && (
           <>
@@ -54,7 +49,6 @@ export const WindowSideBarInfoPanel: React.FC<IWindowSideBarInfoPanel> = (props)
             </Typography>
           </>
         )}
-
         {canvasDescription && (
           <Typography variant="body1">
             <SanitizedHtml
@@ -63,12 +57,10 @@ export const WindowSideBarInfoPanel: React.FC<IWindowSideBarInfoPanel> = (props)
             />
           </Typography>
         )}
-
         {canvasMetadata && canvasMetadata.length > 0 && (
           <MetadataList labelValuePairs={canvasMetadata} />
         )}
       </div>
-
       <div className={classes.section}>
         {manifestDescription && (
           <Typography variant="body1">
@@ -79,7 +71,7 @@ export const WindowSideBarInfoPanel: React.FC<IWindowSideBarInfoPanel> = (props)
           <MetadataList labelValuePairs={manifestMetadata} />
         )}
       </div>
-    </CompanionWindow>
+      </>
   );
 }
 
