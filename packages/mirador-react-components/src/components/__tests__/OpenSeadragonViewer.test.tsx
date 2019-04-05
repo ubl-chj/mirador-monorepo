@@ -2,7 +2,7 @@ import Annotation from '../../utils//Annotation';
 import CanvasWorld from '../../utils/CanvasWorld';
 import OpenSeadragon from 'openseadragon';
 import OpenSeadragonCanvasOverlay from '../../utils/OpenSeadragonCanvasOverlay';
-import { OpenSeadragonViewer } from '../workspace/window/osd-viewer/OpenSeadragonViewer';
+import { OpenSeadragonViewer } from '../window/osd-viewer/OpenSeadragonViewer';
 import React from 'react';
 
 import { shallow } from 'enzyme';

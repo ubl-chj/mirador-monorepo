@@ -1,8 +1,8 @@
 import React, {useContext} from 'react';
 import {ModernMosaicWindowContext} from 'react-mosaic-component';
-import PrimaryWindow from '../../containers/workspace/window/PrimaryWindow';
-import { Window } from '../../../src/components/workspace/window/Window';
-import WindowTopBar from '../../containers/workspace/window/WindowTopBar';
+import PrimaryWindow from '../../containers/window/PrimaryWindow';
+import { Window } from '../window/Window';
+import WindowTopBar from '../../containers/window/WindowTopBar';
 import { shallow } from 'enzyme';
 const context = useContext(ModernMosaicWindowContext);
 

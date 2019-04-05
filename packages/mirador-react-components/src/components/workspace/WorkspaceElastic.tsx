@@ -1,7 +1,7 @@
 import React, {ReactElement} from 'react';
 import ResizeObserver from 'react-resize-observer';
 import { Rnd } from 'react-rnd';
-import Window from '../../containers/workspace/window/Window';
+import Window from '../../containers/window/Window';
 import ns from '../../config/css-ns';
 
 interface IWorkspaceElastic {

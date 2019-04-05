@@ -1,6 +1,6 @@
 import React, {ReactElement} from 'react';
 import Typography from '@material-ui/core/Typography';
-import Window from '../../containers/workspace/window/Window';
+import Window from '../../containers/window/Window';
 import WorkspaceElastic from '../../containers/workspace/WorkspaceElastic';
 import WorkspaceMosaic from '../../containers/workspace/WorkspaceMosaic';
 import classNames from 'classnames';

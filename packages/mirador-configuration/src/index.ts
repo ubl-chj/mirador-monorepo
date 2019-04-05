@@ -32,7 +32,7 @@ const rootConfig = {
         main: '#b00020',
       },
       focused: {
-        main: '#102027',
+        main: '#4caf50',
       },
       primary: {
         contrastText: '#FFF',

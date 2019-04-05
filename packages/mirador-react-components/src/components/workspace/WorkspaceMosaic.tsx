@@ -3,7 +3,7 @@ import {
 } from 'react-mosaic-component';
 import MosaicRenderPreview from '../../containers/workspace/MosaicRenderPreview';
 import React from 'react';
-import Window from '../../containers/workspace/window/Window';
+import Window from '../../containers/window/Window';
 
 interface IWorkspaceMosaic {
   updateWorkspaceMosaicLayout: any

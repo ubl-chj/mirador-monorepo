@@ -56,7 +56,7 @@ describe('window actions', () => {
 
       const mockDispatch = jest.fn(() => ({}));
       const mockGetState = jest.fn(() => mockState);
-      const thunk = focusWindowWorker({position: null, windowId: 'window'});
+      const thunk = focusWindowWorker({pan: true, windowId: 'window'});
 
       thunk(mockDispatch, mockGetState);
 
@@ -81,7 +81,7 @@ describe('window actions', () => {
 
       const mockDispatch = jest.fn(() => ({}));
       const mockGetState = jest.fn(() => mockState);
-      const thunk = focusWindowWorker({position: null, windowId: 'window'});
+      const thunk = focusWindowWorker({pan: false, windowId: 'window'});
 
       thunk(mockDispatch, mockGetState);
 

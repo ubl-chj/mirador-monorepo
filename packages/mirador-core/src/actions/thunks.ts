@@ -109,10 +109,9 @@ export const fetchManifestWorker = bindThunkAction(fetchManifest,
   }
 );
 
-export const focusWindowWorker = (windowId, pan = false) => {
+export const focusWindowWorker = ({windowId, pan = false}) => {
   return (dispatch, getState) => {
     const { windows, workspace } = getState();
-
     let position;
 
     if (pan) {
