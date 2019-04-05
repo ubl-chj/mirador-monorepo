@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import OpenSeadragon from 'openseadragon';
 import OpenSeadragonCanvasOverlay from '../../../utils/OpenSeadragonCanvasOverlay';
 import Paper from '@material-ui/core/Paper';
-import ViewerNavigation from "../../../containers/window/osd-viewer/ViewerNavigation"
+import {ViewerNavigation} from "./ViewerNavigation"
 import ns from '../../../config/css-ns';
 
 interface IOpenSeadragonViewer {
@@ -15,6 +15,10 @@ interface IOpenSeadragonViewer {
   tileSources: any
   updateViewport: any
   windowId: string
+  canvases: any
+  setCanvas: Function
+  visible: boolean
+  window: any
 }
 /**
  * Represents a OpenSeadragonViewer in the mirador workspace. Responsible for mounting
@@ -37,7 +41,6 @@ export class OpenSeadragonViewer extends Component<IOpenSeadragonViewer> {
     this.onUpdateViewport = this.onUpdateViewport.bind(this);
     this.onViewportChange = this.onViewportChange.bind(this);
     this.zoomToWorld = this.zoomToWorld.bind(this);
-    OpenSeadragonViewer.onCanvasKeydown = OpenSeadragonViewer.onCanvasKeydown.bind(this);
   }
 
   public componentDidMount() {
@@ -58,7 +61,6 @@ export class OpenSeadragonViewer extends Component<IOpenSeadragonViewer> {
     this.osdCanvasOverlay = new OpenSeadragonCanvasOverlay(this.viewer);
     this.viewer.addHandler('update-viewport', this.onUpdateViewport);
     this.viewer.addHandler('viewport-change', this.onViewportChange);
-    this.viewer.addHandler('canvas-key-down', OpenSeadragonViewer.onCanvasKeydown);
 
     if (viewer) {
       this.viewer.viewport.panTo(viewer, false);
@@ -75,10 +77,13 @@ export class OpenSeadragonViewer extends Component<IOpenSeadragonViewer> {
    * When the viewport state changes, pan or zoom the OSD viewer as appropriate
    */
   public componentDidUpdate(prevProps) {
+    console.log('did update');
+
     const {
       tileSources, viewer, annotations,
     } = this.props;
-    if (!this.annotationsMatch(prevProps.annotations)) {
+    const shouldUpdateAnnotations = this.annotationsMatch(prevProps.annotations)
+    if (shouldUpdateAnnotations) {
       this.updateCanvas = () => {
         this.osdCanvasOverlay.clear();
         this.osdCanvasOverlay.resize();
@@ -124,11 +129,6 @@ export class OpenSeadragonViewer extends Component<IOpenSeadragonViewer> {
     this.updateCanvas();
   }
 
-  private static onCanvasKeydown(e) {
-    e.preventDefault = true; // disable default keyboard controls
-    e.preventVerticalPan = true; // disable vertical panning with arrows and W or S keys
-    e.preventHorizontalPan = true; // disable horizontal panning with arrows and A or D keys
-  }
   /**
    * Forward OSD state to redux
    */
@@ -221,7 +221,6 @@ export class OpenSeadragonViewer extends Component<IOpenSeadragonViewer> {
    */
   private annotationsMatch(prevAnnotations) {
     const { annotations } = this.props;
-
     return Object.keys(annotations).length && annotations.some((annotation, index) => {
       if (!prevAnnotations[index]) {
         return false;
@@ -238,7 +237,7 @@ export class OpenSeadragonViewer extends Component<IOpenSeadragonViewer> {
 
   public render() {
     const {
-      windowId, children, classes, label, t,
+      windowId, children, classes, label, t, canvases, setCanvas, visible, window
     } = this.props;
 
     const enhancedChildren = React.Children.map(children, (child: any) => (
@@ -258,7 +257,12 @@ export class OpenSeadragonViewer extends Component<IOpenSeadragonViewer> {
           id={`${windowId}-osd`}
           ref={this.ref}
         >
-          <ViewerNavigation windowId={windowId}/>
+          <ViewerNavigation
+            canvases={canvases}
+            setCanvas={setCanvas}
+            visible={visible}
+            window={window}
+          />
           <Paper className={classes.controls} elevation={0} square>
             { enhancedChildren }
           </Paper>

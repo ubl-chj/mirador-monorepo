@@ -4,12 +4,18 @@ import Tooltip from '@material-ui/core/Tooltip';
 import ns from '../config/css-ns';
 
 interface IMiradorMenuButton {
-  'aria-label': string
-  children: any
-  containerId: string
-  dispatch: any
-  TooltipProps: any
-  wrapperClassName: any
+  'aria-label'?: string
+  children?: any
+  className?: string
+  classes?: any
+  color?: any
+  containerId?: string
+  disabled?: any
+  dispatch?: any
+  onClick?: any
+  style?: any
+  TooltipProps?: any
+  wrapperClassName?: any
 }
 /**
  * MiradorMenuButton ~ Wrap the given icon prop in an IconButton and a Tooltip.
@@ -20,7 +26,6 @@ export const MiradorMenuButton: React.FC<IMiradorMenuButton> = (props): ReactEle
   const { 'aria-label': ariaLabel } = props;
   const {
     children,
-    containerId,
     TooltipProps,
     wrapperClassName,
     ...iconButtonProps
@@ -28,9 +33,6 @@ export const MiradorMenuButton: React.FC<IMiradorMenuButton> = (props): ReactEle
 
   return (
     <Tooltip
-      PopperProps={{
-        container: document.querySelector(`#${containerId} .${ns('viewer')}`),
-      }}
       title={ariaLabel}
       {...TooltipProps}
     >

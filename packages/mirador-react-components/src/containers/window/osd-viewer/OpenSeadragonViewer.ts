@@ -1,7 +1,7 @@
 import {
   getAllOrSelectedAnnotationsOnCanvases,
-  getCanvasLabel,
-  getSelectedCanvases,
+  getCanvasLabel, getManifestCanvases,
+  getSelectedCanvases, setCanvas,
   updateViewport
 } from '@mirador/core';
 import CanvasWorld from '../../../utils/CanvasWorld';
@@ -15,11 +15,14 @@ import { withTranslation } from 'react-i18next';
 const mapStateToProps = (state, { windowId }) => ({
   annotations: getAllOrSelectedAnnotationsOnCanvases(state, { windowId }),
   canvasWorld: new CanvasWorld(getSelectedCanvases(state, { windowId })),
+  canvases: getManifestCanvases(state, { windowId }),
   label: getCanvasLabel(state, { canvasIndex: 'selected', windowId }),
   viewer: state.viewers[windowId],
+  visible: state.workspace.focusedWindowId === windowId,
+  window: state.windows[windowId],
 });
 
-const mapDispatchToProps = { updateViewport };
+const mapDispatchToProps = { setCanvas, updateViewport };
 
 /**
  *

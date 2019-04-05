@@ -1,10 +1,9 @@
 import React, {ReactElement} from 'react';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ChevronRight from '@material-ui/icons/ChevronRight';
-import MiradorMenuButton from '../../../containers/MiradorMenuButton';
+import {MiradorMenuButton} from '../../MiradorMenuButton';
 import {makeStyles} from "@material-ui/styles"
 import ns from '../../../config/css-ns';
-import {useKeyPress} from '../../../utils/useKeyPress'
 import {useTranslation} from "react-i18next"
 
 interface IViewerNavigation {
@@ -20,20 +19,33 @@ const useStyles = makeStyles({
   }
 });
 
-const arrowStyle = () => {
+const arrowRightStyle = () => {
   return {
     background: 'rgba(66,66,66,0.54)',
     borderRadius: '28px',
+    bottom: '50%',
     cursor: 'pointer',
     height: '56px',
-    marginTop: '-28px',
+    position: 'absolute',
     right: '28px',
-    top: '50%',
     width: '56px',
     zIndex: 1000,
   }
 }
 
+const arrowLeftStyle = () => {
+  return {
+    background: 'rgba(66,66,66,0.54)',
+    borderRadius: '28px',
+    bottom: '50%',
+    cursor: 'pointer',
+    height: '56px',
+    left: '28px',
+    position: 'absolute',
+    width: '56px',
+    zIndex: 1000,
+  }
+}
 export const ViewerNavigation: React.FC<IViewerNavigation> = (props): ReactElement => {
   const {t} = useTranslation()
   const { canvases, window, setCanvas, visible } = props;
@@ -65,7 +77,7 @@ export const ViewerNavigation: React.FC<IViewerNavigation> = (props): ReactEleme
   }
 
   return (visible && (
-    <div className={ns('osd-navigation')}>
+    <>
       <MiradorMenuButton
         aria-label={t('previousCanvas')}
         className={ns('previous-canvas-button')}
@@ -73,7 +85,7 @@ export const ViewerNavigation: React.FC<IViewerNavigation> = (props): ReactEleme
         color='primary'
         disabled={!hasPreviousCanvas()}
         onClick={previousCanvas}
-        style={arrowStyle()}
+        style={arrowLeftStyle()}
       >
         <ChevronLeft />
       </MiradorMenuButton>
@@ -84,10 +96,10 @@ export const ViewerNavigation: React.FC<IViewerNavigation> = (props): ReactEleme
         color='primary'
         disabled={!hasNextCanvas()}
         onClick={nextCanvas}
-        style={arrowStyle()}
+        style={arrowRightStyle()}
       >
         <ChevronRight />
       </MiradorMenuButton>
-    </div>)
+    </>)
   );
 }

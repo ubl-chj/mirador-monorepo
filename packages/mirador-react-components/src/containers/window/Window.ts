@@ -1,4 +1,4 @@
-import { focusWindowWorker, getManifestTitle, getThumbnailNavigationPosition } from '@mirador/core';
+import { focusWindow, getManifestTitle, getThumbnailNavigationPosition } from '@mirador/core';
 import { Window } from '../../components/window/Window';
 import { connect } from 'react-redux';
 
@@ -11,7 +11,7 @@ const mapStateToProps = (state, props) => ({
 });
 
 const mapDispatchToProps = (dispatch, { window }) => ({
-  focusWindow: () => dispatch(focusWindowWorker({windowId: window.id})),
+  focusWindow: () => dispatch(focusWindow({position: {}, windowId: window.id})),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Window);
