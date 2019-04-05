@@ -37,9 +37,6 @@ const mapStateToProps = (state): any => (
   }
 )
 
-
-
-const mapDispatchToProps = (dispatch: Dispatch): any =>
-  bindActionCreators({focusWindowWorker, setWorkspaceAddVisibility, setWorkspaceFullscreen, updateConfig}, dispatch)
+const mapDispatchToProps = {focusWindowWorker, setWorkspaceAddVisibility, setWorkspaceFullscreen, updateConfig}
 
 export const WorkspaceControlPanel = connect(mapStateToProps, mapDispatchToProps)(WorkspaceControlPanelComponent)

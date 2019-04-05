@@ -221,7 +221,7 @@ export class OpenSeadragonViewer extends Component<IOpenSeadragonViewer> {
    */
   private annotationsMatch(prevAnnotations) {
     const { annotations } = this.props;
-    return Object.keys(annotations).length && annotations.some((annotation, index) => {
+    return annotations.some((annotation, index) => {
       if (!prevAnnotations[index]) {
         return false;
       }

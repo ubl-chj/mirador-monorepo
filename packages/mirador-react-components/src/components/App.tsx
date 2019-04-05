@@ -1,4 +1,4 @@
-import React, {ReactElement, useEffect, useRef} from 'react';
+import React, {ReactElement, useEffect, useRef, useState} from 'react';
 import Fullscreen from 'react-full-screen';
 import { I18nextProvider } from 'react-i18next';
 import {ThemeProvider} from '@material-ui/styles';
@@ -20,7 +20,7 @@ interface IApp {
 }
 
 export const App: React.FC<IApp> = (props): ReactElement => {
-  const { language, enabled, setWorkspaceFullscreen, theme, translations } = props;
+  const { language, enabled, theme, translations } = props;
   const prevLanguage: any = useRef();
 
   useEffect(() => {
@@ -37,7 +37,6 @@ export const App: React.FC<IApp> = (props): ReactElement => {
   return (
     <Fullscreen
       enabled={enabled}
-      onChange={() => setWorkspaceFullscreen({enabled: !enabled})}
     >
       <I18nextProvider i18n={this.i18n}>
         <ThemeProvider theme={createMuiTheme(theme)}>

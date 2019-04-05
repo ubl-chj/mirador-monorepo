@@ -13,6 +13,7 @@ interface IFullScreenButton {
 export const FullScreenButton: React.FC<IFullScreenButton> = (props): ReactElement => {
   const {enabled, setWorkspaceFullscreen} = props
   const {t} = useTranslation()
+
   return (
     <ListItem
       button={true}

@@ -12,6 +12,7 @@ interface IMiradorImplementation {
   evalAddWindows: typeof evalAddWindows,
   config: {}
   dispatch: any
+  enabled: boolean
   fetchManifestWorker: Function,
   location: {
     search: {}
@@ -65,7 +66,7 @@ const MiradorImplementation: React.FC<IMiradorImplementation> = (props): ReactEl
   return isInitialized ? (
     <ReactReduxContext.Consumer>
       {({store}) =>
-        <MiradorWithPanel plugins={plugins} store={store}/>
+        <MiradorWithPanel enabled={props.enabled} plugins={plugins} store={store}/>
       }
     </ReactReduxContext.Consumer>) : null
 }
@@ -76,7 +77,8 @@ const MiradorImplementation: React.FC<IMiradorImplementation> = (props): ReactEl
  */
 const mapStateToProps = (state): any => ({
   config: state.config,
-  windows: state.windows
+  enabled: state.workspace.enabled,
+  windows: state.windows,
 })
 
 

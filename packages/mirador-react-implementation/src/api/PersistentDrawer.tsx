@@ -11,9 +11,10 @@ interface IPersistentDrawer extends React.FC{
   component: any
 }
 
-export const PersistentDrawer: React.FC<any> = ({component}): any => {
+export const PersistentDrawer: React.FC<any> = (props): any => {
   const useStyles = makeStyles(styles)
   const classes = useStyles();
+  const {enabled, component} = props
   const [open, setOpen] = React.useState(false);
   const defaultTheme = localConfig.theme
   const theme = createMuiTheme(defaultTheme)
@@ -30,6 +31,7 @@ export const PersistentDrawer: React.FC<any> = ({component}): any => {
       <div className={classes.root}>
         <CssBaseline />
         <PersistentDrawerLeft
+          enabled={enabled}
           handleDrawerClose={handleDrawerClose}
           handleDrawerOpen={handleDrawerOpen}
           open={open}

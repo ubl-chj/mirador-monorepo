@@ -21,6 +21,13 @@ import classNames from 'classnames'
 
 const drawerWidth = 240
 
+interface IPersistentDrawerLeftComponent {
+  enabled: boolean
+  handleDrawerClose: EventHandler<any>,
+  handleDrawerOpen: EventHandler<any>,
+  open: boolean,
+}
+
 const useStyles = makeStyles(theme => ({
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
@@ -60,15 +67,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-interface IPersistentDrawerLeftComponent {
-  handleDrawerClose: EventHandler<any>,
-  handleDrawerOpen: EventHandler<any>,
-  open: boolean,
-}
-
 export const PersistentDrawerLeft: React.FC<IPersistentDrawerLeftComponent> = (props): ReactElement => {
   const classes = useStyles();
   const theme: any = useTheme();
+  const { enabled, handleDrawerOpen, handleDrawerClose, open } = props
 
   const listItems = [
     {
@@ -116,13 +118,10 @@ export const PersistentDrawerLeft: React.FC<IPersistentDrawerLeftComponent> = (p
         </ListItemIcon>
         <ListItemText primary={item.text} />
       </ListItem>
-
     )
   }
 
-  const { handleDrawerOpen, handleDrawerClose, open } = props
-
-  return (
+  return !enabled ? (
       <>
         <AppBar
           className={classNames(classes.appBar, {
@@ -167,9 +166,9 @@ export const PersistentDrawerLeft: React.FC<IPersistentDrawerLeftComponent> = (p
           >
             {buildListItems(listItems)}
           </List>
-        </Drawer>
+        </Drawer>)
       </>
-  )
+  ) : null
 }
 
 

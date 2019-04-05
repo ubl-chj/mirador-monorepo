@@ -1,8 +1,8 @@
 import React, {ReactElement} from "react"
-import AddIcon from '@material-ui/icons/Add'
 import ClearIcon from '@material-ui/icons/Clear'
 import Fab from '@material-ui/core/Fab'
 import ListItem from '@material-ui/core/ListItem'
+import Search from '@material-ui/icons/Search'
 
 interface IWorkspaceAddItem {
   isWorkspaceAddVisible: boolean,
@@ -24,7 +24,7 @@ export const WorkspaceAddItem: React.FC<IWorkspaceAddItem> = (props): ReactEleme
         {
           props.isWorkspaceAddVisible
             ? <ClearIcon />
-            : <AddIcon />
+            : <Search />
         }
       </Fab>
     </ListItem>
