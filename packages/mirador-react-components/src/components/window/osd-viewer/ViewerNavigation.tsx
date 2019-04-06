@@ -52,7 +52,7 @@ export const ViewerNavigation: React.FC<IViewerNavigation> = (props): ReactEleme
   const classes = useStyles()
 
   const hasPreviousCanvas = () => {
-    return window.canvasIndex > 0;
+    return window && window.canvasIndex > 0;
   }
   const canvasIncrementor = () => {
     if (window.view === 'book') {
@@ -62,7 +62,7 @@ export const ViewerNavigation: React.FC<IViewerNavigation> = (props): ReactEleme
     }
   }
   const hasNextCanvas = () => {
-    return window.canvasIndex < canvases.length - canvasIncrementor();
+    return window && window.canvasIndex < canvases.length - canvasIncrementor();
   }
   const nextCanvas = () => {
     if (hasNextCanvas()) {

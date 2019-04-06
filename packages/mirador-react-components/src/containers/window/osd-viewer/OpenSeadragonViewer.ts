@@ -1,6 +1,6 @@
 import {
-  getAllOrSelectedAnnotationsOnCanvases,
-  getCanvasLabel, getManifestCanvases,
+  getCanvasLabel,
+  getHighlightedAnnotationsOnCanvases, getManifestCanvases, getSelectedAnnotationsOnCanvases,
   getSelectedCanvases, setCanvas,
   updateViewport
 } from '@mirador/core';
@@ -13,10 +13,11 @@ import { withStyles } from '@material-ui/core';
 import { withTranslation } from 'react-i18next';
 
 const mapStateToProps = (state, { windowId }) => ({
-  annotations: getAllOrSelectedAnnotationsOnCanvases(state, { windowId }),
   canvasWorld: new CanvasWorld(getSelectedCanvases(state, { windowId })),
   canvases: getManifestCanvases(state, { windowId }),
+  highlightedAnnotations: getHighlightedAnnotationsOnCanvases(state, { windowId }),
   label: getCanvasLabel(state, { canvasIndex: 'selected', windowId }),
+  selectedAnnotations: getSelectedAnnotationsOnCanvases(state, { windowId }),
   viewer: state.viewers[windowId],
   visible: state.workspace.focusedWindowId === windowId,
   window: state.windows[windowId],

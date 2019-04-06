@@ -1,13 +1,12 @@
 import React, {ReactElement} from 'react';
-import ResizeObserver from 'react-resize-observer';
 import { Rnd } from 'react-rnd';
 import Window from '../../containers/window/Window';
 import ns from '../../config/css-ns';
 
 interface IWorkspaceElastic {
-  setWindowSize: any
-  setWorkspaceViewportDimensions: any
-  setWorkspaceViewportPosition: any
+  setWindowSize: Function
+  setWorkspaceViewportDimensions: Function
+  setWorkspaceViewportPosition: Function
   workspace: any
   windows: any
   updateWindowPosition: any
@@ -21,30 +20,23 @@ export const WorkspaceElastic: React.FC<IWorkspaceElastic> = (props): ReactEleme
   const {
     workspace,
     windows,
-    setWorkspaceViewportDimensions,
     setWorkspaceViewportPosition,
     updateWindowPosition,
     setWindowSize,
   } = props;
-
-  const { viewportPosition } = workspace;
   const offsetX = workspace.width / 2;
   const offsetY = workspace.height / 2;
-
+  const {viewportPosition} = workspace
   return (
     <div style={{ height: '100%', position: 'relative', width: '100%' }}>
-      <ResizeObserver
-        onResize={(rect) => { setWorkspaceViewportDimensions(rect); }}
-      />
-
       <Rnd
         cancel={`.${ns('window')}`}
         className={ns('workspace')}
         default={{
           height: workspace.height,
           width: workspace.width,
-          x: null,
-          y: null
+          x: 0,
+          y: 0
         }}
         enableResizing={{
           bottom: false,
@@ -56,12 +48,11 @@ export const WorkspaceElastic: React.FC<IWorkspaceElastic> = (props): ReactEleme
           topLeft: false,
           topRight: false,
         }}
-        onDragStop={(d: any) => {
-          setWorkspaceViewportPosition({ x: -1 * d.x - offsetX, y: -1 * d.y - offsetY });
+        onDragStop={(e, d: any) => {
+          const event = e;
+          setWorkspaceViewportPosition({position: {x: -1 * d.x - offsetX, y: -1 * d.y - offsetY}});
         }}
-        position={{
-          x: -1 * viewportPosition.x - offsetX, y: -1 * viewportPosition.y - offsetY,
-        }}
+        position={ {x: -1 * viewportPosition.x - offsetX, y: -1 * viewportPosition.y - offsetY}}
       >
         {
           Object.values(windows).map((window: any) => (
@@ -72,16 +63,22 @@ export const WorkspaceElastic: React.FC<IWorkspaceElastic> = (props): ReactEleme
               }
               dragHandleClassName={ns('window-top-bar')}
               key={window.id}
-
-              onDragStop={(d: any) => {
-                updateWindowPosition(window.id, { x: d.x - offsetX, y: d.y - offsetY });
+              onDragStop={(e, d: any) => {
+                const event = e;
+                updateWindowPosition({position: { x: d.x - offsetX, y: d.y - offsetY }, windowId: window.id});
               }}
-              onResize={(ref: any, position: any) => {
-                setWindowSize(window.id, {
-                  height: ref.style.height,
-                  width: ref.style.width,
-                  x: position.x - offsetX,
-                  y: position.y - offsetY,
+              onResize={(e, direction, ref, delta, position) => {
+                const event = e
+                const dir = direction
+                const delt = delta
+                setWindowSize({
+                  size: {
+                    height: ref.style.height,
+                    width: ref.style.width,
+                    x: position.x - offsetX,
+                    y: position.y - offsetY,
+                  },
+                  windowId: window.id,
                 });
               }}
               position={{ x: window.x + offsetX, y: window.y + offsetY }}

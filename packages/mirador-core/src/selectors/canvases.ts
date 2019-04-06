@@ -19,7 +19,7 @@ export const getCanvas = createSelector(
   [
     getManifestoInstance,
     (state, { windowId, canvasIndex }) => (
-      canvasIndex === 'selected' ? state.windows[windowId].canvasIndex : canvasIndex
+      canvasIndex === 'selected' ? state.windows[windowId] && state.windows[windowId].canvasIndex : canvasIndex
     ),
   ],
   (manifest, canvasIndex) => manifest
@@ -51,9 +51,10 @@ export const getSelectedCanvas = (state, {windowId}) => {
 export const getSelectedCanvases = createSelector(
   [
     getCanvases,
-    (state, { windowId }) => state.windows[windowId],
+    (state, { windowId }) => state.windows[windowId] && state.windows[windowId].canvasIndex,
+    (state, { windowId }) => state.windows[windowId] && state.windows[windowId].view,
   ],
-  (canvases, { canvasIndex, view }) => canvases
+  (canvases, canvasIndex, view) => canvases
     && new CanvasGroupings(
       canvases,
       view,

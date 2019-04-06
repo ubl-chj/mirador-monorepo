@@ -10,13 +10,11 @@ interface ICanvasGroupings {
  */
 export default class CanvasGroupings implements ICanvasGroupings {
 
-  canvases: []
-  viewType: string
-  _groupings: any
+  public canvases: []
+  public viewType: string
+  public _groupings: any
 
-  /**
-   */
-  constructor(canvases, viewType = 'single') {
+  public constructor(canvases, viewType = 'single') {
     this.canvases = canvases;
     this.viewType = viewType;
     this._groupings = null; // eslint-disable-line no-underscore-dangle
@@ -24,7 +22,7 @@ export default class CanvasGroupings implements ICanvasGroupings {
 
   /**
    */
-  getCanvases(index) {
+  public getCanvases(index) {
     switch (this.viewType) {
       case 'book':
         return this.groupings()[Math.ceil(index / 2)];
@@ -37,7 +35,7 @@ export default class CanvasGroupings implements ICanvasGroupings {
    * Groups a set of canvases based on the view type. Single, is just an array
    * of canvases, while book view creates pairs.
    */
-  groupings() {
+  private groupings() {
     if (this._groupings) { // eslint-disable-line no-underscore-dangle
       return this._groupings; // eslint-disable-line no-underscore-dangle
     }

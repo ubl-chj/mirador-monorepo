@@ -55,30 +55,45 @@ export const getAnnotationResourcesByMotivation = createSelector(
  */
 export const getSelectedAnnotationIds = createSelector(
   [
-    (state, { windowId }) => state.windows[windowId].selectedAnnotations,
+    (state, { windowId }) => state.windows[windowId] && state.windows[windowId].selectedAnnotations,
     getSelectedCanvases,
   ],
   (selectedAnnotations, canvases: any) => (
     flatten(
-      canvases.map(c => c.id).map(targetId => selectedAnnotations && selectedAnnotations[targetId]),
+      canvases && canvases.map(c => c.id).map(targetId => selectedAnnotations && selectedAnnotations[targetId]),
     )
   ),
 );
 
-export const getAllOrSelectedAnnotationsOnCanvases = createSelector(
+export const getSelectedAnnotationsOnCanvases = createSelector(
   [
     getPresentAnnotationsOnSelectedCanvases,
     getSelectedAnnotationIds,
-    (state, { windowId }) => state.windows[windowId].displayAllAnnotations,
   ],
-  (canvasAnnotations, selectedAnnotationIds, displayAllAnnotations) => {
-    if (displayAllAnnotations) return canvasAnnotations;
+  (canvasAnnotations, selectedAnnotationIds) => canvasAnnotations.map(annotation => ({
+    id: (annotation['@id'] || annotation.id),
+    resources: annotation.resources.filter(
+      r => selectedAnnotationIds && selectedAnnotationIds.includes(r.id),
+    ),
+  })).filter(val => val.resources.length > 0),
+);
 
-    return canvasAnnotations.map(annotation => ({
-      id: (annotation['@id'] || annotation.id),
-      resources: annotation.resources.filter(
-        r => selectedAnnotationIds && selectedAnnotationIds.includes(r.id),
-      ),
-    }));
+export const getHighlightedAnnotationsOnCanvases = createSelector(
+  [
+    getPresentAnnotationsOnSelectedCanvases,
+    (state, { windowId }) => state.windows[windowId] && state.windows[windowId].highlightedAnnotation,
+    (state, { windowId }) => state.windows[windowId] && state.windows[windowId].displayAllAnnotations,
+  ],
+  (canvasAnnotations, highlightedAnnotation, displayAllAnnotations) => {
+    if (displayAllAnnotations) return canvasAnnotations;
+    if (highlightedAnnotation) {
+      return canvasAnnotations.map(annotation => ({
+        id: (annotation['@id'] || annotation.id),
+        resources: annotation.resources.filter(
+          r => highlightedAnnotation && highlightedAnnotation === r.id,
+        ),
+      })).filter(val => val.resources.length > 0);
+    }
+    return [];
   },
 );

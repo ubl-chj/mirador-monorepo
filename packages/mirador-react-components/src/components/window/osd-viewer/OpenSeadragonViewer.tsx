@@ -12,6 +12,8 @@ interface IOpenSeadragonViewer {
   label: string
   viewer: any
   t: any
+  highlightedAnnotations: any
+  selectedAnnotations: any
   tileSources: any
   updateViewport: any
   windowId: string
@@ -29,6 +31,18 @@ export class OpenSeadragonViewer extends Component<IOpenSeadragonViewer> {
   private ref: any
   private updateCanvas: any
   private viewer: any
+
+  private static annotationsMatch(currentAnnotations, prevAnnotations) {
+    if (currentAnnotations && prevAnnotations && currentAnnotations.length === 0 && prevAnnotations.length === 0) return true;
+    return currentAnnotations && currentAnnotations.some((annotation, index) => {
+      if (!prevAnnotations[index]) {
+        return false;
+      }
+      const newIds = annotation.resources.map(r => r.id);
+      const prevIds = prevAnnotations[index].resources.map(r => r.id);
+      return (annotation.id === prevAnnotations[index].id) && (newIds === prevIds);
+    });
+  }
 
   public constructor(props) {
     super(props);
@@ -80,15 +94,26 @@ export class OpenSeadragonViewer extends Component<IOpenSeadragonViewer> {
     console.log('did update');
 
     const {
-      tileSources, viewer, annotations,
+      tileSources, viewer, highlightedAnnotations, selectedAnnotations
     } = this.props;
-    const shouldUpdateAnnotations = this.annotationsMatch(prevProps.annotations)
-    if (shouldUpdateAnnotations) {
+    const highlightsUpdated = !OpenSeadragonViewer.annotationsMatch(
+      highlightedAnnotations, prevProps.highlightedAnnotations,
+    );
+    const selectionsUpdated = !OpenSeadragonViewer.annotationsMatch(
+      selectedAnnotations, prevProps.selectedAnnotations,
+    );
+
+    if (highlightsUpdated || selectionsUpdated) {
       this.updateCanvas = () => {
         this.osdCanvasOverlay.clear();
         this.osdCanvasOverlay.resize();
         this.osdCanvasOverlay.canvasUpdate(() => {
-          this.annotationsToContext(annotations);
+          if (highlightsUpdated) {
+            this.annotationsToContext(highlightedAnnotations, '#00BFFF');
+          }
+          if (selectionsUpdated) {
+            this.annotationsToContext(selectedAnnotations, 'yellow');
+          }
         });
       };
       this.viewer.forceRedraw();
@@ -147,15 +172,15 @@ export class OpenSeadragonViewer extends Component<IOpenSeadragonViewer> {
   /**
    * annotationsToContext - converts anontations to a canvas context
    */
-  private annotationsToContext(annotations) {
+  private annotationsToContext(annotations, color = 'yellow') {
     const { canvasWorld } = this.props;
     const context = this.osdCanvasOverlay.context2d;
-    annotations.forEach((annotation) => {
+    annotations && annotations.forEach((annotation) => {
       annotation.resources.forEach((resource) => {
         const offset = canvasWorld.offsetByCanvas(resource.targetId);
         const fragment = resource.fragmentSelector;
         fragment[0] += offset.x;
-        context.strokeStyle = 'yellow';
+        context.strokeStyle = color;
         context.lineWidth = 10;
         context.strokeRect(...fragment);
       });
@@ -211,28 +236,6 @@ export class OpenSeadragonViewer extends Component<IOpenSeadragonViewer> {
   private zoomToWorld(immediately = true) {
     const { canvasWorld } = this.props;
     this.fitBounds(...canvasWorld.worldBounds(), immediately);
-  }
-
-  /**
-   * annotationsMatch - compares previous annotations to current to determine
-   * whether to add a new updateCanvas method to draw annotations
-   * @param  {Array} prevAnnotations
-   * @return {Boolean}
-   */
-  private annotationsMatch(prevAnnotations) {
-    const { annotations } = this.props;
-    return annotations.some((annotation, index) => {
-      if (!prevAnnotations[index]) {
-        return false;
-      }
-      const newIds = annotation.resources.map(r => r.id);
-      const prevIds = prevAnnotations[index].resources.map(r => r.id);
-
-      if ((annotation.id === prevAnnotations[index].id) && (newIds === prevIds)) {
-        return true;
-      }
-      return false;
-    });
   }
 
   public render() {

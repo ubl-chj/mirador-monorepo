@@ -24,7 +24,9 @@ describe('OpenSeadragonViewer', () => {
         canvases={null}
         canvasWorld={new CanvasWorld([])}
         classes={{ controls: 'controls' }}
+        highlightedAnnotations={null}
         label={null}
+        selectedAnnotations={null}
         setCanvas={null}
         t={k => k}
         tileSources={[{
@@ -111,18 +113,20 @@ describe('OpenSeadragonViewer', () => {
       wrapper = shallow(
         <OpenSeadragonViewer
           annotations={{}}
+          canvases={null}
           canvasWorld={new CanvasWorld([])}
           classes={{ controls: 'controls' }}
+          highlightedAnnotations={null}
           label={null}
+          selectedAnnotations={null}
+          setCanvas={null}
           t={k => k}
           tileSources={[{ '@id': 'http://foo' }]}
           updateViewport={updateViewport}
           viewer={{ x: 1, y: 0, zoom: 0.5 }}
-          windowId="base"
-          canvases={null}
-          setCanvas={null}
           visible={null}
           window={null}
+          windowId="base"
         >
           <div className="foo" />
         </OpenSeadragonViewer>,

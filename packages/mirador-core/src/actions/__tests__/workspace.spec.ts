@@ -80,11 +80,13 @@ describe('workspace actions', () => {
           position: {
             height: 25,
             width: 20,
+            x: 0,
+            y: 0
           },
         },
         type: SET_WORKSPACE_VIEWPORT_DIMENSIONS,
       };
-      expect(setWorkspaceViewportDimensions({position: {height: 25, width: 20}})).toEqual(expectedAction);
+      expect(setWorkspaceViewportDimensions({position: {height: 25, width: 20, x: 0, y: 0}})).toEqual(expectedAction);
     });
   });
   describe('setWorkspaceViewportPosition', () => {

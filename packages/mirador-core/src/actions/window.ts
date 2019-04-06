@@ -37,6 +37,6 @@ export const setWindowViewType = actionCreator<{viewType: string, windowId: stri
 
 export const updateWindowPosition = actionCreator<{position: {x: number, y: number}, windowId: string}>(UPDATE_WINDOW_POSITION)
 
-export const setWindowSize = actionCreator<{size, windowId: string}>(SET_WINDOW_SIZE)
+export const setWindowSize = actionCreator<{size: {x: number, y: number, height: number, width: number}, windowId: string}>(SET_WINDOW_SIZE)
 
 

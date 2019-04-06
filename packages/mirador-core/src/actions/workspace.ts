@@ -21,7 +21,7 @@ export const setWorkspaceAddVisibility = actionCreator<{isWorkspaceAddVisible: b
 
 export const setWorkspaceViewportPosition = actionCreator<{position: {x, y}}>(SET_WORKSPACE_VIEWPORT_POSITION)
 
-export const setWorkspaceViewportDimensions = actionCreator<{position: {height, width}}>(SET_WORKSPACE_VIEWPORT_DIMENSIONS)
+export const setWorkspaceViewportDimensions = actionCreator<{position: {x, y, width, height}}>(SET_WORKSPACE_VIEWPORT_DIMENSIONS)
 
 export const toggleWorkspaceExposeMode = actionCreator<{exposeModeOn: boolean}>(TOGGLE_WORKSPACE_EXPOSE_MODE)
 
