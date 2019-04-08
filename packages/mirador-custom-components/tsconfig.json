@@ -4,7 +4,7 @@
     "paths": { "*": ["types/*"] },
     "declaration": true,
     "module": "commonjs",
-    "target": "ES5",
+    "target": "esnext",
     "downlevelIteration": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -18,9 +18,6 @@
     "allowSyntheticDefaultImports":true,
     "jsx": "react",
     "resolveJsonModule": true,
-    "lib":[
-      "es5", "es2015", "es2017", "dom"
-    ],
     "typeRoots": [
       "node_modules/@types",
       "./src/@types"

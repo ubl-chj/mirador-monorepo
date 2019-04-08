@@ -7,6 +7,9 @@
   "include": [
     "./src"
   ],
+  "lib":[
+    "esnext"
+  ],
   "typedocOptions": {
     "mode": "modules",
     "out": "docs"

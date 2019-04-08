@@ -4,7 +4,7 @@
     "paths": { "*": ["types/*"] },
     "declaration": true,
     "module": "commonjs",
-    "target": "ES5",
+    "target": "esnext",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "outDir": "lib",
@@ -17,8 +17,20 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports":true,
     "jsx": "react",
-    "lib":[
-      "es5", "es2015", "es2017", "dom"
+    "lib": [
+      "es5",
+      "es6",
+      "dom",
+      "es2015.core",
+      "es2015.collection",
+      "es2015.generator",
+      "es2015.iterable",
+      "es2015.promise",
+      "es2015.proxy",
+      "es2015.reflect",
+      "es2015.symbol",
+      "es2015.symbol.wellknown",
+      "esnext.asynciterable"
     ],
     "types": [
       "node", "jest", "jest-fetch-mock"

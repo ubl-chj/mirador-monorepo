@@ -17,7 +17,7 @@ const rootConfig = {
     defaultPosition: 'left'
   },
   discovery: {
-    currentIndex: 'ec9',
+    currentIndex: 'ox1',
     indices: {},
   },
   id: 'app',

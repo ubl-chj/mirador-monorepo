@@ -52,6 +52,14 @@ const server = new ApolloServer({
     }),
     resolvers,
     typeDefs,
+    formatError: error => {
+        console.log(error);
+        return error;
+    },
+    formatResponse: response => {
+        console.log(response);
+        return response;
+    },
 })
 
 server.listen().then(({url}: {url: any}) => {
