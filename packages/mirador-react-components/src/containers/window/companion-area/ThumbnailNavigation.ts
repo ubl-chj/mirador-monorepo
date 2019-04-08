@@ -14,7 +14,7 @@ const mapStateToProps = ({
       manifests,
       windows,
     }, { windowId }),
-    windows[windowId].view,
+    windows[windowId] && windows[windowId].view,
   ),
   config,
   position: companionWindows[windows[windowId].thumbnailNavigationId].position,
@@ -28,7 +28,7 @@ const mapDispatchToProps = {
 const styles = theme => ({
   canvas: {
     '&$currentCanvas': {
-      border: `2px solid ${theme.palette.secondary.main}`,
+      border: `2px solid ${theme.palette.secondary.contrastText}`,
     },
     border: '2px solid transparent',
     color: theme.palette.common.white,

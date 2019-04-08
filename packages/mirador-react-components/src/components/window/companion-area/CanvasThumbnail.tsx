@@ -8,7 +8,7 @@ interface ICanvasThumbnail {
   imageUrl: string
   isValid: boolean
   maxHeight: number
-  maxWidth: number
+  maxWidth?: number
   style?: any
 }
 
