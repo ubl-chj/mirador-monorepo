@@ -66,15 +66,16 @@ export class OpenSeadragonViewer extends Component<IOpenSeadragonViewer> {
       alwaysBlend: false,
       blendTime: 0.1,
       id: this.ref.current.id,
+      navigatorPosition: 'BOTTOM_RIGHT',
       preserveImageSizeOnResize: true,
       preserveViewport: true,
       showNavigationControl: false,
-
+      showNavigator: true,
     });
 
     this.osdCanvasOverlay = new OpenSeadragonCanvasOverlay(this.viewer);
     this.viewer.addHandler('update-viewport', this.onUpdateViewport);
-    this.viewer.addHandler('viewport-change', this.onViewportChange);
+    this.viewer.addHandler('canvas-exit', this.onViewportChange);
 
     if (viewer) {
       this.viewer.viewport.panTo(viewer, false);

@@ -1,8 +1,7 @@
 import React, {ReactElement} from 'react';
+import {WindowMaxIcon, WindowMinIcon} from '../icons';
 import AppBar from '@material-ui/core/AppBar';
 import CloseIcon from '@material-ui/icons/CloseSharp';
-import FullscreenExitIcon from '@material-ui/icons/FullscreenExitSharp';
-import FullscreenIcon from '@material-ui/icons/FullscreenSharp';
 import Info from '@material-ui/icons/Info';
 import MiradorMenuButton from '../../containers/MiradorMenuButton';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -53,7 +52,7 @@ export const WindowTopBar: React.FC<IWindowTopBar> = (props): ReactElement => {
   const classes = useStyles()
   const {t} = useTranslation()
   const {removeWindow, windowId, toggleWindowSideBar, manifestTitle,
-    maximizeWindow, maximized, minimizeWindow, focused, allowClose, allowMaximize,
+    maximizeWindow, maximized, minimizeWindow, focused, allowClose = true, allowMaximize = true,
   } = props;
   return (
     <AppBar
@@ -62,6 +61,13 @@ export const WindowTopBar: React.FC<IWindowTopBar> = (props): ReactElement => {
       position="static"
     >
       <Toolbar disableGutters variant="dense">
+        <WindowTopMenuButton
+          className={ns('window-menu-btn')}
+          windowId={windowId}
+        />
+        <Typography className={classes.title} noWrap variant="h2">
+          {manifestTitle}
+        </Typography>
         <MiradorMenuButton
           aria-label={t('toggleWindowSideBar')}
           color="inherit"
@@ -70,13 +76,6 @@ export const WindowTopBar: React.FC<IWindowTopBar> = (props): ReactElement => {
         >
           <Info />
         </MiradorMenuButton>
-        <Typography className={classes.title} noWrap variant="h2">
-          {manifestTitle}
-        </Typography>
-        <WindowTopMenuButton
-          className={ns('window-menu-btn')}
-          windowId={windowId}
-        />
         {allowMaximize && (
           <MiradorMenuButton
             aria-label={(maximized ? t('minimizeWindow') : t('maximizeWindow'))}
@@ -84,7 +83,7 @@ export const WindowTopBar: React.FC<IWindowTopBar> = (props): ReactElement => {
             color="inherit"
             onClick={(maximized ? minimizeWindow : maximizeWindow)}
           >
-            {(maximized ? <FullscreenExitIcon /> : <FullscreenIcon />)}
+            {(maximized ? <WindowMinIcon /> : <WindowMaxIcon />)}
           </MiradorMenuButton>
         )}
         {allowClose && (

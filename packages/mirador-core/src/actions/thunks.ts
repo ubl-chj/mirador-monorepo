@@ -20,6 +20,22 @@ export const evalAddWindows = (options) => {
 
     const cwDefault = `cw-${uuid()}`;
     const cwThumbs = `cw-${uuid()}`;
+
+    const companionWindows = [
+      {
+        content: 'info',
+        id: cwDefault,
+        position: 'left',
+        thumbnailNavigationId: 'xyz'
+      },
+      {
+        content: 'thumbnail_navigation',
+        id: cwThumbs,
+        position: options.thumbnailNavigationPosition || 'far-bottom',
+        thumbnailNavigationId: 'xyz'
+      },
+    ]
+
     const defaultOptions = {
       canvasIndex: 0,
       collectionIndex: 0,
@@ -39,22 +55,6 @@ export const evalAddWindows = (options) => {
       x: 200 + (Math.floor(numWindows / 10) * 50 + (numWindows * 30) % 300),
       y: 200 + ((numWindows * 50) % 300),
     };
-
-    const companionWindows = [
-      {
-        content: 'info',
-        id: cwDefault,
-        position: 'left',
-        thumbnailNavigationId: 'xyz'
-      },
-      {
-        content: 'thumbnail_navigation',
-        id: cwThumbs,
-        position: options.thumbnailNavigationPosition || 'far-bottom',
-        thumbnailNavigationId: 'xyz'
-      },
-    ]
-
     dispatch(addWindow({companionWindows, window: { ...defaultOptions, ...options }}));
   };
 }

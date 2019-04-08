@@ -37,9 +37,9 @@ export const WindowSideBar: React.FC<IWindowsSideBar> = (props): ReactElement =>
   return (
     <>
       <Drawer
-        PaperProps={{ component: 'nav', style: { position: 'relative' } }}
+        PaperProps={{ component: 'nav', style: { position: 'absolute' } }}
         SlideProps={{ mountOnEnter: true, unmountOnExit: true }}
-        anchor="left"
+        anchor="right"
         className={classNames(classes.drawer)}
         classes={{
           paper: classes.drawerPaper,

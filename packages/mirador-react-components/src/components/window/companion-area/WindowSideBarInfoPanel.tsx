@@ -4,7 +4,6 @@ import {MetadataList} from '@mirador/custom-components'
 import { SanitizedHtml } from './SanitizedHtml';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from "@material-ui/styles"
-import ns from '../../../config/css-ns';
 import {useTranslation} from "react-i18next"
 
 interface IWindowSideBarInfoPanel {
@@ -33,7 +32,7 @@ const useStyles = makeStyles(theme => ({
 export const WindowSideBarInfoPanel: React.FC<IWindowSideBarInfoPanel> = (props): ReactElement => {
   const classes = useStyles()
   const {t} = useTranslation()
-  const {canvasDescription, canvasLabel, canvasMetadata, manifestDescription, manifestMetadata, windowId, id} = props;
+  const {canvasDescription, canvasLabel, canvasMetadata, manifestDescription, manifestMetadata, id} = props;
 
   return (
     <>
