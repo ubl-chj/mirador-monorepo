@@ -1,6 +1,5 @@
-import {addCompanionWindow, addWindow, removeCompanionWindow, updateCompanionWindow} from "../actions"
+import {addCompanionWindow, addWindow, collectGarbage, removeCompanionWindow, updateCompanionWindow} from "../actions"
 import {merge, removeIn, setIn, updateIn} from 'immutable'
-import {isType} from 'typescript-fsa'
 import {reducerWithInitialState} from 'typescript-fsa-reducers'
 import uuid from 'uuid/v4'
 
@@ -48,4 +47,7 @@ export const companionWindowsReducer = reducerWithInitialState({})
   })
   .caseWithAction(removeCompanionWindow, (state, action: any) => {
     return removeIn(state, [action.payload.id])
+  })
+  .caseWithAction(collectGarbage, (state, action) => {
+    return action.payload.children.reduce((state, id) => removeIn(state, [id]), state)
   })

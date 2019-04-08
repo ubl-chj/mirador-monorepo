@@ -1,5 +1,5 @@
+import {collectGarbage, updateViewport} from '../actions'
 import {reducerWithInitialState} from 'typescript-fsa-reducers'
-import {updateViewport} from '../actions'
 
 /**
  * viewersReducer
@@ -13,3 +13,11 @@ export const viewersReducer = reducerWithInitialState({})
       zoom: action.payload.zoom,
     },
   }))
+  .caseWithAction(collectGarbage, (state, action) => {
+    return Object.keys(state).reduce((object, key) => {
+      if (key !== action.payload.id) {
+        object[key] = state[key];
+      }
+      return object;
+    }, {});
+  })

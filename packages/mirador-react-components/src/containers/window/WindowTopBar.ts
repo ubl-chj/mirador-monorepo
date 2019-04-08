@@ -1,4 +1,4 @@
-import { getManifestTitle, maximizeWindow, minimizeWindow, removeWindow, toggleWindowSideBar } from '@mirador/core';
+import { getManifestTitle, maximizeWindow, minimizeWindow, removeWindowWorker, toggleWindowSideBar } from '@mirador/core';
 import { WindowTopBar } from '../../components/window/WindowTopBar';
 import { connect } from 'react-redux';
 
@@ -13,7 +13,7 @@ const mapStateToProps = (state, { windowId }) => ({
 const mapDispatchToProps = (dispatch, { windowId }) => ({
   maximizeWindow: () => dispatch(maximizeWindow({id: windowId})),
   minimizeWindow: () => dispatch(minimizeWindow({id: windowId})),
-  removeWindow: () => dispatch(removeWindow({id: windowId})),
+  removeWindow: () => dispatch(removeWindowWorker({id: windowId})),
   toggleWindowSideBar: () => dispatch(toggleWindowSideBar({id: windowId})),
 });
 

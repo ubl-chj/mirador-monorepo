@@ -10,6 +10,7 @@ import {
 import actionCreatorFactory from 'typescript-fsa';
 import {bindThunkAction} from 'typescript-fsa-redux-thunk';
 import uuid from 'uuid/v4'
+import {collectGarbage} from "./collector"
 
 const actionCreator = actionCreatorFactory();
 
@@ -129,10 +130,15 @@ export const focusWindowWorker = ({windowId, pan = false}) => {
 
 export const thunkRemoveWindow = actionCreator.async<{id: string}, {}, {}>('THUNK_REMOVE_WINDOW')
 
-export const removeWindowWorker = bindThunkAction(thunkRemoveWindow,
-  async ({id}, dispatch) => {
-    return dispatch(removeWindow({id}));
-  })
+export const removeWindowWorker = ({id}) => {
+  return (dispatch, getState) => {
+    const { windows } = getState();
+    const { companionWindowIds } = windows[id];
+    dispatch(removeWindow({id}))
+    dispatch(collectGarbage({children: companionWindowIds, id}))
+  }
+}
+
 
 export const updateCompanionWindowWorker = ({windowId, position}) => {
   return (dispatch, getState) => {

@@ -1,5 +1,6 @@
 import {
   addWindow,
+  collectGarbage,
   deselectAnnotation,
   maximizeWindow,
   minimizeWindow,
@@ -15,7 +16,7 @@ import {
   updateWindow,
   updateWindowPosition
 } from "../actions"
-import {merge, remove, updateIn} from 'immutable';
+import {merge, remove, removeIn, updateIn} from 'immutable';
 import {reducerWithInitialState} from "typescript-fsa-reducers"
 
 /**
