@@ -7,7 +7,6 @@ import {MiradorComponent} from '@mirador/react-components'
 import {localConfig} from '@mirador/configuration'
 import {withRouter} from 'react-router-dom'
 
-
 interface IMiradorImplementation {
   evalAddWindows: typeof evalAddWindows,
   config: {}
@@ -29,7 +28,6 @@ const plugins = [{
 }]
 
 const MiradorWithPanel = (props) => { return (<PersistentDrawer {...props} component={<MiradorComponent {...props}/>}/>) }
-
 
 const MiradorImplementation: React.FC<IMiradorImplementation> = (props): ReactElement => {
   const initialConfiguration = useRef(localConfig)

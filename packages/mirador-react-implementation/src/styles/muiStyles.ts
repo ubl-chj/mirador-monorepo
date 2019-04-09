@@ -2,6 +2,7 @@ const drawerWidth = 240
 
 export const styles = (theme) => ({
   card: {
+    margin: '4px',
     maxHeight: 650,
     maxWidth: 345,
     minWidth: 345,
