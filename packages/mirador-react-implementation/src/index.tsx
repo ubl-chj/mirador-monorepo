@@ -13,7 +13,7 @@ import {newStore} from './state'
 const supportsHistory = 'pushState' in window.history
 const t = Boolean(true)
 const store = newStore()
-const apollo = process.env.REACT_APP_APOLLO_HOST
+const apollo = 'https://apollo.iiif.cloud/'
 const client = new ApolloClient({
   uri: apollo
 })

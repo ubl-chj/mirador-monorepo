@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "lerna run --scope mirador-react-implementation start",
+    "start": "lerna run --scope @mirador/react-implementation start",
     "cypress:open": "CYPRESS_baseUrl=http://localhost:3000 cypress open",
     "cypress:record": "npm run start & CYPRESS_baseUrl=http://localhost:3000 cypress run --record --key 869468f7-9e3f-4d61-adbd-4e6b8adae11e",
     "server:json": "node ./scripts/json-server/server.js >> ./scripts/json-server/json-server.log 2>&1 </dev/null &",

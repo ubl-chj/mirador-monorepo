@@ -12,6 +12,7 @@
     "@types/graphql": "^14.2.0",
     "@types/manifesto": "file:packages/@types-manifesto",
     "@types/mirador-core-model": "file:packages/@types-mirador-core-model",
+    "@types/node": "^11.9.4",
     "@mirador/custom-components": "file:packages/mirador-custom-components",
     "@mirador/i18n": "file:packages/mirador-i18n",
     "@mirador/react-components": "file:packages/mirador-react-components",
