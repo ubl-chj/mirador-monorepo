@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, {ReactElement, useEffect} from 'react';
 import ManifestoCanvas from '../../../utils/ManifestoCanvas';
 import OSDViewer from '../../../containers/window/osd-viewer/OpenSeadragonViewer';
 import WindowCanvasNavigationControls from '../../../containers/window/osd-viewer/WindowCanvasNavigationControls';
+import {usePrevious} from '../../../hooks/usePrevious'
 
 interface IWindowViewer {
   currentCanvases: any
@@ -14,82 +15,48 @@ interface IWindowViewer {
  * Represents a WindowViewer in the mirador workspace. Responsible for mounting
  * OSD and Navigation
  */
-export class WindowViewer extends Component<IWindowViewer> {
-  /**
-   * componentDidMount - React lifecycle method
-   * Request the initial canvas on mount
-   */
-  public componentDidMount() {
-    const { currentCanvases, fetchInfoResponseWorker, fetchAnnotationWorker } = this.props;
-    if (!this.infoResponseIsInStore()) {
-      currentCanvases.forEach((canvas) => {
-        const manifestoCanvas = new ManifestoCanvas(canvas);
-        const { imageInformationUri } = manifestoCanvas;
-        if (imageInformationUri) {
-          fetchInfoResponseWorker({infoId: imageInformationUri});
-        }
-        manifestoCanvas.annotationListUris.forEach((uri) => {
-          fetchAnnotationWorker({annotationId: uri, canvasId: manifestoCanvas.canvas.id});
-        });
-      });
-    }
-  }
+export const WindowViewer: React.FC<IWindowViewer> = (props): ReactElement => {
 
-  /**
-   * componentDidUpdate - React lifecycle method
-   * Request a new canvas if it is needed
-   */
-  public componentDidUpdate(prevProps) {
-    const {
-      currentCanvases, window, fetchInfoResponseWorker, fetchAnnotationWorker,
-    } = this.props;
+  const { currentCanvases, fetchInfoResponseWorker, fetchAnnotationWorker, infoResponses, window } = props;
+  const prevWindow = usePrevious(window)
 
-    if (prevProps.window.view !== window.view
-      || (prevProps.window.canvasIndex !== window.canvasIndex && !this.infoResponseIsInStore())
-    ) {
-      currentCanvases.forEach((canvas) => {
-        const manifestoCanvas = new ManifestoCanvas(canvas);
-        const { imageInformationUri } = manifestoCanvas;
-        if (imageInformationUri) {
-          fetchInfoResponseWorker({infoId: imageInformationUri});
-        }
-        manifestoCanvas.annotationListUris.forEach((uri) => {
-          fetchAnnotationWorker({annotationId: uri, canvasId: manifestoCanvas.canvas.id});
-        });
-      });
-    }
-  }
-
-  /**
-   * infoResponseIsInStore - checks whether or not an info response is already
-   * in the store. No need to request it again.
-   * @return [Boolean]
-   */
-  private infoResponseIsInStore() {
-    const { currentCanvases } = this.props;
-    const responses = this.currentInfoResponses();
-    return responses.length === currentCanvases.length;
-  }
-
-  /**
-   * currentInfoResponses - Selects infoResponses that are relevant to existing
-   * canvases to be displayed.
-   */
-  private currentInfoResponses() {
-    const { currentCanvases, infoResponses } = this.props;
-
+  const currentInfoResponses = () => {
     return currentCanvases.map(canvas => (
       infoResponses[new ManifestoCanvas(canvas).imageInformationUri]
     )).filter(infoResponse => (infoResponse !== undefined));
   }
 
+  const infoResponseIsInStore = () => {
+    const responses = currentInfoResponses();
+    return responses.length === currentCanvases.length;
+  }
+
+  const doFetchActions = () => {
+    currentCanvases.forEach((canvas) => {
+      const manifestoCanvas = new ManifestoCanvas(canvas);
+      const { imageInformationUri } = manifestoCanvas;
+      if (imageInformationUri) {
+        fetchInfoResponseWorker({infoId: imageInformationUri});
+      }
+      manifestoCanvas.annotationListUris.forEach((uri) => {
+        fetchAnnotationWorker({annotationId: uri, canvasId: manifestoCanvas.canvas.id});
+      });
+    });
+  }
+
+  useEffect(() => {
+    if (!infoResponseIsInStore()
+      || (prevWindow && prevWindow.view !== window.view)
+      || (prevWindow && prevWindow.canvasIndex !== window.canvasIndex && !infoResponseIsInStore())) {
+      doFetchActions()
+    }
+  }, [window])
+
   /**
    * Return an image information response from the store for the correct image
    */
-  private tileInfoFetchedFromStore() {
-    const { currentCanvases } = this.props;
-
-    const responses = this.currentInfoResponses()
+  const tileInfoFetchedFromStore = () => {
+    const responses = currentInfoResponses()
       .map(infoResponse => infoResponse.json);
     // Only return actual tileSources when all current canvases have completed.
     if (responses.length === currentCanvases.length) {
@@ -98,17 +65,14 @@ export class WindowViewer extends Component<IWindowViewer> {
     return [];
   }
 
-  public render() {
-    const { window } = this.props;
-    return (
-      <>
-        <OSDViewer
-          tileSources={this.tileInfoFetchedFromStore()}
-          windowId={window.id}
-        >
-          <WindowCanvasNavigationControls windowId={window.id} />
-        </OSDViewer>
-      </>
-    );
-  }
+  return (
+    <>
+      <OSDViewer
+        tileSources={tileInfoFetchedFromStore()}
+        windowId={window.id}
+      >
+        <WindowCanvasNavigationControls windowId={window.id} />
+      </OSDViewer>
+    </>
+  );
 }
