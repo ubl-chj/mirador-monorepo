@@ -280,4 +280,35 @@
       border-color: #08c;
     }
   }
+  @media (max-width: 500px) {
+    &-toggle {
+      max-width: 40px;
+    }
+    &-action-bar-row {
+      display: inline-block;
+    }
+    &-hits-list-hit__poster {
+      flex: 0 0 25%;
+    }
+    &-hits-list {
+      max-width: 340px;
+    }
+    &-hits-grid {
+      background: #eeeeee;
+      display: inline-block;
+    }
+    &-hits-grid-hit {
+      padding: 10px;
+      max-width: 250px;
+      align-content: center;
+      align-items: inherit;
+      background-color: #FFF;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      border-radius: 2px;
+      margin: 5px;
+    }
+    &-results-list {
+      padding: 15px 0;
+    }
+  }
 }

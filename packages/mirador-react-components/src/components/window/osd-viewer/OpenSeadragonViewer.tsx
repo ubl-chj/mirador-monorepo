@@ -44,6 +44,10 @@ export class OpenSeadragonViewer extends Component<IOpenSeadragonViewer> {
     });
   }
 
+  private static onCanvasClick(e) {
+    e.preventDefaultAction = true
+  }
+
   public constructor(props) {
     super(props);
 
@@ -76,12 +80,12 @@ export class OpenSeadragonViewer extends Component<IOpenSeadragonViewer> {
     this.osdCanvasOverlay = new OpenSeadragonCanvasOverlay(this.viewer);
     this.viewer.addHandler('update-viewport', this.onUpdateViewport);
     this.viewer.addHandler('canvas-exit', this.onViewportChange);
+    this.viewer.addHandler('canvas-click', OpenSeadragonViewer.onCanvasClick);
 
     if (viewer) {
       this.viewer.viewport.panTo(viewer, false);
       this.viewer.viewport.zoomTo(viewer.zoom, viewer, false);
     }
-
     tileSources.forEach((tileSource, i) => this.addTileSource(tileSource, i));
   }
 
@@ -93,9 +97,8 @@ export class OpenSeadragonViewer extends Component<IOpenSeadragonViewer> {
    */
   public componentDidUpdate(prevProps) {
     console.log('did update');
-
     const {
-      tileSources, viewer, highlightedAnnotations, selectedAnnotations
+      tileSources, highlightedAnnotations, selectedAnnotations
     } = this.props;
     const highlightsUpdated = !OpenSeadragonViewer.annotationsMatch(
       highlightedAnnotations, prevProps.highlightedAnnotations,
@@ -128,36 +131,18 @@ export class OpenSeadragonViewer extends Component<IOpenSeadragonViewer> {
           this.zoomToWorld();
         }
       });
-    } else if (viewer) {
-      const { viewport } = this.viewer;
-
-      if (viewer.x !== viewport.centerSpringX.target.value
-        || viewer.y !== viewport.centerSpringY.target.value) {
-        this.viewer.viewport.panTo(viewer, false);
-      }
-
-      if (viewer.zoom !== viewport.zoomSpring.target.value) {
-        this.viewer.viewport.zoomTo(viewer.zoom, viewer, false);
-      }
     }
   }
 
-  /**
-   */
   public componentWillUnmount() {
+    this.updateViewerLocation();
     this.viewer.removeAllHandlers();
   }
 
-  /**
-   * onUpdateViewport - fires during OpenSeadragon render method.
-   */
   private onUpdateViewport() {
     this.updateCanvas();
   }
 
-  /**
-   * Forward OSD state to redux
-   */
   private onViewportChange(event) {
     const { updateViewport, windowId } = this.props;
 
@@ -170,9 +155,17 @@ export class OpenSeadragonViewer extends Component<IOpenSeadragonViewer> {
     });
   }
 
-  /**
-   * annotationsToContext - converts anontations to a canvas context
-   */
+  private updateViewerLocation() {
+    const { updateViewport, windowId } = this.props;
+
+    const center = this.viewer.viewport.getCenter();
+    updateViewport(windowId, {
+      x: Math.round(center.x),
+      y: Math.round(center.y),
+      zoom: this.viewer.viewport.getZoom(),
+    });
+  }
+
   private annotationsToContext(annotations, color = 'yellow') {
     const { canvasWorld } = this.props;
     const context = this.osdCanvasOverlay.context2d;
@@ -231,23 +224,39 @@ export class OpenSeadragonViewer extends Component<IOpenSeadragonViewer> {
     });
   }
 
-  /**
-   * zoomToWorld - zooms the viewer to the extent of the canvas world
-   */
   private zoomToWorld(immediately = true) {
     const { canvasWorld } = this.props;
     this.fitBounds(...canvasWorld.worldBounds(), immediately);
+  }
+
+  private zoomIn() {
+    const center = this.viewer.viewport.getCenter();
+    this.viewer.viewport.zoomTo(
+      this.viewer.viewport.getZoom() * 2,
+      center,
+      false,
+    );
+  }
+
+  private zoomOut() {
+    const center = this.viewer.viewport.getCenter();
+    this.viewer.viewport.zoomTo(
+      this.viewer.viewport.getZoom() / 2,
+      center,
+      false,
+    );
   }
 
   public render() {
     const {
       windowId, children, classes, label, t, canvases, setCanvas, visible, window
     } = this.props;
-
     const enhancedChildren = React.Children.map(children, (child: any) => (
       React.cloneElement(
         child,
         {
+          zoomIn: this.zoomIn,
+          zoomOut: this.zoomOut,
           zoomToWorld: this.zoomToWorld,
         },
       )

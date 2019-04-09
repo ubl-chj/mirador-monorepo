@@ -13,8 +13,9 @@ import {newStore} from './state'
 const supportsHistory = 'pushState' in window.history
 const t = Boolean(true)
 const store = newStore()
+const apollo = process.env.REACT_APP_APOLLO_HOST
 const client = new ApolloClient({
-  uri: 'http://localhost:4000'
+  uri: apollo
 })
 
 ReactDOM.render(

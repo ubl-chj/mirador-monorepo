@@ -9,7 +9,6 @@ interface ICanvasGroupings {
  *
  */
 export default class CanvasGroupings implements ICanvasGroupings {
-
   public canvases: []
   public viewType: string
   public _groupings: any

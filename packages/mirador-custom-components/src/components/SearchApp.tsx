@@ -12,36 +12,32 @@ import {
   RefinementListFilter,
   ResetFilters,
   SearchBox,
-  SearchkitComponent,
   SearchkitComponentProps,
   SideBar,
   SortingSelector,
   ViewSwitcherHits,
   ViewSwitcherToggle,
 } from 'searchkit'
+import React, {ReactElement} from 'react'
 import {StandardGridItem, StandardListItem} from '.'
-import React from 'react'
 import {ReduxContext} from '../utils'
 import Typography from '@material-ui/core/Typography'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 interface ISearchApp extends SearchkitComponentProps {
   routeConfig: {
     name: string,
-    queryFields: {},
-    refinementListFilters: {},
-    sortingSelectorOptions: {}
+    queryFields: any,
+    refinementListFilters: any,
+    sortingSelectorOptions: any,
   }
 }
 
-export class SearchApp extends SearchkitComponent<ISearchApp, any> {
-  private routeConfig: any
+export const SearchApp: React.FC<ISearchApp> = (props): ReactElement => {
+  const {name, queryFields, refinementListFilters, sortingSelectorOptions} = props.routeConfig
+  const hasMinWidth = useMediaQuery('(min-width:500px)')
 
-  public constructor(props) {
-    super(props)
-    this.routeConfig = props.routeConfig
-  }
-
-  private buildRefinementListFilters(refinementListFilters): any {
+  const buildRefinementListFilters = (refinementListFilters) => {
     return Object.keys(refinementListFilters).map((id: any) => (
       <RefinementListFilter
         containerComponent={<Panel collapsable={true} defaultCollapsed={true}/>}
@@ -55,44 +51,42 @@ export class SearchApp extends SearchkitComponent<ISearchApp, any> {
     ))
   }
 
-  public render(): JSX.Element {
-    const {name, queryFields, refinementListFilters, sortingSelectorOptions} = this.routeConfig
-    return (
-      <Layout>
-        <Typography variant="subtitle1">{name}</Typography>
-        <SearchBox autofocus={true} queryFields={queryFields} searchOnChange={true}/>
-        <LayoutBody>
+  return (
+    <Layout>
+      <Typography variant="subtitle1">{name}</Typography>
+      <SearchBox autofocus={true} queryFields={queryFields} searchOnChange={true}/>
+      <LayoutBody>
+        {hasMinWidth ?
           <SideBar>
-            {this.buildRefinementListFilters(refinementListFilters)}
-          </SideBar>
-          <LayoutResults>
-            <ActionBar>
-              <ActionBarRow>
-                <HitsStats translations={{'hitstats.results_found': '{hitCount} results found'}}/>
-                <ViewSwitcherToggle/>
-                <SortingSelector options={sortingSelectorOptions}/>
-              </ActionBarRow>
-              <ActionBarRow>
-                <GroupedSelectedFilters/>
-                <ResetFilters/>
-              </ActionBarRow>
-            </ActionBar>
-            <Pagination showNumbers={true}/>
-            <ReduxContext.Provider value={this.props}>
-              <ViewSwitcherHits
-                hitComponents={[
-                  {defaultOption: true, itemComponent: StandardGridItem, key: 'grid', title: 'Grid'},
-                  {itemComponent: StandardListItem, key: 'list', title: 'List'},
-                ]}
-                hitsPerPage={12}
-                scrollTo="body"
-                sourceFilter={queryFields}
-              />
-            </ReduxContext.Provider>
-            <Pagination showNumbers={true}/>
-          </LayoutResults>
-        </LayoutBody>
-      </Layout>
-    )
-  }
+            {buildRefinementListFilters(refinementListFilters)}
+          </SideBar> : null }
+        <LayoutResults>
+          <ActionBar>
+            <ActionBarRow>
+              <HitsStats translations={{'hitstats.results_found': '{hitCount} results found'}}/>
+              <ViewSwitcherToggle/>
+              <SortingSelector options={sortingSelectorOptions}/>
+            </ActionBarRow>
+            <ActionBarRow>
+              <GroupedSelectedFilters/>
+              <ResetFilters/>
+            </ActionBarRow>
+          </ActionBar>
+          <Pagination showNumbers={true}/>
+          <ReduxContext.Provider value={props}>
+            <ViewSwitcherHits
+              hitComponents={[
+                {defaultOption: true, itemComponent: StandardGridItem, key: 'grid', title: 'Grid'},
+                {itemComponent: StandardListItem, key: 'list', title: 'List'},
+              ]}
+              hitsPerPage={12}
+              scrollTo="body"
+              sourceFilter={queryFields}
+            />
+          </ReduxContext.Provider>
+          <Pagination showNumbers={true}/>
+        </LayoutResults>
+      </LayoutBody>
+    </Layout>
+  )
 }

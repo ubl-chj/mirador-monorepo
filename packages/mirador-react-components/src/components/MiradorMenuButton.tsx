@@ -1,7 +1,6 @@
 import React, {ReactElement} from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import ns from '../config/css-ns';
 
 interface IMiradorMenuButton {
   'aria-label'?: string

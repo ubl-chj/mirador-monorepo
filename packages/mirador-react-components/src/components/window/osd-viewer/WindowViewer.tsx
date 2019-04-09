@@ -21,7 +21,6 @@ export class WindowViewer extends Component<IWindowViewer> {
    */
   public componentDidMount() {
     const { currentCanvases, fetchInfoResponseWorker, fetchAnnotationWorker } = this.props;
-
     if (!this.infoResponseIsInStore()) {
       currentCanvases.forEach((canvas) => {
         const manifestoCanvas = new ManifestoCanvas(canvas);
@@ -55,7 +54,7 @@ export class WindowViewer extends Component<IWindowViewer> {
           fetchInfoResponseWorker({infoId: imageInformationUri});
         }
         manifestoCanvas.annotationListUris.forEach((uri) => {
-          fetchAnnotationWorker({annotationId: uri, canvasId: manifestoCanvas.canvas.id, });
+          fetchAnnotationWorker({annotationId: uri, canvasId: manifestoCanvas.canvas.id});
         });
       });
     }
