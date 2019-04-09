@@ -20,7 +20,7 @@ services:
       - CYPRESS_fixtureServer=http://fixtures:8000
     volumes:
       - ./packages/mirador-e2e-tests/cypress:/app/cypress
-    command: npx cypress run --record
+    command: npx cypress run --browser chrome
 
   fixtures:
       image: json-server

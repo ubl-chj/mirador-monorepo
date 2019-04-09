@@ -3,7 +3,7 @@
     "baseUrl": ".",
     "paths": { "*": ["types/*"] },
     "declaration": true,
-    "module": "commonjs",
+    "module": "es2015",
     "target": "esnext",
     "downlevelIteration": true,
     "emitDecoratorMetadata": true,
@@ -15,7 +15,6 @@
     "noUnusedParameters":true,
     "noImplicitUseStrict":true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports":true,
     "jsx": "react",
     "resolveJsonModule": true,
     "typeRoots": [
@@ -23,7 +22,7 @@
       "./src/@types"
     ]
   },
-
+  "lib": ["es2015", "esnext.asynciterable", "dom"],
   "include":[
     "./src/**/*.ts",
     "./src/**/*.tsx"

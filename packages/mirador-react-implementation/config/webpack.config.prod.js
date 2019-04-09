@@ -43,8 +43,12 @@ module.exports = {
         oneOf: [
           {
             exclude: /node_modules/,
-            loader: require.resolve('ts-loader'),
-            test: /\.tsx?$/,
+            test: /\.ts(x?)$/,
+            use: [
+              {
+                loader: require.resolve('babel-loader'),
+              }
+            ]
           },
           {
             loader: require.resolve('url-loader'),
@@ -52,14 +56,6 @@ module.exports = {
               limit: 10000, name: 'static/media/[name].[hash:8].[ext]',
             },
             test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-          },
-          {
-            include: paths.appSrc,
-            loader: require.resolve('babel-loader'),
-            options: {
-              compact: true,
-            },
-            test: /\.(js|jsx|mjs)$/,
           },
           {
             test: /\.(sa|sc|c)ss$/,

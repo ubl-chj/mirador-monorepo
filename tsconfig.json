@@ -3,7 +3,7 @@
     "baseUrl": ".",
     "paths": { "*": ["types/*"] },
     "declaration": true,
-    "module": "commonjs",
+    "module": "es2015",
     "target": "esnext",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -15,23 +15,8 @@
     "noUnusedParameters":true,
     "noImplicitUseStrict":true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports":true,
     "jsx": "react",
-    "lib": [
-      "es5",
-      "es6",
-      "dom",
-      "es2015.core",
-      "es2015.collection",
-      "es2015.generator",
-      "es2015.iterable",
-      "es2015.promise",
-      "es2015.proxy",
-      "es2015.reflect",
-      "es2015.symbol",
-      "es2015.symbol.wellknown",
-      "esnext.asynciterable"
-    ],
+    "lib": ["es2015", "esnext.asynciterable", "dom"],
     "types": [
       "node", "jest", "jest-fetch-mock"
     ],

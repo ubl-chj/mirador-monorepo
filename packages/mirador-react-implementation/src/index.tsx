@@ -4,6 +4,7 @@ import {CmsPage, Landing, Mirador} from './components'
 import ApolloClient from 'apollo-boost'
 import {ApolloProvider} from 'react-apollo'
 import { I18nextProvider } from 'react-i18next'
+import { InMemoryCache } from 'apollo-cache-inmemory'
 import {Provider} from 'react-redux'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -14,8 +15,10 @@ const supportsHistory = 'pushState' in window.history
 const t = Boolean(true)
 const store = newStore()
 const apollo = process.env.REACT_APP_APOLLO_HOST
+const cache = new InMemoryCache()
 const client = new ApolloClient({
-  uri: apollo
+  cache,
+  uri: apollo,
 })
 
 ReactDOM.render(
