@@ -25,20 +25,20 @@ const useStyles = makeStyles(theme => ({
     position: 'relative',
   },
   toggle: {
-    backgroundColor: theme.palette.background.paper,
-    border: `1px solid ${theme.palette.primary.dark}`,
+    backgroundColor: (theme as any).palette.background.paper,
+    border: `1px solid ${(theme as any).palette.primary.dark}`,
     borderRadius: 0,
     left: '100%',
     marginTop: '1rem',
     padding: 2,
     position: 'absolute',
     width: '1rem',
-    zIndex: theme.zIndex.drawer,
+    zIndex: (theme as any).zIndex.drawer,
   },
 }));
 
 export const CompanionArea: React.FC<ICompanionArea> = (props): ReactElement => {
-  const classes = useStyles()
+  const classes = useStyles({})
 
   const areaLayoutClass = () => {
     const {position} = props;

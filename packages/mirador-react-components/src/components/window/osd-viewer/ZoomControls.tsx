@@ -32,7 +32,7 @@ const useStyles = makeStyles({
 /**
  */
 export const ZoomControls: React.FC<IZoomControls> = (props): ReactElement => {
-  const classes = useStyles()
+  const classes = useStyles({})
   const {t} = useTranslation()
   const {showZoomControls, windowId, updateViewport, viewer, zoomToWorld} = props;
 

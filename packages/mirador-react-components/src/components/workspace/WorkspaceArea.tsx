@@ -13,12 +13,12 @@ interface IWorkspaceArea {
 
 const useStyles = makeStyles(theme => ({
   background: {
-    background: theme.palette.background.default,
+    background: (theme as any).palette.background.default,
   },
 }));
 
 export const WorkspaceArea: React.FC<IWorkspaceArea> = (props): ReactElement => {
-  const classes = useStyles()
+  const classes = useStyles({})
   const {t} = useTranslation()
   const {isWorkspaceAddVisible, isWorkspaceControlPanelVisible} = props;
 

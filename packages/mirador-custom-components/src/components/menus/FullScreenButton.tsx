@@ -23,7 +23,7 @@ export const FullScreenButton: React.FC<IFullScreenButton> = (props): ReactEleme
       <IconButton
         aria-label={enabled ? t('exitFullScreen') : t('workspaceFullScreen')}
         href=''
-        onClick={() => setWorkspaceFullscreen({enabled: !enabled})}
+        onClick={(): void => setWorkspaceFullscreen({enabled: !enabled})}
       >
         {enabled ? <FullscreenExitIcon /> : <FullscreenIcon />}
       </IconButton>

@@ -49,7 +49,7 @@ const arrowLeftStyle = () => {
 export const ViewerNavigation: React.FC<IViewerNavigation> = (props): ReactElement => {
   const {t} = useTranslation()
   const { canvases, window, setCanvas, visible } = props;
-  const classes = useStyles()
+  const classes = useStyles({})
 
   const hasPreviousCanvas = () => {
     return window && window.canvasIndex > 0;

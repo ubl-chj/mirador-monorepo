@@ -1,11 +1,5 @@
+import { Dialog, DialogContent, DialogTitle, FormControl, ListItemText, MenuItem, Select } from '@material-ui/core';
 import React, {EventHandler, ReactElement} from 'react'
-import Dialog from '@material-ui/core/Dialog'
-import DialogContent from '@material-ui/core/DialogContent'
-import DialogTitle from '@material-ui/core/DialogTitle'
-import FormControl from '@material-ui/core/FormControl'
-import ListItemText from '@material-ui/core/ListItemText'
-import MenuItem from '@material-ui/core/MenuItem'
-import Select from '@material-ui/core/Select'
 import {updateConfig} from '@mirador/core'
 import {useListItemTextStyles} from '../../hooks'
 import {useTranslation} from 'react-i18next'
@@ -58,9 +52,10 @@ export const LanguageSelectionDialog: React.FC<ILanguageSelectionDialog> = (prop
               id: 'languageLocale',
               name: 'languages',
             }}
-            onChange={(event) => {
+            onChange={(event): void => {
+              const language = event.target.value as string
               updateConfig({
-                language: event.target.value,
+                language,
               });
             }}
             value={currentLanguage}

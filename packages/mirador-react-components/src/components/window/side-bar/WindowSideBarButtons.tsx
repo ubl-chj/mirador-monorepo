@@ -19,13 +19,13 @@ interface IWindowSideBarButtons {
 const useStyles = makeStyles(theme => ({
   tab: {
     '&:active': {
-      backgroundColor: theme.palette.action.active,
+      backgroundColor: (theme as any).palette.action.active,
     },
     '&:hover': {
       '@media (hover: none)': {
         backgroundColor: 'transparent',
       },
-      backgroundColor: theme.palette.action.hover,
+      backgroundColor: (theme as any).palette.action.hover,
       textDecoration: 'none',
       // Reset on touch devices, it doesn't add specificity
     },
@@ -33,14 +33,14 @@ const useStyles = makeStyles(theme => ({
     minWidth: 'auto',
   },
   tabRipple: {
-    backgroundColor: theme.palette.action.active,
+    backgroundColor: (theme as any).palette.action.active,
   },
   tabSelected: {
     '&:hover': {
-      backgroundColor: theme.palette.tabSelected.main,
+      backgroundColor: (theme as any).palette.tabSelected.main,
     },
-    backgroundColor: theme.palette.tabSelected.main,
-    borderRight: `2px solid ${theme.palette.focused.main}`,
+    backgroundColor: (theme as any).palette.tabSelected.main,
+    borderRight: `2px solid ${(theme as any).palette.focused.main}`,
   },
   tabsFlexContainer: {
     flexDirection: 'column',
@@ -51,7 +51,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export const WindowSideBarButtons: React.FC<IWindowSideBarButtons> = (props): ReactElement => {
-  const classes = useStyles()
+  const classes = useStyles({})
   const {t} = useTranslation()
   const { addCompanionWindow, hasAnnotations, sideBarPanel } = props;
 

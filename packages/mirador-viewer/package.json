@@ -13,7 +13,6 @@
     "server": "node_modules/.bin/http-server",
     "test": "npm run build && npm run lint && npm run size && jest -c jest.json",
     "test:watch": "jest -c jest.json --watch",
-    "build": "webpack --mode=production",
     "build:dev": "webpack --mode=development",
     "build:es": "mkdir -p dist/es && cp -r src dist/es && babel dist/es -d dist/es",
     "build:watch": "webpack --watch --mode=development",

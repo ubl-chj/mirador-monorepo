@@ -19,10 +19,10 @@ interface IWindowSideBarInfoPanel {
 const useStyles = makeStyles(theme => ({
   section: {
     borderBottom: '.5px solid rgba(0,0,0,0.25)',
-    paddingBottom: theme.spacing(1),
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(1),
-    paddingTop: theme.spacing(2),
+    paddingBottom: (theme as any).spacing(1),
+    paddingLeft: (theme as any).spacing(2),
+    paddingRight: (theme as any).spacing(1),
+    paddingTop: (theme as any).spacing(2),
   },
 }));
 
@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
  * WindowSideBarInfoPanel
  */
 export const WindowSideBarInfoPanel: React.FC<IWindowSideBarInfoPanel> = (props): ReactElement => {
-  const classes = useStyles()
+  const classes = useStyles({})
   const {t} = useTranslation()
   const {canvasDescription, canvasLabel, canvasMetadata, manifestDescription, manifestMetadata, id} = props;
 

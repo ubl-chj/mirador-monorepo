@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
     position: 'relative',
   },
   thumbnailArea: {
-    backgroundColor: theme.palette.primary.dark,
+    backgroundColor: (theme as any).palette.primary.dark,
   },
   thumbnailAreaBottom: {
   },
@@ -57,7 +57,7 @@ const useStyles = makeStyles(theme => ({
     minWidth: 100,
   },
   window: {
-    backgroundColor: theme.palette.primary.dark,
+    backgroundColor: (theme as any).palette.primary.dark,
     display: 'flex',
     flexDirection: 'column',
     height: '100%',
@@ -69,7 +69,7 @@ const useStyles = makeStyles(theme => ({
 
 export const Window: React.FC<IWindow> = (props): ReactElement => {
   const {t} = useTranslation()
-  const classes = useStyles()
+  const classes = useStyles({})
   const {manifest, window, workspaceType, focusWindow, label} = props;
   const context = useContext(ModernMosaicWindowContext);
 

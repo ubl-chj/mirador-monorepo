@@ -24,11 +24,11 @@ interface IWindowSideBarCanvasPanel {
 
 const useStyles = makeStyles(theme => ({
   label: {
-    paddingLeft: theme.spacing(1),
+    paddingLeft: (theme as any).spacing(1),
   },
   listItem: {
     borderBottom: '0.5px solid rgba(0,0,0,0.12)',
-    paddingRight: theme.spacing(1),
+    paddingRight: (theme as any).spacing(1),
   },
   primary: {
     fontFamily: 'Google Sans,Roboto,Arial,sans-serif',
@@ -39,11 +39,11 @@ const useStyles = makeStyles(theme => ({
   },
   select: {
     '&:focus': {
-      backgroundColor: theme.palette.background.paper,
+      backgroundColor: (theme as any).palette.background.paper,
     },
   },
   selectEmpty: {
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: (theme as any).palette.background.paper,
   },
 }));
 
@@ -52,7 +52,7 @@ const useStyles = makeStyles(theme => ({
  */
 export const WindowSideBarCanvasPanel: React.FC<IWindowSideBarCanvasPanel> = (props): ReactElement => {
   const [variant, setVariant] = useState()
-  const classes = useStyles()
+  const classes = useStyles({})
   const {t} = useTranslation()
   const { canvases, config, id, setCanvas, windowId } = props;
 
