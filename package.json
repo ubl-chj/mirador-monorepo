@@ -3,9 +3,9 @@
   "private": true,
   "dependencies": {
     "@babel/runtime": "^7.3.4",
-    "@material-ui/styles": "^4.0.0-alpha.5",
-    "@material-ui/core": "^4.0.0-alpha.5",
-    "@material-ui/icons": "^4.0.0-alpha.1",
+    "@material-ui/styles": "^4.1.1",
+    "@material-ui/core": "^4.1.1",
+    "@material-ui/icons": "^4.2.0",
     "@mirador/apollo-server": "file:packages/mirador-apollo-server",
     "@mirador/configuration": "file:packages/mirador-configuration",
     "@mirador/core": "file:packages/mirador-core",
