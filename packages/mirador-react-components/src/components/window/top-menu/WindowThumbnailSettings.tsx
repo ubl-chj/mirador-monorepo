@@ -19,15 +19,15 @@ const useStyles = makeStyles(theme => ({
     display: 'inline',
   },
   optionLabel: {
-    color: theme.palette.text.secondary,
+    color: (theme as any).palette.text.secondary,
   },
   selectedLabel: {
-    color: theme.palette.text.primary,
+    color: (theme as any).palette.text.primary,
   },
 }));
 
 export const WindowThumbnailSettings: React.FC<IWindowThumbnailSettings> = (props): ReactElement => {
-  const classes = useStyles()
+  const classes = useStyles({})
   const {t} = useTranslation()
   const { handleClose, thumbnailNavigationPosition, windowId, updateCompanionWindowWorker } = props;
 

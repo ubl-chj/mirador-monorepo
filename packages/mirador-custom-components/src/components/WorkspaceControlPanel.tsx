@@ -1,8 +1,7 @@
+import {Drawer, List} from '@material-ui/core'
 import {FullScreenButton, WindowListMenu, WorkspaceAddItem, WorkspaceSettingsMenu} from './menus'
 import React, {EventHandler, ReactElement} from 'react'
 import {focusWindowWorker, setWorkspaceAddVisibility, setWorkspaceFullscreen, updateConfig} from '@mirador/core'
-import Drawer from '@material-ui/core/Drawer'
-import List from '@material-ui/core/List'
 
 interface IWorkspaceControlPanel {
   currentLanguage: string,
@@ -30,7 +29,7 @@ interface IWorkspaceControlPanel {
   workspaceType: string
 }
 
-export const WorkspaceControlPanelComponent: React.FC<IWorkspaceControlPanel> = (props): ReactElement => {
+export const WorkspaceControlPanel: React.FC<IWorkspaceControlPanel> = (props): ReactElement => {
   return (
     <Drawer
       PaperProps={{ style: { top: '64px', width: '76px', zIndex: 500 } }}

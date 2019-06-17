@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { Rnd } from 'react-rnd';
 import MiradorMenuButton from '../../../src/containers/MiradorMenuButton';
 import { CompanionWindow } from '../../../src/components/CompanionWindow';
 
@@ -9,7 +10,7 @@ function createWrapper(props) {
     <CompanionWindow
       id="abc123"
       windowId="x"
-      classes={{ horizontal: 'horizontal', vertical: 'vertical' }}
+      classes={{ horizontal: 'horizontal', small: 'small', vertical: 'vertical' }}
       companionWindow={{}}
       position="right"
       {...props}
@@ -55,7 +56,7 @@ describe('CompanionWindow', () => {
       updateCompanionWindow,
     });
 
-    expect(companionWindow.find('WithStyles(Paper).vertical').length).toBe(1);
+    expect(companionWindow.find('.vertical').length).toBe(1);
 
     const button = companionWindow.find(MiradorMenuButton).first();
     button.props().onClick(); // Trigger the onClick prop
@@ -70,7 +71,7 @@ describe('CompanionWindow', () => {
       updateCompanionWindow,
     });
 
-    expect(companionWindow.find('WithStyles(Paper).horizontal').length).toBe(1);
+    expect(companionWindow.find('.horizontal').length).toBe(1);
 
     const button = companionWindow.find(MiradorMenuButton).first();
     button.props().onClick(); // Trigger the onClick prop
@@ -84,5 +85,21 @@ describe('CompanionWindow', () => {
 
     companionWindow = createWrapper({ position: 'bottom' });
     expect(companionWindow.find('.mirador-companion-window-title-controls').length).toBe(0);
+  });
+
+  it('adds a small class when the component width is small', () => {
+    companionWindow = createWrapper({ size: { width: 369 } });
+    expect(companionWindow.find('.small').length).toBe(1);
+  });
+  it('has a resize handler ', () => {
+    companionWindow = createWrapper();
+    expect(companionWindow.find(Rnd).length).toBe(1);
+    expect(companionWindow.find(Rnd).prop('enableResizing').left).toBe(true);
+    expect(companionWindow.find(Rnd).prop('default')).toEqual({ height: 'auto', width: 235 });
+
+    companionWindow = createWrapper({ position: 'bottom' });
+    expect(companionWindow.find(Rnd).length).toBe(1);
+    expect(companionWindow.find(Rnd).prop('enableResizing').top).toBe(true);
+    expect(companionWindow.find(Rnd).prop('default')).toEqual({ height: 201, width: 'auto' });
   });
 });

@@ -12,13 +12,13 @@ interface IWindowTopMenuButton {
 
 const useStyles = makeStyles(theme => ({
   ctrlBtnSelected: {
-    backgroundColor: theme.palette.action.selected,
+    backgroundColor: (theme as any).palette.action.selected,
   },
 }));
 
 export const WindowTopMenuButton: React.FC<IWindowTopMenuButton> = (props): ReactElement => {
   const [anchorEl, setAnchorEl] = useState()
-  const classes = useStyles()
+  const classes = useStyles({})
   const {t} = useTranslation()
   const { windowId } = props;
 

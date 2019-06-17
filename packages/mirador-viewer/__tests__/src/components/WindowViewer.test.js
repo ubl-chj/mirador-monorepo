@@ -10,21 +10,18 @@ import otherContentFixture from '../../fixtures/version-2/299843.json';
 
 let currentCanvases = manifesto.create(fixture).getSequences()[0].getCanvases();
 
-let mockWindow = {
-  canvasIndex: 0,
-  view: 'single',
-};
-
 /** create wrapper */
 function createWrapper(props) {
   return shallow(
     <WindowViewer
+      canvasIndex={0}
       canvasLabel="label"
       infoResponses={{}}
       fetchInfoResponse={() => {}}
       fetchAnnotation={() => {}}
       currentCanvases={[currentCanvases[1]]}
-      window={mockWindow}
+      view="single"
+      windowId="xyz"
       {...props}
     />,
   );
@@ -35,11 +32,9 @@ describe('WindowViewer', () => {
   it('renders properly', () => {
     wrapper = createWrapper();
     expect(wrapper.matchesElement(
-      <>
-        <OSDViewer>
-          <WindowCanvasNavigationControls />
-        </OSDViewer>
-      </>,
+      <OSDViewer>
+        <WindowCanvasNavigationControls />
+      </OSDViewer>,
     )).toBe(true);
   });
   describe('currentInfoResponses', () => {
@@ -47,18 +42,16 @@ describe('WindowViewer', () => {
       it('isFetching is false', () => {
         wrapper = createWrapper(
           {
+            canvasIndex: 1,
             infoResponses: {
-              'https://stacks.stanford.edu/image/iiif/fr426cg9537%2FSC1094_s3_b14_f17_Cats_1976_0005/info.json': {
+              'https://stacks.stanford.edu/image/iiif/fr426cg9537%2FSC1094_s3_b14_f17_Cats_1976_0005': {
                 isFetching: false,
               },
-              'https://stacks.stanford.edu/image/iiif/rz176rt6531%2FPC0170_s3_Tree_Calendar_20081101_152516_0410/info.json': {
+              'https://stacks.stanford.edu/image/iiif/rz176rt6531%2FPC0170_s3_Tree_Calendar_20081101_152516_0410': {
                 isFetching: true,
               },
             },
-            window: {
-              canvasIndex: 1,
-              view: 'book',
-            },
+            view: 'book',
           },
         );
         expect(wrapper.instance().currentInfoResponses().length).toEqual(1);
@@ -66,18 +59,16 @@ describe('WindowViewer', () => {
       it('infoResponse is undefined', () => {
         wrapper = createWrapper(
           {
+            canvasIndex: 1,
             infoResponses: {
               foo: {
                 isFetching: false,
               },
-              'https://stacks.stanford.edu/image/iiif/fr426cg9537%2FSC1094_s3_b14_f17_Cats_1976_0005/info.json': {
+              'https://stacks.stanford.edu/image/iiif/fr426cg9537%2FSC1094_s3_b14_f17_Cats_1976_0005': {
                 isFetching: false,
               },
             },
-            window: {
-              canvasIndex: 1,
-              view: 'book',
-            },
+            view: 'book',
           },
         );
         expect(wrapper.instance().currentInfoResponses().length).toEqual(1);
@@ -85,19 +76,17 @@ describe('WindowViewer', () => {
       it('error is not present', () => {
         wrapper = createWrapper(
           {
+            canvasIndex: 1,
             infoResponses: {
-              'https://stacks.stanford.edu/image/iiif/fr426cg9537%2FSC1094_s3_b14_f17_Cats_1976_0005/info.json': {
+              'https://stacks.stanford.edu/image/iiif/fr426cg9537%2FSC1094_s3_b14_f17_Cats_1976_0005': {
                 isFetching: false,
               },
-              'https://stacks.stanford.edu/image/iiif/rz176rt6531%2FPC0170_s3_Tree_Calendar_20081101_152516_0410/info.json': {
+              'https://stacks.stanford.edu/image/iiif/rz176rt6531%2FPC0170_s3_Tree_Calendar_20081101_152516_0410': {
                 error: 'yikes!',
                 isFetching: false,
               },
             },
-            window: {
-              canvasIndex: 1,
-              view: 'book',
-            },
+            view: 'book',
           },
         );
         expect(wrapper.instance().currentInfoResponses().length).toEqual(1);
@@ -113,15 +102,12 @@ describe('WindowViewer', () => {
 
       currentCanvases = [canvases[0]];
 
-      mockWindow = {
-        canvasIndex: 0,
-        view: 'single',
-      };
       wrapper = createWrapper(
         {
+          canvasIndex: 0,
           currentCanvases,
           fetchInfoResponse: mockFnCanvas0,
-          window: mockWindow,
+          view: 'single',
         },
       );
       expect(mockFnCanvas0).toHaveBeenCalledTimes(1);
@@ -129,9 +115,10 @@ describe('WindowViewer', () => {
       currentCanvases = [canvases[2]];
       wrapper = createWrapper(
         {
+          canvasIndex: 2,
           currentCanvases,
           fetchInfoResponse: mockFnCanvas2,
-          window: { canvasIndex: 2, view: 'single' },
+          view: 'single',
         },
       );
       expect(mockFnCanvas2).toHaveBeenCalledTimes(0);
@@ -153,15 +140,16 @@ describe('WindowViewer', () => {
       const mockFn = jest.fn();
       const canvases = manifesto.create(emptyCanvasFixture).getSequences()[0].getCanvases();
       currentCanvases = [canvases[2]];
-      mockWindow = {
-        canvasIndex: 2,
-        view: 'single',
-      };
       wrapper = createWrapper(
-        { currentCanvases, fetchInfoResponse: mockFn, window: mockWindow },
+        {
+          canvasIndex: 2,
+          currentCanvases,
+          fetchInfoResponse: mockFn,
+          view: 'single',
+        },
       );
 
-      wrapper.setProps({ currentCanvases: [canvases[3]], window: { canvasIndex: 3, view: 'single' } });
+      wrapper.setProps({ canvasIndex: 3, currentCanvases: [canvases[3]], view: 'single' });
 
       expect(mockFn).toHaveBeenCalledTimes(0);
     });

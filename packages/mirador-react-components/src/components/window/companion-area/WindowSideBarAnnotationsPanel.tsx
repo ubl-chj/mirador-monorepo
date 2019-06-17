@@ -21,13 +21,13 @@ interface IWindowSideBarAnnotationsPanel {
 const useStyles = makeStyles(theme => ({
   section: {
     borderBottom: '.5px solid rgba(0,0,0,0.25)',
-    paddingBottom: theme.spacing(1),
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(1),
-    paddingTop: theme.spacing(2),
+    paddingBottom: (theme as any).spacing(1),
+    paddingLeft: (theme as any).spacing(2),
+    paddingRight: (theme as any).spacing(1),
+    paddingTop: (theme as any).spacing(2),
   },
   selectedAnnotation: {
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: (theme as any).palette.background.default,
   },
 }));
 
@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
  * WindowSideBarAnnotationsPanel ~
 */
 export const WindowSideBarAnnotationsPanel: React.FC<IWindowSideBarAnnotationsPanel> = (props): ReactElement => {
-  const classes = useStyles()
+  const classes = useStyles({})
   const {t} = useTranslation()
   const {annotations, deselectAnnotation, id, windowId, selectAnnotation, selectedAnnotationIds} = props;
   /**

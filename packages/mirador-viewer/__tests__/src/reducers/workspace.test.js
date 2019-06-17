@@ -1,4 +1,5 @@
-import {ActionTypes, workspaceReducer} from '@mirador/core';
+import { workspaceReducer } from '../../../src/state/reducers/workspace';
+import ActionTypes from '../../../src/state/actions/action-types';
 
 describe('workspace reducer', () => {
   it('should handle FOCUS_WINDOW without position coordinates', () => {
@@ -18,6 +19,32 @@ describe('workspace reducer', () => {
     })).toEqual({
       focusedWindowId: 'abc123',
       viewportPosition: { x: 10, y: 50 },
+    });
+  });
+  it('should handle ADD_WINDOW', () => {
+    expect(workspaceReducer([], {
+      type: ActionTypes.ADD_WINDOW,
+      window: { id: 'abc123' },
+    })).toEqual({
+      focusedWindowId: 'abc123',
+    });
+  });
+  it('should handle REMOVE_WINDOW (by doing nothing if multiple windows remain)', () => {
+    expect(workspaceReducer({ focusedWindowId: 'asdf' }, {
+      type: ActionTypes.REMOVE_WINDOW,
+      windowId: 'abc123',
+      windows: { abc123: {}, def123: {}, ghi123: {} },
+    })).toEqual({
+      focusedWindowId: 'asdf',
+    });
+  });
+  it('should handle REMOVE_WINDOW (by focusing the window if it is the last one remaining)', () => {
+    expect(workspaceReducer([], {
+      type: ActionTypes.REMOVE_WINDOW,
+      windowId: 'abc123',
+      windows: { abc123: {}, def123: {} },
+    })).toEqual({
+      focusedWindowId: 'def123',
     });
   });
   it('should handle SET_WORKSPACE_FULLSCREEN', () => {
@@ -53,7 +80,7 @@ describe('workspace reducer', () => {
     });
   });
   it('should handle SET_WORKSPACE_VIEWPORT_POSITION', () => {
-    expect(workspaceReducer([], {
+    expect(workspaceReducer({ height: 5000, width: 5000 }, {
       payload: {
         position: {
           height: 50,
@@ -64,12 +91,36 @@ describe('workspace reducer', () => {
       },
       type: ActionTypes.SET_WORKSPACE_VIEWPORT_POSITION,
     })).toEqual({
+      height: 5000,
       viewportPosition: {
         height: 50,
         width: 50,
         x: 50,
         y: 50,
       },
+      width: 5000,
+    });
+  });
+  it('resizes the workspace if the SET_WORKSPACE_VIEWPORT_POSITION are beyond outside the workspace', () => {
+    expect(workspaceReducer({ height: 500, width: 500 }, {
+      payload: {
+        position: {
+          height: 50,
+          width: 50,
+          x: -255,
+          y: 0,
+        },
+      },
+      type: ActionTypes.SET_WORKSPACE_VIEWPORT_POSITION,
+    })).toEqual({
+      height: 1000,
+      viewportPosition: {
+        height: 50,
+        width: 50,
+        x: -255,
+        y: 0,
+      },
+      width: 1000,
     });
   });
   it('should handle TOGGLE_WORKSPACE_EXPOSE_MODE', () => {
@@ -78,5 +129,16 @@ describe('workspace reducer', () => {
     })).toEqual({
       exposeModeOn: true,
     });
+  });
+  it('should handle IMPORT_MIRADOR_STATE', () => {
+    expect(workspaceReducer({}, {
+      state: { workspace: { new: 'stuff' } },
+      type: ActionTypes.IMPORT_MIRADOR_STATE,
+    })).toEqual({ new: 'stuff' });
+  });
+  it('should handle ActionTypes.TOGGLE_DRAGGING', () => {
+    expect(workspaceReducer({ draggingEnabled: true }, {
+      type: ActionTypes.TOGGLE_DRAGGING,
+    })).toEqual({ draggingEnabled: false });
   });
 });

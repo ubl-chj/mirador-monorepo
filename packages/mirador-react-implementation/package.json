@@ -5,6 +5,7 @@
   "main": "lib/index-dist.js",
   "scripts": {
     "build": "node scripts/build.js",
+    "build-ts": "tsc",
     "lint": "eslint ./",
     "start": "node scripts/start.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -19,7 +20,10 @@
     "@mirador/core": "file:../mirador-core",
     "@mirador/react-components": "file:../mirador-react-components",
     "@types/node": "^11.9.4",
+    "@types/graphql": "^14.0.2",
     "apollo-boost": "^0.3.1",
+    "apollo-cache-inmemory": "^1.5.1",
+    "graphql": "14.1.0",
     "react-apollo": "^2.5.3",
     "classnames": "^2.2.6",
     "deepmerge": "^3.2.0",
@@ -30,7 +34,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-i18next": "^10.2.0",
-    "react-redux": "^7.0.0-beta.1",
+    "react-redux": "^7.1.0",
     "react-router": "^4.4.0-beta.6",
     "react-router-dom": "^4.4.0-beta.6",
     "redux": "^4.0.1",

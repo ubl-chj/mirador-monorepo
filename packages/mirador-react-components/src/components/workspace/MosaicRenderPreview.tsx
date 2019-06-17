@@ -9,7 +9,7 @@ interface IMosaicRenderPreview {
 
 const useStyles = makeStyles(theme => ({
   preview: {
-    ...theme.typography.h4,
+    ...(theme as any).typography.h4,
   },
 }));
 
@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
  * MosaicRenderPreview is used to for the preview when dragging a mosaic window/tile
 */
 export const MosaicRenderPreview: React.FC<IMosaicRenderPreview> = (props): ReactElement => {
-  const classes = useStyles()
+  const classes = useStyles({})
   const {t} = useTranslation()
   const {title} = props;
 

@@ -1,4 +1,5 @@
-import { ActionTypes, infoResponsesReducer } from '@mirador/core';
+import { infoResponsesReducer } from '../../../src/state/reducers/infoResponses';
+import ActionTypes from '../../../src/state/actions/action-types';
 
 describe('info response reducer', () => {
   it('should handle REQUEST_INFO_RESPONSE', () => {
@@ -80,5 +81,11 @@ describe('info response reducer', () => {
         stuff: 'foo',
       },
     });
+  });
+  it('should handle IMPORT_MIRADOR_STATE setting to clean state', () => {
+    expect(infoResponsesReducer({}, {
+      state: { infoResponses: { new: 'stuff' } },
+      type: ActionTypes.IMPORT_MIRADOR_STATE,
+    })).toEqual({});
   });
 });

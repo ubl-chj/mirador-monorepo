@@ -12,10 +12,10 @@ interface IGalleryView {
   window: any
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   currentCanvas: {
-    border: `2px solid ${theme.palette.secondary.main}`,
-    padding: theme.spacing(0.5),
+    border: `2px solid ${(theme as any).palette.secondary.main}`,
+    padding: (theme as any).spacing(0.5),
   },
   galleryContainer: {
     flex: '1',
@@ -28,8 +28,8 @@ const useStyles = makeStyles(theme => ({
       outline: 'none',
     },
     '&:hover': {
-      border: `2px solid ${theme.palette.secondary.main}`,
-      padding: theme.spacing(0.5),
+      border: `2px solid ${(theme as any).palette.secondary.main}`,
+      padding: (theme as any).spacing(0.5),
       transform: 'scale(1.05)',
       transition: '.1s transform ease-out',
     },
@@ -37,10 +37,10 @@ const useStyles = makeStyles(theme => ({
     cursor: 'pointer',
     display: 'inline-block',
     height: '160px',
-    margin: `${theme.spacing(1)}px ${theme.spacing(0.5)}px`,
+    margin: `${(theme as any).spacing(1)}px ${(theme as any).spacing(0.5)}px`,
     maxWidth: '100px',
     overflow: 'hidden',
-    padding: theme.spacing(0.5),
+    padding: (theme as any).spacing(0.5),
     textOverflow: 'elipsis',
     transition: '.1s transform ease-out',
   },
@@ -51,7 +51,7 @@ const useStyles = makeStyles(theme => ({
  * OSD and Navigation
  */
 export const GalleryView: React.FC<IGalleryView> = (props): ReactElement => {
-  const classes = useStyles()
+  const classes: any = useStyles({})
   const {canvases, setCanvas, window} = props;
   return (
     <>
@@ -72,7 +72,7 @@ export const GalleryView: React.FC<IGalleryView> = (props): ReactElement => {
                 }
                 key={canvas.index}
                 onClick={() => setCanvas({canvasIndex: canvas.index, windowId: window.id})}
-                onKeyUp={() => setCanvas({canvasIndex: canvas.index, windowId: window.id, })}
+                onKeyUp={() => setCanvas({canvasIndex: canvas.index, windowId: window.id})}
                 role="button"
                 tabIndex={0}
               >

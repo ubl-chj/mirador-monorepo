@@ -1,10 +1,10 @@
-import {ActionTypes, setWorkspaceAddVisibility, setWorkspaceFullscreen, setWorkspaceViewportPosition,
-  toggleWorkspaceExposeMode, toggleZoomControls, updateWorkspaceMosaicLayout} from '@mirador/core';
+import * as actions from '../../../src/state/actions';
+import ActionTypes from '../../../src/state/actions/action-types';
 
 describe('workspace actions', () => {
   describe('setWorkspaceFullscreen', () => {
     it('should return correct action type if set to true', () => {
-      const receivedAction = setWorkspaceFullscreen(true);
+      const receivedAction = actions.setWorkspaceFullscreen(true);
       const expectedAction = {
         isFullscreenEnabled: true,
         type: ActionTypes.SET_WORKSPACE_FULLSCREEN,
@@ -12,7 +12,7 @@ describe('workspace actions', () => {
       expect(receivedAction).toEqual(expectedAction);
     });
     it('should return correct action type if set to false', () => {
-      const receivedAction = setWorkspaceFullscreen(false);
+      const receivedAction = actions.setWorkspaceFullscreen(false);
       const expectedAction = {
         isFullscreenEnabled: false,
         type: ActionTypes.SET_WORKSPACE_FULLSCREEN,
@@ -28,7 +28,7 @@ describe('workspace actions', () => {
         layout: { foo: 'bar' },
         type: ActionTypes.UPDATE_WORKSPACE_MOSAIC_LAYOUT,
       };
-      expect(updateWorkspaceMosaicLayout(options)).toEqual(expectedAction);
+      expect(actions.updateWorkspaceMosaicLayout(options)).toEqual(expectedAction);
     });
   });
   describe('toggleZoomControls', () => {
@@ -37,7 +37,7 @@ describe('workspace actions', () => {
         showZoomControls: true,
         type: ActionTypes.TOGGLE_ZOOM_CONTROLS,
       };
-      expect(toggleZoomControls(true)).toEqual(expectedAction);
+      expect(actions.toggleZoomControls(true)).toEqual(expectedAction);
     });
   });
   describe('setWorkspaceAddVisibility', () => {
@@ -46,7 +46,7 @@ describe('workspace actions', () => {
         isWorkspaceAddVisible: true,
         type: ActionTypes.SET_WORKSPACE_ADD_VISIBILITY,
       };
-      expect(setWorkspaceAddVisibility(true)).toEqual(expectedAction);
+      expect(actions.setWorkspaceAddVisibility(true)).toEqual(expectedAction);
     });
   });
   describe('setWorkspaceViewportDimensions', () => {
@@ -77,7 +77,7 @@ describe('workspace actions', () => {
         },
         type: ActionTypes.SET_WORKSPACE_VIEWPORT_POSITION,
       };
-      expect(setWorkspaceViewportPosition({
+      expect(actions.setWorkspaceViewportPosition({
         x: 20,
         y: 20,
       })).toEqual(expectedAction);
@@ -88,7 +88,15 @@ describe('workspace actions', () => {
       const expectedAction = {
         type: ActionTypes.TOGGLE_WORKSPACE_EXPOSE_MODE,
       };
-      expect(toggleWorkspaceExposeMode()).toEqual(expectedAction);
+      expect(actions.toggleWorkspaceExposeMode()).toEqual(expectedAction);
+    });
+  });
+  describe('toggleDraggingEnabled', () => {
+    it('should set the draggingEnabled to false', () => {
+      const expectedAction = {
+        type: ActionTypes.TOGGLE_DRAGGING,
+      };
+      expect(actions.toggleDraggingEnabled()).toEqual(expectedAction);
     });
   });
 });

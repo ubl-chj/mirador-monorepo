@@ -1,4 +1,5 @@
-import { ActionTypes, companionWindowsReducer } from '@mirador/core';
+import { companionWindowsReducer } from '../../../src/state/reducers/companionWindows';
+import ActionTypes from '../../../src/state/actions/action-types';
 
 describe('companionWindowsReducer', () => {
   describe('ADD_COMPANION_WINDOW', () => {
@@ -27,7 +28,7 @@ describe('companionWindowsReducer', () => {
           id: 'banana',
           position: 'left',
         }, {
-          content: 'canvas_navigation',
+          content: 'canvas',
           id: 'Banane',
           position: 'right',
         }],
@@ -41,7 +42,7 @@ describe('companionWindowsReducer', () => {
           position: 'left',
         },
         Banane: {
-          content: 'canvas_navigation',
+          content: 'canvas',
           id: 'Banane',
           position: 'right',
         },
@@ -55,7 +56,7 @@ describe('companionWindowsReducer', () => {
     it('updates an existing companion window', () => {
       const action = {
         id: 'abc123',
-        payload: { content: 'canvases', foo: 'bar' },
+        payload: { content: 'canvas', foo: 'bar' },
         type: ActionTypes.UPDATE_COMPANION_WINDOW,
       };
       const beforeState = {
@@ -66,7 +67,7 @@ describe('companionWindowsReducer', () => {
       };
       const expectedState = {
         abc123: {
-          content: 'canvases',
+          content: 'canvas',
           foo: 'bar',
           position: 'right',
         },
@@ -107,5 +108,11 @@ describe('companionWindowsReducer', () => {
       const expectedState = { c: {} };
       expect(companionWindowsReducer(beforeState, action)).toEqual(expectedState);
     });
+  });
+  it('should handle IMPORT_MIRADOR_STATE', () => {
+    expect(companionWindowsReducer({}, {
+      state: { companionWindows: { new: 'stuff' } },
+      type: ActionTypes.IMPORT_MIRADOR_STATE,
+    })).toEqual({ new: 'stuff' });
   });
 });

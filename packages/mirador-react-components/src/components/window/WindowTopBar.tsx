@@ -27,21 +27,21 @@ interface IWindowTopBar {
 
 const useStyles = makeStyles(theme => ({
   focused: {
-    borderTop: `4px solid ${theme.palette.focused.main}`,
+    borderTop: `4px solid ${(theme as any).palette.focused.main}`,
   },
   title: {
-    ...theme.typography.h6,
+    ...(theme as any).typography.h6,
     flexGrow: 1,
-    paddingLeft: theme.spacing(0.5),
+    paddingLeft: (theme as any).spacing(0.5),
   },
   windowTopBarStyle: {
     '&$focused': {
-      borderTop: `4px solid ${theme.palette.focused.main}`,
+      borderTop: `4px solid ${(theme as any).palette.focused.main}`,
     },
-    backgroundColor: theme.palette.primary.light,
+    backgroundColor: (theme as any).palette.primary.light,
     minHeight: 32,
-    paddingLeft: theme.spacing(0.5),
-    paddingRight: theme.spacing(0.5),
+    paddingLeft: (theme as any).spacing(0.5),
+    paddingRight: (theme as any).spacing(0.5),
   },
 }));
 
@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
  * WindowTopBar
  */
 export const WindowTopBar: React.FC<IWindowTopBar> = (props): ReactElement => {
-  const classes = useStyles()
+  const classes = useStyles({})
   const {t} = useTranslation()
   const {removeWindow, windowId, toggleWindowSideBar, manifestTitle,
     maximizeWindow, maximized, minimizeWindow, focused, allowClose = true, allowMaximize = true,

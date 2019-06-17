@@ -9,7 +9,7 @@ function createWrapper(props) {
   return shallow(
     <WorkspaceMosaic
       windows={{}}
-      workspace={{}}
+      workspaceId="foo"
       updateWorkspaceMosaicLayout={() => {}}
       {...props}
     />,
@@ -39,20 +39,50 @@ describe('WorkspaceMosaic', () => {
 
       expect(updateWorkspaceMosaicLayout).toHaveBeenCalled();
     });
+    it('updates the workspace layout when windows are removed', () => {
+      const updateWorkspaceMosaicLayout = jest.fn();
+      wrapper = createWrapper({
+        layout: { first: 1, second: 2 },
+        updateWorkspaceMosaicLayout,
+        windows,
+      });
+      wrapper.instance().windowPaths = { 2: ['second'] };
+      wrapper.setProps({ windows: { 1: { id: 1 } } });
+      expect(updateWorkspaceMosaicLayout).toHaveBeenLastCalledWith(1);
+    });
+    it('when no windows remain', () => {
+      const updateWorkspaceMosaicLayout = jest.fn();
+      wrapper = createWrapper({
+        updateWorkspaceMosaicLayout,
+        windows,
+      });
+      wrapper.setProps({ windows: {} });
+      expect(updateWorkspaceMosaicLayout).toHaveBeenLastCalledWith(null);
+    });
+  });
+  describe('bookkeepPath', () => {
+    it('as windows are rendered keeps a reference to their path in binary tree', () => {
+      wrapper.instance().tileRenderer('1', 'foo');
+      expect(wrapper.instance().windowPaths).toEqual({ 1: 'foo' });
+    });
   });
   describe('determineWorkspaceLayout', () => {
     it('when window ids do not match workspace layout', () => {
-      wrapper = createWrapper({ windows, workspace: { layout: 'foo' } });
+      wrapper = createWrapper({ layout: {}, windows });
       expect(wrapper.instance().determineWorkspaceLayout()).toMatchObject({
         direction: 'row', first: '1', second: '2',
       });
     });
-    it('when there are no windows', () => {
-      wrapper = createWrapper({ windows: {}, workspace: { layout: 'foo' } });
-      expect(wrapper.instance().determineWorkspaceLayout()).toBeNull();
+    it('by default use workspace.layout', () => {
+      wrapper = createWrapper({ layout: {}, windows: { foo: 'bar' } });
+      expect(wrapper.instance().determineWorkspaceLayout()).toEqual('foo');
+    });
+    it('generates a new layout if windows do not match current layout', () => {
+      wrapper = createWrapper({ layout: { first: 'foo', second: 'bark' }, windows: { foo: 'bar' } });
+      expect(wrapper.instance().determineWorkspaceLayout()).toEqual('foo');
     });
     it('when window ids match workspace layout', () => {
-      wrapper = createWrapper({ windows: { foo: { id: 'foo' } }, workspace: { layout: 'foo' } });
+      wrapper = createWrapper({ layout: {}, windows: { foo: { id: 'foo' } } });
       expect(wrapper.instance().determineWorkspaceLayout()).toBe('foo');
     });
   });
@@ -67,7 +97,7 @@ describe('WorkspaceMosaic', () => {
         toolbarControls: [],
       }));
 
-      expect(shallow(shallow(renderedTile).props().renderPreview()).matchesElement(
+      expect(shallow(shallow(renderedTile).props().renderPreview({ windowId: 1 })).matchesElement(
         <div className="mosaic-preview">
           <MosaicRenderPreview windowId={1} />
         </div>,

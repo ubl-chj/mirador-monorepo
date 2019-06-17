@@ -1,9 +1,11 @@
 import React, {ReactElement} from 'react'
-import {ReduxContext, buildThumbnailReference, setManifest, shortenTitle} from '../utils'
+import {buildThumbnailReference, shortenTitle} from '../utils'
+import {evalAddWindows, fetchManifestWorker, getManifests} from '@mirador/core'
 import Button from '@material-ui/core/Button'
 import {Image} from '.'
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
+import {useDispatch} from 'react-redux'
 
 interface IStandardGridItem {
   bemBlocks: any
@@ -33,10 +35,16 @@ export const StandardGridItem: React.FC<IStandardGridItem> = (props): ReactEleme
   const manifestId = source.manifest ? source.manifest : source.Manifest
   const workspaceUri = '/view?manifest=' + manifestId
   const thumbnail = buildThumbnailReference(source.thumbnail)
-
+  const dispatch = useDispatch()
+  const manifests = getManifests()
   const matchManifest = (manifests): boolean => {
     const matched = manifests[manifestId]
     return !!(matched && matched.id)
+  }
+
+  const setManifest = (manifestId): any => {
+    dispatch(fetchManifestWorker({manifestId}))
+    dispatch(evalAddWindows({manifestId, thumbnailNavigationPosition: 'off'}))
   }
 
   const buildSummary = (): JSX.Element => {
@@ -64,14 +72,14 @@ export const StandardGridItem: React.FC<IStandardGridItem> = (props): ReactEleme
     </Query>)
   }
 
-  const buildItem = (xProps): JSX.Element => {
+  const buildItem = (): JSX.Element => {
     if (manifestId) {
       return (
             <>
             <div className={bemBlocks.item('poster')}>
               <Button
                 href=''
-                onClick={() => setManifest(xProps, manifestId)}
+                onClick={() => setManifest(manifestId)}
               >
                 <Image
                   imageSource={thumbnail}
@@ -95,24 +103,21 @@ export const StandardGridItem: React.FC<IStandardGridItem> = (props): ReactEleme
   }
 
   return (
-    <ReduxContext.Consumer>{(xProps) =>
       <>
-        {matchManifest(xProps.manifests)
+        {matchManifest(manifests)
           ? (<div
             className={bemBlocks.item().mix(bemBlocks.container('item'))}
             data-qa="hit"
             style={{backgroundColor: '#baccbc'}}
           >
-            {buildItem(xProps)}
+            {buildItem()}
           </div>)
           : (<div
             className={bemBlocks.item().mix(bemBlocks.container('item'))}
             data-qa="hit"
           >
-            {buildItem(xProps)}
+            {buildItem()}
           </div>)
         }
-      </>
-    }
-    </ReduxContext.Consumer>)
+      </>)
 }

@@ -4,18 +4,12 @@ import {
   SearchkitProvider,
 } from 'searchkit'
 import {SearchApp} from '.'
+import {getDiscovery} from "../state/selectors"
 
-interface IDiscoveryComponent {
-  discovery: {
-    currentIndex: string,
-    indices: {}
-  },
-}
-
-export const DiscoveryComponent: React.FC<IDiscoveryComponent> = (props): ReactElement => {
-  const {currentIndex} = props.discovery
-  const routeConfig = props.discovery.indices[currentIndex]
-
+export const DiscoveryComponent: React.FC<any> = (props): ReactElement => {
+  const discovery = getDiscovery()
+  const {currentIndex} = discovery
+  const routeConfig = discovery.indices[currentIndex]
   const buildSearchKitManager = (): SearchkitManager => {
     const host = routeConfig.host + '/' + currentIndex
     const options = {

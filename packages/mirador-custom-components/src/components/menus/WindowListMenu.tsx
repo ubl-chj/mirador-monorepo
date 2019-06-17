@@ -1,33 +1,20 @@
+import {Badge, IconButton, ListItem, ListItemText, Menu, MenuItem} from '@material-ui/core'
 import React, {ReactElement, useState} from 'react'
-import Badge from '@material-ui/core/Badge'
-import IconButton from '@material-ui/core/IconButton'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
+import {focusWindowWorker, getFocusedWindowId, getWindows} from "@mirador/core"
+import {IWindows} from "mirador-core-model"
 import Star from '@material-ui/icons/Star'
-import {focusWindowWorker} from "@mirador/core"
+import {useDispatch} from 'react-redux'
 import {useListItemTextStyles} from '../../hooks'
 import {useTranslation} from 'react-i18next'
 
-interface IWindowListMenu {
-  focusWindowWorker: typeof focusWindowWorker
-  focusedWindowId: any
-  manifests: {}
-  titles: {}
-  windows: {
-    [key: string]: {
-      id: string
-    }
-  }
-}
-
-export const WindowListMenu: React.FC<IWindowListMenu> = (props): ReactElement => {
+export const WindowListMenu: React.FC<any> = (props): ReactElement => {
   const [anchorEl, setAnchorEl] = useState()
   const classes: any = useListItemTextStyles
   const {t} = useTranslation()
-  const {focusWindowWorker, focusedWindowId, windows} = props
+  const windows: IWindows = getWindows()
+  const focusedWindowId = getFocusedWindowId()
   const windowCount = windows && Object.keys(windows).length
+  const dispatch = useDispatch()
 
   const handleClick: any = (e): void => {
     if (e && e.currentTarget) {
@@ -55,7 +42,7 @@ export const WindowListMenu: React.FC<IWindowListMenu> = (props): ReactElement =
           button={true}
           component='div'
           divider={true}
-          onClick={() => focusWindowWorker({windowId: window.id})}
+          onClick={() => dispatch(focusWindowWorker({windowId: window.id}))}
         >
           <ListItemText className={classes.primary}>
             {titleContent(window)}

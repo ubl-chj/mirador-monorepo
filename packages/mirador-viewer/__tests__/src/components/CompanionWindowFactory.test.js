@@ -4,6 +4,8 @@ import WindowSideBarInfoPanel from '../../../src/containers/WindowSideBarInfoPan
 import WindowSideBarCanvasPanel from '../../../src/containers/WindowSideBarCanvasPanel';
 import WindowSideBarAnnotationsPanel from '../../../src/containers/WindowSideBarAnnotationsPanel';
 import ThumbnailNavigation from '../../../src/containers/ThumbnailNavigation';
+import AttributionPanel from '../../../src/containers/AttributionPanel';
+import SearchPanel from '../../../src/containers/SearchPanel';
 import { CompanionWindowFactory } from '../../../src/components/CompanionWindowFactory';
 
 /** create wrapper */
@@ -31,10 +33,10 @@ describe('CompanionWindowFactory', () => {
     });
   });
 
-  describe('for a canvas_navigation window', () => {
+  describe('for a canvas navigation window', () => {
     it('renders the appropriate arg component', () => {
       wrapper = createWrapper({
-        content: 'canvas_navigation',
+        content: 'canvas',
       });
 
       expect(wrapper.find(WindowSideBarCanvasPanel).length).toBe(1);
@@ -51,13 +53,33 @@ describe('CompanionWindowFactory', () => {
     });
   });
 
+  describe('for an attribution window', () => {
+    it('renders the appropriate arg component', () => {
+      wrapper = createWrapper({
+        content: 'attribution',
+      });
+
+      expect(wrapper.find(AttributionPanel).length).toBe(1);
+    });
+  });
+
   describe('for the thumbnail nav window', () => {
     it('renders the appropriate arg component', () => {
       wrapper = createWrapper({
-        content: 'thumbnail_navigation',
+        content: 'thumbnailNavigation',
       });
 
       expect(wrapper.find(ThumbnailNavigation).length).toBe(1);
+    });
+  });
+
+  describe('for the search window', () => {
+    it('renders the appropriate arg component', () => {
+      wrapper = createWrapper({
+        content: 'search',
+      });
+
+      expect(wrapper.find(SearchPanel).length).toBe(1);
     });
   });
 });

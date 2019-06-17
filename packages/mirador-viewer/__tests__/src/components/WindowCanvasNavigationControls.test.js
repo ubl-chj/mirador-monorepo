@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import Paper from '@material-ui/core/Paper';
 import { WindowCanvasNavigationControls } from '../../../src/components/WindowCanvasNavigationControls';
 import ViewerInfo from '../../../src/containers/ViewerInfo';
 import ViewerNavigation from '../../../src/containers/ViewerNavigation';
@@ -11,7 +12,8 @@ function createWrapper(props) {
     <WindowCanvasNavigationControls
       canvases={[]}
       canvasLabel="label"
-      window={{}}
+      size={{ width: 300 }}
+      windowId="abc"
       zoomToWorld={() => {}}
       {...props}
     />,
@@ -25,16 +27,28 @@ describe('WindowCanvasNavigationControls', () => {
   it('renders properly', () => {
     wrapper = createWrapper({ zoomToWorld });
     expect(wrapper.matchesElement(
-      <div>
+      <Paper square>
         <ZoomControls zoomToWorld={zoomToWorld} />
         <ViewerNavigation />
         <ViewerInfo />
-      </div>,
+      </Paper>,
     )).toBe(true);
   });
 
   it('renders nothing when visible=false', () => {
     wrapper = createWrapper({ visible: false });
     expect(wrapper.matchesElement(<></>)).toBe(true);
+  });
+
+  it('sets the proper class/ZoomControls prop dependent on the size/width prop', () => {
+    wrapper = createWrapper();
+
+    expect(wrapper.find('.mirador-canvas-nav-stacked').length).toEqual(0);
+    expect(wrapper.find(ZoomControls).props().displayDivider).toBe(true);
+
+    wrapper.setProps({ size: { width: 200 } });
+
+    expect(wrapper.find('.mirador-canvas-nav-stacked').length).toEqual(1);
+    expect(wrapper.find(ZoomControls).props().displayDivider).toBe(false);
   });
 });

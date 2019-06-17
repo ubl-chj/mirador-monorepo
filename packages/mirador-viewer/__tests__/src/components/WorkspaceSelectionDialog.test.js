@@ -1,37 +1,63 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Select from '@material-ui/core/Select';
+import Dialog from '@material-ui/core/Dialog';
+import MenuItem from '@material-ui/core/MenuItem';
 import { WorkspaceSelectionDialog } from '../../../src/components/WorkspaceSelectionDialog';
-import settings from '../../../src/config/settings';
 
 describe('WorkspaceSettings', () => {
   let wrapper;
   let handleClose;
   let updateConfig;
 
-  beforeEach(() => {
+  /**
+   * create wrapper
+   * @param {*} props additional properties
+   */
+  function createWrapper(props) {
     handleClose = jest.fn();
     updateConfig = jest.fn();
 
-    wrapper = shallow(
+    return shallow(
       <WorkspaceSelectionDialog
+        classes={{ list: {} }}
         open
         handleClose={handleClose}
         updateConfig={updateConfig}
-        workspaceType={settings.workspace.type}
+        workspaceType="elastic"
+        {...props}
       />,
     );
-  });
+  }
 
   it('renders without an error', () => {
-    expect(wrapper.find('WithStyles(Dialog)').length).toBe(1);
-    expect(wrapper.find('WithStyles(FormControl)').length).toBe(1);
+    wrapper = createWrapper();
+    expect(wrapper.matchesElement(WorkspaceSelectionDialog));
   });
-  it('calls updateConfig updating the workspace type when selected', () => {
-    wrapper.find(Select).props().onChange({ target: { value: 'foo' } });
-    expect(updateConfig).toHaveBeenCalledWith({ workspace: { type: 'foo' } });
+
+  it('sends the updateConfig and handleClose props on workspace selection', () => {
+    wrapper = createWrapper();
+
+    wrapper.find(MenuItem).at(0).simulate('click');
+    expect(updateConfig).toHaveBeenLastCalledWith({ workspace: { type: 'elastic' } });
+    wrapper.find(MenuItem).at(1).simulate('click');
+    expect(updateConfig).toHaveBeenLastCalledWith({ workspace: { type: 'mosaic' } });
+    expect(handleClose).toHaveBeenCalledTimes(2);
   });
-  it('passes the current workspace type as the value prop to the Select', () => {
-    expect(wrapper.find(Select).props().value).toEqual('mosaic');
+
+  describe('inital focus', () => {
+    const mockMenuItemFocus = jest.fn();
+    const mockMenu = {
+      querySelectorAll: (selector) => {
+        expect(selector).toEqual('li[value="elastic"]');
+        return [{ focus: mockMenuItemFocus }];
+      },
+    };
+
+    it('sets an onEntered prop on the Dialog that focuses the selected item', () => {
+      wrapper = createWrapper();
+
+      wrapper.find(Dialog).props().onEntered(mockMenu);
+      expect(mockMenuItemFocus).toHaveBeenCalled();
+    });
   });
 });

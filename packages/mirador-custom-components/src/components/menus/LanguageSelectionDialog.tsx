@@ -1,28 +1,20 @@
+import { Dialog, DialogContent, DialogTitle, FormControl, ListItemText, MenuItem, Select } from '@material-ui/core';
 import React, {EventHandler, ReactElement} from 'react'
-import Dialog from '@material-ui/core/Dialog'
-import DialogContent from '@material-ui/core/DialogContent'
-import DialogTitle from '@material-ui/core/DialogTitle'
-import FormControl from '@material-ui/core/FormControl'
-import ListItemText from '@material-ui/core/ListItemText'
-import MenuItem from '@material-ui/core/MenuItem'
-import Select from '@material-ui/core/Select'
-import {updateConfig} from '@mirador/core'
+import {getCurrentLanguage, getLanguages, updateConfig} from "@mirador/core"
+import {useDispatch} from 'react-redux'
 import {useListItemTextStyles} from '../../hooks'
 import {useTranslation} from 'react-i18next'
 
 interface ILanguageSelectionDialog {
-  currentLanguage: string,
-  languages: {
-    label: string,
-    locale: string
-  }
   onClose: EventHandler<any>
   open: boolean,
-  updateConfig: typeof updateConfig
 }
 
 export const LanguageSelectionDialog: React.FC<ILanguageSelectionDialog> = (props): ReactElement => {
-  const {currentLanguage, open, onClose, languages, updateConfig} = props
+  const {open, onClose} = props
+  const currentLanguage = getCurrentLanguage()
+  const languages = getLanguages()
+  const dispatch = useDispatch()
   const classes: any = useListItemTextStyles
   const {t} = useTranslation()
 
@@ -58,10 +50,11 @@ export const LanguageSelectionDialog: React.FC<ILanguageSelectionDialog> = (prop
               id: 'languageLocale',
               name: 'languages',
             }}
-            onChange={(event) => {
-              updateConfig({
-                language: event.target.value,
-              });
+            onChange={(event): void => {
+              const language = event.target.value as string
+              dispatch(updateConfig({
+                language,
+              }));
             }}
             value={currentLanguage}
           >

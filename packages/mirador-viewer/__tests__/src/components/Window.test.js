@@ -3,14 +3,17 @@ import { shallow } from 'enzyme';
 import { Window } from '../../../src/components/Window';
 import WindowTopBar from '../../../src/containers/WindowTopBar';
 import PrimaryWindow from '../../../src/containers/PrimaryWindow';
+import WindowAuthenticationControl from '../../../src/containers/WindowAuthenticationControl';
 
 /** create wrapper */
 function createWrapper(props, context) {
   return shallow(
     <Window
-      window={window}
+      windowId="123"
+      manifestId="foo"
       classes={{}}
       t={k => k}
+      fetchManifest={() => {}}
       {...props}
     />,
     { context },
@@ -19,36 +22,44 @@ function createWrapper(props, context) {
 
 describe('Window', () => {
   let wrapper;
-  const window = {
-    height: 400,
-    id: 123,
-    maximized: false,
-    width: 400,
-    x: 2700,
-    y: 2700,
-  };
-  it('should render nothing, if provided with no window data', () => {
-    wrapper = shallow(<Window t={k => k} />);
-    expect(wrapper.find('.mirador-window')).toHaveLength(0);
-  });
   it('should render outer element', () => {
-    wrapper = createWrapper({ window });
+    wrapper = createWrapper();
     expect(wrapper.find('.mirador-window')).toHaveLength(1);
   });
   it('should render <WindowTopBar>', () => {
-    wrapper = createWrapper({ window });
+    wrapper = createWrapper();
     expect(wrapper.find(WindowTopBar)).toHaveLength(1);
   });
   it('should render <PrimaryWindow>', () => {
-    wrapper = createWrapper({ window });
+    wrapper = createWrapper();
     expect(wrapper.find(PrimaryWindow)).toHaveLength(1);
+  });
+  it('renders <WindowAuthenticationControl>', () => {
+    wrapper = createWrapper();
+    expect(wrapper.find(WindowAuthenticationControl)).toHaveLength(1);
+  });
+  it('should dispatch fetchManifest when component mounts but manifest is not preset', () => {
+    const mockFetchManifest = jest.fn();
+    wrapper = createWrapper({ fetchManifest: mockFetchManifest });
+    expect(mockFetchManifest).toHaveBeenCalled();
   });
   describe('when workspaceType is mosaic', () => {
     it('calls the context mosaicWindowActions connectDragSource method to make WindowTopBar draggable', () => {
       const connectDragSource = jest.fn(component => component);
-      wrapper = createWrapper({ window, workspaceType: 'mosaic' }, { mosaicWindowActions: { connectDragSource } });
+      wrapper = createWrapper(
+        { windowDraggable: true, workspaceType: 'mosaic' }, { mosaicWindowActions: { connectDragSource } },
+      );
       expect(wrapper.find(WindowTopBar)).toHaveLength(1);
       expect(connectDragSource).toHaveBeenCalled();
+    });
+
+    it('does not call the context mosaicWindowActions connectDragSource when the windowDraggable is set to false', () => {
+      const connectDragSource = jest.fn(component => component);
+      wrapper = createWrapper(
+        { windowDraggable: false, workspaceType: 'mosaic' }, { mosaicWindowActions: { connectDragSource } },
+      );
+      expect(wrapper.find(WindowTopBar)).toHaveLength(1);
+      expect(connectDragSource).not.toHaveBeenCalled();
     });
   });
 });

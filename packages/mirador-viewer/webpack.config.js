@@ -3,22 +3,6 @@ const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const paths = require('./config/paths');
 
-const eslintLoaderConfig = {
-  enforce: 'pre',
-  include: paths.appSrc,
-  test: /\.(js|mjs|jsx)$/,
-  use: [
-    {
-      loader: require.resolve('eslint-loader'),
-      options: {
-        eslintPath: require.resolve('eslint'),
-        formatter: require.resolve('react-dev-utils/eslintFormatter'),
-
-      },
-    },
-  ],
-};
-
 const babelLoaderConfig = {
   include: paths.appSrc, // CRL
   loader: require.resolve('babel-loader'),
@@ -36,7 +20,6 @@ const baseConfig = [
     entry: './src/index-core.js',
     module: {
       rules: [
-        eslintLoaderConfig,
         babelLoaderConfig,
       ],
     },
@@ -51,7 +34,6 @@ const baseConfig = [
     entry: './src/index.js',
     module: {
       rules: [
-        eslintLoaderConfig,
         babelLoaderConfig,
         {
           test: /\.s?css$/,
@@ -60,14 +42,13 @@ const baseConfig = [
             'css-loader', // translates CSS into CommonJS
             'sass-loader', // compiles Sass to CSS, using Node Sass by default
           ],
-        }],
+        },
+      ],
     },
     optimization: {
       minimizer: [
         new TerserPlugin({
-          terserOptions: {
-            keep_fnames: true,
-          },
+          extractComments: true,
         }),
       ],
     },

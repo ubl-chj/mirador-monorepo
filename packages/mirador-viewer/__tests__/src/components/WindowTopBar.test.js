@@ -1,20 +1,20 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
 import AppBar from '@material-ui/core/AppBar';
 
 import WindowTopMenuButton from '../../../src/containers/WindowTopMenuButton';
 import WindowTopBarButtons from '../../../src/containers/WindowTopBarButtons';
+import WindowTopBarTitle from '../../../src/containers/WindowTopBarTitle';
 import MiradorMenuButton from '../../../src/containers/MiradorMenuButton';
+import FullScreenButton from '../../../src/containers/FullScreenButton';
 import { WindowTopBar } from '../../../src/components/WindowTopBar';
 
 /** create wrapper */
 function createWrapper(props) {
   return shallow(
     <WindowTopBar
-      manifestTitle="awesome manifest"
       windowId="xyz"
       classes={{}}
       t={str => str}
@@ -29,25 +29,28 @@ function createWrapper(props) {
 }
 
 describe('WindowTopBar', () => {
-  it('renders all needed elements', () => {
+  it('renders all default components', () => {
     const wrapper = createWrapper();
     expect(wrapper.find(AppBar).length).toBe(1);
     expect(wrapper.find(Toolbar).length).toBe(1);
     expect(wrapper.find(MiradorMenuButton).length).toBe(3);
-    expect(wrapper.find(Typography).length).toBe(1);
+    expect(wrapper.find(WindowTopBarTitle).length).toBe(1);
     expect(wrapper.find(WindowTopBarButtons).length).toBe(1);
     expect(wrapper.find(WindowTopMenuButton).length).toBe(1);
+    expect(wrapper.find(FullScreenButton).length).toBe(0);
+  });
+
+  it('triggers window focus when clicked', () => {
+    const focusWindow = jest.fn();
+    const wrapper = createWrapper({ focusWindow });
+    wrapper.find(Toolbar).simulate('mouseDown');
+    expect(focusWindow).toHaveBeenCalled();
   });
 
   it('passes correct props to <IconButton/>', () => {
     const toggleWindowSideBar = jest.fn();
     const wrapper = createWrapper({ toggleWindowSideBar });
     expect(wrapper.find(MiradorMenuButton).first().props().onClick).toBe(toggleWindowSideBar);
-  });
-
-  it('passes correct props to <Typography/>', () => {
-    const wrapper = createWrapper();
-    expect(wrapper.find(Typography).first().render().text()).toBe('awesome manifest');
   });
 
   it('passes correct props to <WindowTopBarButtons/>', () => {
@@ -76,7 +79,11 @@ describe('WindowTopBar', () => {
     expect(createWrapper({ allowClose: false }).find('.mirador-window-close').length).toEqual(0);
   });
 
-  it('fullscreen button is configurable', () => {
+  it('maximize button is configurable', () => {
     expect(createWrapper({ allowMaximize: false }).find('.mirador-window-maximize').length).toEqual(0);
+  });
+
+  it('fullscreen button is configurable', () => {
+    expect(createWrapper({ allowFullscreen: true }).find(FullScreenButton).length).toEqual(1);
   });
 });

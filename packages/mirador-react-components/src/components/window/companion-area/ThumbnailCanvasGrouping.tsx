@@ -15,11 +15,11 @@ interface IThumbnailCanvasGrouping {
 const useStyles = makeStyles(theme => ({
   canvas: {
     '&$currentCanvas': {
-      border: `2px solid ${theme.palette.secondary.contrastText}`,
+      border: `2px solid ${(theme as any).palette.secondary.contrastText}`,
     },
     border: '2px solid transparent',
     boxSizing: 'border-box',
-    color: theme.palette.common.white,
+    color: (theme as any).palette.common.white,
     cursor: 'pointer',
   },
   currentCanvas: {
@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export const ThumbnailCanvasGrouping: React.FC<IThumbnailCanvasGrouping> = (props): ReactElement => {
-  const classes = useStyles()
+  const classes = useStyles({})
   const {index, style, data, setCanvas, window} = props;
   const {canvasGroupings, position, height} = data;
   const currentGroupings = canvasGroupings.groupings()[index];

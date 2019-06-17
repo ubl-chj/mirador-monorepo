@@ -1,6 +1,5 @@
-import {ActionTypes, addWindow, maximizeWindow, minimizeWindow, removeWindow, setCompanionAreaOpen,
-  setWindowSideBarPanel, setWindowSize, setWindowThumbnailPosition, setWindowViewType, toggleWindowSideBar,
-  updateWindow, updateWindowPosition} from '@mirador/core';
+import * as actions from '../../../src/state/actions';
+import ActionTypes from '../../../src/state/actions/action-types';
 
 describe('window actions', () => {
   describe('focusWindow', () => {
@@ -13,12 +12,16 @@ describe('window actions', () => {
 
       const mockState = {
         companionWindows: {},
-        windows: {
+        elasticLayout: {
           window: {
             height: 50,
             width: 50,
             x: 50,
             y: 12,
+          },
+        },
+        windows: {
+          window: {
           },
         },
         workspace: {
@@ -47,8 +50,13 @@ describe('window actions', () => {
 
       const mockState = {
         companionWindows: {},
+        elasticLayout: {
+          windows: {
+            window: { x: 50, y: 12 },
+          },
+        },
         windows: {
-          window: { x: 50, y: 12 },
+          window: {},
         },
       };
 
@@ -77,29 +85,40 @@ describe('window actions', () => {
             position: 'left',
           },
           {
-            content: 'thumbnail_navigation',
-            position: 'far-bottom',
+            content: 'thumbnailNavigation',
+            position: 'off',
           },
         ],
+        elasticLayout: {
+          height: 400,
+          width: 400,
+          x: 260,
+          y: 300,
+        },
         type: ActionTypes.ADD_WINDOW,
         window: {
           canvasIndex: 1,
           collectionIndex: 0,
-          height: 400,
           id: 'helloworld',
+          layoutOrder: 3,
           manifestId: null,
           maximized: false,
           rangeId: null,
           rotation: null,
           sideBarPanel: 'info',
-          view: 'single',
-          width: 400,
-          x: 260,
-          y: 300,
         },
       };
 
       const mockState = {
+        config: {
+          thumbnailNavigation: {
+            defaultPosition: 'off',
+          },
+          window: {
+            defaultSideBarPanel: 'info',
+            sideBarOpenByDefault: false,
+          },
+        },
         windows: { a: {}, b: {} },
       };
 
@@ -125,7 +144,7 @@ describe('window actions', () => {
         bar: 2,
         foo: 1,
       };
-      const action = updateWindow('window-123', payload);
+      const action = actions.updateWindow('window-123', payload);
       expect(action.type).toBe(ActionTypes.UPDATE_WINDOW);
       expect(action.id).toBe('window-123');
       expect(action.payload).toEqual(payload);
@@ -139,7 +158,13 @@ describe('window actions', () => {
         companionWindowIds: ['a', 'b', 'c'],
         type: ActionTypes.REMOVE_WINDOW,
         windowId: id,
+        windows: {
+          abc123: {
+            companionWindowIds: ['a', 'b', 'c'],
+          },
+        },
       };
+
       const mockState = {
         companionWindows: {},
         windows: {
@@ -165,7 +190,7 @@ describe('window actions', () => {
         type: ActionTypes.MAXIMIZE_WINDOW,
         windowId: maxWindowId,
       };
-      expect(maximizeWindow(maxWindowId)).toEqual(maximizeWindowAction);
+      expect(actions.maximizeWindow(maxWindowId)).toEqual(maximizeWindowAction);
     });
   });
 
@@ -176,7 +201,7 @@ describe('window actions', () => {
         type: ActionTypes.MINIMIZE_WINDOW,
         windowId: minWindowId,
       };
-      expect(minimizeWindow(minWindowId)).toEqual(minimizeWindowAction);
+      expect(actions.minimizeWindow(minWindowId)).toEqual(minimizeWindowAction);
     });
   });
 
@@ -187,7 +212,7 @@ describe('window actions', () => {
         type: ActionTypes.TOGGLE_WINDOW_SIDE_BAR,
         windowId: id,
       };
-      expect(toggleWindowSideBar(id)).toEqual(expectedAction);
+      expect(actions.toggleWindowSideBar(id)).toEqual(expectedAction);
     });
   });
 
@@ -199,7 +224,7 @@ describe('window actions', () => {
         payload: { companionAreaOpen: true },
         type: ActionTypes.UPDATE_WINDOW,
       };
-      expect(setCompanionAreaOpen(id, true)).toEqual(expectedAction);
+      expect(actions.setCompanionAreaOpen(id, true)).toEqual(expectedAction);
     });
   });
 
@@ -219,9 +244,6 @@ describe('window actions', () => {
           somewindow: { thumbnailNavigationId: id },
         },
       };
-<<<<<<< HEAD
-      expect(setWindowThumbnailPosition(id, 'right')).toEqual(expectedAction);
-=======
 
       const mockDispatch = jest.fn(() => ({}));
       const mockGetState = jest.fn(() => mockState);
@@ -231,7 +253,6 @@ describe('window actions', () => {
 
       const action = mockDispatch.mock.calls[0][0];
       expect(action).toEqual(expectedAction);
->>>>>>> 414f532ac21b7ce3ebf3cd5f765342489a97379b
     });
   });
 
@@ -243,7 +264,7 @@ describe('window actions', () => {
         viewType: 'book',
         windowId: id,
       };
-      expect(setWindowViewType(id, 'book')).toEqual(expectedAction);
+      expect(actions.setWindowViewType(id, 'book')).toEqual(expectedAction);
     });
   });
 
@@ -256,55 +277,7 @@ describe('window actions', () => {
         type: ActionTypes.SET_WINDOW_SIDE_BAR_PANEL,
         windowId,
       };
-      expect(setWindowSideBarPanel(windowId, 'panelType')).toEqual(expectedAction);
-    });
-  });
-
-  describe('setWindowSize', () => {
-    it('returns the appropriate action type', () => {
-      const id = 'abc123';
-      const expectedAction = {
-        payload: {
-          size: {
-            height: 200,
-            width: 200,
-            x: 20,
-            y: 20,
-          },
-          windowId: id,
-        },
-        type: ActionTypes.SET_WINDOW_SIZE,
-      };
-<<<<<<< HEAD
-      expect(setWindowSize(id, {
-=======
-      expect(actions.setWindowSize(id, {
-        height: 200,
-        width: 200,
->>>>>>> 1530917a5bc3000440a312c1ace59194ea986617
-        x: 20,
-        y: 20,
-      })).toEqual(expectedAction);
-    });
-  });
-
-  describe('updateWindowPosition', () => {
-    it('returns the appropriate action type', () => {
-      const id = 'abc123';
-      const expectedAction = {
-        payload: {
-          position: {
-            x: 20,
-            y: 20,
-          },
-          windowId: id,
-        },
-        type: ActionTypes.UPDATE_WINDOW_POSITION,
-      };
-      expect(updateWindowPosition(id, {
-        x: 20,
-        y: 20,
-      })).toEqual(expectedAction);
+      expect(actions.setWindowSideBarPanel(windowId, 'panelType')).toEqual(expectedAction);
     });
   });
 });

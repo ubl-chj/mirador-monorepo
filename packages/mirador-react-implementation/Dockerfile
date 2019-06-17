@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:lts
 
 MAINTAINER Christopher Johnson <chjohnson39@gmail.com>
 LABEL description = "Mirador React Implementation"

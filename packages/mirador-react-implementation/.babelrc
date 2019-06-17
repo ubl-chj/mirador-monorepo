@@ -1,14 +1,19 @@
 {
-  "plugins": ["@babel/plugin-transform-runtime"],
+  "plugins": [
+    "@babel/plugin-transform-runtime",
+    "@babel/proposal-class-properties",
+    "@babel/proposal-object-rest-spread"],
   "presets": [
     [
       "@babel/preset-env",
       {
         "targets": {
           "node": "current"
-        }
+        },
+        "useBuiltIns": "entry"
       }
     ],
-    "@babel/preset-react"
+    "@babel/preset-react",
+    "@babel/typescript"
   ]
 }

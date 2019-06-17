@@ -1,10 +1,11 @@
-import {ActionTypes, annotationsReducer} from '@mirador/core';
+import { annotationsReducer } from '../../../src/state/reducers/annotations';
+import ActionTypes from '../../../src/state/actions/action-types';
 
 describe('annotation reducer', () => {
   it('should handle REQUEST_ANNOTATION', () => {
     expect(annotationsReducer({}, {
       annotationId: 'abc123',
-      canvasId: 'foo',
+      targetId: 'foo',
       type: ActionTypes.REQUEST_ANNOTATION,
     })).toEqual({
       foo: {
@@ -32,7 +33,7 @@ describe('annotation reducer', () => {
           content: 'anno stuff',
           id: 'abc123',
         },
-        canvasId: 'foo',
+        targetId: 'foo',
         type: ActionTypes.RECEIVE_ANNOTATION,
       },
     )).toMatchObject({
@@ -57,8 +58,8 @@ describe('annotation reducer', () => {
       },
       {
         annotationId: 'abc123',
-        canvasId: 'foo',
         error: "This institution didn't enable CORS.",
+        targetId: 'foo',
         type: ActionTypes.RECEIVE_ANNOTATION_FAILURE,
       },
     )).toEqual({
@@ -70,5 +71,11 @@ describe('annotation reducer', () => {
         },
       },
     });
+  });
+  it('should handle IMPORT_MIRADOR_STATE setting to clean state', () => {
+    expect(annotationsReducer({}, {
+      state: { annotations: { new: 'stuff' } },
+      type: ActionTypes.IMPORT_MIRADOR_STATE,
+    })).toEqual({});
   });
 });

@@ -1,13 +1,11 @@
 import init from './init';
-import App from './components/App';
-import * as actions from '@mirador/core';
+import * as actions from './state/actions';
 import * as selectors from './state/selectors';
 
-export * from './components';
+export * from './state/reducers';
 
 const exports = {
   actions,
-  App,
   selectors,
   viewer: init,
 };

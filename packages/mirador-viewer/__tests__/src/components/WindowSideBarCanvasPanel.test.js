@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import manifesto from 'manifesto.js';
 import { WindowSideBarCanvasPanel } from '../../../src/components/WindowSideBarCanvasPanel';
 import { CanvasThumbnail } from '../../../src/components/CanvasThumbnail';
+import CompanionWindow from '../../../src/containers/CompanionWindow';
 import manifestJson from '../../fixtures/version-2/019.json';
 
 /**
@@ -23,6 +24,8 @@ function createWrapper(props) {
       windowId="xyz"
       setCanvas={() => {}}
       config={{ canvasNavigation: { height: 100 } }}
+      updateVariant={() => {}}
+      selectedCanvases={[canvases[1]]}
       {...props}
     />,
   );
@@ -37,26 +40,27 @@ describe('WindowSideBarCanvasPanel', () => {
 
   it('renders all needed elements for the thumbnail view', () => {
     const wrapper = createWrapper();
-    expect(wrapper.props().title).toBe('canvasIndex');
+    expect(wrapper.find(CompanionWindow).props().title).toBe('canvasIndex');
     expect(wrapper.find(List).length).toBe(1);
     expect(wrapper.find(ListItem).length).toBe(3);
     expect(wrapper.find(ListItem).first().props().component).toEqual('li');
+    expect(wrapper.find(ListItem).at(1).props().selected).toBe(true);
     expect(wrapper.find(List).find(Typography).length).toBe(3);
     expect(wrapper.find(CanvasThumbnail).length).toBe(3);
   });
 
   describe('handleVariantChange', () => {
-    it('toggles state', () => {
-      const wrapper = createWrapper();
+    it('updates the variant', () => {
+      const updateVariant = jest.fn();
+      const wrapper = createWrapper({ updateVariant });
       wrapper.instance().handleVariantChange({ target: { value: 'compact' } });
-      expect(wrapper.state().variant).toBe('compact');
+      expect(updateVariant).toHaveBeenCalledWith('compact');
     });
   });
 
   it('renders all needed elements for the compact view', () => {
-    const wrapper = createWrapper();
-    wrapper.setState({ variant: 'compact' });
-    expect(wrapper.props().title).toBe('canvasIndex');
+    const wrapper = createWrapper({ variant: 'compact' });
+    expect(wrapper.find(CompanionWindow).props().title).toBe('canvasIndex');
     expect(wrapper.find(List).length).toBe(1);
     expect(wrapper.find(ListItem).length).toBe(3);
     expect(wrapper.find(ListItem).first().props().component).toEqual('li');

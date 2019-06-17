@@ -1,4 +1,6 @@
-import { ActionTypes, configReducer } from '@mirador/core';
+import { configReducer } from '../../../src/state/reducers/config';
+import ActionTypes from '../../../src/state/actions/action-types';
+import configFixture from '../../fixtures/config/export.example.json';
 
 describe('config reducer', () => {
   describe('SET_CONFIG', () => {
@@ -40,5 +42,19 @@ describe('config reducer', () => {
         stuff: { foo: 'bat' },
       });
     });
+  });
+  describe('IMPORT_CONFIG', () => {
+    it('should handle IMPORT_CONFIG', () => {
+      expect(configReducer([], {
+        config: configFixture,
+        type: ActionTypes.IMPORT_CONFIG,
+      })).toEqual(configFixture);
+    });
+  });
+  it('should handle IMPORT_MIRADOR_STATE', () => {
+    expect(configReducer({}, {
+      state: { config: { new: 'stuff' } },
+      type: ActionTypes.IMPORT_MIRADOR_STATE,
+    })).toEqual({ new: 'stuff' });
   });
 });

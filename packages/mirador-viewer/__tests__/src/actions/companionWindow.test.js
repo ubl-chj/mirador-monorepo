@@ -1,4 +1,5 @@
-import {ActionTypes, addCompanionWindow, removeCompanionWindow, updateCompanionWindow} from '@mirador/core';
+import * as actions from '../../../src/state/actions';
+import ActionTypes from '../../../src/state/actions/action-types';
 
 describe('companionWindow actions', () => {
   describe('addCompanionWindow', () => {
@@ -21,6 +22,7 @@ describe('companionWindow actions', () => {
       thunk(mockDispatch, mockGetState);
 
       const action = mockDispatch.mock.calls[0][0];
+
       expect(action.type).toBe(ActionTypes.ADD_COMPANION_WINDOW);
       expect(action.payload).toMatchObject(payload);
       expect(action.payload.id).toMatch(/cw-.*/);
@@ -29,6 +31,7 @@ describe('companionWindow actions', () => {
     it('should set the correct default values', () => {
       const payload = {};
       const defaults = { foo: 'bar' };
+
       const mockState = {
         companionWindows: {},
         windows: {
@@ -48,6 +51,7 @@ describe('companionWindow actions', () => {
 
     it('should generate a new companionWindow ID', () => {
       const payload = {};
+
       const mockState = {
         companionWindows: {},
         windows: {
@@ -75,6 +79,7 @@ describe('companionWindow actions', () => {
         foo: 'bar',
         position: 'right',
       };
+
       const action = actions.updateCompanionWindow('abc123', 'cw-123', payload);
 
       expect(action.type).toBe(ActionTypes.UPDATE_COMPANION_WINDOW);

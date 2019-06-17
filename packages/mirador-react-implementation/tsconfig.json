@@ -3,8 +3,8 @@
     "baseUrl": ".",
     "paths": { "*": ["types/*"] },
     "declaration": true,
-    "module": "commonjs",
-    "target": "ES5",
+    "module": "es2015",
+    "target": "esnext",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "outDir": "lib",
@@ -17,9 +17,7 @@
     "allowSyntheticDefaultImports":true,
     "resolveJsonModule": true,
     "jsx": "react",
-    "lib":[
-      "es5", "es2015", "es2017", "dom"
-    ]
+    "lib": ["es2015", "esnext.asynciterable", "dom"]
   },
   "typeRoots": [
     "node_modules/**/types",

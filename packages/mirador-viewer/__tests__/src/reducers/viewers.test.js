@@ -1,4 +1,5 @@
-import {ActionTypes, viewersReducer} from '@mirador/core';
+import { viewersReducer } from '../../../src/state/reducers/viewers';
+import ActionTypes from '../../../src/state/actions/action-types';
 
 describe('viewers reducer', () => {
   it('should handle UPDATE_VIEWPORT', () => {
@@ -40,5 +41,11 @@ describe('viewers reducer', () => {
         foo: 'bar',
       },
     });
+  });
+  it('should handle IMPORT_MIRADOR_STATE', () => {
+    expect(viewersReducer({}, {
+      state: { viewers: { new: 'stuff' } },
+      type: ActionTypes.IMPORT_MIRADOR_STATE,
+    })).toEqual({ new: 'stuff' });
   });
 });

@@ -8,7 +8,6 @@ function createWrapper(props) {
     <ViewerNavigation
       canvases={[1, 2]}
       setCanvas={() => {}}
-      window={{}}
       t={k => (k)}
       {...props}
     />,
@@ -21,11 +20,8 @@ describe('ViewerNavigation', () => {
   beforeEach(() => {
     setCanvas = jest.fn();
     wrapper = createWrapper({
+      canvasIndex: 0,
       setCanvas,
-      window: {
-        canvasIndex: 0,
-        id: 'foo',
-      },
     });
   });
   it('renders the component', () => {
@@ -38,16 +34,13 @@ describe('ViewerNavigation', () => {
     });
     it('setCanvas function is called after click', () => {
       wrapper.find('.mirador-next-canvas-button').simulate('click');
-      expect(setCanvas).toHaveBeenCalledWith('foo', 1);
+      expect(setCanvas).toHaveBeenCalledWith(1);
     });
   });
   describe('when next canvases are not present', () => {
     it('nextCanvas button is disabled', () => {
       const endWrapper = createWrapper({
-        window: {
-          canvasIndex: 1,
-          id: 'foo',
-        },
+        canvasIndex: 1,
       });
       expect(endWrapper.find('.mirador-next-canvas-button').prop('disabled')).toBe(true);
     });
@@ -65,28 +58,22 @@ describe('ViewerNavigation', () => {
     it('setCanvas function is called after click for next', () => {
       wrapper = createWrapper({
         canvases: [1, 2, 3],
+        canvasIndex: 0,
         setCanvas,
-        window: {
-          canvasIndex: 0,
-          id: 'foo',
-          view: 'book',
-        },
+        view: 'book',
       });
       wrapper.find('.mirador-next-canvas-button').simulate('click');
-      expect(setCanvas).toHaveBeenCalledWith('foo', 2);
+      expect(setCanvas).toHaveBeenCalledWith(2);
     });
     it('setCanvas function is called after click for previous', () => {
       wrapper = createWrapper({
+        canvasIndex: 5,
         setCanvas,
-        window: {
-          canvasIndex: 5,
-          id: 'foo',
-          view: 'book',
-        },
+        view: 'book',
       });
       wrapper.find('.mirador-previous-canvas-button').simulate('click');
       expect(wrapper.find('.mirador-previous-canvas-button').prop('aria-label')).toBe('previousCanvas');
-      expect(setCanvas).toHaveBeenCalledWith('foo', 3);
+      expect(setCanvas).toHaveBeenCalledWith(3);
     });
   });
 });

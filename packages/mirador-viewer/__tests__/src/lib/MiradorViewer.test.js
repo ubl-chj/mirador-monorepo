@@ -1,9 +1,7 @@
 import ReactDOM from 'react-dom';
-import { pluginStore } from '../../../src/extend/pluginStore';
 import MiradorViewer from '../../../src/lib/MiradorViewer';
 
 jest.unmock('react-i18next');
-jest.mock('../../../src/extend/pluginStore');
 jest.mock('react-dom');
 
 describe('MiradorViewer', () => {
@@ -23,31 +21,6 @@ describe('MiradorViewer', () => {
       expect(ReactDOM.render).toHaveBeenCalled();
     });
   });
-  describe('process plugins', () => {
-    it('should store plugins and set reducers to state', () => {
-      /** */ const fooReducer = (state = 0) => state;
-      /** */ const barReducer = (state = 0) => state;
-      /** */ const bazReducer = (state = 0) => state;
-      /** */ const plugins = [
-        {
-          reducers: {
-            bar: barReducer,
-            foo: fooReducer,
-          },
-        },
-        {
-          reducers: {
-            baz: bazReducer,
-          },
-        },
-      ];
-      instance = new MiradorViewer({}, plugins);
-      expect(pluginStore.storePlugins).toBeCalledWith(plugins);
-      expect(instance.store.getState().foo).toBeDefined();
-      expect(instance.store.getState().bar).toBeDefined();
-      expect(instance.store.getState().baz).toBeDefined();
-    });
-  });
   describe('processConfig', () => {
     it('transforms config values to actions to dispatch to store', () => {
       instance = new MiradorViewer({
@@ -59,10 +32,10 @@ describe('MiradorViewer', () => {
           {
             canvasIndex: 2,
             loadedManifest: 'https://iiif.harvardartmuseums.org/manifests/object/299843',
+            thumbnailNavigationPosition: 'far-bottom',
           },
           {
             loadedManifest: 'https://iiif.harvardartmuseums.org/manifests/object/299843',
-            thumbnailNavigationPosition: 'off',
             view: 'book',
           },
         ],

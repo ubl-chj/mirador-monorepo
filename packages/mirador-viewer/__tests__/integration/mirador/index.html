@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#000000">
     <title>Mirador</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
   </head>
   <body>
     <div id="mirador" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;"></div>
@@ -15,11 +16,14 @@
        windows: [{
          loadedManifest: 'https://iiif.harvardartmuseums.org/manifests/object/299843',
          canvasIndex: 2,
+         thumbnailNavigationPosition: 'far-bottom',
        },
        {
          loadedManifest: 'https://iiif.bodleian.ox.ac.uk/iiif/manifest/e32a277e-91e2-4a6d-8ba6-cc4bad230410.json',
-         thumbnailNavigationPosition: 'off',
        }],
+       window: {
+         hideSearchPanel: false,
+       },
        manifests: {
          "https://media.nga.gov/public/manifests/nga_highlights.json": { provider: "National Gallery of Art"},
          "https://data.ucd.ie/api/img/manifests/ucdlib:33064": { provider: "Irish Architectural Archive"},

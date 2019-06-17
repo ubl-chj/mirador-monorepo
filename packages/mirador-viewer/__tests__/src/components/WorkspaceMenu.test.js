@@ -1,7 +1,19 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import { WorkspaceMenu } from '../../../src/components/WorkspaceMenu';
-import WindowList from '../../../src/containers/WindowList';
+
+/** */
+function createShallow(props) {
+  return shallow(
+    <WorkspaceMenu
+      containerId="mirador"
+      showThemePicker
+      {...props}
+    />,
+  );
+}
 
 describe('WorkspaceMenu', () => {
   let wrapper;
@@ -12,38 +24,26 @@ describe('WorkspaceMenu', () => {
   beforeEach(() => {
     handleClose = jest.fn();
     toggleZoomControls = jest.fn();
-    wrapper = shallow(
-      <WorkspaceMenu
-        containerId="mirador"
-        handleClose={handleClose}
-        showZoomControls={showZoomControls}
-        toggleZoomControls={toggleZoomControls}
-      />,
-    );
+    wrapper = createShallow({ handleClose, showZoomControls, toggleZoomControls });
   });
 
   it('renders without an error', () => {
-    expect(wrapper.find('WithStyles(Menu)').length).toBe(1);
+    expect(wrapper.find(Menu).length).toBe(1);
   });
 
   it('closes the current menu when opening a submenu', () => {
-    wrapper.find('WithStyles(MenuItem)').first().simulate('click', {});
+    wrapper.find(MenuItem).first().simulate('click', {});
     expect(handleClose).toBeCalled();
   });
 
-  describe('handleMenuItemClick', () => {
-    it('sets the anchor state', () => {
-      wrapper.instance().handleMenuItemClick('windowList', { currentTarget: true });
+  it('disables zoom controls if the workspaceAdd UI is visible', () => {
+    expect(wrapper.find(MenuItem).at(0).props().disabled).toBe(false);
 
-      expect(wrapper.find(WindowList).props().open).toBe(true);
+    wrapper = createShallow({
+      handleClose, isWorkspaceAddVisible: true, showZoomControls, toggleZoomControls,
     });
-  });
 
-  describe('handleMenuItemClose', () => {
-    it('resets the anchor state', () => {
-      wrapper.instance().handleMenuItemClose('windowList')();
-      expect(wrapper.find(WindowList).props().open).toBe(false);
-    });
+    expect(wrapper.find(MenuItem).at(0).props().disabled).toBe(true);
   });
 
   describe('handleZoomToggleClick', () => {

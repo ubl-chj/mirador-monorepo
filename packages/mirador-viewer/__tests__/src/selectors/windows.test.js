@@ -1,14 +1,47 @@
 import manifestFixture001 from '../../fixtures/version-2/001.json';
 import manifestFixture002 from '../../fixtures/version-2/002.json';
+import manifestFixture015 from '../../fixtures/version-2/015.json';
 import manifestFixture019 from '../../fixtures/version-2/019.json';
 import {
   getWindowTitles,
-  getThumbnailNavigationPosition,
   getWindowViewType,
-  getCompanionWindowForPosition,
-  getCompanionWindowsOfWindow,
+  getViewer,
+  getWindowDraggability,
+  getCanvasIndex,
+  getWindowManifests,
+  getWindows,
+  getMaximizedWindowsIds,
 } from '../../../src/state/selectors/windows';
 
+describe('getWindows', () => {
+  it('should return windows from state', () => {
+    const state = {
+      windows: {
+        a: { manifestId: 'amanifest' },
+        b: { manifestId: 'bmanifest' },
+      },
+    };
+
+    const received = getWindows(state);
+
+    expect(received).toEqual(state.windows);
+  });
+});
+
+describe('getMaximizedWindowsIds', () => {
+  it('filters windows to only those maximized', () => {
+    const state = {
+      windows: {
+        a: { id: 'a', maximized: true },
+        b: { id: 'b' },
+      },
+    };
+
+    const received = getMaximizedWindowsIds(state);
+
+    expect(received).toEqual(['a']);
+  });
+});
 
 describe('getWindowTitles', () => {
   it('should return manifest titles for the open windows', () => {
@@ -33,39 +66,63 @@ describe('getWindowTitles', () => {
   });
 });
 
+describe('getWindowManifests', () => {
+  it('should return manifest titles for the open windows', () => {
+    const state = {
+      windows: {
+        a: { manifestId: 'amanifest' },
+        b: { manifestId: 'bmanifest' },
+      },
+    };
 
-describe('getThumbnailNavigationPosition', () => {
-  const state = {
-    companionWindows: {
-      cw_a: { position: 'bottom' },
-    },
-    windows: {
-      a: { id: 'a', thumbnailNavigationId: 'cw_a' },
-      b: { id: 'b', thumbnailNavigationId: 'cw_b' },
-    },
-  };
+    const received = getWindowManifests(state);
 
-  it('should return thumbnail navigation position if window exists', () => {
-    const received = getThumbnailNavigationPosition(state, { windowId: 'a' });
-    expect(received).toBe('bottom');
+    expect(received).toEqual(['amanifest', 'bmanifest']);
   });
+});
 
-  it('should return undefined if position does not exist in window', () => {
-    const received = getThumbnailNavigationPosition(state, { windowId: 'b' });
-    expect(received).toBeUndefined();
+describe('getCanvasIndex', () => {
+  it('returns the index if provided', () => {
+    expect(getCanvasIndex({}, { canvasIndex: 25 })).toEqual(25);
   });
+  it('returns the current canvasIndex for the window if provided', () => {
+    const state = {
+      windows: {
+        a: { canvasIndex: 13 },
+      },
+    };
 
-  it('should return undefined if window does not exists', () => {
-    const received = getThumbnailNavigationPosition(state, { windowId: 'c' });
-    expect(received).toBeUndefined();
+    expect(getCanvasIndex(state, { windowId: 'a' })).toEqual(13);
+  });
+  it('returns the default canvasIndex for the manifest', () => {
+    const state = {
+      manifests: {
+        x: { json: { ...manifestFixture019, start: { id: 'https://purl.stanford.edu/fr426cg9537/iiif/canvas/fr426cg9537_1' } } },
+      },
+      windows: {
+        a: { manifestId: 'x' },
+      },
+    };
+
+    expect(getCanvasIndex(state, { windowId: 'a' })).toEqual(1);
+  });
+  it('defaults to the first canvas', () => {
+    expect(getCanvasIndex({}, {})).toEqual(0);
   });
 });
 
 describe('getWindowViewType', () => {
   const state = {
+    manifests: {
+      x: { json: { ...manifestFixture001 } },
+      y: { json: { ...manifestFixture015 } },
+    },
     windows: {
       a: { id: 'a', view: 'single' },
       b: { id: 'b' },
+      d: { id: 'd', manifestId: 'x' },
+      e: { id: 'e', manifestId: 'x', view: 'book' },
+      f: { id: 'f', manifestId: 'y' },
     },
   };
 
@@ -83,76 +140,83 @@ describe('getWindowViewType', () => {
     const received = getWindowViewType(state, { windowId: 'c' });
     expect(received).toBeUndefined();
   });
-});
 
-describe('getCompanionWindowForPosition', () => {
-  const state = {
-    companionWindows: {
-      abc: { id: 'abc', position: 'right' },
-      xyz: { id: 'xyz', position: 'bottom' },
-    },
-    windows: { a: { companionWindowIds: ['abc'] } },
-  };
-
-  it('the companion window type based on the given position', () => {
-    const received = getCompanionWindowForPosition(state, {
-      position: 'right',
-      windowId: 'a',
-    });
-
-    expect(received.id).toEqual('abc');
+  it('should return modified viewingHint if view type does not exist', () => {
+    const received = getWindowViewType(state, { windowId: 'd' });
+    expect(received).toEqual('single');
   });
 
-  it('returns undefined if the given window does not exist', () => {
-    const received = getCompanionWindowForPosition(state, {
-      position: 'right',
-      windowId: 'c',
-    });
-
-    expect(received).toBeUndefined();
+  it('should return window view type even if viewingHint is available', () => {
+    const received = getWindowViewType(state, { windowId: 'e' });
+    expect(received).toEqual('book');
   });
 
-  it('returns undefined if a companion window at the given position does not exist', () => {
-    const received = getCompanionWindowForPosition(state, {
-      position: 'bottom',
-      windowId: 'a',
-    });
-
-    expect(received).toBeUndefined();
+  it('should return modified viewingHint for a book', () => {
+    const received = getWindowViewType(state, { windowId: 'f' });
+    expect(received).toEqual('book');
   });
 });
 
-describe('getCompanionWindowsOfWindow', () => {
+describe('getViewer', () => {
   const state = {
-    companionWindows: {
+    viewers: {
       bar: {
-        content: 'canvas',
         id: 'bar',
-      },
-      foo: {
-        content: 'info',
-        id: 'foo',
-      },
-    },
-    windows: {
-      abc123: {
-        companionWindowIds: ['foo', 'bar'],
       },
     },
   };
 
   it('should return companion windows for a given window id', () => {
-    const received = getCompanionWindowsOfWindow(state, { windowId: 'abc123' });
+    const received = getViewer(state, { windowId: 'bar' });
 
-    expect(received).toEqual([
-      {
-        content: 'info',
-        id: 'foo',
-      },
-      {
-        content: 'canvas',
-        id: 'bar',
-      },
-    ]);
+    expect(received).toEqual({
+      id: 'bar',
+    });
+  });
+});
+
+describe('getWindowDraggability', () => {
+  describe('in elastic mode', () => {
+    it('is always true', () => {
+      const state = {
+        config: { workspace: { type: 'elastic' } },
+        windows: {},
+      };
+      const props = {};
+
+      expect(getWindowDraggability(state, props)).toBe(true);
+    });
+  });
+
+  describe('in non-elastic mode', () => {
+    it('is false if there is only one window', () => {
+      const state = {
+        config: { workspace: { type: 'mosaic' } },
+        windows: { abc123: {} },
+      };
+      const props = { windowId: 'abc123' };
+
+      expect(getWindowDraggability(state, props)).toBe(false);
+    });
+
+    it('is false when the window is maximized', () => {
+      const state = {
+        config: { workspace: { type: 'mosaic' } },
+        windows: { abc123: { maximized: true }, abc321: { maximized: false } },
+      };
+      const props = { windowId: 'abc123' };
+
+      expect(getWindowDraggability(state, props)).toBe(false);
+    });
+
+    it('is true if there are many windows (as long as the window is not maximized)', () => {
+      const state = {
+        config: { workspace: { type: 'mosaic' } },
+        windows: { abc123: { maximized: false }, abc321: { maximized: false } },
+      };
+      const props = { windowId: 'abc123' };
+
+      expect(getWindowDraggability(state, props)).toBe(true);
+    });
   });
 });

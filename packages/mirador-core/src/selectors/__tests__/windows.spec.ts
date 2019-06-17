@@ -2,9 +2,9 @@ import {
   getCompanionWindowForPosition,
   getCompanionWindowsOfWindow,
   getThumbnailNavigationPosition,
-  getWindowTitles,
   getWindowViewType,
 } from '../windows';
+import {getWindowTitles} from '../selectors'
 import manifestFixture001 from './fixtures/version-2/001.json';
 import manifestFixture002 from './fixtures/version-2/002.json';
 import manifestFixture019 from './fixtures/version-2/019.json';
@@ -22,7 +22,7 @@ describe('getWindowTitles', () => {
         b: { manifestId: 'bmanifest' },
       },
     };
-    const received = getWindowTitles(state);
+    const received = getWindowTitles();
 
     expect(received).toEqual({
       a: 'Bodleian Library Human Freaks 2 (33)',

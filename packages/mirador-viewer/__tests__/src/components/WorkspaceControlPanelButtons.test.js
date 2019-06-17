@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import WorkspaceFullScreenButton from '../../../src/containers/WorkspaceFullScreenButton';
+import WorkspaceMenuButton from '../../../src/containers/WorkspaceMenuButton';
+import FullScreenButton from '../../../src/containers/FullScreenButton';
 import { WorkspaceControlPanelButtons }
   from '../../../src/components/WorkspaceControlPanelButtons';
 
@@ -10,7 +11,9 @@ describe('WorkspaceControlPanelButtons', () => {
     wrapper = shallow(<WorkspaceControlPanelButtons />);
   });
 
-  it('renders without an error', () => {
-    expect(wrapper.find(WorkspaceFullScreenButton).length).toBe(1);
+  it('render all needed elements', () => {
+    expect(wrapper.find(WorkspaceMenuButton).length).toBe(1);
+    expect(wrapper.find(FullScreenButton).length).toBe(1);
+    expect(wrapper.find('PluginHook').length).toBe(1);
   });
 });

@@ -1,15 +1,7 @@
+import {IconButton, ListItem, ListItemIcon, ListItemText, Menu, MenuItem} from '@material-ui/core'
 import {IndexSelectionDialog, LanguageSelectionDialog, WorkspaceSelectionDialog} from '.'
+import {Language, Search, SettingsSharp, ViewQuilt} from '@material-ui/icons'
 import React, {EventHandler, ReactElement, useState} from 'react'
-import IconButton from '@material-ui/core/IconButton'
-import Language from '@material-ui/icons/Language'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
-import Search from '@material-ui/icons/Search'
-import SettingsIcon from '@material-ui/icons/SettingsSharp'
-import ViewQuiltIcon from '@material-ui/icons/ViewQuilt'
 import {updateConfig} from '@mirador/core'
 import {useListItemTextStyles} from '../../hooks'
 import {useTranslation} from 'react-i18next'
@@ -75,7 +67,7 @@ export const WorkspaceSettingsMenu: React.FC<IWorkspaceSettingsMenu> = (props): 
   const buildListItemIcon = (item): JSX.Element => {
     switch (item) {
       case 'workspace-selection':
-        return <ViewQuiltIcon/>
+        return <ViewQuilt/>
       case 'language':
         return <Language/>
       case 'indices':
@@ -122,7 +114,7 @@ export const WorkspaceSettingsMenu: React.FC<IWorkspaceSettingsMenu> = (props): 
         id='menuBtn'
         onClick={(e) => handleClick(e)}
       >
-        <SettingsIcon />
+        <SettingsSharp />
       </IconButton>
       <Menu
         anchorEl={anchorEl}

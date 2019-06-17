@@ -3,12 +3,13 @@ import ClearIcon from '@material-ui/icons/Clear'
 import Fab from '@material-ui/core/Fab'
 import ListItem from '@material-ui/core/ListItem'
 import Search from '@material-ui/icons/Search'
+import {getIsWorkspaceAddVisible, setWorkspaceAddVisibility} from "@mirador/core"
+import {useDispatch} from 'react-redux'
 
-interface IWorkspaceAddItem {
-  isWorkspaceAddVisible: boolean,
-  setWorkspaceAddVisibility: any
-}
-export const WorkspaceAddItem: React.FC<IWorkspaceAddItem> = (props): ReactElement => {
+export const WorkspaceAddItem: React.FC<any> = (): ReactElement => {
+  const isWorkspaceAddVisible = getIsWorkspaceAddVisible()
+  const dispatch = useDispatch()
+
   return (
     <ListItem
       button={false}
@@ -18,11 +19,11 @@ export const WorkspaceAddItem: React.FC<IWorkspaceAddItem> = (props): ReactEleme
         color="primary"
         href=''
         id="addBtn"
-        onClick={() => props.setWorkspaceAddVisibility({isWorkspaceAddVisible: !props.isWorkspaceAddVisible}) }
+        onClick={() => dispatch(setWorkspaceAddVisibility({isWorkspaceAddVisible: !isWorkspaceAddVisible})) }
         size="small"
       >
         {
-          props.isWorkspaceAddVisible
+          isWorkspaceAddVisible
             ? <ClearIcon />
             : <Search />
         }

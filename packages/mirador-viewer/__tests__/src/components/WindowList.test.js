@@ -1,7 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import Typography from '@material-ui/core/Typography';
+import ListItemText from '@material-ui/core/ListItemText';
 import { WindowList } from '../../../src/components/WindowList';
 
 describe('WindowList', () => {
@@ -9,19 +10,17 @@ describe('WindowList', () => {
   let handleClose;
   let focusWindow;
   let titles;
-  let windows;
   beforeEach(() => {
     handleClose = jest.fn();
     focusWindow = jest.fn();
     titles = {};
-    windows = {};
 
     wrapper = shallow(
       <WindowList
         containerId="mirador"
         anchorEl={{}}
         titles={titles}
-        windows={windows}
+        windowIds={[]}
         handleClose={handleClose}
         focusWindow={focusWindow}
       />,
@@ -29,19 +28,17 @@ describe('WindowList', () => {
   });
 
   it('renders without an error', () => {
-    expect(wrapper.find('WithStyles(Menu)').length).toBe(1);
+    expect(wrapper.find(Menu).length).toBe(1);
   });
 
   describe('with a window without a matching manifest', () => {
     beforeEach(() => {
-      windows = { xyz: { id: 'xyz', manifestId: 'abc' } };
-
       wrapper = shallow(
         <WindowList
           containerId="mirador"
           anchorEl={{}}
           titles={titles}
-          windows={windows}
+          windowIds={['xyz']}
           handleClose={handleClose}
           focusWindow={focusWindow}
         />,
@@ -49,12 +46,13 @@ describe('WindowList', () => {
     });
 
     it('renders without an error', () => {
-      expect(wrapper.find('WithStyles(MenuItem)').length).toBe(1);
-      expect(wrapper.find('WithStyles(MenuItem)').key()).toBe('xyz');
+      expect(wrapper.find(MenuItem).length).toBe(1);
+      expect(wrapper.find(MenuItem).key()).toBe('xyz');
       expect(
-        wrapper.find('WithStyles(MenuItem)').matchesElement(<MenuItem><Typography>untitled</Typography></MenuItem>),
+        wrapper.find(MenuItem)
+          .matchesElement(<MenuItem><ListItemText>untitled</ListItemText></MenuItem>),
       ).toBe(true);
-      wrapper.find('WithStyles(MenuItem)').simulate('click', {});
+      wrapper.find(MenuItem).simulate('click', {});
       expect(handleClose).toBeCalled();
       expect(focusWindow).toBeCalledWith('xyz', true);
     });
@@ -62,7 +60,6 @@ describe('WindowList', () => {
 
   describe('with a window with a matching manifest', () => {
     beforeEach(() => {
-      windows = { xyz: { id: 'xyz', manifestId: 'abc' } };
       titles = { xyz: 'Some title' };
 
       wrapper = shallow(
@@ -70,7 +67,7 @@ describe('WindowList', () => {
           containerId="mirador"
           anchorEl={{}}
           titles={titles}
-          windows={windows}
+          windowIds={['xyz']}
           handleClose={handleClose}
           focusWindow={focusWindow}
         />,
@@ -78,37 +75,30 @@ describe('WindowList', () => {
     });
 
     it('renders without an error', () => {
-      expect(wrapper.find('WithStyles(MenuItem)').length).toBe(1);
-      expect(wrapper.find('WithStyles(MenuItem)').key()).toBe('xyz');
+      expect(wrapper.find(MenuItem).length).toBe(1);
+      expect(wrapper.find(MenuItem).key()).toBe('xyz');
       expect(
-        wrapper.find('WithStyles(MenuItem)').matchesElement(<MenuItem><Typography>Some title</Typography></MenuItem>),
+        wrapper.find(MenuItem)
+          .matchesElement(<MenuItem><ListItemText>Some title</ListItemText></MenuItem>),
       ).toBe(true);
     });
   });
 
-  describe('with multiple windows', () => {
-    beforeEach(() => {
-      windows = {
-        xyz: { id: 'xyz', manifestId: 'abc' },
-        zyx: { id: 'zyx', manifestId: '123' },
-      };
-      titles = { xyz: 'Some title' };
+  describe('focus2ndListIitem', () => {
+    const mockListItem = jest.fn();
+    /** */
+    const mockSingleItemMenu = { querySelectorAll: () => [{ focus: mockListItem }] };
+    /** */
+    const mockMultiItemMenu = { querySelectorAll: () => ['Header', { focus: mockListItem }] };
 
-      wrapper = shallow(
-        <WindowList
-          containerId="mirador"
-          anchorEl={{}}
-          titles={titles}
-          windows={windows}
-          handleClose={handleClose}
-          focusWindow={focusWindow}
-        />,
-      );
+    it('does not set focus if there is only one list item (the header)', () => {
+      WindowList.focus2ndListIitem(mockSingleItemMenu);
+      expect(mockListItem).not.toHaveBeenCalled();
     });
 
-    it('has the first window in the list selected', () => {
-      expect(wrapper.find('WithStyles(MenuItem)').first().props().selected).toBe(true);
-      expect(wrapper.find('WithStyles(MenuItem)').last().props().selected).toBe(false);
+    it('sets focus on the 2nd list item', () => {
+      WindowList.focus2ndListIitem(mockMultiItemMenu);
+      expect(mockListItem).toHaveBeenCalled();
     });
   });
 });

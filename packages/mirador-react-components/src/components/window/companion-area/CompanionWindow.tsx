@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
   },
   leftPadding: {
-    paddingLeft: theme.spacing(2),
+    paddingLeft: (theme as any).spacing(2),
   },
   positionButton: {
     order: -100,
@@ -60,7 +60,7 @@ const useStyles = makeStyles(theme => ({
     width: '300px',
   },
   windowSideBarTitle: {
-    ...theme.typography.subtitle1,
+    ...(theme as any).typography.subtitle1,
     flexGrow: 1,
   },
 }));
@@ -69,7 +69,7 @@ const useStyles = makeStyles(theme => ({
  * CompanionWindow
  */
 export const CompanionWindow: React.FC<ICompanionWindow> = (props): ReactElement => {
-  const classes = useStyles()
+  const classes = useStyles({})
   const {t} = useTranslation()
   const {paperClassName, id, removeCompanionWindow, updateCompanionWindow, isDisplayed,
     position, windowId, title, children, titleControls} = props;

@@ -1,29 +1,22 @@
+import { Dialog, DialogContent, DialogTitle, FormControl, ListItemText, MenuItem, Select } from '@material-ui/core';
 import React, {EventHandler, ReactElement} from 'react'
-import Dialog from '@material-ui/core/Dialog'
-import DialogContent from '@material-ui/core/DialogContent'
-import DialogTitle from '@material-ui/core/DialogTitle'
-import FormControl from '@material-ui/core/FormControl'
-import ListItemText from '@material-ui/core/ListItemText'
-import MenuItem from '@material-ui/core/MenuItem'
-import Select from '@material-ui/core/Select'
+import {getDiscovery} from "../../state/selectors"
 import {updateConfig} from '@mirador/core'
+import {useDispatch} from 'react-redux'
 import {useListItemTextStyles} from '../../hooks'
 import {useTranslation} from 'react-i18next'
 
 interface IIndexSelectionDialog {
-  discovery: {
-    currentIndex: string,
-    indices: {}
-  },
   onClose: EventHandler<any>
   open: boolean,
-  updateConfig: typeof updateConfig
 }
 
 export const IndexSelectionDialog: React.FC<IIndexSelectionDialog> = (props): ReactElement => {
-  const {discovery, open, onClose, updateConfig} = props
+  const discovery = getDiscovery()
+  const {open, onClose} = props
   const classes: any = useListItemTextStyles
   const {t} = useTranslation()
+  const dispatch = useDispatch()
 
   const getIndexNames = (): any => {
     const indices = discovery.indices
@@ -49,6 +42,15 @@ export const IndexSelectionDialog: React.FC<IIndexSelectionDialog> = (props): Re
 
   const options = buildSelectOptions()
 
+  const handleChange = (event) => {
+    const currentIndex = event.target.value as string
+    dispatch(updateConfig({
+      discovery: {
+        currentIndex
+      }
+    }))
+  }
+
   return (
     <Dialog
       id="indices"
@@ -70,13 +72,7 @@ export const IndexSelectionDialog: React.FC<IIndexSelectionDialog> = (props): Re
               id: 'index-native',
               name: 'currentIndex',
             }}
-            onChange={(event) => {
-              updateConfig({
-                discovery: {
-                  currentIndex: event.target.value,
-                }
-              });
-            }}
+            onChange={handleChange}
             value={discovery.currentIndex}
           >
             {options}

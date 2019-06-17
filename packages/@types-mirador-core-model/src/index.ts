@@ -19,7 +19,7 @@ export interface IConfig {
   companionWindows?: {
     defaultPosition: string
   }
-  discovery?: {}
+  discovery?: IDiscovery
   id?: string
   language?: string
   theme?: {
@@ -49,6 +49,12 @@ export interface IConfig {
     enabled: boolean
   }
 }
+
+export interface IDiscovery {
+  currentIndex: string,
+  indices?: any
+}
+
 export interface IInfoResponse {
   [infoId: string]: {
     error: {}
@@ -121,6 +127,7 @@ export interface IViewer {
 export interface IWorkspace {
   enabled: boolean
   exposeModeOn: boolean
+  focusedWindowId?: string;
   height: number
   isWorkspaceAddVisible: boolean
   layout: {}
@@ -133,8 +140,8 @@ export interface IWorkspace {
 }
 
 export interface IWindows{
-  windows: IWindow
-  manifests: IManifest
+  windows?: IWindow
+  manifests?: IManifest
 }
 
 export interface ICompanionWindows {

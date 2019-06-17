@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
     height: '100%',
     left: 0,
     order: -1000,
-    zIndex: theme.zIndex.appBar - 1,
+    zIndex: (theme as any).zIndex.appBar - 1,
   },
   drawerPaper: {
     width: drawerWidth,
@@ -24,14 +24,14 @@ const useStyles = makeStyles(theme => ({
   grow: {
     flexGrow: 1,
   },
-  toolbar: theme.mixins.toolbar,
+  toolbar: (theme as any).mixins.toolbar,
 }));
 
 /**
  * WindowSideBar
  */
 export const WindowSideBar: React.FC<IWindowsSideBar> = (props): ReactElement => {
-  const classes = useStyles()
+  const classes = useStyles({})
   const {windowId, sideBarOpen} = props;
 
   return (

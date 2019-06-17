@@ -36,7 +36,7 @@ const useStyles = makeStyles({
 })
 
 export const CaptionedCanvasThumbnail: React.FC<ICaptionedCanvasThumbnail> = (props): ReactElement => {
-  const classes = useStyles()
+  const classes = useStyles({})
   const { canvas, height } = props;
   const manifestoCanvas = new ManifestoCanvas(canvas);
   return (

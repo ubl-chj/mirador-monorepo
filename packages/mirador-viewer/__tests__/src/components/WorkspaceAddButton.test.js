@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Fab from '@material-ui/core/Fab';
+import Typography from '@material-ui/core/Typography';
 import AddIcon from '@material-ui/icons/AddSharp';
 import CloseIcon from '@material-ui/icons/CloseSharp';
 import { WorkspaceAddButton } from '../../../src/components/WorkspaceAddButton';
@@ -10,7 +11,10 @@ function createWrapper(props) {
   return shallow(
     <WorkspaceAddButton
       classes={{}}
+      setWorkspaceAddVisibility={() => {}}
       t={str => str}
+      useExtendedFab
+
       {...props}
     />,
   );
@@ -27,6 +31,16 @@ describe('WorkspaceAddButton', () => {
     expect(setWorkspaceAddVisibility).toHaveBeenCalledWith(true);
   });
 
+  it('renders additional text for an empty workspace', () => {
+    const wrapper = createWrapper({ emptyWorkspace: true, isWorkspaceAddVisible: false });
+    expect(wrapper.find(Fab).matchesElement(
+      <Fab>
+        <AddIcon />
+        <Typography>startHere</Typography>
+      </Fab>,
+    )).toBe(true);
+  });
+
   it('renders a button to close the load window area', () => {
     const setWorkspaceAddVisibility = jest.fn();
     const wrapper = createWrapper({ isWorkspaceAddVisible: true, setWorkspaceAddVisibility });
@@ -35,5 +49,21 @@ describe('WorkspaceAddButton', () => {
 
     wrapper.find(Fab).simulate('click');
     expect(setWorkspaceAddVisibility).toHaveBeenCalledWith(false);
+  });
+
+  describe('when the useExtendedFab prop is false', () => {
+    it('does not have the startHere Typography ', () => {
+      const wrapper = createWrapper({ useExtendedFab: false });
+
+      expect(wrapper.find(Typography).length).toEqual(0);
+    });
+
+    it('the Fab does not have extended variant prop', () => {
+      const extendedWrapper = createWrapper({ useExtendedFab: true });
+      const wrapper = createWrapper({ useExtendedFab: false });
+
+      expect(extendedWrapper.find(Fab).props().variant).toBe('extended');
+      expect(wrapper.find(Fab).props().variant).toEqual('round');
+    });
   });
 });

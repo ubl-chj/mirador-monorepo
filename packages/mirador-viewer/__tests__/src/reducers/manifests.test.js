@@ -1,4 +1,5 @@
-import {ActionTypes, manifestsReducer} from '@mirador/core';
+import { manifestsReducer } from '../../../src/state/reducers/manifests';
+import ActionTypes from '../../../src/state/actions/action-types';
 
 describe('manifests reducer', () => {
   it('should handle REQUEST_MANIFEST', () => {
@@ -86,5 +87,11 @@ describe('manifests reducer', () => {
         stuff: 'foo',
       },
     });
+  });
+  it('should handle IMPORT_MIRADOR_STATE setting to clean state', () => {
+    expect(manifestsReducer({}, {
+      state: { manifests: { new: 'stuff' } },
+      type: ActionTypes.IMPORT_MIRADOR_STATE,
+    })).toEqual({});
   });
 });
