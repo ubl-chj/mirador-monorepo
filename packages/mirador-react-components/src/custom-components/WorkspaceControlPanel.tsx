@@ -29,14 +29,9 @@ interface IWorkspaceControlPanel {
   workspaceType: string
 }
 
-export const WorkspaceControlPanel: React.FC<IWorkspaceControlPanel> = (props): ReactElement => {
+export const WorkspaceControlPanel: React.FC<any> = (props): ReactElement => {
   return (
-    <Drawer
-      PaperProps={{ style: { top: '64px', width: '76px', zIndex: 500 } }}
-      anchor="left"
-      open={true}
-      variant="permanent"
-    >
+    <Drawer PaperProps={{style: {top: '64px', width: '76px', zIndex: 500}}} anchor="left" open={true} variant="permanent">
       <List>
         <WorkspaceAddItem {...props}/>
         <WindowListMenu {...props}/>

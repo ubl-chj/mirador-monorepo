@@ -1,38 +1,55 @@
-import React, {ReactElement} from 'react';
-import { SanitizedHtml } from './SanitizedHtml';
-import Typography from '@material-ui/core/Typography';
-import ns from '../../../config/css-ns';
+import React, {ReactElement} from 'react'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import Typography from '@material-ui/core/Typography'
 
-interface ILabelValueMetadata {
-  labelValuePairs: any
+interface IMetadataList {
+  labelValuePairs: []
+  labelValuePair?:
+  {
+    label: string,
+    value: string
+  }
 }
-/**
- * Renders label/value pair metadata in a dl
- * @prop {object} labelValuePair
- */
-export const LabelValueMetadata: React.FC<ILabelValueMetadata> = (props): ReactElement => {
+
+export const LabelValueMetadata: React.FC<IMetadataList> = (props): ReactElement => {
   const { labelValuePairs } = props;
 
   if (labelValuePairs.length === 0) {
     return (<></>);
   }
 
-  /* eslint-disable react/no-array-index-key */
-  // Disabling array index key for dt/dd elements as
-  // they are intended to display metadata that will not
-  // need to be re-rendered internally in any meaningful way
   return (
-    <dl className={ns('label-value-metadata')}>
-      {labelValuePairs.reduce((acc, labelValuePair, i) => acc.concat([
-        <dt key={`label-${i}`}>
-          <Typography component="span" variant="subtitle2">{labelValuePair.label }</Typography>
-        </dt>,
-        <dd key={`value-${i}`}>
-          <Typography variant="body1">
-            <SanitizedHtml htmlString={labelValuePair.value} ruleSet="iiif" />
-          </Typography>
-        </dd>,
+    <List>
+      {labelValuePairs.reduce((acc, labelValuePair: IMetadataList["labelValuePair"], i) => acc.concat([
+        <ListItem
+          component='li'
+          dense
+          disableGutters
+          divider
+          key={`label-${i}`}
+          style={{ display: 'block' }}
+        >
+          <div>
+            <Typography
+              color="secondary"
+              component="span"
+              variant="subtitle2"
+            >
+              {labelValuePair.label}
+            </Typography>
+          </div>
+          <div>
+            <Typography
+              component="span"
+              variant="body1"
+            >
+              <span dangerouslySetInnerHTML={{__html: labelValuePair.value}}/>
+            </Typography>
+          </div>
+        </ListItem>,
       ]), [])}
-    </dl>
-  );
+    </List>
+  )
 }
+

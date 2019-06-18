@@ -1,5 +1,5 @@
 import React, {ReactElement} from 'react'
-import {buildThumbnailReference, shortenTitle} from '../utils'
+import {buildThumbnailReference, shortenTitle} from './utils'
 import {evalAddWindows, fetchManifestWorker} from "@mirador/core"
 import Button from '@material-ui/core/Button'
 import {Image} from '.'

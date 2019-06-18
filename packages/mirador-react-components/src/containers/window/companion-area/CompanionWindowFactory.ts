@@ -11,4 +11,4 @@ const mapStateToProps = (state, { id }) => {
   };
 };
 
-export default connect(mapStateToProps)(CompanionWindowFactory);
+export default connect(mapStateToProps)(CompanionWindowFactory) as any;

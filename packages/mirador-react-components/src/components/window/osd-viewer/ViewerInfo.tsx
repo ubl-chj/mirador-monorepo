@@ -9,7 +9,7 @@ interface IViewerInfo {
   canvasLabel: string
 }
 
-export const ViewerInfo: React.FC<IViewerInfo> = (props): ReactElement => {
+export const ViewerInfo: React.FC<any> = (props): ReactElement => {
   const {t} = useTranslation()
   const {canvasCount, canvasIndex, canvasLabel} = props;
 

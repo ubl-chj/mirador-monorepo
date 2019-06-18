@@ -1,18 +1,15 @@
-import {PersistentDrawer, addWindows, fetchManifests, resolveAndMergeConfig} from '../api'
+import {PersistentDrawer, getThumbnailNavigationPositions, resolveAndMergeConfig} from '../api'
 import React, {ReactElement, useEffect, useRef, useState} from 'react'
-import {ReactReduxContext, connect} from 'react-redux'
-import {evalAddWindows, fetchManifestWorker, setConfig} from '@mirador/core'
-import {MetadataList} from '@mirador/custom-components'
+import {useDispatch} from 'react-redux'
+import {evalAddWindows, fetchManifestWorker, getConfig, getIsWorkspaceEnabled, getWindows, setConfig} from '@mirador/core'
 import {MiradorComponent} from '@mirador/react-components'
 import {localConfig} from '@mirador/configuration'
 import {withRouter} from 'react-router-dom'
 
 interface IMiradorImplementation {
-  evalAddWindows: typeof evalAddWindows,
   config: {}
   dispatch: any
   enabled: boolean
-  fetchManifestWorker: Function,
   location: {
     search: {}
   },
@@ -21,17 +18,30 @@ interface IMiradorImplementation {
   windows: {}
 }
 
-const plugins = [{
-  component: MetadataList,
-  mode: 'replace',
-  target: 'LabelValueMetadata',
-}]
-
 const MiradorWithPanel = (props) => { return (<PersistentDrawer {...props} component={<MiradorComponent {...props}/>}/>) }
 
 const MiradorImplementation: React.FC<IMiradorImplementation> = (props): ReactElement => {
   const initialConfiguration = useRef(localConfig)
   const [isInitialized, setIsInitialized] = useState(false)
+  const config = getConfig()
+  const enabled = getIsWorkspaceEnabled()
+  const windows = getWindows()
+  const dispatch = useDispatch()
+
+  const fetchManifests = (windows): any => {
+    windows.forEach((win) => dispatch(fetchManifestWorker({manifestId: win.loadedManifest})))
+  }
+
+  const addWindows = (config): any => {
+    const thumbnailPositions = getThumbnailNavigationPositions(config)
+    thumbnailPositions.forEach((thumbnailNavigationPosition, index) => {
+      dispatch(evalAddWindows({
+        canvasIndex: (config.windows[index].canvasIndex || 0),
+        manifestId: config.windows[index].loadedManifest,
+        thumbnailNavigationPosition,
+      }))
+    })
+  }
 
   /**
    * initializeWorkspace
@@ -39,22 +49,21 @@ const MiradorImplementation: React.FC<IMiradorImplementation> = (props): ReactEl
    * @returns boolean
    */
   const initializeWorkspace = (mergedConfig): boolean => {
-    const {evalAddWindows, windows, fetchManifestWorker} = props
     if (Object.keys(windows).length === 0) {
-      fetchManifests(fetchManifestWorker, mergedConfig.windows)
-      addWindows(mergedConfig, evalAddWindows)
+      fetchManifests(mergedConfig.windows)
+      addWindows(mergedConfig)
     }
     return true
   }
 
   useEffect(() => {
-    const {config, location, setConfig} = props
+    const {location} = props
     let mergedConfig = resolveAndMergeConfig(location.search, localConfig, config)
     if (mergedConfig && !isInitialized) {
-      setConfig(mergedConfig)
+      dispatch(setConfig(mergedConfig))
     } else if (!isInitialized) {
       mergedConfig = initialConfiguration.current
-      setConfig(mergedConfig)
+      dispatch(setConfig(mergedConfig))
     }
     if (mergedConfig && !isInitialized) {
       setIsInitialized(initializeWorkspace(mergedConfig))
@@ -62,27 +71,7 @@ const MiradorImplementation: React.FC<IMiradorImplementation> = (props): ReactEl
   }, [props, isInitialized])
 
   return isInitialized ? (
-    <ReactReduxContext.Consumer>
-      {({store}) =>
-        <MiradorWithPanel enabled={props.enabled} plugins={plugins} store={store}/>
-      }
-    </ReactReduxContext.Consumer>) : null
+    <MiradorWithPanel enabled={enabled}/>) : null
 }
 
-/**
- *
- * @param state
- */
-const mapStateToProps = (state): any => ({
-  config: state.config,
-  enabled: state.workspace.enabled,
-  windows: state.windows,
-})
-
-
-/**
- *
- */
-const mapDispatchToProps = {evalAddWindows, fetchManifestWorker, setConfig}
-
-export const Mirador = connect(mapStateToProps, mapDispatchToProps)(withRouter(MiradorImplementation))
+export const Mirador = withRouter(MiradorImplementation)

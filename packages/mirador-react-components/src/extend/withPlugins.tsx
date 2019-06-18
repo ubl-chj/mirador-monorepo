@@ -27,7 +27,7 @@ function _withPlugins(targetName, TargetComponent): any {
         return <TargetComponent {...this.props} PluginComponent={PluginComponent} />;
       }
       if (plugin && plugin.mode === 'wrap') {
-        const PluginComponent = connectPluginComponent(plugin);
+        const PluginComponent: any = connectPluginComponent(plugin);
         return <PluginComponent {...this.props} TargetComponent={TargetComponent} />;
       }
       return <TargetComponent {...this.props} />;

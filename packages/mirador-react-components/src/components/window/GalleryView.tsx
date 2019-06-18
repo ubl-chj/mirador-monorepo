@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
  * Represents a WindowViewer in the mirador workspace. Responsible for mounting
  * OSD and Navigation
  */
-export const GalleryView: React.FC<IGalleryView> = (props): ReactElement => {
+export const GalleryView: React.FC<any> = (props): ReactElement => {
   const classes: any = useStyles({})
   const {canvases, setCanvas, window} = props;
   return (

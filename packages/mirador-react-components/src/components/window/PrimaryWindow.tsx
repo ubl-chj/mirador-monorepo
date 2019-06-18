@@ -1,5 +1,4 @@
 import React, {ReactElement} from 'react';
-import CompanionArea from '../../containers/window/companion-area/CompanionArea';
 import GalleryView from '../../containers/window/GalleryView';
 import WindowSideBar from '../../containers/window/side-bar/WindowSideBar';
 import WindowViewer from '../../containers/window/WindowViewer';

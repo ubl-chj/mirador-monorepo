@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export const CompanionArea: React.FC<ICompanionArea> = (props): ReactElement => {
+export const CompanionArea: React.FC<any> = (props): ReactElement => {
   const classes = useStyles({})
 
   const areaLayoutClass = () => {

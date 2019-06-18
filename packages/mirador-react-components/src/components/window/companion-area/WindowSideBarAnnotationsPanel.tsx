@@ -1,6 +1,6 @@
 import React, {ReactElement} from 'react';
 import AnnotationSettings from '../../../containers/window/companion-area/AnnotationSettings';
-import CompanionWindow from '../../../containers/window/companion-area/CompanionWindow';
+import {CompanionWindow} from './CompanionWindow';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import { SanitizedHtml } from './SanitizedHtml';
@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
 /**
  * WindowSideBarAnnotationsPanel ~
 */
-export const WindowSideBarAnnotationsPanel: React.FC<IWindowSideBarAnnotationsPanel> = (props): ReactElement => {
+export const WindowSideBarAnnotationsPanel: React.FC<any> = (props): ReactElement => {
   const classes = useStyles({})
   const {t} = useTranslation()
   const {annotations, deselectAnnotation, id, windowId, selectAnnotation, selectedAnnotationIds} = props;

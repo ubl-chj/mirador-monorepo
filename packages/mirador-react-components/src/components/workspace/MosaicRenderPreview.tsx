@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
 /**
  * MosaicRenderPreview is used to for the preview when dragging a mosaic window/tile
 */
-export const MosaicRenderPreview: React.FC<IMosaicRenderPreview> = (props): ReactElement => {
+export const MosaicRenderPreview: React.FC<any> = (props): ReactElement => {
   const classes = useStyles({})
   const {t} = useTranslation()
   const {title} = props;

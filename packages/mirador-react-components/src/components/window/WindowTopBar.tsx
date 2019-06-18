@@ -16,13 +16,14 @@ interface IWindowTopBar {
   removeWindow: any
   windowId: string
   toggleWindowSideBar: any
+  manifest: any
   manifestTitle: string
   maximizeWindow: any
   maximized: boolean
   minimizeWindow: any
   focused: boolean
   allowClose: boolean
-  allowMaximize: boolean
+  allowMaximize?: boolean
 }
 
 const useStyles = makeStyles(theme => ({
@@ -48,7 +49,7 @@ const useStyles = makeStyles(theme => ({
 /**
  * WindowTopBar
  */
-export const WindowTopBar: React.FC<IWindowTopBar> = (props): ReactElement => {
+export const WindowTopBar: React.FC<any> = (props): ReactElement => {
   const classes = useStyles({})
   const {t} = useTranslation()
   const {removeWindow, windowId, toggleWindowSideBar, manifestTitle,

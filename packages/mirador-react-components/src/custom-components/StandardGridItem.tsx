@@ -1,5 +1,5 @@
 import React, {ReactElement} from 'react'
-import {buildThumbnailReference, shortenTitle} from '../utils'
+import {buildThumbnailReference, shortenTitle} from './utils'
 import {evalAddWindows, fetchManifestWorker, getManifests} from '@mirador/core'
 import Button from '@material-ui/core/Button'
 import {Image} from '.'
@@ -22,10 +22,10 @@ interface IStandardGridItem {
 }
 
 const defaultLang = 'en'
-const GET_MANIFEST_LABEL = gql`
+const GET_MANIFEST_SUMMARY = gql`
           query Label($manifestId: String!) {
               manifest(id: $manifestId)
-          {label {${defaultLang}}}
+          {summary}
           }`
 
 export const StandardGridItem: React.FC<IStandardGridItem> = (props): ReactElement => {
@@ -49,7 +49,7 @@ export const StandardGridItem: React.FC<IStandardGridItem> = (props): ReactEleme
 
   const buildSummary = (): JSX.Element => {
     return (<Query
-      query={GET_MANIFEST_LABEL}
+      query={GET_MANIFEST_SUMMARY}
       variables={{manifestId}}
     >
       {({loading, error, data}) => {
@@ -65,7 +65,7 @@ export const StandardGridItem: React.FC<IStandardGridItem> = (props): ReactEleme
             className={bemBlocks.item('title')}
             data-qa='title'
             title={data.manifest.summary}
-          >{data.manifest ? data.manifest.label[defaultLang][0] : null}
+          >
           </div>
         )
       }}

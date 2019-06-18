@@ -12,7 +12,7 @@ interface IWindowTopMenu {
 }
 /**
  */
-export const WindowTopMenu: React.FC<IWindowTopMenu> = (props): ReactElement => {
+export const WindowTopMenu: React.FC<any> = (props): ReactElement => {
   const {containerId, handleClose, anchorEl, windowId} = props;
 
   return (

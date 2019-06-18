@@ -67,7 +67,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export const Window: React.FC<IWindow> = (props): ReactElement => {
+export const Window: React.FC<any> = (props): ReactElement => {
   const {t} = useTranslation()
   const classes = useStyles({})
   const {manifest, window, workspaceType, focusWindow, label} = props;

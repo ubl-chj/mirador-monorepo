@@ -1,4 +1,4 @@
-import React, {ReactElement, useEffect, useRef, useState} from 'react';
+import React, {ReactElement, useEffect, useRef} from 'react';
 import Fullscreen from 'react-full-screen';
 import { I18nextProvider } from 'react-i18next';
 import {ThemeProvider} from '@material-ui/styles';
@@ -19,7 +19,7 @@ interface IApp {
 
 }
 
-export const App: React.FC<IApp> = (props): ReactElement => {
+export const App: React.FC<any> = (props): ReactElement => {
   const { language, enabled, theme, translations } = props;
   const prevLanguage: any = useRef();
 

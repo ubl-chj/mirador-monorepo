@@ -15,7 +15,7 @@ interface IWorkspaceMosaic {
  * @memberof Workspace
  * @private
  */
-export const WorkspaceMosaic: React.FC<IWorkspaceMosaic> = (props): ReactElement => {
+export const WorkspaceMosaic: React.FC<any> = (props): ReactElement => {
   const [newLayout, setLayout] = useState()
   const [currentWindowKeys, setCurrentWindowKeys] = useState()
   const zeroStateView = <div />;

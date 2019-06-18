@@ -50,7 +50,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export const WindowSideBarButtons: React.FC<IWindowSideBarButtons> = (props): ReactElement => {
+export const WindowSideBarButtons: React.FC<any> = (props): ReactElement => {
   const classes = useStyles({})
   const {t} = useTranslation()
   const { addCompanionWindow, hasAnnotations, sideBarPanel } = props;

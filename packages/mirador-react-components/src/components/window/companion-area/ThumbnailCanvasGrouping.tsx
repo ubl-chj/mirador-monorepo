@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export const ThumbnailCanvasGrouping: React.FC<IThumbnailCanvasGrouping> = (props): ReactElement => {
+export const ThumbnailCanvasGrouping: React.FC<any> = (props): ReactElement => {
   const classes = useStyles({})
   const {index, style, data, setCanvas, window} = props;
   const {canvasGroupings, position, height} = data;

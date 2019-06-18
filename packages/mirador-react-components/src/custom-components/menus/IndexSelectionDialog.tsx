@@ -1,9 +1,9 @@
 import { Dialog, DialogContent, DialogTitle, FormControl, ListItemText, MenuItem, Select } from '@material-ui/core';
 import React, {EventHandler, ReactElement} from 'react'
-import {getDiscovery} from "../../state/selectors"
+import {getDiscovery} from "../state/selectors"
 import {updateConfig} from '@mirador/core'
 import {useDispatch} from 'react-redux'
-import {useListItemTextStyles} from '../../hooks'
+import {useListItemTextStyles} from '../hooks'
 import {useTranslation} from 'react-i18next'
 
 interface IIndexSelectionDialog {

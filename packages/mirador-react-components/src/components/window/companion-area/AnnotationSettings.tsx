@@ -12,7 +12,7 @@ interface IAnnotationSettings {
  * AnnotationSettings is a component to handle various annotation
  * display settings in the Annotation companion window
 */
-export const AnnotationSettings: React.FC<IAnnotationSettings> = (props): ReactElement => {
+export const AnnotationSettings: React.FC<any> = (props): ReactElement => {
   const {t} = useTranslation()
   const {displayAll, displayAllDisabled, toggleAnnotationDisplay} = props;
 

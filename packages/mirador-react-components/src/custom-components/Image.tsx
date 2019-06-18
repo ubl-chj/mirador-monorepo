@@ -1,5 +1,5 @@
 import React, {ReactElement} from 'react'
-import {handleMissingImage} from '../utils'
+import {handleMissingImage} from './utils'
 
 interface IImage {
   imageSource: string,

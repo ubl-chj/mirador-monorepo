@@ -3,7 +3,7 @@ import {IndexSelectionDialog, LanguageSelectionDialog, WorkspaceSelectionDialog}
 import {Language, Search, SettingsSharp, ViewQuilt} from '@material-ui/icons'
 import React, {EventHandler, ReactElement, useState} from 'react'
 import {updateConfig} from '@mirador/core'
-import {useListItemTextStyles} from '../../hooks'
+import {useListItemTextStyles} from '../hooks'
 import {useTranslation} from 'react-i18next'
 
 interface IWorkspaceSettingsMenu {

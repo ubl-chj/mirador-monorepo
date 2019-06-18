@@ -21,7 +21,7 @@ interface IMiradorMenuButton {
  * This shares the passed in aria-label w/ the Tooltip (as title) and the IconButton
  * All props besides icon are spread to the IconButton component
 */
-export const MiradorMenuButton: React.FC<IMiradorMenuButton> = (props): ReactElement => {
+export const MiradorMenuButton: React.FC<any> = (props): ReactElement => {
   const { 'aria-label': ariaLabel } = props;
   const {
     children,

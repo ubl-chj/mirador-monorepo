@@ -1,6 +1,6 @@
 import React, {ReactElement, useState} from 'react';
 import { CanvasThumbnail } from './CanvasThumbnail';
-import CompanionWindow from '../../../containers/window/companion-area/CompanionWindow';
+import {CompanionWindow} from './CompanionWindow';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import List from '@material-ui/core/List';
@@ -50,7 +50,7 @@ const useStyles = makeStyles(theme => ({
 /**
  * a panel showing the canvases for a given manifest
  */
-export const WindowSideBarCanvasPanel: React.FC<IWindowSideBarCanvasPanel> = (props): ReactElement => {
+export const WindowSideBarCanvasPanel: React.FC<any> = (props): ReactElement => {
   const [variant, setVariant] = useState()
   const classes = useStyles({})
   const {t} = useTranslation()

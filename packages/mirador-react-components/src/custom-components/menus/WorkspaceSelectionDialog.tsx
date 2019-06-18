@@ -2,7 +2,7 @@ import { Dialog, DialogContent, DialogTitle, FormControl, ListItemText, MenuItem
 import React, {EventHandler, ReactElement} from 'react';
 import {getWorkspaceType, updateConfig} from "@mirador/core"
 import {useDispatch} from 'react-redux'
-import {useListItemTextStyles} from "../../hooks"
+import {useListItemTextStyles} from "../hooks"
 import {useTranslation} from 'react-i18next'
 
 interface IWorkspaceSelectionDialog {

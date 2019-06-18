@@ -1,13 +1,13 @@
 import {Badge, IconButton, ListItem, ListItemText, Menu, MenuItem} from '@material-ui/core'
 import React, {ReactElement, useState} from 'react'
-import {focusWindowWorker, getFocusedWindowId, getWindows} from "@mirador/core"
+import {focusWindowWorker, getFocusedWindowId, getWindows, getWindowTitles} from "@mirador/core"
 import {IWindows} from "mirador-core-model"
 import Star from '@material-ui/icons/Star'
 import {useDispatch} from 'react-redux'
-import {useListItemTextStyles} from '../../hooks'
+import {useListItemTextStyles} from '../hooks'
 import {useTranslation} from 'react-i18next'
 
-export const WindowListMenu: React.FC<any> = (props): ReactElement => {
+export const WindowListMenu: React.FC<any> = (): ReactElement => {
   const [anchorEl, setAnchorEl] = useState()
   const classes: any = useListItemTextStyles
   const {t} = useTranslation()
@@ -15,6 +15,7 @@ export const WindowListMenu: React.FC<any> = (props): ReactElement => {
   const focusedWindowId = getFocusedWindowId()
   const windowCount = windows && Object.keys(windows).length
   const dispatch = useDispatch()
+  const titles = getWindowTitles()
 
   const handleClick: any = (e): void => {
     if (e && e.currentTarget) {
@@ -25,8 +26,8 @@ export const WindowListMenu: React.FC<any> = (props): ReactElement => {
   }
 
   const titleContent = (window) => {
-    const { titles } = props;
-    return titles[window.id] || t('untitled');
+    console.log(titles)
+    return titles[window.id] || t('untitled')
   }
 
   const buildMenuItems = (): any => {

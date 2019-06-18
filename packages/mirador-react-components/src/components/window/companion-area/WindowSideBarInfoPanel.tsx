@@ -1,6 +1,5 @@
 import React, {ReactElement} from 'react';
-import CompanionWindow from '../../../containers/window/companion-area/CompanionWindow';
-import {MetadataList} from '@mirador/custom-components'
+import {MetadataList} from '../../../custom-components'
 import { SanitizedHtml } from './SanitizedHtml';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from "@material-ui/styles"
@@ -29,7 +28,7 @@ const useStyles = makeStyles(theme => ({
 /**
  * WindowSideBarInfoPanel
  */
-export const WindowSideBarInfoPanel: React.FC<IWindowSideBarInfoPanel> = (props): ReactElement => {
+export const WindowSideBarInfoPanel: React.FC<any> = (props): ReactElement => {
   const classes = useStyles({})
   const {t} = useTranslation()
   const {canvasDescription, canvasLabel, canvasMetadata, manifestDescription, manifestMetadata, id} = props;

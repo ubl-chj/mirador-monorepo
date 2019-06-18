@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export const WindowThumbnailSettings: React.FC<IWindowThumbnailSettings> = (props): ReactElement => {
+export const WindowThumbnailSettings: React.FC<any> = (props): ReactElement => {
   const classes = useStyles({})
   const {t} = useTranslation()
   const { handleClose, thumbnailNavigationPosition, windowId, updateCompanionWindowWorker } = props;

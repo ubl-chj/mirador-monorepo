@@ -1,13 +1,14 @@
+import {evalAddWindows, fetchManifestWorker} from '@mirador/core'
 import deepmerge from 'deepmerge'
 import qs from 'query-string'
-
+import {useDispatch} from 'react-redux'
 /**
  *
- * @param fetchManifest
  * @param windows
  */
-export const fetchManifests = (fetchManifest, windows): any => {
-  windows.forEach((win) => fetchManifest({manifestId: win.loadedManifest}))
+export const fetchManifests = (windows): any => {
+  const dispatch = useDispatch()
+  windows.forEach((win) => dispatch(fetchManifestWorker({manifestId: win.loadedManifest})))
 }
 
 /**
@@ -40,16 +41,16 @@ export const removeWindows = (windows, removeWindow): any => {
 /**
  *
  * @param config
- * @param evaluateWindows
  */
-export const addWindows = (config, evaluateWindows): any => {
+export const addWindows = (config): any => {
+  const dispatch = useDispatch()
   const thumbnailPositions = getThumbnailNavigationPositions(config)
   thumbnailPositions.forEach((thumbnailNavigationPosition, index) => {
-    evaluateWindows({
+    dispatch(evalAddWindows({
       canvasIndex: (config.windows[index].canvasIndex || 0),
       manifestId: config.windows[index].loadedManifest,
       thumbnailNavigationPosition,
-    })
+    }))
   })
 }
 

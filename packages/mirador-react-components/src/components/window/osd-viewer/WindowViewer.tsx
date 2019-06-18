@@ -15,7 +15,7 @@ interface IWindowViewer {
  * Represents a WindowViewer in the mirador workspace. Responsible for mounting
  * OSD and Navigation
  */
-export const WindowViewer: React.FC<IWindowViewer> = (props): ReactElement => {
+export const WindowViewer: React.FC<any> = (props): ReactElement => {
 
   const { currentCanvases, fetchInfoResponseWorker, fetchAnnotationWorker, infoResponses, window } = props;
   const prevWindow = usePrevious(window)

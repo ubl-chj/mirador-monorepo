@@ -1,6 +1,9 @@
 import React, {ReactElement} from 'react';
 import {ThumbnailNavigationBottomIcon, ThumbnailNavigationRightIcon} from '../../icons';
+import {removeCompanionWindow, updateCompanionWindow} from "@mirador/core";
+import {useDispatch, useSelector} from "react-redux";
 import CloseIcon from '@material-ui/icons/CloseSharp';
+import {IState} from "mirador-core-model"
 import MiradorMenuButton from '../../../containers/MiradorMenuButton';
 import OpenInNewIcon from '@material-ui/icons/OpenInNewSharp';
 import Paper from '@material-ui/core/Paper';
@@ -8,6 +11,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/styles'
 import ns from '../../../config/css-ns';
+
 import {useTranslation} from "react-i18next"
 
 interface ICompanionWindow {
@@ -68,11 +72,24 @@ const useStyles = makeStyles(theme => ({
 /**
  * CompanionWindow
  */
-export const CompanionWindow: React.FC<ICompanionWindow> = (props): ReactElement => {
+export const CompanionWindow: React.FC<any> = (props): ReactElement => {
   const classes = useStyles({})
   const {t} = useTranslation()
-  const {paperClassName, id, removeCompanionWindow, updateCompanionWindow, isDisplayed,
-    position, windowId, title, children, titleControls} = props;
+  const {paperClassName, id, position, windowId, title, children, titleControls} = props;
+  const dispatch = useDispatch()
+
+  const getCompanionWindow = (id) => {
+    return useSelector((state: IState,) => {
+      return state.companionWindows[id];
+    })
+  }
+
+  const getIsCompanionWindowDisplayed = (companionWindow) => {
+    return (companionWindow && companionWindow.content && companionWindow.content.length > 0)
+  }
+
+  const companionWindow = getCompanionWindow(id)
+  const isDisplayed = getIsCompanionWindowDisplayed(companionWindow)
 
   return (
     <Paper
@@ -100,7 +117,7 @@ export const CompanionWindow: React.FC<ICompanionWindow> = (props): ReactElement
               && (
                 <MiradorMenuButton
                   aria-label={t('openInCompanionWindow')}
-                  onClick={() => { updateCompanionWindow({ id, position: 'right' }, windowId); }}
+                  onClick={() => { dispatch(updateCompanionWindow({ id, position: 'right' }, windowId)) }}
                 >
                   <OpenInNewIcon />
                 </MiradorMenuButton>
@@ -111,7 +128,7 @@ export const CompanionWindow: React.FC<ICompanionWindow> = (props): ReactElement
                   updateCompanionWindow && (
                     <MiradorMenuButton
                       aria-label={position === 'bottom' ? t('moveCompanionWindowToRight') : t('moveCompanionWindowToBottom')}
-                      onClick={() => { updateCompanionWindow({ id, position: position === 'bottom' ? 'right' : 'bottom' }, windowId) }}
+                      onClick={() => { dispatch(updateCompanionWindow({ id, position: position === 'bottom' ? 'right' : 'bottom' }, windowId)) }}
                       wrapperClassName={classes.positionButton}
                     >
                       {position === 'bottom' ? <ThumbnailNavigationRightIcon /> : <ThumbnailNavigationBottomIcon />}
@@ -120,7 +137,7 @@ export const CompanionWindow: React.FC<ICompanionWindow> = (props): ReactElement
                 }
                 <MiradorMenuButton
                   aria-label={t('closeCompanionWindow')}
-                  onClick={() => { removeCompanionWindow({id, windowId}) }}
+                  onClick={() => { dispatch(removeCompanionWindow({id, windowId})) }}
                 >
                   <CloseIcon />
                 </MiradorMenuButton>
@@ -134,3 +151,5 @@ export const CompanionWindow: React.FC<ICompanionWindow> = (props): ReactElement
     </Paper>
   );
 }
+
+

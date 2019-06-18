@@ -20,7 +20,7 @@ import {
 } from 'searchkit'
 import React, {ReactElement} from 'react'
 import {StandardGridItem, StandardListItem} from '.'
-import {ReduxContext} from '../utils'
+import {ReduxContext} from './utils'
 import Typography from '@material-ui/core/Typography'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 

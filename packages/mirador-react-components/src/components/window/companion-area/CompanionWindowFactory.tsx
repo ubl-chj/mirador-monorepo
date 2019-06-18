@@ -12,7 +12,7 @@ interface ICompanionWindowFactory {
 /**
  * Render a companion window using the appropriate component for the content
  */
-export const CompanionWindowFactory: React.FC<ICompanionWindowFactory> = (props): ReactElement => {
+export const CompanionWindowFactory: React.FC<any> = (props): ReactElement => {
   const { content, windowId, id } = props;
 
   switch (content) {

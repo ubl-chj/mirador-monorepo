@@ -46,7 +46,7 @@ const arrowLeftStyle = () => {
     zIndex: 1000,
   }
 }
-export const ViewerNavigation: React.FC<IViewerNavigation> = (props): ReactElement => {
+export const ViewerNavigation: React.FC<any> = (props): ReactElement => {
   const {t} = useTranslation()
   const { canvases, window, setCanvas, visible } = props;
   const classes = useStyles({})

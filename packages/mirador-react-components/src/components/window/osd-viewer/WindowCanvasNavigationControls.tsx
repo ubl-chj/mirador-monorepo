@@ -11,7 +11,7 @@ interface IWindowCanvasNavigationControls {
 /**
  * Represents the viewer controls in the mirador workspace.
  */
-export const WindowCanvasNavigationControls: React.FC<IWindowCanvasNavigationControls> = (props): ReactElement => {
+export const WindowCanvasNavigationControls: React.FC<any> = (props): ReactElement => {
   const {visible, windowId, zoomToWorld} = props;
 
   if (!visible) return (<></>);

@@ -16,7 +16,7 @@ interface IWorkspaceElastic {
  * @memberof Workspace
  * @private
  */
-export const WorkspaceElastic: React.FC<IWorkspaceElastic> = (props): ReactElement => {
+export const WorkspaceElastic: React.FC<any> = (props): ReactElement => {
   const {
     workspace,
     windows,

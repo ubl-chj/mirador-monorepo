@@ -9,28 +9,6 @@ import manifestFixture001 from './fixtures/version-2/001.json';
 import manifestFixture002 from './fixtures/version-2/002.json';
 import manifestFixture019 from './fixtures/version-2/019.json';
 
-describe('getWindowTitles', () => {
-  it('should return manifest titles for the open windows', () => {
-    const state = {
-      manifests: {
-        amanifest: { json: manifestFixture001 },
-        bmanifest: { json: manifestFixture002 },
-        cmanifest: { json: manifestFixture019 },
-      },
-      windows: {
-        a: { manifestId: 'amanifest' },
-        b: { manifestId: 'bmanifest' },
-      },
-    };
-    const received = getWindowTitles();
-
-    expect(received).toEqual({
-      a: 'Bodleian Library Human Freaks 2 (33)',
-      b: 'Test 2 Manifest: Metadata Pairs',
-    });
-  });
-});
-
 
 describe('getThumbnailNavigationPosition', () => {
   const state = {

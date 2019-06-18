@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
 /**
  * WindowSideBar
  */
-export const WindowSideBar: React.FC<IWindowsSideBar> = (props): ReactElement => {
+export const WindowSideBar: React.FC<any> = (props): ReactElement => {
   const classes = useStyles({})
   const {windowId, sideBarOpen} = props;
 

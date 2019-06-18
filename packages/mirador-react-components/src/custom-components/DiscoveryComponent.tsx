@@ -4,7 +4,7 @@ import {
   SearchkitProvider,
 } from 'searchkit'
 import {SearchApp} from '.'
-import {getDiscovery} from "../state/selectors"
+import {getDiscovery} from "./state/selectors"
 
 export const DiscoveryComponent: React.FC<any> = (props): ReactElement => {
   const discovery = getDiscovery()

@@ -17,7 +17,7 @@ interface IWorkspace {
 /**
  * Represents a work area that contains any number of windows
  */
-export const Workspace: React.FC<IWorkspace> = (props): ReactElement => {
+export const Workspace: React.FC<any> = (props): ReactElement => {
   const {t} = useTranslation()
   const { enabled, isWorkspaceControlPanelVisible, windows, workspaceType } = props;
   /**
