@@ -4,7 +4,7 @@ import {typeDefs} from './v3Schema'
 
 const resolvers: IResolvers = {
     Query: {
-        annotation: async (source, {manifestId, canvasId, annotationPageId, annotationId}, {dataSources}) => {
+        annotation: async ({}, {manifestId, canvasId, annotationPageId, annotationId}, {dataSources}) => { //eslint-disable-line
             return dataSources.manifestAPI.getManifest(manifestId).then((res: any) => {
                 return res.items.filter((item: any) => item.id === canvasId)[0]
             }).then((res: any) => {
@@ -13,19 +13,19 @@ const resolvers: IResolvers = {
                 return res.items.filter((item: any) => item.id === annotationId)[0]
             })
         },
-        annotationPage: async (source, {manifestId, canvasId, annotationPageId}, {dataSources}) => {
+        annotationPage: async ({}, {manifestId, canvasId, annotationPageId}, {dataSources}) => { //eslint-disable-line
             return dataSources.manifestAPI.getManifest(manifestId).then((res: any) => {
                 return res.items.filter((item: any) => item.id === canvasId)[0]
             }).then((res: any) => {
                 return res.items.filter((item: any) => item.id === annotationPageId)[0]
             })
         },
-        canvas: async (source, {manifestId, canvasId}, {dataSources}) => {
+        canvas: async ({}, {manifestId, canvasId}, {dataSources}) => { //eslint-disable-line
             return dataSources.manifestAPI.getManifest(manifestId).then((res: any) => {
                 return res.items.filter((item: any) => item.id === canvasId)[0]
             })
         },
-        imageServices: async (source, {manifestId, type, profile}, {dataSources}) => {
+        imageServices: async ({}, {manifestId, type}, {dataSources}) => { //eslint-disable-line
             return dataSources.manifestAPI.getManifest(manifestId).then((res: any) => {
                 return res.items.reduce((accumulator: any, currentValue: any) => {
                     return [...accumulator, ...currentValue.items]
@@ -34,7 +34,7 @@ const resolvers: IResolvers = {
                 }, []).map((a: any) => a.body.service).filter((s: any) => s.type === type)
             })
         },
-        manifest: async (source, {id}, {dataSources}) => {
+        manifest: async ({}, {id}, {dataSources}) => { //eslint-disable-line
             return dataSources.manifestAPI.getManifest(id)
         },
     },
