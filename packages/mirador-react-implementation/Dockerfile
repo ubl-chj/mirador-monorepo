@@ -9,14 +9,7 @@ RUN npm i npm@latest -g
 RUN npm install --global lerna
 WORKDIR /srv/mirador
 RUN lerna bootstrap --hoist
-RUN lerna run --scope @types/manifesto build
-RUN lerna run --scope @types/mirador-core-model build
-RUN lerna run --scope @mirador/configuration build
-RUN lerna run --scope @mirador/i18n build
-RUN lerna run --scope @mirador/core build
-RUN lerna run --scope @mirador/custom-components build
-RUN lerna run --scope @mirador/react-components build
-RUN lerna run --scope @mirador/react-implementation build
+RUN lerna run build
 RUN yarn global add serve
 
 COPY entrypoint.sh /entrypoint.sh

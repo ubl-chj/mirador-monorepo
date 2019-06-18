@@ -1,6 +1,6 @@
 import {Badge, IconButton, ListItem, ListItemText, Menu, MenuItem} from '@material-ui/core'
 import React, {ReactElement, useState} from 'react'
-import {focusWindowWorker, getFocusedWindowId, getWindows, getWindowTitles} from "@mirador/core"
+import {focusWindowWorker, getFocusedWindowId, getWindowTitles, getWindows} from "@mirador/core"
 import {IWindows} from "mirador-core-model"
 import Star from '@material-ui/icons/Star'
 import {useDispatch} from 'react-redux'
@@ -26,7 +26,6 @@ export const WindowListMenu: React.FC<any> = (): ReactElement => {
   }
 
   const titleContent = (window) => {
-    console.log(titles)
     return titles[window.id] || t('untitled')
   }
 

@@ -9,9 +9,8 @@ This contains https://github.com/ProjectMirador/mirador split into distribution 
 3. `@mirador/configuration`: Mirador configuration
 4. `@mirador/i18n`: Mirador translations
 5. `@mirador/core`: Redux Actions and Reducers for Mirador
-6. `@mirador/custom-components`: Custom Components for Mirador
-7. `@mirador/react-components` : Importable React Components.
-8. `@mirador/react-implementation` : A React implementation of Mirador React components.
+6. `@mirador/react-components` : Importable React Components.
+7. `@mirador/react-implementation` : A React implementation of Mirador React components.
 
 ### Synchronize upstream (pre-release)
 To pull ProjectMirador/Mirador into packages, execute this:
