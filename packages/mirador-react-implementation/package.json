@@ -27,7 +27,7 @@
     "react-apollo": "^2.5.3",
     "classnames": "^2.2.6",
     "deepmerge": "^3.2.0",
-    "dompurify": "^1.0.9",
+    "dompurify": "^2.0.14",
     "i18next": "^15.0.4",
     "lodash": "^4.17.11",
     "query-string": "^5.1.1",
